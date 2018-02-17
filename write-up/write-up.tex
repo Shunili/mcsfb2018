@@ -1,0 +1,129 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{float}
+\usepackage{amsmath,bm,mathrsfs}
+\usepackage{amsthm,amssymb}
+\usepackage{graphicx}
+%\usepackage[draft]{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+%% Operators
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\La}{\mathcal{L}}
+\newcommand{\UR}{U_{\mathcal{R}}}
+\newcommand{\vv}{\mathit{v}}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{thm}{Theorem}
+
+\title{Notes}
+
+\begin{document}
+\maketitle
+
+\newpage
+
+\section{Notations}
+Consider a weighted, undirected graph $\G = \{ \V, \E, W\}$, where $\V$ is the set $N$ vertices, $\E$ is the set of edges and $W$ is the weighted adjacency matrix. Let $D$ be the diagonal matrix of vertex degrees. Denote $\La$ as the graph Laplacian, where $\La = D-W$. Since $\La$ is real, symmetric and semi-definite, we can diagonalize it as $\La =U\Lambda U^*$, where $\Lambda$ is the diagonal matrix of its real eigenvalues $\lambda_0, \lambda_1,\cdots, \lambda_{n-1}$ and the columns $u_0, u_1 \cdots u_{n-1}$ of $U$ are corresponding orthonormal eigenvectors of $\La$. We use $\UR$ to denote the submatrix formed by taking the columns of $U$ associated with the Laplacian eigenvalues indexed by $\mathcal{R} \subseteq \{0,1,\cdots,n-1\}$. And we use $U_{\mathcal{S},\mathcal{R}}$ to denote the submatrix formed by taking the rows of $U_{\mathcal{R}}$ associated with the vertices indexed b the set $\mathcal{S} \subseteq \{1,2,\cdots, N\}$. $\bm{\delta_i} \in \RR^n$ denotes the $i$th column of the identity matrix $I \in \RR^{n\times n}.$
+
+\medskip
+
+\section{Definitions}
+%\begin{definition}
+%A signal $\bm{x} \in \RR^n$ defined on the nodes of the graph $\G$ is $k$-bandlimited with $k \in \N^+$ if $\bm{x} \in \text{span}(U_{\R})$ and $|\R| = k$.
+%\end{definition}
+
+\begin{definition}
+A signal $\bm{f} \in \RR^n$ defined on the nodes of the graph $\G$ is $\R$-concentrated if $\bm{f} \in \text{span}(U_{\R})$.
+\end{definition}
+
+\begin{definition}
+Let $\bm{p} \in \RR^{n}$ represent a sampling distribution on $\{1,2,\cdots n\}$. The graph weighted coherence of order $|\R| $ for the pair $(\G, \bm{p})$ is
+$$ \vv^k_{\bm{p}} = \underset{1\leq i\leq n}{\text{ max }} \{\bm{p_i}^{-1/2} ||U_{\R}^T \bm{\delta_i} ||_2\}$$
+
+\end{definition}
+
+\section{Theorem}
+\begin{thm}[\cite{puy}, Theorem 3.2]
+Consider any graph $\G = \{\V, \E, W\}$ with its Laplacian $\La = U\Lambda U^*$. Notice that $\La$ is real, symmetric and positive semi-definite and thus the columns of U are orthonormal and its eigenvalues are non-negative. We propose the following sampling procedure:
+
+\begin{enumerate}
+
+\item Sampling Distribution. Let $\R \subseteq \{0,1,\cdots, n-1\}$. Define $\bm{p} \in \RR^n$ as the sampling distribution on vertices $\{1,2, \cdots n\}$  such that 
+
+\[\bm{p_i} = \frac{||U^T_\R\bm{\delta_i}||^2_2}{|\R|} \text{, for } i = 1,2 ,\cdots, n. \tag{1}\]  
+The sampling distribution $\bm{p}$ minimizes the graph weighted coherence. We associate the matrix $P = \text{diag}(\bm{p}) \in \RR^{n\times n}$.
+
+\item Subsampling Matrix. Let $\Omega = \{\omega_1, \omega_2, \cdots, \omega_m\}$ be the subset of nodes drew independently from the set $\{1,2,\cdots n\}$ according to the sampling distribution $\bm{p}$. Define $M$ as the random subsampling matrix with the sampling distribution $\bm{p}$ such that
+
+\[M_{ij} = 
+\begin{cases} 
+      1 & \text{ if } j = \omega_{i}\\
+      0 & \text{otherwise}
+   \end{cases}
+\tag{2}\] 
+
+for all $i \in \{1,2,\cdots,m\}$ and $j \in \{1,2,\cdots, n\}$.
+
+\end{enumerate}
+
+\medskip
+
+From the $m$ samples obtained using the sampling method above, we can reconstruction all $\R$-concentrated signals accurately by solving the optimization problem 
+\[\underset{\bm{f} \in \text{span}(\UR)}{\text{min}}\vert\vert P^{-1/2}_\Omega (M\bm{f}-\bm{y})\vert\vert_2, \tag{3}\] 
+which estimates signal $\bm{f} \in \RR^n$ from $\bm{y} \in \RR^m$. 
+
+Let $\epsilon, \delta \in (0,1)$. Let $\bm{f^*}$ be the solution of the problem (3). With probability at lease $1-\epsilon$, the following holds for all $\bm{f}\in \text{span}(U_{\R})$ and all $\bm{n}\in \RR^m: $
+
+\[||x^* - x||_2 \leq \frac{2}{\sqrt{m(1-\delta)} ||P_{\Omega}^{-1/2} \bm{n}||_2} \tag{4}\]
+provided that \[m \geq \frac{3}{\delta^2}\vv^k_{\bm{p}}\log(\frac{2k}{\epsilon}). \tag{5} \]
+
+\end{thm}
+
+\begin{thm}
+
+\end{thm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
