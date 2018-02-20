@@ -36,7 +36,7 @@ gsp_plot_signal(G,f,plot_param);
 % Params
 
 % general
-param.compute_full_eigen = 0;
+param.compute_full_eigen = 1;
 
 % filter bank
 num_bands = 4;
@@ -59,7 +59,7 @@ end
 % Design filter bank (pass G, num_bands (M), parameters). Depend on whether
 % you have all eigenvalues and what type of filter bank structure you want
 
-[filter_bank,~,shifted_ends] = mcsfb_design_filter_bank(G,num_bands,param);
+[filter_bank,shifted_ends] = mcsfb_design_filter_bank(G,num_bands,param);
 
 % plot filters
 if param.plot_filters
@@ -111,6 +111,10 @@ end
 % Analysis function (takes G, filters, downsampling sets, returns transform
 % coefficients; perform filtering and then downsample; return cell; total coefficients should be N)
 % just one function (gsp_filter already does the switching)
+
+
+param.shifted_ends = shifted_ends;
+param.jackson = 1;
 
 analysis_coeffs = mcsfb_analysis(G, f, filter_bank, downsampling_sets, param);
 

@@ -46,15 +46,24 @@ function downsampling_sets = mcsfb_create_downsampling_sets(G, filter_bank, shif
            % r = rand(G.N,1);
            % y = gsp_filter(G,h,r); 
             
-            up_limit = shifted_ends(i+1);
-            low_limit = shifted_ends(i);
+            %up_limit = shifted_ends(i+1);
+            %low_limit = shifted_ends(i);
             
             % find approximate number of eigenvalues in each band
             if exact
                 %extra_samps=0
                 nb_meas = sum(h(G.e)); %+extra_samps; % m: num eigenvalues in band, will need to estimate if don't have exact eigenvalues
             else
-                nb_meas = floor((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
+                %nb_meas = floor((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
+                P=symamd(G.L);
+                [Parent, Lp, PO, PIn, flopcount] = ldlsymbol_extra(G.L,P);
+                mat_lower=G.L-shifted_ends(i)*speye(G.N);
+                [~, HD_lower]=ldlnumeric(mat_lower,Lp,Parent,PO,PIn);
+                below_lower=sum(diag(HD_lower)<0);
+                mat_upper=G.L-shifted_ends(i+1)*speye(G.N);
+                [~, HD_upper]=ldlnumeric(mat_upper,Lp,Parent,PO,PIn);
+                below_upper=sum(diag(HD_upper)<0);
+                nb_meas=below_upper-below_lower;
             end
 
             [weights, ~] = compute_sampling_weights(G,num_its,h);
