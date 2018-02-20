@@ -99,14 +99,41 @@ provided that \[m \geq \frac{3}{\delta^2}\vv^k_{\bm{p}}\log(\frac{2k}{\epsilon})
 
 \end{thm}
 
-\begin{thm}
+\begin{thm}[Orthogonality Proof]
+
+Let $\{\R_1, \R_2, \cdots, \R_M\}$ be $M$ partitions of the graph Laplacian eigenvalue indices $\{0, 1, \cdots,  N \}$ and $\{g_1, g_2, \cdots, g_M \}$ be filters defined on each of the $M$ bands. Then, the subspace spanned by $g_i(\La)$ is orthogonal to the subspace spanned by $g_j(\La)$ for $i \neq j$
 
 \end{thm}
 
+\begin{proof}
+
+
+Notice that the $(i,j)$ entry of matrix $g(\La)$ can be represented as 
+
+$$g(\La) (i,j) = [Ug(\Lambda)U^T] (i,j) = \sum_{k = 1}^{N} g(\lambda_k) U_k(i) U_k(j)$$
+
+Now consider two filters $g_1$ and $g_2$. To show that two subspaces spanned are orthogonal, we show that the dot product of any two vectors is 0.
+\begin{align*}
+g_1(\La)(,k) \cdot g_2(\La)(,l)&=\ \  \sum_{j = 1}^{N} [\sum_{k = 1}^{N} g_1(\lambda_k) U_k(i) U_k(j) )( \sum_{l = 1}^{N} g_2(\lambda_l) U_l(i) U_l(j)) ] \\
+& = \sum_{k = 1}^{N} \sum_{l = 1}^{N} g_1(\lambda_k) g_2(\lambda_l)  U_k(i) U_l(i) ( \sum_{j = 1}^{N}  U_k(j)  U_l(j))  \\
+& = \sum_{k = 1}^{N} g_1(\lambda_k) g_2(\lambda_k)  U_k(i) U_k(i) ( \sum_{j = 1}^{N}  U_k(j)  U_k(j)) 
+\end{align*}
+
+Notice that $g_1(\lambda_k) g_2(\lambda_k)$ is always equal to $0$, since $g_1$ and $g_2$ are defined on disjoint sets of Laplacian eigenvalues.   
+
+\end{proof}
 
 
 
+%\begin{proof}
 
+%$$g_1(\La) = Ug_1(\Lambda)U^T$$
+
+%$$g_2(\La) = Ug_2(\Lambda)U^T$$
+
+%Notice that $g_1(\lambda_k) g_2(\lambda_k)$ is always equal to $0$, since $g_1$ and $g_2$ are defined on disjoint sets of Laplacian eigenvalues.  
+%\end{proof}
+%\end{comment}
 
 
 

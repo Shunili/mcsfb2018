@@ -1,9 +1,9 @@
-function [filter_bank, band_ends, shifted_ends] = mcsfb_design_filter_bank(G, num_bands,param)
+function [filter_bank, shifted_ends] = mcsfb_design_filter_bank(G, num_bands,param)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
 if ~isfield(param, 'spacing')
-    param.spacing = 'logarithm'; % the other option is even
+    param.spacing = 1; % 1-logarithm; 0-evenly spacing
 end
 
 if ~isfield(param, 'spectrum_adapted')
@@ -19,140 +19,101 @@ shifted_ends = zeros(num_bands+1,1);
 shifted_ends(1) = 0;
 shifted_ends(num_bands+1) = G.lmax;
 
+if gsp_check_fourier(G)  
+    if param.spacing 
+        if param.spectrum_adapted
+            % 1.spectrum_adapted=1; spacing = log; check_fourier=1
+            for k = 1:num_bands-1
+                idx = floor(G.N*(1/2)^k);
+                shifted_ends(num_bands-k+1) = G.e(idx);
+            end
 
-if param.spacing == 'logarithm'
-    if gsp_check_fourier(G) %minima of cdf
-        for k = 2:num_bands
-            idx = G.N*(1/2)^k;
-            shifted_ends(k) = G.e(idx);
-        end
+            for l = 1:num_bands
+                filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
+            end
+        else
+            % 2.spectrum_adapted = 0; spacing = even; check_fourier=1;
+            for k = 1:num_bands-1
+                eigen = G.lmax*(1/2)^k;
+                [~,idx] = min(abs(G.e-eigen));
+                shifted_ends(num_bands-k+1) = G.e(idx);
+            end
 
-        for l = 1:num_bands
-            filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
-        end 
+            for l = 1:num_bands
+                filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
+            end
+        end  
     else
-        if param.spectrum_adapted == 1%minima of cdf % put four cases (if spectrum_adapated=0, don't need to approximate full spectrum)
-            if ~isfield(G,'spectrum_cdf_approx')
-                G=gsp_spectrum_cdf_approx(G);
-            end
-            %G.spectrum_cdf_approx = @(x) tern(G, x); %redefine cdf such that cdf = 0 for x<0  
-
-            band_ends = zeros(num_bands+1,1);
-            band_ends(1) = 0;
-            band_ends(num_bands+1) = G.lmax;
-
-            % compute pdf
-            xx = 0:0.001:G.lmax;
-            delta=.001;
-            G.spectrum_pdf_approx = @(x) (G.spectrum_cdf_approx(x+delta) - G.spectrum_cdf_approx(x-delta)) / (2*delta);% first derivative
-
-            % approximate eigenvalues
-            for j = 1:num_bands-1
-                fun = @(x) (G.spectrum_cdf_approx(x)-1/(2^j));
-                band_ends(length(band_ends)-j) = bisection(fun, 0, G.lmax); 
+        if param.spectrum_adapted
+            % 3. spectrum_adapted=1; spacing = even; check_fourier=1
+            for k = 1:num_bands-1   
+                idx = floor(G.N/num_bands*k);
+                shifted_ends(k+1) = G.e(idx);
             end
 
-            if strcmp(param.band_structure, 'method 1') %minima of cdf
-                % compute pdf minima
-                xx = 0:0.001:G.lmax;
-                yy = G.spectrum_cdf_approx(xx);
-                Dfun = diff(yy)/0.001;% first derivative
-                inverted = - Dfun;
-                [~, idx] = findpeaks(inverted); % find another way to do it
-                pdf_minima = idx*0.001;
+            for l = 1:num_bands
+                filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
+            end
+        else
+            % 4. spectrum_adapted = 0; spacing = even; check_fourier=1; 
+            for k = 1:num_bands-1
+                eigen = G.lmax/num_bands*k;
+                [~,idx] = min(abs(G.e-eigen));
+                shifted_ends(k+1) = G.e(idx);
+            end
 
-                % find the closest values for band_ends
-                for i = 1:(length(band_ends)-2)
-                    [shifted_ends(1+i), idx] = binary_search(band_ends(i+1), pdf_minima);
-                    %pdf_minima = pdf_minima((idx+1):length(pdf_minima));
-                end
-
-                for i = 1:num_bands
-                    filter_bank{i}=@(x) ((shifted_ends(i) <= x) & (x <= shifted_ends(i+1)));
-                end 
-
-            elseif strcmp(param.band_structure, 'method 2') %search in the interval
-
-                % search the minima in range 
-                for k = 2:num_bands
-                    shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,(band_ends(k)+band_ends(k-1))/2, (band_ends(k+1)+band_ends(k))/2);
-                end
-
-                for l = 1:num_bands
-                    filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
-                end 
-            else
-                error('Unknown graph type');
+            for l = 1:num_bands
+                filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
             end
         end
     end
-end
+else   
+    band_ends = zeros(num_bands+1,1);
+    band_ends(1) = 0;
+    band_ends(num_bands+1) =G.lmax;
     
-if param.spacing == 'even'
-    if gsp_check_fourier(G) %minima of cdf
-        for k = 2:num_bands
-            idx = G.N*(1/2)^k;
-            shifted_ends(k) = G.e(idx);
-        end
+    if ~isfield(G,'spectrum_cdf_approx')
+        G=gsp_spectrum_cdf_approx(G);
+    end
+            
+    % compute pdf
+    xx = 0:0.001:G.lmax;
+    delta=.001;
+    G.spectrum_pdf_approx = @(x) (G.spectrum_cdf_approx(x+delta) - G.spectrum_cdf_approx(x-delta)) / (2*delta);% first derivative
 
-        for l = 1:num_bands
-            filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
-        end 
-    else
-        if param.spectrum_adapted == 1%minima of cdf % put four cases (if spectrum_adapated=0, don't need to approximate full spectrum)
-            if ~isfield(G,'spectrum_cdf_approx')
-                G=gsp_spectrum_cdf_approx(G);
-            end
-            %G.spectrum_cdf_approx = @(x) tern(G, x); %redefine cdf such that cdf = 0 for x<0  
-
-            band_ends = zeros(num_bands+1,1);
-            band_ends(1) = 0;
-            band_ends(num_bands+1) = G.lmax;
-
-            % compute pdf
-            xx = 0:0.001:G.lmax;
-            delta=.001;
-            G.spectrum_pdf_approx = @(x) (G.spectrum_cdf_approx(x+delta) - G.spectrum_cdf_approx(x-delta)) / (2*delta);% first derivative
-
+    
+    if param.spacing 
+        if param.spectrum_adapted
+            % 5.spectrum_adapted=1; spacing = log; check_fourier=0
             % approximate eigenvalues
             for j = 1:num_bands-1
                 fun = @(x) (G.spectrum_cdf_approx(x)-1/(2^j));
                 band_ends(length(band_ends)-j) = bisection(fun, 0, G.lmax); 
             end
-
-            if strcmp(param.band_structure, 'method 1') %minima of cdf
-                % compute pdf minima
-                xx = 0:0.001:G.lmax;
-                yy = G.spectrum_cdf_approx(xx);
-                Dfun = diff(yy)/0.001;% first derivative
-                inverted = - Dfun;
-                [~, idx] = findpeaks(inverted); % find another way to do it
-                pdf_minima = idx*0.001;
-
-                % find the closest values for band_ends
-                for i = 1:(length(band_ends)-2)
-                    [shifted_ends(1+i), idx] = binary_search(band_ends(i+1), pdf_minima);
-                    %pdf_minima = pdf_minima((idx+1):length(pdf_minima));
-                end
-
-                for i = 1:num_bands
-                    filter_bank{i}=@(x) ((shifted_ends(i) <= x) & (x <= shifted_ends(i+1)));
-                end 
-
-            elseif strcmp(param.band_structure, 'method 2') %search in the interval
-
-                % search the minima in range 
-                for k = 2:num_bands
-                    shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,(band_ends(k)+band_ends(k-1))/2, (band_ends(k+1)+band_ends(k))/2);
-                end
-
-                for l = 1:num_bands
-                    filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
-                end 
-            else
-                error('Unknown graph type');
+            [ filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier( G, num_bands, band_ends, param);      
+        else
+            % 6.spectrum_adapted = 0; spacing = log; check_fourier=0;
+            for j = 1:num_bands-1
+                band_ends(num_bands-j+1) = G.lmax*(1/2)^j;
             end
+            [filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier(G, num_bands, band_ends, param);
+        end  
+    else
+        if param.spectrum_adapted
+            % 7. spectrum_adapted=1; spacing = even; check_fourier=0
+            for j = 1:num_bands-1
+                fun = @(x) (G.spectrum_cdf_approx(x) - j/num_bands);
+                band_ends(j+1) = bisection(fun, 0, G.lmax); 
+            end
+            [filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier(G, num_bands, band_ends, param);
+        else
+            % 8. spectrum_adapted = 0; spacing = even; check_fourier=0;
+            for j = 1:num_bands-1
+                band_ends(j+1) = G.lmax/num_bands*j;
+            end
+            [filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier(G, num_bands, band_ends, param);
         end
     end
+    
 end
-
+end
