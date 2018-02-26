@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: MCSFB.aux
+The style file: IEEEbib.bst
+Database file #1: mcsfb_refs.bib
+Warning--empty journal in gspbox
+Warning--empty year in gspbox
+Warning--empty title in steinitz
+Warning--empty title in gle
+You've used 48 entries,
+            1838 wiz_defined-function locations,
+            719 strings with 10112 characters,
+and the built_in function-call counts, 12100 in all, are:
+= -- 1090
+> -- 443
+< -- 16
++ -- 167
+- -- 119
+* -- 978
+:= -- 1776
+add.period$ -- 48
+call.type$ -- 48
+change.case$ -- 43
+chr.to.int$ -- 0
+cite$ -- 52
+duplicate$ -- 557
+empty$ -- 1228
+format.name$ -- 119
+if$ -- 2799
+int.to.chr$ -- 0
+int.to.str$ -- 48
+missing$ -- 46
+newline$ -- 241
+num.names$ -- 48
+pop$ -- 165
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 276
+stack$ -- 0
+substring$ -- 921
+swap$ -- 177
+text.length$ -- 16
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 4
+while$ -- 105
+width$ -- 50
+write$ -- 519
+(There were 4 warnings)
