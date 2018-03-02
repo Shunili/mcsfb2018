@@ -1,0 +1,287 @@
+\begin{thebibliography}{10}
+
+\bibitem{gspbox}
+N.~Perraudin, J.~Paratte, {D. I Shuman}, V.~Kalofolias, P.~Vandergheynst, and
+  D.~K. Hammond,
+\newblock ``{GSPBOX:} {A} toolbox for signal processing on graphs,''
+\newblock \url{https://lts2.epfl.ch/gsp/}.
+
+\bibitem{shuman2013emerging}
+{D. I Shuman}, S.~K. Narang, P.~Frossard, A.~Ortega, and P.~Vandergheynst,
+\newblock ``The emerging field of signal processing on graphs: {E}xtending
+  high-dimensional data analysis to networks and other irregular domains,''
+\newblock {\em IEEE Signal Process. Mag.}, vol. 30, no. 3, pp. 83--98, May
+  2013.
+
+\bibitem{Crovella2003}
+M.~Crovella and E.~Kolaczyk,
+\newblock ``Graph wavelets for spatial traffic analysis,''
+\newblock in {\em Proc. {IEEE INFOCOM}}, Mar. 2003, vol.~3, pp. 1848--1857.
+
+\bibitem{wang}
+W.~Wang and K.~Ramchandran,
+\newblock ``Random multiresolution representations for arbitrary sensor network
+  graphs,''
+\newblock in {\em Proc. IEEE Int. Conf. Acc., Speech, and Signal Process.}, May
+  2006, vol.~4, pp. 161--164.
+
+\bibitem{szlam}
+A.~D. {Szlam}, M.~{Maggioni}, R.~R. {Coifman}, and J.~C. {Bremer}, Jr.,
+\newblock ``{Diffusion-driven multiscale analysis on manifolds and graphs:
+  top-down and bottom-up constructions},''
+\newblock in {\em Proc. {SPIE} Wavelets}, Aug. 2005, vol. 5914, pp. 445--455.
+
+\bibitem{gavish}
+M.~Gavish, B.~Nadler, and R.~R. Coifman,
+\newblock ``Multiscale wavelets on trees, graphs and high dimensional data:
+  {T}heory and applications to semi supervised learning,''
+\newblock in {\em Proc. Int. Conf. Mach. Learn.}, Haifa, Israel, Jun. 2010, pp.
+  367--374.
+
+\bibitem{irion}
+J.~Irion and N.~Saito,
+\newblock ``Hierarchical graph {Laplacian} eigen transforms,''
+\newblock {\em JSIAM Letters}, vol. 6, pp. 21--24, 2014.
+
+\bibitem{coifman2006diffusion}
+R.~R. Coifman and M.~Maggioni,
+\newblock ``Diffusion wavelets,''
+\newblock {\em Appl. Comput. Harmon. Anal.}, vol. 21, no. 1, pp. 53--94, 2006.
+
+\bibitem{Maggioni_biorthogonal}
+M~Maggioni, J.~C. Bremer, R.~R. Coifman, and A.~D. Szlam,
+\newblock ``Biorthogonal diffusion wavelets for multiscale representations on
+  manifolds and graphs,''
+\newblock in {\em Proc. {SPIE} Wavelet XI}, Sep. 2005, vol. 5914.
+
+\bibitem{hammond2011wavelets}
+D.~K. Hammond, P.~Vandergheynst, and R.~Gribonval,
+\newblock ``Wavelets on graphs via spectral graph theory,''
+\newblock {\em Appl. Comput. Harmon. Anal.}, vol. 30, no. 2, pp. 129--150, Mar.
+  2011.
+
+\bibitem{shuman2013spectrum}
+{D. I Shuman}, C.~Wiesmeyr, N.~Holighaus, and P.~Vandergheynst,
+\newblock ``Spectrum-adapted tight graph wavelet and vertex-frequency frames,''
+\newblock {\em IEEE Trans. Signal Process.}, vol. 63, no. 16, pp. 4223--4235,
+  Aug. 2015.
+
+\bibitem{shuman2015vertex}
+{D. I Shuman}, B.~Ricaud, and P.~Vandergheynst,
+\newblock ``Vertex-frequency analysis on graphs,''
+\newblock {\em Appl. Comput. Harmon. Anal.}, vol. 40, no. 2, pp. 260--291, Mar.
+  2016.
+
+\bibitem{narang_icip}
+S.~K. Narang and A.~Ortega,
+\newblock ``Local two-channel critically sampled filter-banks on graphs,''
+\newblock in {\em Proc. Int. Conf. Image Process.}, Hong Kong, Sep. 2010, pp.
+  333--336.
+
+\bibitem{narang2012perfect}
+S.~K. Narang and A.~Ortega,
+\newblock ``Perfect reconstruction two-channel wavelet filter-banks for graph
+  structured data,''
+\newblock {\em IEEE. Trans. Signal Process.}, vol. 60, no. 6, pp. 2786--2799,
+  Jun. 2012.
+
+\bibitem{narang_bior_filters}
+S.~K. Narang and A.~Ortega,
+\newblock ``Compact support biorthogonal wavelet filterbanks for arbitrary
+  undirected graphs,''
+\newblock {\em IEEE Trans. Signal Process.}, vol. 61, no. 19, pp. 4673--4685,
+  Oct. 2013.
+
+\bibitem{sakiyama}
+A.~Sakiyama and Y.~Tanaka,
+\newblock ``Oversampled graph {L}aplacian matrix for graph filter banks,''
+\newblock {\em IEEE Trans. Signal Process.}, vol. 62, no. 24, pp. 6425--6437,
+  Dec. 2014.
+
+\bibitem{teke2016}
+O.~Teke and P.~P. Vaidyanathan,
+\newblock ``Graph filter banks with {M-channels}, maximal decimation, and
+  perfect reconstruction,''
+\newblock in {\em Proc. IEEE Int. Conf. Acc., Speech, and Signal Process.},
+  Mar. 2016, pp. 4089--4093.
+
+\bibitem{teke2017ii}
+O.~Teke and P.~P. Vaidyanathan,
+\newblock ``Extending classical multirate signal processing theory to graphs --
+  {Part II: M}-channel filter banks,''
+\newblock {\em IEEE Trans. Signal Process.}, vol. 65, no. 2, pp. 423--437, Jan.
+  2017.
+
+\bibitem{grady}
+L.~J. Grady and J.~R. Polimeni,
+\newblock {\em Discrete Calculus},
+\newblock Springer, 2010.
+
+\bibitem{ekambaram_icip}
+V.~N. Ekambaram, G.~C. Fanti, B.~Ayazifar, and K.~Ramchandran,
+\newblock ``Circulant structures and graph signal processing,''
+\newblock in {\em Proc. Int. Conf. Image Process.}, Melbourne, Australia, Sep.
+  2013.
+
+\bibitem{ekambaram2013globalsip}
+V.~N. Ekambaram, G.~Fanti, B.~Ayazifar, and K.~Ramchandran,
+\newblock ``Critically-sampled perfect-reconstruction spline-wavelet
+  filterbanks for graph signals,''
+\newblock in {\em Proc. IEEE Glob. Conf. Signal and Inform. Process.}, Dec.
+  2013, pp. 475--478.
+
+\bibitem{kotzagiannidis2016icassp}
+M.~S. Kotzagiannidis and P.~L. Dragotti,
+\newblock ``The graph {FRI}-framework- spline wavelet theory and sampling on
+  circulant graphs,''
+\newblock in {\em Proc. IEEE Int. Conf. Acc., Speech, and Signal Process.},
+  Shanghai, China, Mar. 2016.
+
+\bibitem{jansen}
+M.~Jansen, G.~P. Nason, and B.~W. Silverman,
+\newblock ``Multiscale methods for data on graphs and irregular
+  multidimensional situations,''
+\newblock {\em J. R. Stat. Soc. Ser. B Stat. Methodol.}, vol. 71, no. 1, pp.
+  97--125, 2009.
+
+\bibitem{narang_lifting_graphs}
+S.~K. Narang and A.~Ortega,
+\newblock ``Lifting based wavelet transforms on graphs,''
+\newblock in {\em Proc. {APSIPA ASC}}, Sapporo, Japan, Oct. 2009, pp. 441--444.
+
+\bibitem{shuman_TSP_multiscale}
+{D. I Shuman}, M.~J. Faraji, and P.~Vandergheynst,
+\newblock ``A multiscale pyramid transform for graph signals,''
+\newblock {\em IEEE Trans. Signal Process.}, vol. 64, no. 8, pp. 2119--2134,
+  Apr. 2016.
+
+\bibitem{chen2015discrete}
+S.~Chen, R.~Varma, A.~Sandryhaila, and J.~Kova\v{c}evi{\'{c}},
+\newblock ``Discrete signal processing on graphs: {S}ampling theory,''
+\newblock {\em IEEE Trans. Signal Process.}, vol. 63, no. 24, pp. 6510--6523,
+  Dec. 2015.
+
+\bibitem{pesenson_paley}
+I.~Pesenson,
+\newblock ``Sampling in {Paley-Wiener} spaces on combinatorial graphs,''
+\newblock {\em Trans. Amer. Math. Soc}, vol. 360, no. 10, pp. 5603--5627, 2008.
+
+\bibitem{narang2013interpolation}
+S.~K. Narang, A.~Gadde, and A.~Ortega,
+\newblock ``Signal processing techniques for interpolation in graph structured
+  data,''
+\newblock in {\em Proc. IEEE Int. Conf. Acoust., Speech and Signal Process.},
+  May 2013, pp. 5445--5449.
+
+\bibitem{anis2014towards}
+A.~Anis, A.~Gadde, and A.~Ortega,
+\newblock ``Towards a sampling theorem for signals on arbitrary graphs,''
+\newblock in {\em Proc. IEEE Int. Conf. Acoust., Speech and Signal Process.},
+  May 2014, pp. 3864--3868.
+
+\bibitem{gadde2015probabilistic}
+A.~Gadde and A.~Ortega,
+\newblock ``A probabilistic interpretation of sampling theory of graph
+  signals,''
+\newblock in {\em Proc. IEEE Int. Conf. Acoust., Speech and Signal Process.},
+  Apr. 2015, pp. 3257--3261.
+
+\bibitem{shomorony}
+H.~Shomorony and A.~S. Avestimehr,
+\newblock ``Sampling large data on graphs,''
+\newblock in {\em Proc. IEEE Glob. Conf. Signal and Inform. Process.}, Dec.
+  2014, pp. 933--936.
+
+\bibitem{PuyTGV15}
+G.~Puy, N.Tremblay, R.~Gribonval, and P.~Vandergheynst,
+\newblock ``Random sampling of bandlimited signals on graphs,''
+\newblock {\em ar{X}iv e-Prints}, vol. abs/1511.05118, 2015.
+
+\bibitem{chen2015signal}
+S.~Chen, A.~Sandryhaila, J.~M.~F. Moura, and J.~Kova\v{c}evi{\'{c}},
+\newblock ``Signal recovery on graphs: {V}ariation minimization,''
+\newblock {\em IEEE. Trans. Signal Process.}, vol. 63, no. 17, pp. 4609--4624,
+  Sep. 2015.
+
+\bibitem{tsitsvero2016uncertainty}
+M.~Tsitsvero, S.~Barbarossa, and P.~{Di Lorenzo},
+\newblock ``Signals on graphs: {U}ncertainty principle and sampling,''
+\newblock {\em IEEE Trans. Signal Process.}, vol. 64, no. 18, pp. 4845--4860,
+  Sep. 2016.
+
+\bibitem{anis2016efficient}
+A.~Anis, A.~Gadde, and A.~Ortega,
+\newblock ``Efficient sampling set selection for bandlimited graph signals
+  using graph spectral proxies,''
+\newblock {\em IEEE Trans. Signal Process.}, vol. 64, no. 14, pp. 3775--3789,
+  Jul. 2016.
+
+\bibitem{paige}
+C.C. Paige and M.~Wei,
+\newblock ``History and generality of the {CS} decomposition,''
+\newblock {\em Linear Algebra Appl.}, vol. 208-209, pp. 303--326, Sep. 1994.
+
+\bibitem{strangInterplay}
+G.~Strang and T.~Nguyen,
+\newblock ``The interplay of ranks of submatrices,''
+\newblock {\em {SIAM} Review}, vol. 46, no. 4, pp. 637--646, 2004.
+
+\bibitem{steinitz}
+Wikipedia,
+\newblock \url{https://en.wikipedia.org/wiki/Steinitz\_exchange\_lemma}.
+
+\bibitem{poloni}
+F.~Poloni,
+\newblock ``Partitioning an orthogonal matrix into full rank square
+  submatrices,'' MathOverflow,
+\newblock \url{http://mathoverflow.net/q/243990}.
+
+\bibitem{greeneMultiple}
+C.~Greene,
+\newblock ``A multiple exchange property for bases,''
+\newblock {\em {Proc. AMS}}, vol. 39, no. 1, pp. 45--50, Jun. 1973.
+
+\bibitem{greene_magnanti}
+C.~Greene and T.~L. Magnanti,
+\newblock ``Some abstract pivot algorithms,''
+\newblock {\em {SIAM J. Appl. Math.}}, vol. 29, no. 3, pp. 530--539, Nov. 1975.
+
+\bibitem{gle}
+Wikipedia,
+\newblock \url{https://en.wikipedia.org/wiki/Laplace\_expansion}.
+
+\bibitem{gleich}
+D.~Gleich,
+\newblock ``The {MatlabBGL} {Matlab} library,''
+\newblock
+  \url{http://www.cs.purdue.edu/homes/dgleich/packages/matlab\_bgl/index.html}.
+
+\bibitem{bunny}
+{Stanford University Computer Graphics Laboratory},
+\newblock ``{The Stanford 3D Scanning Repository},''
+\newblock \url{http://graphics.stanford.edu/data/3Dscanrep/}.
+
+\bibitem{tropp2004greed}
+J.~A. Tropp,
+\newblock ``Greed is good: {A}lgorithmic results for sparse approximation,''
+\newblock {\em IEEE Trans. Inf. Theory}, vol. 50, no. 10, pp. 2231--2242, Oct.
+  2004.
+
+\bibitem{elad_book}
+Michael Elad,
+\newblock {\em Sparse and Redundant Representations},
+\newblock Springer, 2010.
+
+\bibitem{parlett}
+B.~N. Parlett,
+\newblock {\em The Symmetric Eigenvalue Problem},
+\newblock SIAM, 1998.
+
+\bibitem{shuman_DCOSS_2011}
+{D. I Shuman}, P.~Vandergheynst, and P.~Frossard,
+\newblock ``Chebyshev polynomial approximation for distributed signal
+  processing,''
+\newblock in {\em Proc. Int. Conf. Distr. Comput. Sensor Sys.}, Barcelona,
+  Spain, Jun. 2011.
+
+\end{thebibliography}
