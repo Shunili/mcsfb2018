@@ -1,9 +1,10 @@
-function downsampling_sets = mcsfb_create_downsampling_sets(G, filter_bank, shifted_ends, param)
+function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G, filter_bank, shifted_ends, param)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
  
     num_bands=size(filter_bank,1);
-    downsampling_sets=cell(num_bands,1);  
+    downsampling_sets=cell(num_bands,1); 
+    weights_banded = cell(num_bands,1); 
     
     if ~isfield(param,'exact_downsampling_partition')
         param.exact_downsampling_partition=0;
@@ -70,6 +71,7 @@ function downsampling_sets = mcsfb_create_downsampling_sets(G, filter_bank, shif
             [~, selected] = build_sampling_matrix(G, weights, nb_meas);
 
             downsampling_sets{i} = selected;
+            weights_banded{i} = weights;
         end
     end
  end

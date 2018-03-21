@@ -3,7 +3,7 @@ function [ filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier( G, 
 %   Detailed explanation goes here
 
 if ~isfield(param,'band_structure')
-    param.band_structure = 1; %1: minima of cdf; 0: search in the interval
+    param.band_structure = 0; %1: minima of cdf; 0: search in the interval
 end
 
 if ~isfield(G,'spectrum_cdf_approx')
