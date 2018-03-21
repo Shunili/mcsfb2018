@@ -41,6 +41,7 @@ end
 
 for i = 1:num_bands
     analysis_coeffs{i} = transformed_coeffs(downsampling_sets{i},i);
+   
 end
 end
     

@@ -1,4 +1,4 @@
-clear all;
+%clear all;
 close all;
 
 rand('seed',0);
@@ -21,7 +21,6 @@ tail=(G.A(930,:)==1);
 tail(930)=1;
 signal(tail)=1;
 f = signal;
-
 
 % plot signal in both domains
 param.vertex_size=100;
@@ -54,7 +53,7 @@ param.exact_downsampling_partition=0;
 param.plot_downsampling_sets = 0;
 
 % analysis
-param.plot_analysis_coeffs = 1;
+param.plot_analysis_coeffs = 0;
 %param.shifted_ends = shifted_ends;
 %param.jackson = 1;
 
@@ -142,8 +141,9 @@ if param.plot_analysis_coeffs
 end
 
 
-% mcsfb_sythesis
-[f_reconstruct, reconstruction_banded] = mcsfb_sythesis(G, num_bands, downsampling_sets, f, shifted_ends, weights_banded);
+% mcsfb_sythesis =
+
+[f_reconstruct, reconstruction_banded] = mcsfb_sythesis(G, num_bands, downsampling_sets, analysis_coeffs, shifted_ends, weights_banded);
 
 % plot reconstruction for each channel
 for i=1:num_bands
