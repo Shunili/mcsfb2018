@@ -30,6 +30,7 @@
 \newcommand{\La}{\mathcal{L}}
 \newcommand{\UR}{U_{\mathcal{R}}}
 \newcommand{\vv}{\mathit{v}}
+\renewcommand{\l}{\ell}
 
 \theoremstyle{definition}
 \newtheorem*{definition}{Definition}
@@ -42,8 +43,22 @@
 
 \newpage
 
+
+\section{Things to fix:}
+\begin{enumerate}
+\item Undefined function 'findpeaks' for input
+arguments of type 'double'.
+
+Error in mcsfb\_design\_filter\_bank\_no\_fourier
+(line 31)
+    [~, idx] = findpeaks(inverted); 
+    
+\item (fixed) Warning: Matrix is close to singular or badly scaled (Reconstruction using eigenvalue and eigenvectors)
+
+\end{enumerate}
+
 \section{Notations}
-Consider a weighted, undirected graph $\G = \{ \V, \E, W\}$, where $\V$ is the set $N$ vertices, $\E$ is the set of edges and $W$ is the weighted adjacency matrix. Let $D$ be the diagonal matrix of vertex degrees. Denote $\La$ as the graph Laplacian, where $\La = D-W$. Since $\La$ is real, symmetric and semi-definite, we can diagonalize it as $\La =U\Lambda U^*$, where $\Lambda$ is the diagonal matrix of its real eigenvalues $\lambda_0, \lambda_1,\cdots, \lambda_{n-1}$ and the columns $u_0, u_1 \cdots u_{n-1}$ of $U$ are corresponding orthonormal eigenvectors of $\La$. We use $\UR$ to denote the submatrix formed by taking the columns of $U$ associated with the Laplacian eigenvalues indexed by $\mathcal{R} \subseteq \{0,1,\cdots,n-1\}$. And we use $U_{\mathcal{S},\mathcal{R}}$ to denote the submatrix formed by taking the rows of $U_{\mathcal{R}}$ associated with the vertices indexed b the set $\mathcal{S} \subseteq \{1,2,\cdots, N\}$. $\bm{\delta_i} \in \RR^n$ denotes the $i$th column of the identity matrix $I \in \RR^{n\times n}.$
+Consider a weighted, undirected graph $\G = \{ \V, \E, W\}$, where $\V$ is the set of $N$ vertices, $\E$ is the set of edges and $W$ is the associated weighted adjacency matrix. Let $D$ be the diagonal matrix of vertex degrees. Denote $\La$ as the graph Laplacian, where $\La = D-W$. Since $\La$ is real, symmetric and semi-definite, we can diagonalize it as $\La =U\Lambda U^*$, where $\Lambda$ is the diagonal matrix of its real eigenvalues $\lambda_0, \lambda_1,\cdots, \lambda_{N-1}$ and the columns $u_0, u_1 \cdots u_{N-1}$ of $U$ are corresponding orthonormal eigenvectors of $\La$. We use $\UR$ to denote the submatrix formed by taking the columns of $U$ associated with the Laplacian eigenvalues indexed by $\mathcal{R} \subseteq \{0,1,\cdots,N-1\}$. And we use $U_{\mathcal{S},\mathcal{R}}$ to denote the submatrix formed by taking the rows of $U_{\mathcal{R}}$ associated with the vertices indexed by the set $\mathcal{S} \subseteq \{1,2,\cdots, N\}$. For $i \in \{1,\cdots,n\}$, $\bm{\delta_i} \in \RR^n$ denotes the $i$th column of the identity matrix $I \in \RR^{n\times n}.$
 
 \medskip
 
@@ -137,20 +152,92 @@ Notice that $g_1(\lambda_k) g_2(\lambda_k)$ is always equal to $0$, since $g_1$ 
 
 
 \newpage
-Things to fix:
-\begin{enumerate}
-\item Undefined function 'findpeaks' for input
-arguments of type 'double'.
 
-Error in mcsfb\_design\_filter\_bank\_no\_fourier
-(line 31)
-    [~, idx] = findpeaks(inverted); 
-    
-\item Warning: Matrix is close to singular or badly scaled (Reconstruction using eigenvalue and eigenvectors)
+{\color{blue}
+\section{Filter Bank Design}
+\begin{itemize}
+\item Approximate filtering, and theory showing that the error (i) clusters around boundaries, and (ii) only matters where there are eigenvalues
+\item Design to aim for spectral gaps
+\end{itemize}
+}
 
-\item 
-\end{enumerate}
 
+Consider a weighted, undirected graph $\G = \{ \V, \E, W\}$, where $\V$ is the set of $N$ vertices, $\E$ is the set of edges and $W$ is the associated weighted adjacency matrix. Let $D$ be the diagonal matrix of vertex degrees. Denote $\La$ as the graph Laplacian, where $\La = D-W$. Since $\La$ is real, symmetric and semi-definite, we can diagonalize it as $\La =U\Lambda U^*$, where $\Lambda$ is the diagonal matrix of its real eigenvalues $\lambda_0, \lambda_1,\cdots, \lambda_{N-1}$ and the columns $u_0, u_1 \cdots u_{N-1}$ of $U$ are corresponding orthonormal eigenvectors of $\La$. We use $\UR$ to denote the submatrix formed by taking the columns of $U$ associated with the Laplacian eigenvalues indexed by $\mathcal{R} \subseteq \{0,1,\cdots,N-1\}$. And we use $U_{\mathcal{S},\mathcal{R}}$ to denote the submatrix formed by taking the rows of $U_{\mathcal{R}}$ associated with the vertices indexed by the set $\mathcal{S} \subseteq \{1,2,\cdots, N\}$. For $i \in \{1,\cdots,n\}$, $\bm{\delta_i} \in \RR^n$ denotes the $i$th column of the identity matrix $I \in \RR^{n\times n}.$
+
+We consider graph signals $f \in \RR^N$ residing on a graph $\G$. A signal $\bm{f} \in \RR^n$ defined on the nodes of the graph $\G$ is $\R$-concentrated if $\bm{f} \in \text{span}(U_{\R})$. The graph Fourier transform of a signal is $\hat{f} = U*f$ and $\hat{g}(\La)f = U\hat{g}(\Lambda)U*f$ filters a graph signal by $\hat{g}(\cdot)$.
+
+
+
+\subsection{Filter Bank Design}
+
+In order to circumvent expensive full eigendecompositions used for creating ideal filter banks, we adopt the tight warped filter bank design discussed in \cite{shuman2013spectrum} to build a scalable filter bank of $M$ graph spectral filters. The tight warped filter bank design can either be adapted to the width of the spectrum using only an estimate of the maximum eigenvalue, or to an approximation of the eigenvalue distribution based on the spectrum slicing method of \cite[Section 3.3]{parlett}. In either case, the filters can then be applied using the polynomial approximation method discussed in \cite{hammond2011wavelets,shuman_DCOSS_2011}.
+
+In this section, we construct the approximated filter bank of $M$ filters, where each filter is stored as the coefficients of Chebyshev or Jackson-Chebyshev polynomial approximations. There are four steps toward building a filter bank, which are detailed below.
+
+\subsubsection{Approximate Spectral Density Function}
+We start by approximating the distribution of Laplacian eigenvalues. There are various ways to do it We direct readers to \cite{hammond2011wavelets,shuman_DCOSS_2011}, \cite{approximating spectral densities of large matrices}.
+
+We use the method developed by \cite{x}, which approximate density functions using the trace property.
+
+
+
+\subsubsection{Pick Initial Ends based on Filter Bank Parameters}
+
+When picking the band ends for each of the $M$ filters, we consider two other factors. The filter bank can be either spectrum-adapted or not, and it can be either evenly spaced or logarithmic spaced. With the CDF and PDF of Laplacian eigenvalues, we can pick band ends according to the two parameters. All four possibilities are illustrated in the figure below:
+
+\begin{figure}
+\centering
+
+\end{figure}
+
+(a) shows for a spectrum-adapted and logarithmic spaced filter bank of 4 filters. Notice that this filter bank takes the density of Laplacian eigenvalues into account. The 4th filter covers half of the eigenvalues, the 3rd filter covers 1/4 of the eigenvalues, and each of the first two filters covers 1/8 of the eigenvalues.(b) stands for a spectrum-adapted but evenly spaced filter bank. Each of the four filters covers approximately the same number of eigenvalues.
+
+(c) and (d) are not spectrum-adapted. Notice that in this case the band ends only depend on the width of the spectrum.
+
+\subsubsection{Approximate Filtering}
+We have two methods to approximate ideal filters: Chebyshev polynomial approximations and Jackson-Chebyshev polynomial approximations.
+
+TODO: add some overview of them?
+
+Our approach intends to spot spectral gaps and set the bands ends in the spectral gaps. The intuition behind this approach is to cluster the error around boundaries. If the boundaries are in spectral gaps, i.e. there are no eigenvalues around it, the error will not affect the approximated filters.
+
+We use two examples to illustrate the usefulness of this idea:
+
+1. ideal filter
+2. approximated
+3. in spectral gap
+4. not in spectral gap\\
+
+
+\subsubsection{Adjust Band Ends to fall in spectral gaps}
+Then we need to adjust the ends to ensure they fall into the spectral gaps. We also have two methods for this purpose. 
+The first method is to find all local minima of the PDF and search for the closed minima of each band ends we just obtained.
+
+The second method is to search the minima in an interval around each band ends we just obtained.
+
+
+
+
+{\color{blue}
+\section{Non-Uniform Sampling and Reconstruction}
+\begin{itemize}
+\item Estimating number of measurements for each band
+\item Review of non-uniform random sampling literature
+\item Reconstruction - emphasize change from only lowpass bands
+\item {\color{red} Solving the reconstruction equation efficiently and robustly}
+\end{itemize}
+}
+
+
+
+
+
+{\color{blue}
+\section{Illustrative Examples II: Approximate Calculations}
+\begin{itemize}
+\item Make sure to have some very large examples and show computation times
+\end{itemize}
+}
 
 
 

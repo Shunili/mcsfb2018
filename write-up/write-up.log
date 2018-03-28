@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  20 FEB 2018 12:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  26 MAR 2018 14:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -714,20 +714,20 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 (./write-up.aux)
 \openout1 = `write-up.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
@@ -796,7 +796,7 @@ e
 ))
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box44
-Package hyperref Info: Link coloring ON on input line 40.
+Package hyperref Info: Link coloring ON on input line 41.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -806,25 +806,25 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count163
 )
-LaTeX Info: Redefining \ref on input line 40.
-LaTeX Info: Redefining \pageref on input line 40.
-LaTeX Info: Redefining \nameref on input line 40.
+LaTeX Info: Redefining \ref on input line 41.
+LaTeX Info: Redefining \pageref on input line 41.
+LaTeX Info: Redefining \nameref on input line 41.
 
 (./write-up.out) (./write-up.out)
 \@outlinefile=\write4
 \openout4 = `write-up.out'.
 
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 42.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 43.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 42.
+LaTeX Font Info:    Try loading font information for U+msa on input line 43.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 42.
+LaTeX Font Info:    Try loading font information for U+msb on input line 43.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -836,14 +836,55 @@ LaTeX Warning: No \author given.
 
 {/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
-LaTeX Warning: Citation `puy' on page 2 undefined on input line 66.
+LaTeX Warning: Citation `puy' on page 2 undefined on input line 81.
 
 [2] [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 156.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 156.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 159.
+
+ (/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 159.
+
+
+LaTeX Warning: Citation `shuman2013spectrum' on page 4 undefined on input line 
+173.
+
+
+LaTeX Warning: Citation `parlett' on page 4 undefined on input line 173.
+
+
+LaTeX Warning: Citation `hammond2011wavelets' on page 4 undefined on input line
+ 173.
+
+
+LaTeX Warning: Citation `shuman_DCOSS_2011' on page 4 undefined on input line 1
+73.
+
+
+LaTeX Warning: Citation `hammond2011wavelets' on page 4 undefined on input line
+ 179.
+
+
+LaTeX Warning: Citation `shuman_DCOSS_2011' on page 4 undefined on input line 1
+79.
+
+
+LaTeX Warning: Citation `approximating spectral densities of large matrices' on
+ page 4 undefined on input line 180.
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 207--211
+
+ []
+
+[5]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 255.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 255.
  (./write-up.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 156.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 156.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 255.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 255.
 
 
 Package rerunfilecheck Warning: File `write-up.out' has changed.
@@ -851,21 +892,21 @@ Package rerunfilecheck Warning: File `write-up.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `write-up.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  EF0E53DF29612F5EA2519DE57489F4E8;132.
+(rerunfilecheck)             Before: 344D9433319DCF20EFEF6842752116AE;847
+(rerunfilecheck)             After:  8C4FDAE69E04BC537A16C02B34DB5CFD;847.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 156.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 255.
  ) 
 Here is how much of TeX's memory you used:
- 19654 strings out of 493014
- 354555 string characters out of 6133351
- 444123 words of memory out of 5000000
- 22788 multiletter control sequences out of 15000+600000
- 24377 words of font info for 76 fonts, out of 8000000 for 9000
+ 19708 strings out of 493014
+ 355374 string characters out of 6133351
+ 443225 words of memory out of 5000000
+ 22825 multiletter control sequences out of 15000+600000
+ 25153 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,9n,56p,1077b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,9n,56p,1120b,413s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy7.
 pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.p
@@ -881,16 +922,17 @@ r/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/
 local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/l
 ocal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></u
 sr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr
-/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/l
-ocal/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/loc
-al/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local
-/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/t
-exlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/tex
-live/2016/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on write-up.pdf (3 pages, 201856 bytes).
+/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/l
+ocal/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/loc
+al/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local
+/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/t
+exlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/tex
+live/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texli
+ve/2016/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
+Output written on write-up.pdf (5 pages, 237440 bytes).
 PDF statistics:
- 118 PDF objects out of 1000 (max. 8388607)
- 92 compressed objects within 1 object stream
- 14 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 181 PDF objects out of 1000 (max. 8388607)
+ 151 compressed objects within 2 object streams
+ 27 named destinations out of 1000 (max. 500000)
+ 109 words of extra memory for PDF output out of 10000 (max. 10000000)
 
