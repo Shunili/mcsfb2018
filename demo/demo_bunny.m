@@ -27,16 +27,16 @@ param.vertex_size=100;
 figure;
 gsp_plot_signal(G,signal,param);
 view(0,90)
+title('Signal in the Vertex Domain');
 
 figure;
 gsp_plot_signal_spectral(G,gsp_gft(G,signal));
 set(gca,'FontSize',24);
 xlabel('$\lambda$','Interpreter','latex','FontSize',24);
 ylabel('$|\hat{f}(\lambda)|$','Interpreter','latex','FontSize',24);
+title('Signal in the Spectral Domain');
 
 
-G = rmfield(G, 'U');
-G = rmfield(G, 'e');
 
 % Params
 
@@ -59,9 +59,10 @@ param.plot_analysis_coeffs = 0;
 
 % param.filter_type = 'approximate'; not used right now
 
-if param.compute_full_eigen
-    G = gsp_compute_fourier_basis(G);
-else
+if ~param.compute_full_eigen
+    G = rmfield(G, 'U');
+    G = rmfield(G, 'e');
+    G = rmfield(G, 'lmax');
     G = gsp_estimate_lmax(G);
 end
 
@@ -77,6 +78,7 @@ if param.plot_filters
     figure;
     plot_param.show_sum=0;
     gsp_plot_filter(G,filter_bank,plot_param);
+    title('Filters');
 end
 
 % mcsfb_create_downsampling_sets
@@ -103,6 +105,7 @@ if param.plot_downsampling_sets
         caxis([.5,num_bands+.5]);
         set(hcb,'YTick',1:5);
         set(hcb,'FontSize',24);
+        title('Partition');
     else
         for i = 1:num_bands
             selected = downsampling_sets{i}; 
@@ -137,6 +140,7 @@ if param.plot_analysis_coeffs
         gsp_plot_signal(G,chan_coeffs,param);
         caxis([-2.5,2.5]);
         view(0,90)
+        title('Analysis Coeffs by Channel');
     end
 end
 
@@ -151,6 +155,7 @@ for i=1:num_bands
     gsp_plot_signal(G,reconstruction_banded{i}, param);
     caxis([-2.5,2.5]);
     view(0,90)
+    title('Reconstruction by Channel');
 end
 
 
