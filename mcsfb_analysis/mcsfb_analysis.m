@@ -27,7 +27,7 @@ else
             end
             param.filter_coeffs = zeros(param.order+1,num_bands);
             for i=1:num_bands
-                param.filter_coeffs(:,i)=gsp_jackson_cheby_coeff(param.shifted_ends(i), param.shifted_ends(i+1),[0 G.lmax], param.order);
+                [~,param.filter_coeffs(:,i)]=gsp_jackson_cheby_coeff(param.shifted_ends(i), param.shifted_ends(i+1),[0 G.lmax], param.order);
             end
         else
             param.filter_coeffs = gsp_cheby_coeff(G, filter_bank, param.order, param.grid_order);
