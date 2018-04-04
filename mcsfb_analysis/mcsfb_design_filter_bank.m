@@ -85,7 +85,7 @@ else
         %G=gsp_spectrum_cdf_approx(G);
         step = G.lmax/G.N/2;
         %param.pts = 0:step:G.lmax;
-        param.pts = 0:0.1:G.lmax;
+        param.pts = 0:0.001:G.lmax;
         [G.spectrum_cdf_approx, cdf_vals]= spectral_cdf_approx(G, param);
        
     end
