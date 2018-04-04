@@ -21,6 +21,10 @@ shifted_ends = zeros(num_bands+1,1);
 shifted_ends(1) = 0;
 shifted_ends(num_bands+1) = G.lmax;
 
+band_ends = zeros(num_bands+1,1);
+band_ends(1) = 0;
+band_ends(num_bands+1) =G.lmax;
+
 if gsp_check_fourier(G)  
     if param.spacing 
         if param.spectrum_adapted
@@ -33,7 +37,7 @@ if gsp_check_fourier(G)
             shifted_ends(num_bands+1) = G.lmax+1;
 
             for l = 1:num_bands
-                filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
+                filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x < shifted_ends(l+1)));
             end
         else
             % 2.spectrum_adapted = 0; spacing = even; check_fourier=1;
@@ -44,7 +48,7 @@ if gsp_check_fourier(G)
             end
 
             for l = 1:num_bands
-                filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
+                filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x < shifted_ends(l+1)));
             end
         end  
     else
@@ -71,13 +75,19 @@ if gsp_check_fourier(G)
             end
         end
     end
+    band_ends = shifted_ends; % for debugging only
 else   
-    band_ends = zeros(num_bands+1,1);
-    band_ends(1) = 0;
-    band_ends(num_bands+1) =G.lmax;
+%     band_ends = zeros(num_bands+1,1);
+%     band_ends(1) = 0;
+%     band_ends(num_bands+1) =G.lmax;
     
     if ~isfield(G,'spectrum_cdf_approx')
-        G=gsp_spectrum_cdf_approx(G);
+        %G=gsp_spectrum_cdf_approx(G);
+        step = G.lmax/G.N/2;
+        %param.pts = 0:step:G.lmax;
+        param.pts = 0:0.1:G.lmax;
+        [G.spectrum_cdf_approx, cdf_vals]= spectral_cdf_approx(G, param);
+       
     end
             
     % compute pdf, update this to use the "new spetral cdf function"
@@ -94,13 +104,13 @@ else
                 fun = @(x) (G.spectrum_cdf_approx(x)-1/(2^j));
                 band_ends(length(band_ends)-j) = bisection(fun, 0, G.lmax); 
             end
-            [ filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier( G, num_bands, band_ends, param);      
+            [ filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier( G, num_bands, band_ends, cdf_vals, param);      
         else
             % 6.spectrum_adapted = 0; spacing = log; check_fourier=0;
             for j = 1:num_bands-1
                 band_ends(num_bands-j+1) = G.lmax*(1/2)^j;
             end
-            [filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier(G, num_bands, band_ends, param);
+            [filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier(G, num_bands, band_ends, cdf_vals, param);
         end  
     else
         if param.spectrum_adapted
@@ -109,13 +119,13 @@ else
                 fun = @(x) (G.spectrum_cdf_approx(x) - j/num_bands);
                 band_ends(j+1) = bisection(fun, 0, G.lmax); 
             end
-            [filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier(G, num_bands, band_ends, param);
+            [filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier(G, num_bands, band_ends, cdf_vals, param);
         else
             % 8. spectrum_adapted = 0; spacing = even; check_fourier=0;
             for j = 1:num_bands-1
                 band_ends(j+1) = G.lmax/num_bands*j;
             end
-            [filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier(G, num_bands, band_ends, param);
+            [filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier(G, num_bands, band_ends, cdf_vals, param);
         end
     end
     
