@@ -52,15 +52,8 @@ Our approach in this paper is to replace the synthesis filters with interpolatio
 We consider graph signals $f \in \R^N$ residing on a weighted, undirected graph $\G=\{\V,\E,\mathbf{W}\}$, where $\V$ is the set of $N$ vertices, $\E$ is the set of edges, and $\mathbf{W}$ is the weighted adjacency matrix. 
 Throughout, we take $\L$ to be the combinatorial graph Laplacian $\mathbf{D}-\mathbf{W}$, where $\mathbf{D}$ is the diagonal matrix of vertex degrees. However, our theory and proposed transform also apply to the normalized graph Laplacian $\mathbf{I}-\mathbf{D}^{-\frac{1}{2}}\mathbf{W}\mathbf{D}^{-\frac{1}{2}}$, or any other Hermitian operator. We can diagonalize the graph Laplacian as $\L=\mathbf{U}{\boldsymbol \Lambda}\mathbf{U}^{*}$, where ${\boldsymbol \Lambda}$ is the diagonal matrix of eigenvalues $\lambda_0,\lambda_1,\ldots,\lambda_{N-1}$ of $\L$, and the columns $u_0,u_1,\ldots,u_{N-1}$ of $\mathbf{U}$ are the associated eigenvectors of $\L$. The graph Fourier transform of a signal is $\hat{f}=\mathbf{U}^{*}f$, and $\hat{g}(\L)f=\mathbf{U}\hat{g}({\boldsymbol \Lambda})\mathbf{U}^{*}f$ filters a graph signal by $\hat{g}(\cdot)$. We use the notation $\mathbf{U}_{{\cal R}}$ to denote the submatrix formed by taking the columns of $\mathbf{U}$ associated with the Laplacian eigenvalues indexed by ${\cal R} \subseteq \{0,1,\ldots,N-1\}$. Similarly, we use the notation $\mathbf{U}_{{\cal S},{\cal R}}$ to denote the submatrix  formed by taking the rows of $\mathbf{U}_{{\cal R}}$ associated with the vertices indexed by the set ${\cal S} \subseteq \{1,2,\ldots,N\}$.
 
-We start by 
-constructing an ideal filter bank of $M$ graph spectral filters, where each filter $\hat{h}_m(\lambda)$ is equal to 1 on a subset of the spectrum, and 0 elsewhere. We choose the filters so that for each $\l \in \{0,1,\ldots,N-1\}$, $\hat{h}_m(\lambda_\l)=1$ for exactly one $m$. Fig.\ \ref{Fig:fb} shows an example of such an ideal filter bank. Equivalently, we are forming a partition $\{{\cal R}_1,{\cal R}_2,\ldots,{\cal R}_M\}$ of $\{0,1,\ldots,N-1\}$ and setting 
-$$
-\hat{h}_m(\lambda_\l)=
-\begin{cases}
-1,&\hbox{ if } \l \in {\cal R}_m \\
-0,&\hbox{ otherwise}
-\end{cases},~m=1,2,\ldots,M.
-$$
+We start by constructing an ideal filter bank of $M$ graph spectral filters, where each filter $\hat{h}_m(\lambda)$ is equal to 1 on a subset of the spectrum, and 0 elsewhere. We choose the filters so that for each $\l \in \{0,1,\ldots,N-1\}$, $\hat{h}_m(\lambda_\l)=1$ for exactly one $m$. Fig.\ \ref{Fig:fb} shows an example of such an ideal filter bank. Equivalently, we are forming a partition $\{{\cal R}_1,{\cal R}_2,\ldots,{\cal R}_M\}$ of $\{0,1,\ldots,N-1\}$ and setting 
+
 \begin{figure}[t]
 \centerline{\includegraphics[width=3.1in]{fig_filter_bank}}
 \caption{Example ideal filter bank. The red, orange, yellow, green, and blue filters span 31, 31, 63, 125, and 250 graph Laplacian eigenvalues, respectively, on a 500 node sensor network with %500 vertices and 

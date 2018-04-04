@@ -35,6 +35,11 @@ function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G,
         exact=gsp_check_fourier(G);
         if ~exact
             G=gsp_spectrum_cdf_approx(G);
+%             order=30;
+%             num_vec=30;
+%             pts = 
+%             num_pts = length(num_pts);
+%             [G.spectrum_cdf_approx, ~]= spectral_cdf_approx( G , num_vec , order , num_pts, pts );
         end
         
         %update name
@@ -55,16 +60,27 @@ function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G,
                 %extra_samps=0
                 nb_meas = sum(h(G.e)); %+extra_samps; % m: num eigenvalues in band, will need to estimate if don't have exact eigenvalues
             else
+                %replace by trace method: 
+                %if the total number of samples is < N, add them to last band
+                %nb_meas = round((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
                 %nb_meas = floor((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
-                P=symamd(G.L);
-                [Parent, Lp, PO, PIn, flopcount] = ldlsymbol_extra(G.L,P);
-                mat_lower=G.L-shifted_ends(i)*speye(G.N);
-                [~, HD_lower]=ldlnumeric(mat_lower,Lp,Parent,PO,PIn);
-                below_lower=sum(diag(HD_lower)<0);
-                mat_upper=G.L-shifted_ends(i+1)*speye(G.N);
-                [~, HD_upper]=ldlnumeric(mat_upper,Lp,Parent,PO,PIn);
-                below_upper=sum(diag(HD_upper)<0);
-                nb_meas=below_upper-below_lower;
+                
+                %LDL^T
+%                 P=symamd(G.L);
+%                 [Parent, Lp, PO, PIn, flopcount] = ldlsymbol_extra(G.L,P);
+%                 mat_lower=G.L-shifted_ends(i)*speye(G.N);
+%                 [~, HD_lower]=ldlnumeric(mat_lower,Lp,Parent,PO,PIn);
+%                 below_lower=sum(diag(HD_lower)<0);
+%                 mat_upper=G.L-shifted_ends(i+1)*speye(G.N);
+%                 [~, HD_upper]=ldlnumeric(mat_upper,Lp,Parent,PO,PIn);
+%                 below_upper=sum(diag(HD_upper)<0);
+%                 nb_meas=below_upper-below_lower;
+        
+                %replace by trace method:
+                
+                
+
+
             end
 
             [weights, ~] = compute_sampling_weights(G,num_its,h);
