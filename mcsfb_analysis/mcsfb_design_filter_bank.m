@@ -1,6 +1,8 @@
-function [filter_bank, shifted_ends] = mcsfb_design_filter_bank(G, num_bands,param)
+function [filter_bank, shifted_ends, band_ends] = mcsfb_design_filter_bank(G, num_bands,param)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
+% return the pdf!
+% double check bands!
 
 if ~isfield(param, 'spacing')
     param.spacing = 1; % 1-logarithm; 0-evenly spacing
@@ -78,7 +80,7 @@ else
         G=gsp_spectrum_cdf_approx(G);
     end
             
-    % compute pdf
+    % compute pdf, update this to use the "new spetral cdf function"
     xx = 0:0.001:G.lmax;
     delta=.001;
     G.spectrum_pdf_approx = @(x) (G.spectrum_cdf_approx(x+delta) - G.spectrum_cdf_approx(x-delta)) / (2*delta);% first derivative

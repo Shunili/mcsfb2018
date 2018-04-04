@@ -41,12 +41,12 @@ title('Signal in the Spectral Domain');
 % Params
 
 % general
-param.compute_full_eigen = 0;
+param.compute_full_eigen = 1;
 
 % filter bank
 num_bands = 5;
 param.band_structure = 0;
-param.plot_filters = 0;
+param.plot_filters = 1;
 
 % downsampling
 param.exact_downsampling_partition=0;
@@ -70,7 +70,7 @@ end
 % Design filter bank (pass G, num_bands (M), parameters). Depend on whether
 % you have all eigenvalues and what type of filter bank structure you want
 
-[filter_bank,shifted_ends] = mcsfb_design_filter_bank(G,num_bands,param);
+[filter_bank,shifted_ends,band_ends] = mcsfb_design_filter_bank(G,num_bands,param);
 
 % plot filters
 if param.plot_filters

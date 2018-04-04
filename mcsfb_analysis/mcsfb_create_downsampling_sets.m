@@ -55,6 +55,9 @@ function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G,
                 %extra_samps=0
                 nb_meas = sum(h(G.e)); %+extra_samps; % m: num eigenvalues in band, will need to estimate if don't have exact eigenvalues
             else
+                %replace by trace method: 
+                %if the total number of samples is < N, add them to last band
+                %nb_meas = round((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
                 %nb_meas = floor((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
                 P=symamd(G.L);
                 [Parent, Lp, PO, PIn, flopcount] = ldlsymbol_extra(G.L,P);
