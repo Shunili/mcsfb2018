@@ -46,7 +46,7 @@
 
 \section{Things to fix:}
 \begin{enumerate}
-\item Undefined function 'findpeaks' for input
+\item (fixed) Undefined function 'findpeaks' for input
 arguments of type 'double'.
 
 Error in mcsfb\_design\_filter\_bank\_no\_fourier
@@ -55,10 +55,14 @@ Error in mcsfb\_design\_filter\_bank\_no\_fourier
     
 \item (fixed) Warning: Matrix is close to singular or badly scaled (Reconstruction using eigenvalue and eigenvectors)
 
+
+\item filter design function - does not perform well
+
 \end{enumerate}
 
 \section{Notations}
 Consider a weighted, undirected graph $\G = \{ \V, \E, W\}$, where $\V$ is the set of $N$ vertices, $\E$ is the set of edges and $W$ is the associated weighted adjacency matrix. Let $D$ be the diagonal matrix of vertex degrees. Denote $\La$ as the graph Laplacian, where $\La = D-W$. Since $\La$ is real, symmetric and semi-definite, we can diagonalize it as $\La =U\Lambda U^*$, where $\Lambda$ is the diagonal matrix of its real eigenvalues $\lambda_0, \lambda_1,\cdots, \lambda_{N-1}$ and the columns $u_0, u_1 \cdots u_{N-1}$ of $U$ are corresponding orthonormal eigenvectors of $\La$. We use $\UR$ to denote the submatrix formed by taking the columns of $U$ associated with the Laplacian eigenvalues indexed by $\mathcal{R} \subseteq \{0,1,\cdots,N-1\}$. And we use $U_{\mathcal{S},\mathcal{R}}$ to denote the submatrix formed by taking the rows of $U_{\mathcal{R}}$ associated with the vertices indexed by the set $\mathcal{S} \subseteq \{1,2,\cdots, N\}$. For $i \in \{1,\cdots,n\}$, $\bm{\delta_i} \in \RR^n$ denotes the $i$th column of the identity matrix $I \in \RR^{n\times n}.$
+We consider graph signals $f \in \RR^N$ residing on a graph $\G$. A signal $f \in \RR^n$ defined on the nodes of the graph $\G$ is $\R$-concentrated if $f \in \text{span}(U_{\R})$. The graph Fourier transform of a signal is $\hat{f} = U*f$ and $\hat{g}(\La) f = U\hat{g}(\Lambda)U*f$ filters a graph signal by $\hat{g}(\cdot)$. Signal $r\in \RR^N$ is a random vector such that each entry is randomly draw from a standard gaussian distribution.
 
 \medskip
 
@@ -77,43 +81,7 @@ $$ \vv^k_{\bm{p}} = \underset{1\leq i\leq n}{\text{ max }} \{\bm{p_i}^{-1/2} ||U
 
 \end{definition}
 
-\section{Theorem}
-\begin{thm}[\cite{puy}, Theorem 3.2]
-Consider any graph $\G = \{\V, \E, W\}$ with its Laplacian $\La = U\Lambda U^*$. Notice that $\La$ is real, symmetric and positive semi-definite and thus the columns of U are orthonormal and its eigenvalues are non-negative. We propose the following sampling procedure:
-
-\begin{enumerate}
-
-\item Sampling Distribution. Let $\R \subseteq \{0,1,\cdots, n-1\}$. Define $\bm{p} \in \RR^n$ as the sampling distribution on vertices $\{1,2, \cdots n\}$  such that 
-
-\[\bm{p_i} = \frac{||U^T_\R\bm{\delta_i}||^2_2}{|\R|} \text{, for } i = 1,2 ,\cdots, n. \tag{1}\]  
-The sampling distribution $\bm{p}$ minimizes the graph weighted coherence. We associate the matrix $P = \text{diag}(\bm{p}) \in \RR^{n\times n}$.
-
-\item Subsampling Matrix. Let $\Omega = \{\omega_1, \omega_2, \cdots, \omega_m\}$ be the subset of nodes drew independently from the set $\{1,2,\cdots n\}$ according to the sampling distribution $\bm{p}$. Define $M$ as the random subsampling matrix with the sampling distribution $\bm{p}$ such that
-
-\[M_{ij} = 
-\begin{cases} 
-      1 & \text{ if } j = \omega_{i}\\
-      0 & \text{otherwise}
-   \end{cases}
-\tag{2}\] 
-
-for all $i \in \{1,2,\cdots,m\}$ and $j \in \{1,2,\cdots, n\}$.
-
-\end{enumerate}
-
-\medskip
-
-From the $m$ samples obtained using the sampling method above, we can reconstruction all $\R$-concentrated signals accurately by solving the optimization problem 
-\[\underset{\bm{f} \in \text{span}(\UR)}{\text{min}}\vert\vert P^{-1/2}_\Omega (M\bm{f}-\bm{y})\vert\vert_2, \tag{3}\] 
-which estimates signal $\bm{f} \in \RR^n$ from $\bm{y} \in \RR^m$. 
-
-Let $\epsilon, \delta \in (0,1)$. Let $\bm{f^*}$ be the solution of the problem (3). With probability at lease $1-\epsilon$, the following holds for all $\bm{f}\in \text{span}(U_{\R})$ and all $\bm{n}\in \RR^m: $
-
-\[||x^* - x||_2 \leq \frac{2}{\sqrt{m(1-\delta)} ||P_{\Omega}^{-1/2} \bm{n}||_2} \tag{4}\]
-provided that \[m \geq \frac{3}{\delta^2}\vv^k_{\bm{p}}\log(\frac{2k}{\epsilon}). \tag{5} \]
-
-\end{thm}
-
+\section{Theorems}
 \begin{thm}[Orthogonality Proof]
 
 Let $\{\R_1, \R_2, \cdots, \R_M\}$ be $M$ partitions of the graph Laplacian eigenvalue indices $\{0, 1, \cdots,  N \}$ and $\{g_1, g_2, \cdots, g_M \}$ be filters defined on each of the $M$ bands. Then, the subspace spanned by $g_i(\La)$ is orthogonal to the subspace spanned by $g_j(\La)$ for $i \neq j$
@@ -153,53 +121,51 @@ Notice that $g_1(\lambda_k) g_2(\lambda_k)$ is always equal to $0$, since $g_1$ 
 
 \newpage
 
-{\color{blue}
 \section{Filter Bank Design}
-\begin{itemize}
-\item Approximate filtering, and theory showing that the error (i) clusters around boundaries, and (ii) only matters where there are eigenvalues
-\item Design to aim for spectral gaps
-\end{itemize}
-}
-
-
-Consider a weighted, undirected graph $\G = \{ \V, \E, W\}$, where $\V$ is the set of $N$ vertices, $\E$ is the set of edges and $W$ is the associated weighted adjacency matrix. Let $D$ be the diagonal matrix of vertex degrees. Denote $\La$ as the graph Laplacian, where $\La = D-W$. Since $\La$ is real, symmetric and semi-definite, we can diagonalize it as $\La =U\Lambda U^*$, where $\Lambda$ is the diagonal matrix of its real eigenvalues $\lambda_0, \lambda_1,\cdots, \lambda_{N-1}$ and the columns $u_0, u_1 \cdots u_{N-1}$ of $U$ are corresponding orthonormal eigenvectors of $\La$. We use $\UR$ to denote the submatrix formed by taking the columns of $U$ associated with the Laplacian eigenvalues indexed by $\mathcal{R} \subseteq \{0,1,\cdots,N-1\}$. And we use $U_{\mathcal{S},\mathcal{R}}$ to denote the submatrix formed by taking the rows of $U_{\mathcal{R}}$ associated with the vertices indexed by the set $\mathcal{S} \subseteq \{1,2,\cdots, N\}$. For $i \in \{1,\cdots,n\}$, $\bm{\delta_i} \in \RR^n$ denotes the $i$th column of the identity matrix $I \in \RR^{n\times n}.$
-
-We consider graph signals $f \in \RR^N$ residing on a graph $\G$. A signal $f \in \RR^n$ defined on the nodes of the graph $\G$ is $\R$-concentrated if $f \in \text{span}(U_{\R})$. The graph Fourier transform of a signal is $\hat{f} = U*f$ and $\hat{g}(\La) f = U\hat{g}(\Lambda)U*f$ filters a graph signal by $\hat{g}(\cdot)$.
 
 
 
-\subsection{Filter Bank Design}
 
-In order to circumvent expensive full eigendecompositions used to design ideal filter banks, we adopt the tight warped filter bank design discussed in \cite{shuman2013spectrum} to build a scalable filter bank of $M$ graph spectral filters. The tight warped filter bank design can either be adapted to the width of the spectrum using only an estimate of the maximum eigenvalue and the filters can then be applied using the polynomial approximation method discussed in \cite{hammond2011wavelets,shuman_DCOSS_2011}.
+In order to circumvent expensive full eigendecompositions used to design ideal filter banks, we adopt the tight warped filter bank design discussed in \cite{shuman2013spectrum} to build a scalable filter bank of $M$ graph spectral filters. The tight warped filter bank design can be adapted to the width of the spectrum using only an estimate of the maximum eigenvalue and the filters can then be applied using the polynomial approximation methods discussed in \cite{hammond2011wavelets, shuman_DCOSS_2011}.
 
-In this section, we construct the approximated filter bank of $M$ filters, where each filter is stored as the coefficients of Chebyshev or Jackson-Chebyshev polynomial approximations. There are four steps toward building a filter bank, which are detailed below.
+In this section, we construct the approximated filter bank of $M$ filters, where each filter is stored as the coefficients of Chebyshev or Jackson-Chebyshev polynomial approximations. In order to minimize the error caused by approximated filtering, we try to set the band ends between the spectral gaps. There are four steps toward building a filter bank, which are detailed below.
 
-\subsubsection{Approximate Spectral Density Function}
-We start by approximating the distribution of Laplacian eigenvalues. There are various ways to do it We direct readers to \cite{hammond2011wavelets,shuman_DCOSS_2011}, \cite{approximating spectral densities of large matrices}.
+\subsection{Approximate Spectral Density Function}
 
-We use the method developed by \cite{x}, which approximate density functions using the trace property.
+Various methods have been proposed by past literature to approximate the distributions of eigenvalues. \cite{hammond2011wavelets,shuman_DCOSS_2011} uses the diagonal decomposition of shfited spectrum to count the number of eigenvalues in the shifted band. {\color{red}TODO: add more sources}
+
+In our implementation,  we use the trace approximation method developed in \cite{approximating spectral densities of large matrices}. Given a filter $\hat{g}(\cdot)$, we notice that $\hat{g}(\La)$ is a diagonal matrix, where $\hat{g}(\La)_{i,i} = 1$ if the $i$th eigenvalues is covered by the filter and $\hat{g}(\La)_{i,i} = 0$ otherwise. By computing the trace of $\hat{g}(\La)$, which is the sum of the diagonal, we can obtain the number of eigenvalues in the band specified by $\hat{g}(\cdot)$. This method is of $\Theta(N)$ time complexity.
+In practice, the trace can be approximated using the following fact:
+\begin{align*}
+tr(\hat{g}(\La)) &= E[r^T\hat{g}(\La)r] \\
+&\propto \frac{1}{I}\sum_{i =1}^{I} (r^{i})^T\hat{g}(\La)r^{i}\\
+\end{align*}
 
 
+\subsection{Approximate Filtering}
 
-\subsubsection{Pick Initial Ends based on Filter Bank Parameters}
+When selecting the band ends for each of the $M$ ideal filters, we consider two factors: spectrum-adaptation and band spacing method. In our implementation, the filter bank can be either spectrum-adapted or not, and it can be either evenly spaced or logarithmic spaced. With the approximated CDF $F$and PDF $p$ of Laplacian eigenvalues, we can set band ends according to these two parameters. All four possibilities are illustrated in the figure below:
 
-When picking the band ends for each of the $M$ filters, we consider two other factors. The filter bank can be either spectrum-adapted or not, and it can be either evenly spaced or logarithmic spaced. With the CDF and PDF of Laplacian eigenvalues, we can pick band ends according to the two parameters. All four possibilities are illustrated in the figure below:
-
-\begin{figure}
+\begin{figure}[h]
 \centering
+\includegraphics[width = 5cm]{filter_bank_1}
+\includegraphics[width = 5cm]{filter_bank_2}
 
+\includegraphics[width = 5cm]{filter_bank_4}
+\includegraphics[width = 5cm]{filter_bank_3}
+
+
+\caption{(a) is a spectrum-adapted and logarithmic spaced filter bank of 5 filters. Notice that this filter bank takes the density of Laplacian eigenvalues into account. The 4th filter covers half of the eigenvalues, the 3rd filter covers 1/4 of the eigenvalues, and each of the first two filters covers 1/8 of the eigenvalues.(b) stands for a spectrum-adapted but evenly spaced filter bank. Each of the five filters covers approximately the same number of eigenvalues. (c) and (d) are not spectrum-adapted. Notice that in this case the band ends only depend on the width of the spectrum.}
 \end{figure}
 
-(a) shows for a spectrum-adapted and logarithmic spaced filter bank of 4 filters. Notice that this filter bank takes the density of Laplacian eigenvalues into account. The 4th filter covers half of the eigenvalues, the 3rd filter covers 1/4 of the eigenvalues, and each of the first two filters covers 1/8 of the eigenvalues.(b) stands for a spectrum-adapted but evenly spaced filter bank. Each of the four filters covers approximately the same number of eigenvalues.
+Instead of storing the exact filters in Figure 1, we store the coefficients of Chebyshev and Jackson-Chebyshev polynomial approximations\cite{ShumanSIPN2018} and those coefficients will be applied to filter any given signal  \cite{shuman2013spectrum}.
 
-(c) and (d) are not spectrum-adapted. Notice that in this case the band ends only depend on the width of the spectrum.
 
-\subsubsection{Approximate Filtering}
-We have two methods to approximate ideal filters: Chebyshev polynomial approximations and Jackson-Chebyshev polynomial approximations.
+\subsubsection{Adjust Band Ends to Minimize Approximation Error}
 
-TODO: add some overview of them?
 
 Our approach intends to spot spectral gaps and set the bands ends in the spectral gaps. The intuition behind this approach is to cluster the error around boundaries. If the boundaries are in spectral gaps, i.e. there are no eigenvalues around it, the error will not affect the approximated filters.
+TODO: add in theory
 
 We use two examples to illustrate the usefulness of this idea:
 
@@ -209,12 +175,7 @@ We use two examples to illustrate the usefulness of this idea:
 4. not in spectral gap\\
 
 
-\subsubsection{Adjust Band Ends to fall in spectral gaps}
-Then we need to adjust the ends to ensure they fall into the spectral gaps. We also have two methods for this purpose. 
-The first method is to find all local minima of the PDF and search for the closed minima of each band ends we just obtained.
-
-The second method is to search the minima in an interval around each band ends we just obtained.
-
+Let the $s$ be the width of the gap. We intend to find $x$ such that $F(s+x)F-(x)$ is minimized. That is, we want to minimized the probability of eigenvalues existing in the interval $[x, x+s]$.
 
 
 
@@ -227,6 +188,43 @@ The second method is to search the minima in an interval around each band ends w
 \item {\color{red} Solving the reconstruction equation efficiently and robustly}
 \end{itemize}
 }
+
+
+\begin{thm}[\cite{puy}, Theorem 3.2]
+Consider any graph $\G = \{\V, \E, W\}$ with its Laplacian $\La = U\Lambda U^*$. Notice that $\La$ is real, symmetric and positive semi-definite and thus the columns of U are orthonormal and its eigenvalues are non-negative. We propose the following sampling procedure:
+
+\begin{enumerate}
+
+\item Sampling Distribution. Let $\R \subseteq \{0,1,\cdots, n-1\}$. Define $\bm{p} \in \RR^n$ as the sampling distribution on vertices $\{1,2, \cdots n\}$  such that 
+
+\[\bm{p_i} = \frac{||U^T_\R\bm{\delta_i}||^2_2}{|\R|} \text{, for } i = 1,2 ,\cdots, n. \tag{1}\]  
+The sampling distribution $\bm{p}$ minimizes the graph weighted coherence. We associate the matrix $P = \text{diag}(\bm{p}) \in \RR^{n\times n}$.
+
+\item Subsampling Matrix. Let $\Omega = \{\omega_1, \omega_2, \cdots, \omega_m\}$ be the subset of nodes drew independently from the set $\{1,2,\cdots n\}$ according to the sampling distribution $\bm{p}$. Define $M$ as the random subsampling matrix with the sampling distribution $\bm{p}$ such that
+
+\[M_{ij} = 
+\begin{cases} 
+      1 & \text{ if } j = \omega_{i}\\
+      0 & \text{otherwise}
+   \end{cases}
+\tag{2}\] 
+
+for all $i \in \{1,2,\cdots,m\}$ and $j \in \{1,2,\cdots, n\}$.
+
+\end{enumerate}
+
+\medskip
+
+From the $m$ samples obtained using the sampling method above, we can reconstruction all $\R$-concentrated signals accurately by solving the optimization problem 
+\[\underset{\bm{f} \in \text{span}(\UR)}{\text{min}}\vert\vert P^{-1/2}_\Omega (M\bm{f}-\bm{y})\vert\vert_2, \tag{3}\] 
+which estimates signal $\bm{f} \in \RR^n$ from $\bm{y} \in \RR^m$. 
+
+Let $\epsilon, \delta \in (0,1)$. Let $\bm{f^*}$ be the solution of the problem (3). With probability at lease $1-\epsilon$, the following holds for all $\bm{f}\in \text{span}(U_{\R})$ and all $\bm{n}\in \RR^m: $
+
+\[||x^* - x||_2 \leq \frac{2}{\sqrt{m(1-\delta)} ||P_{\Omega}^{-1/2} \bm{n}||_2} \tag{4}\]
+provided that \[m \geq \frac{3}{\delta^2}\vv^k_{\bm{p}}\log(\frac{2k}{\epsilon}). \tag{5} \]
+
+\end{thm}
 
 
 
