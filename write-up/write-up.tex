@@ -144,7 +144,7 @@ tr(\hat{g}(\La)) &= E[r^T\hat{g}(\La)r] \\
 
 \subsection{Approximate Filtering}
 
-When selecting the band ends for each of the $M$ ideal filters, we consider two factors: spectrum-adaptation and band spacing method. In our implementation, the filter bank can be either spectrum-adapted or not, and it can be either evenly spaced or logarithmic spaced. With the approximated CDF $F$and PDF $p$ of Laplacian eigenvalues, we can set band ends according to these two parameters. All four possibilities are illustrated in the figure below:
+When selecting the band ends for each of the $M$ ideal filters, we consider two factors: spectrum-adaptation and band spacing method. In our implementation, the filter bank can be either spectrum-adapted or not, and it can be either evenly spaced or logarithmic spaced. With the approximated CDF and PDF of Laplacian eigenvalues, we can set band ends according to these two parameters. All four possibilities are illustrated in the figure below:
 
 \begin{figure}[h]
 \centering
@@ -227,9 +227,6 @@ provided that \[m \geq \frac{3}{\delta^2}\vv^k_{\bm{p}}\log(\frac{2k}{\epsilon})
 \end{thm}
 
 
-
-
-
 {\color{blue}
 \section{Illustrative Examples II: Approximate Calculations}
 \begin{itemize}
@@ -238,6 +235,9 @@ provided that \[m \geq \frac{3}{\delta^2}\vv^k_{\bm{p}}\log(\frac{2k}{\epsilon})
 }
 
 
+\begin{abstract}
+We investigate a scalable $M$-channel critically sampled filter bank for graph signals where each of the $M$ filters is stored as the coefficients of Jackson-Chebyshev polynomial approximations. The band ends are set to fall between spectral gaps in order to minimize the error resulted from approximation filtering. We use non-uniform sampling method to downsample the signal. We partition the graph vertices such that the $m^{th}$ set comprises a uniqueness set for signals supported on the $m^{th}$ subband. For analysis, the graph signal is filtered on each subband and downsampled on the corresponding set of vertices. However, the classical synthesis filters are replaced with interpolation operators, circumventing the issue of how to design a downsampling pattern and graph spectral filters to ensure perfect reconstruction for signals that do not reside on bipartite graphs. The resulting transform is critically sampled and graph signals are perfectly reconstructable from their analysis coefficients. We empirically explore the joint vertex-frequency localization of the dictionary atoms and sparsity of the analysis coefficients, as well as the ability of the proposed transform to compress piecewise-smooth graph signals.
+\end{abstract}
 
 
 

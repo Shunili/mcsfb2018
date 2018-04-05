@@ -58,5 +58,6 @@ if param.plot_filters
     figure;
     plot_param.show_sum=0;
     gsp_plot_filter(G,filter_bank,plot_param);
+    xlabel('$\lambda$','Interpreter','LaTex','FontSize',24) 
     title('Filters');
 end

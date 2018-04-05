@@ -9,8 +9,8 @@ if ~isfield(param, 'num_vec')
 end
 
 if ~isfield(param, 'pts')
-    param.num_pts = 25;
-    pts=linspace(0,G.lmax,param.num_pts);
+    param.num_pts = 50;
+    param.pts=linspace(0,G.lmax,param.num_pts);
 end
 
 if ~isfield(param, 'num_pts')
