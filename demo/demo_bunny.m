@@ -81,44 +81,41 @@ end
 
 % plot cdf, pdf, eigenvalues, band_ends
 if param.plot_density_functions
-  if ~isfield(G,'spectrum_cdf_approx')
+    if ~isfield(G,'spectrum_cdf_approx')
         %G=gsp_spectrum_cdf_approx(G);
         step = G.lmax/G.N/2;
         param.pts = 0:0.5:G.lmax;
         [G.spectrum_cdf_approx, cdf_vals]= spectral_cdf_approx(G, param);
-  end
+    end
 
-if ~isfield(G,'spectrum_pdf_approx')
-% compute pdf
+    if ~isfield(G,'spectrum_pdf_approx')
+      % compute pdf
+      xx = 0:0.001:G.lmax;
+      delta=.001;
+      G.spectrum_pdf_approx = @(x) (G.spectrum_cdf_approx(x+delta) - G.spectrum_cdf_approx(x-delta)) / (2*delta);% first derivative
+    end
+  
     xx = 0:0.001:G.lmax;
-    delta=.001;
-    G.spectrum_pdf_approx = @(x) (G.spectrum_cdf_approx(x+delta) - G.spectrum_cdf_approx(x-delta)) / (2*delta);% first derivative
-end
-    
- 
-xx = 0:0.001:G.lmax;
-yy_cdf = G.spectrum_cdf_approx(xx);
-%yy_pdf = G.spectrum_pdf_approx(xx);
+    yy_cdf = G.spectrum_cdf_approx(xx);
+    yy_pdf = G.spectrum_pdf_approx(xx);
+    G = gsp_compute_fourier_basis(G);
 
-
-G = gsp_compute_fourier_basis(G);
-
-figure; hold on;
-plot(xx, yy_cdf);
-%plot(xx, yy_pdf);
-for idx = 2 : 6
-    plot([shifted_ends(idx) shifted_ends(idx)], [0 1]);
-end
-set(gca,'FontSize',24);
-ax = gca;
-ax.YTick = [0 0.5 1];
-set(gca, 'XTick', [0,G.e',15]);
-%xTickLabels = cell(1,G.N+2);  % Empty cell array the same length as xAxis
-%xTickLabels{1} = 0;
-%xTickLabels{G.N+2}=15;% Fills in only the values you want
-%set(gca,'XTickLabel',xTickLabels);   % Update the tick labels
-box off;
-xlabel('$\lambda$','Interpreter','LaTex','FontSize',24) 
+    figure; hold on;
+    plot(xx, yy_cdf);
+    plot(xx, yy_pdf);
+    for idx = 2 : 6
+        plot([shifted_ends(idx) shifted_ends(idx)], [0 1]);
+    end
+    set(gca,'FontSize',24);
+    ax = gca;
+    ax.YTick = [0 0.5 1];
+    set(gca, 'XTick', [0,G.e',15]);
+    %xTickLabels = cell(1,G.N+2);  % Empty cell array the same length as xAxis
+    %xTickLabels{1} = 0;
+    %xTickLabels{G.N+2}=15;% Fills in only the values you want
+    %set(gca,'XTickLabel',xTickLabels);   % Update the tick labels
+    box off;
+    xlabel('$\lambda$','Interpreter','LaTex','FontSize',24) 
 end
 
 

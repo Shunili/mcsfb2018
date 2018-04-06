@@ -121,10 +121,12 @@ Notice that $g_1(\lambda_k) g_2(\lambda_k)$ is always equal to $0$, since $g_1$ 
 
 \newpage
 
+\section{Abstract}
+     We investigate an $M$-channel critically sampled filter bank for graph signals where each of the $M$ filters is supported on a different subband of the graph Laplacian spectrum. For analysis, on each subband, the graph signal is filtered using efficient polynomial approximation methods and then downsampled on a corresponding set of vertices chosen via non-uniform random sampling. We use an efficient decoder derived from the non-uniform sampling distribution to reconstruct the filtered signals on each band from their samples. We leverage an approximation of the spectral density function of the graph Laplacian to both approximate the number of eigenvalues in each band and design the filter bank to be more amenable to polynomial approximation, in order to reduce the resulting reconstruction error. We empirically explore the joint vertex-frequency localization of the dictionary atoms, the sparsity of the analysis coefficients, and the ability of the proposed transform to compress piecewise-smooth graph signals. 
+
+
+
 \section{Filter Bank Design}
-
-
-
 
 In order to circumvent expensive full eigendecompositions used to design ideal filter banks, we adopt the tight warped filter bank design discussed in \cite{shuman2013spectrum} to build a scalable filter bank of $M$ graph spectral filters. The tight warped filter bank design can be adapted to the width of the spectrum using only an estimate of the maximum eigenvalue and the filters can then be applied using the polynomial approximation methods discussed in \cite{hammond2011wavelets, shuman_DCOSS_2011}.
 
@@ -163,9 +165,9 @@ Instead of storing the exact filters in Figure 1, we store the coefficients of C
 
 \subsubsection{Adjust Band Ends to Minimize Approximation Error}
 
-
+We first find the searching interval and search for the eigenvalue that has a mimimum pdf value in the range.
 Our approach intends to spot spectral gaps and set the bands ends in the spectral gaps. The intuition behind this approach is to cluster the error around boundaries. If the boundaries are in spectral gaps, i.e. there are no eigenvalues around it, the error will not affect the approximated filters.
-TODO: add in theory
+
 
 We use two examples to illustrate the usefulness of this idea:
 
@@ -233,15 +235,6 @@ provided that \[m \geq \frac{3}{\delta^2}\vv^k_{\bm{p}}\log(\frac{2k}{\epsilon})
 \item Make sure to have some very large examples and show computation times
 \end{itemize}
 }
-
-
-\begin{abstract}
-We investigate a scalable $M$-channel critically sampled filter bank for graph signals where each of the $M$ filters is stored as the coefficients of Jackson-Chebyshev polynomial approximations. The band ends are set to fall between spectral gaps in order to minimize the error resulted from approximation filtering. We use non-uniform sampling method to downsample the signal. We partition the graph vertices such that the $m^{th}$ set comprises a uniqueness set for signals supported on the $m^{th}$ subband. For analysis, the graph signal is filtered on each subband and downsampled on the corresponding set of vertices. However, the classical synthesis filters are replaced with interpolation operators, circumventing the issue of how to design a downsampling pattern and graph spectral filters to ensure perfect reconstruction for signals that do not reside on bipartite graphs. The resulting transform is critically sampled and graph signals are perfectly reconstructable from their analysis coefficients. We empirically explore the joint vertex-frequency localization of the dictionary atoms and sparsity of the analysis coefficients, as well as the ability of the proposed transform to compress piecewise-smooth graph signals.
-\end{abstract}
-
-
-
-
 
 
 
