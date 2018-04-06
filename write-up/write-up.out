@@ -5,7 +5,7 @@
 \BOOKMARK [1][-]{section.5}{Abstract}{}% 5
 \BOOKMARK [1][-]{section.6}{Filter Bank Design}{}% 6
 \BOOKMARK [2][-]{subsection.6.1}{Approximate Spectral Density Function}{section.6}% 7
-\BOOKMARK [2][-]{subsection.6.2}{Approximate Filtering}{section.6}% 8
+\BOOKMARK [2][-]{subsection.6.2}{Fast Filtering}{section.6}% 8
 \BOOKMARK [3][-]{subsubsection.6.2.1}{Adjust Band Ends to Minimize Approximation Error}{subsection.6.2}% 9
 \BOOKMARK [1][-]{section.7}{Non-Uniform Sampling and Reconstruction}{}% 10
 \BOOKMARK [1][-]{section.8}{Illustrative Examples II: Approximate Calculations}{}% 11
