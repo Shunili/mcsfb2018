@@ -1,4 +1,4 @@
-function [ filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier( G, num_bands, band_ends, cdf_vals, param)
+function [ filter_bank, shifted_ends] = mcsfb_design_filter_bank_no_fourier( G, num_bands, band_ends, param)
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -8,16 +8,16 @@ end
 
   if ~isfield(G,'spectrum_cdf_approx')
         %G=gsp_spectrum_cdf_approx(G);
-        step = G.lmax/G.N/2;
-        %param.pts = 0:step:G.lmax;
-        param.pts = 0:0.1:G.lmax;
-        [G.spectrum_cdf_approx, cdf_vals]= spectral_cdf_approx(G, param);
+%         step = G.lmax/G.N/2;
+%         param.pts = 0:step:G.lmax;
+%         param.pts = 0:0.1:G.lmax;
+        [G.spectrum_cdf_approx, ~]= spectral_cdf_approx(G, param);
   end
 
 if ~isfield(G,'spectrum_pdf_approx')
 % compute pdf
     xx = 0:0.001:G.lmax;
-    delta=.001;
+    delta=.1;
     G.spectrum_pdf_approx = @(x) (G.spectrum_cdf_approx(x+delta) - G.spectrum_cdf_approx(x-delta)) / (2*delta);% first derivative
 end
 
@@ -53,29 +53,28 @@ else %search in the interval
     % search the minima in range 
     
 %     step = G.lmax/G.N/2;
-%     step = 0.1
-%     
 %     cdf_dif = cdf_vals(2:length(cdf_vals)) - cdf_vals(1:(length(cdf_vals)-1));
 %   
 %     low = 0;
 %     high = 0;
-    for k = 2:num_bands
-%         shifted_ends(k) = fminbnd(cdf_dif,(band_ends(k)+band_ends(k-1))/2, band_ends(k)+(band_ends(k)-band_ends(k-1))/2);
-         shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,(band_ends(k)+band_ends(k-1))/2, band_ends(k)+(band_ends(k)-band_ends(k-1))/2);
+%
+%     shifted_ends(k) = fminbnd(cdf_dif,(band_ends(k)+band_ends(k-1))/2, band_ends(k)+(band_ends(k)-band_ends(k-1))/2);
+%     shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,(band_ends(k)+band_ends(k-1))/2, band_ends(k)+(band_ends(k)-band_ends(k-1))/2);
         
-%         low_idx = floor((band_ends(k)+band_ends(k-1))/2/step);
-%         high_idx = ceil((band_ends(k)+(band_ends(k)-band_ends(k-1))/2)/step);
+%     low_idx = floor((band_ends(k)+band_ends(k-1))/2/step);
+%     high_idx = ceil((band_ends(k)+(band_ends(k)-band_ends(k-1))/2)/step);
 %      
-%         if low_idx <= high
-%             low_idx = high+1;
-%         end
-%         [~,min_idx] = min(cdf_dif(low_idx:high_idx));
-%         shifted_ends(k) = (min_idx+low_idx-1+min_idx+low_idx)*step/2;
-%         
-%         low = low_idx;
-%         high = high_idx;
-        
-        %shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,(band_ends(k)+band_ends(k-1))/2, band_ends(k)+(band_ends(k)-band_ends(k-1))/2);
+%     if low_idx <= high
+%        low_idx = high+1;
+%     end
+%     [~,min_idx] = min(cdf_dif(low_idx:high_idx));
+%     low = low_idx;
+%     high = high_idx;
+%     shifted_ends(k) = (min_idx+low_idx-1+min_idx+low_idx)*step/2;
+
+    for k = 2:num_bands
+        bandwidth = min((band_ends(k)-band_ends(k-1))/2, (band_ends(k+1)-band_ends(k))/2); 
+        shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,band_ends(k)-bandwidth, band_ends(k)+bandwidth);
     end
 
     for l = 1:num_bands

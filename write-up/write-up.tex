@@ -121,30 +121,40 @@ Notice that $g_1(\lambda_k) g_2(\lambda_k)$ is always equal to $0$, since $g_1$ 
 
 \newpage
 
+\section{Abstract}
+     We investigate an $M$-channel critically sampled filter bank for graph signals where each of the $M$ filters is supported on a different subband of the graph Laplacian spectrum. For analysis, on each subband, the graph signal is filtered using efficient polynomial approximation methods and then downsampled on a corresponding set of vertices chosen via non-uniform random sampling. We use an efficient decoder derived from the non-uniform sampling distribution to reconstruct the filtered signals on each band from their samples. We leverage an approximation of the spectral density function of the graph Laplacian to both approximate the number of eigenvalues in each band and design the filter bank to be more amenable to polynomial approximation, in order to reduce the resulting reconstruction error. We empirically explore the joint vertex-frequency localization of the dictionary atoms, the sparsity of the analysis coefficients, and the ability of the proposed transform to compress piecewise-smooth graph signals. 
+
+
+
 \section{Filter Bank Design}
 
-
-
-
-In order to circumvent expensive full eigendecompositions used to design ideal filter banks, we adopt the tight warped filter bank design discussed in \cite{shuman2013spectrum} to build a scalable filter bank of $M$ graph spectral filters. The tight warped filter bank design can be adapted to the width of the spectrum using only an estimate of the maximum eigenvalue and the filters can then be applied using the polynomial approximation methods discussed in \cite{hammond2011wavelets, shuman_DCOSS_2011}.
-
-In this section, we construct the approximated filter bank of $M$ filters, where each filter is stored as the coefficients of Chebyshev or Jackson-Chebyshev polynomial approximations. In order to minimize the error caused by approximated filtering, we try to set the band ends between the spectral gaps. There are four steps toward building a filter bank, which are detailed below.
+In this section, we construct a scalable $M$-channel critically sampled filter bank. The ideal filter bank design requires expensive full eigendecompositions, which takes $\Theta(N^3)$ operations with regard to the size of the graph. In order to circumvent these expensive computations, we approximate the spectral density function of the graph Laplacian and then adopt it to approximate the number of eigenvalues in each band and to properly design the the filter bank. The filters are then applied using the polynomial approximation methods discussed in \cite{hammond2011wavelets, shuman_DCOSS_2011}. 
 
 \subsection{Approximate Spectral Density Function}
 
-Various methods have been proposed by past literature to approximate the distributions of eigenvalues. \cite{hammond2011wavelets,shuman_DCOSS_2011} uses the diagonal decomposition of shfited spectrum to count the number of eigenvalues in the shifted band. {\color{red}TODO: add more sources}
+Various methods have been proposed by past literature to approximate the spectral density functions, including the spectrum-based warping function method \cite{hammond2011wavelets,shuman_DCOSS_2011} and the trace approximation method \cite{approximating spectral densities of large matrices}, which we will use in our implementation. We give a brief overview of this method in this section.
 
-In our implementation,  we use the trace approximation method developed in \cite{approximating spectral densities of large matrices}. Given a filter $\hat{g}(\cdot)$, we notice that $\hat{g}(\La)$ is a diagonal matrix, where $\hat{g}(\La)_{i,i} = 1$ if the $i$th eigenvalues is covered by the filter and $\hat{g}(\La)_{i,i} = 0$ otherwise. By computing the trace of $\hat{g}(\La)$, which is the sum of the diagonal, we can obtain the number of eigenvalues in the band specified by $\hat{g}(\cdot)$. This method is of $\Theta(N)$ time complexity.
-In practice, the trace can be approximated using the following fact:
-\begin{align*}
-tr(\hat{g}(\La)) &= E[r^T\hat{g}(\La)r] \\
-&\propto \frac{1}{I}\sum_{i =1}^{I} (r^{i})^T\hat{g}(\La)r^{i}\\
-\end{align*}
+Given a filter $\hat{g}(\cdot)$, we notice that $\hat{g}(\La)$ is a diagonal matrix, where $\hat{g}(\La)_{i,i} = 1$ if the $i$th eigenvalues is covered by the filter and $\hat{g}(\La)_{i,i} = 0$, otherwise. By computing the trace of $\hat{g}(\La)$, which is the sum of the diagonal, we can obtain the number of eigenvalues in the band specified by $\hat{g}(\cdot)$. This method scales linearly with regard to the size of the graphof $\Theta(N)$ time complexity. In practice, the trace can be approximated using the following fact:
+
+$$tr(\hat{g}(\La)) = E[r^T\hat{g}(\La)r] \propto \frac{1}{I}\sum_{i =1}^{I} (r^{i})^T\hat{g}(\La)r^{i}$$
 
 
-\subsection{Approximate Filtering}
+\subsection{Fast Filtering}
 
-When selecting the band ends for each of the $M$ ideal filters, we consider two factors: spectrum-adaptation and band spacing method. In our implementation, the filter bank can be either spectrum-adapted or not, and it can be either evenly spaced or logarithmic spaced. With the approximated CDF $F$and PDF $p$ of Laplacian eigenvalues, we can set band ends according to these two parameters. All four possibilities are illustrated in the figure below:
+Recall that $\hat{g}(\cdot)$ filters a signal $f$ by $\hat{g}(\La) f = U\hat{g}(\Lambda)U*f$, where $\hat{g}(\Lambda) = (\hat{g}(\lambda_1), \cdots, \hat{g}(\lambda_n))^T.$  To avoid the computation of $U$ and $\Lambda$ in the filtering process, one common approach is to approximate the exact filter $\hat{g}(\cdot)$ by a polynomial function:
+
+$$\hat{g} = \sum_{k = 0}^{\infty} c_kT_k$$
+
+In our implementation, we allow two different polynoial approximation methods: Chebyshev or Jackson-Chebyshev approximations. For example, the truncated Chebyshev polynomial approximation can be represented as 
+
+$$\hat{g}(\La)f = \frac{1}{2}c_0f + \sum_{k=1}^{\infty} c_k \bar{T}_k(\La)f \propto \frac{1}{2}c_0f + \sum_{k=1}^{K} c_k \bar{T}_k(\La)f$$ and each $\bar{T}_k(\La)f$ can be efficiently computed recursively from $\bar{T}_{k-1}(\La)f$ and $\bar{T}_{k-2}(\La)f$. We direct readers to \cite{Druskin and Knizhnerman} for more information on polynomial approximation and \cite{fast filtering} for more fast filtering techniques.
+
+
+For the scalable filter bank, instead of storing the exact filters, we store the coefficients of Chebyshev or Jackson-Chebyshev polynomial approximations and the filter will be applied to any given signal accordingly.  \cite{shuman2013spectrum}.
+
+
+\subsubsection{Adjust Band Ends to Minimize Approximation Error}
+When selecting the band ends for each of the $M$ ideal filters, we consider two factors: spectrum-adaptation and band spacing method. In our implementation, the filter bank can be either spectrum-adapted or not, and it can be either evenly spaced or logarithmic spaced. All four possibilities are illustrated in the figure below:
 
 \begin{figure}[h]
 \centering
@@ -158,24 +168,13 @@ When selecting the band ends for each of the $M$ ideal filters, we consider two 
 \caption{(a) is a spectrum-adapted and logarithmic spaced filter bank of 5 filters. Notice that this filter bank takes the density of Laplacian eigenvalues into account. The 4th filter covers half of the eigenvalues, the 3rd filter covers 1/4 of the eigenvalues, and each of the first two filters covers 1/8 of the eigenvalues.(b) stands for a spectrum-adapted but evenly spaced filter bank. Each of the five filters covers approximately the same number of eigenvalues. (c) and (d) are not spectrum-adapted. Notice that in this case the band ends only depend on the width of the spectrum.}
 \end{figure}
 
-Instead of storing the exact filters in Figure 1, we store the coefficients of Chebyshev and Jackson-Chebyshev polynomial approximations\cite{ShumanSIPN2018} and those coefficients will be applied to filter any given signal  \cite{shuman2013spectrum}.
+Without a full knowlewdge of the spectrum of the graph Laplacian, we cannot pick the band ends the way as we do for ideal filter banks. While satisfying the spectrum-adaptation and spacing requirements, we shift our initial choices of band ends in a small interval in order to reduce the resulting reconstruction error.
 
+Consider the exact filter $\hat{g}$ and the polynomial approximated filter $\hat{h}(\La)$. If $K$ is the order of the polynomial approximation, the filtering error is 
+$$||\hat{g}(\La) - \hat{h}(\La)|| = \text{max}_{l = 0,\cdots,n} |g(\lambda_l) - h(\lambda_l)| \leq \text{sup}_{\lambda \in [0, \lambda_{max}]} |g(\lambda) - h(\lambda)| = \Omega(\rho^{-K})$$
+Notice that for Chebyshev and Jackson-Chebyshev approximations, the filtering error is always clustered around band boundaries. If the boundaries are set in spectral gaps, i.e. there are no or very few eigenvalues around it, the approximated filters will not affect the filtering accuracy too much, thus leading to a small reconstruction error. 
 
-\subsubsection{Adjust Band Ends to Minimize Approximation Error}
-
-
-Our approach intends to spot spectral gaps and set the bands ends in the spectral gaps. The intuition behind this approach is to cluster the error around boundaries. If the boundaries are in spectral gaps, i.e. there are no eigenvalues around it, the error will not affect the approximated filters.
-TODO: add in theory
-
-We use two examples to illustrate the usefulness of this idea:
-
-1. ideal filter
-2. approximated
-3. in spectral gap
-4. not in spectral gap\\
-
-
-Let the $s$ be the width of the gap. We intend to find $x$ such that $F(s+x)F-(x)$ is minimized. That is, we want to minimized the probability of eigenvalues existing in the interval $[x, x+s]$.
+Our approach to locate the spectral gaps is simply to find the minimum of the probability distribution of Laplacian eigenvalues over a specified interval. Let the $w$ be the width of the adjustment interval. For an initial choice of the band end $m \in [\tau, \tau+w]$, we intend to find $\tau$ such that the cumulative density function $F(\tau+w)-F(w)$ is minimized. That is, we want to minimize the probability of eigenvalues existing in the interval $[\tau, \tau+w]$. When $w$ is small, it is equivalent to find the $\tau$ such that the probability distribution of the Laplacian eigenvalues $p(\tau)$ is minimized.
 
 
 
@@ -227,21 +226,12 @@ provided that \[m \geq \frac{3}{\delta^2}\vv^k_{\bm{p}}\log(\frac{2k}{\epsilon})
 \end{thm}
 
 
-
-
-
 {\color{blue}
 \section{Illustrative Examples II: Approximate Calculations}
 \begin{itemize}
 \item Make sure to have some very large examples and show computation times
 \end{itemize}
 }
-
-
-
-
-
-
 
 
 
