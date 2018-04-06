@@ -26,6 +26,7 @@ f = signal;
 param.vertex_size=100;
 figure;
 gsp_plot_signal(G,signal,param);
+caxis([-2.5,2.5]);
 view(0,90)
 title('Signal in the Vertex Domain');
 
@@ -45,6 +46,7 @@ param.compute_full_eigen = 0;
 num_bands = 5;
 param.band_structure = 0;
 param.plot_filters = 1;
+param.spectrum_adapted=0;
 param.plot_density_functions = 1;
 
 % downsampling
@@ -118,7 +120,6 @@ if param.plot_density_functions
     xlabel('$\lambda$','Interpreter','LaTex','FontSize',24) 
 end
 
-
 % mcsfb_create_downsampling_sets
 % Choose downsampling sets (either randomly or deterministically, depending
 % on whether you have U; pass G and filter cell to this function). Output
@@ -166,8 +167,24 @@ end
 
 param.shifted_ends = shifted_ends;
 param.jackson = 1;
+param.order=80;
 
-analysis_coeffs = mcsfb_analysis(G, f, filter_bank, downsampling_sets, param);
+[analysis_coeffs,filter_coeffs] = mcsfb_analysis(G, f, filter_bank, downsampling_sets, param);
+
+if param.plot_filters
+   approx_filters=cell(num_bands,1);
+   xx=0:.001:G.lmax;
+   filter_sum=zeros(size(xx));
+   for i=1:num_bands
+       approx_filters{i}=@(x) gsp_cheby_eval(x,filter_coeffs(:,i),[0,G.lmax]);
+       filter_sum=filter_sum+approx_filters{i}(xx);
+   end
+   plot_param.show_sum=1;
+   gsp_plot_filter(G,approx_filters,plot_param);
+   hold on;
+   plot(xx,filter_sum,'r:','LineWidth',3);   
+   title('Approximate Filters');
+end
 
 % plot coeffs by channel
 if param.plot_analysis_coeffs
@@ -218,23 +235,33 @@ view(0,90)
 title('Reconstruction Error');
 
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% % Dictionary atom
-% % exact_downsampling_partition
-% 
-% dict=zeros(G.N);
-% for i=1:G.N
-%     del=gsp_delta(G,i);
-%     analysis_coeffs = mcsfb_analysis(G, del, filter_bank, downsampling_sets, param);
-%     dict(i,:)=sum(analysis_coeffs)';
-% end
-% 
-% atom_norms=sqrt(sum(dict.*dict,1))
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dictionary atom
+% exact_downsampling_partition
+
+total_samples=length(vertcat(downsampling_sets{:}));
+dict=zeros(G.N,total_samples);
+for i=1:G.N
+    del=gsp_delta(G,i);
+    analysis_coeffs = mcsfb_analysis(G, del, filter_bank, downsampling_sets, param);
+    dict(i,:)=vertcat(analysis_coeffs{:}); %sum(analysis_coeffs)';
+end
+
+atom_norms=sqrt(sum(dict.*dict,1))
+G=gsp_compute_fourier_basis(G);
+figure;
+imagesc(G.U'*dict);
+colorbar;
+caxis([-.05,.05])
+
+figure;
+gsp_plot_signal_spectral(G,gsp_gft(G,dict(:,250)));
+
 % normalized_dict=dict*diag(1./atom_norms);
 % [~,ind]=sort(p,'ascend');
 % sorted_dict=dict(:,ind);
 % sorted_norm_dict=normalized_dict(:,ind);
-% 
+
 % 
 % % localization in graph Fourier domain? Yes
 % figure;
