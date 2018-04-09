@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  6 APR 2018 12:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  9 APR 2018 10:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -95,24 +95,78 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen111
 \Gm@dimlist=\toks20
 )
+(/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/grffile.sty
+Package: grffile 2016/05/16 v1.17 Extended file name support for graphics (HO)
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2016/05/10 v0.21 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2016/05/09 v1.0r Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/01/02 v1.10 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 96.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+\Gread@gobject=\count92
+))
+Package grffile Info: Option `multidot' is set to `true'.
+Package grffile Info: Option `extendedchars' is set to `false'.
+Package grffile Info: Option `space' is set to `true'.
+)
 (/usr/local/texlive/2016/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count92
+\lst@mode=\count93
 \lst@gtempboxa=\box26
 \lst@token=\toks21
-\lst@length=\count93
+\lst@length=\count94
 \lst@currlwidth=\dimen112
-\lst@column=\count94
-\lst@pos=\count95
+\lst@column=\count95
+\lst@pos=\count96
 \lst@lostspace=\dimen113
 \lst@width=\dimen114
-\lst@newlines=\count96
-\lst@lineno=\count97
+\lst@newlines=\count97
+\lst@lineno=\count98
 \lst@maxwidth=\dimen115
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
-\c@lstnumber=\count98
-\lst@skipnumbers=\count99
+\c@lstnumber=\count99
+\lst@skipnumbers=\count100
 \lst@framebox=\box27
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/listings/listings.cfg
@@ -126,7 +180,7 @@ nment
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count100
+\c@float@type=\count101
 \float@exts=\toks22
 \float@box=\box28
 \@float@everytoks=\toks23
@@ -136,7 +190,7 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \@float@every@algorithm=\toks24
-\c@algorithm=\count101
+\c@algorithm=\count102
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
 Package: algpseudocode 
@@ -145,15 +199,15 @@ Package: algpseudocode
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count102
-\c@ALG@rem=\count103
-\c@ALG@nested=\count104
+\c@ALG@line=\count103
+\c@ALG@rem=\count104
+\c@ALG@nested=\count105
 \ALG@tlm=\skip43
 \ALG@thistlm=\skip44
-\c@ALG@Lnr=\count105
-\c@ALG@blocknr=\count106
-\c@ALG@storecount=\count107
-\c@ALG@tmpcounter=\count108
+\c@ALG@Lnr=\count106
+\c@ALG@blocknr=\count107
+\c@ALG@storecount=\count108
+\c@ALG@tmpcounter=\count109
 \ALG@tmplength=\skip45
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
@@ -177,13 +231,13 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count109
+\inf@bad=\count110
 LaTeX Info: Redefining \frac on input line 199.
-\uproot@=\count110
-\leftroot@=\count111
+\uproot@=\count111
+\leftroot@=\count112
 LaTeX Info: Redefining \overline on input line 297.
-\classnum@=\count112
-\DOTSCASE@=\count113
+\classnum@=\count113
+\DOTSCASE@=\count114
 LaTeX Info: Redefining \ldots on input line 394.
 LaTeX Info: Redefining \dots on input line 397.
 LaTeX Info: Redefining \cdots on input line 518.
@@ -192,15 +246,15 @@ LaTeX Info: Redefining \cdots on input line 518.
 \big@size=\dimen118
 LaTeX Font Info:    Redeclaring font encoding OML on input line 634.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 635.
-\macc@depth=\count114
-\c@MaxMatrixCols=\count115
+\macc@depth=\count115
+\c@MaxMatrixCols=\count116
 \dotsspace@=\muskip10
-\c@parentequation=\count116
-\dspbrk@lvl=\count117
+\c@parentequation=\count117
+\dspbrk@lvl=\count118
 \tag@help=\toks26
-\row@=\count118
-\column@=\count119
-\maxfields@=\count120
+\row@=\count119
+\column@=\count120
+\maxfields@=\count121
 \andhelp@=\toks27
 \eqnshift@=\dimen119
 \alignsep@=\dimen120
@@ -251,29 +305,6 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 ))
 (/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
-
-(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2016/05/09 v1.0r Standard LaTeX Graphics (DPC,SPQR)
-
-(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
-)
-(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
-File: graphics.cfg 2016/01/02 v1.10 sample graphics configuration
-)
-Package graphics Info: Driver file: pdftex.def on input line 96.
-
-(/usr/local/texlive/2016/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
-)
-(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
-)
-\Gread@gobject=\count121
-))
 \Gin@req@height=\dimen125
 \Gin@req@width=\dimen126
 )
@@ -612,24 +643,14 @@ Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
 Package hobsub Info: Skipping package `infwarerr' (already loaded).
 Package hobsub Info: Skipping package `ltxcmds' (already loaded).
-Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
+Package hobsub Info: Skipping package `ifluatex' (already loaded).
 Package hobsub Info: Skipping package `ifvtex' (already loaded).
 Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
 Package hobsub Info: Skipping package `ifpdf' (already loaded).
-Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+Package hobsub Info: Skipping package `etexcmds' (already loaded).
+Package hobsub Info: Skipping package `kvsetkeys' (already loaded).
 Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
-Package: pdftexcmds 2016/05/10 v0.21 Utility functions of pdfTeX for LuaTeX (HO
-)
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
+Package hobsub Info: Skipping package `pdftexcmds' (already loaded).
 Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
 Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
 )
@@ -648,9 +669,6 @@ Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/auxhook.sty
 Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
-)
-(/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
 \@linkdim=\dimen175
 \Hy@linkcounter=\count146
@@ -714,20 +732,20 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 (./write-up.aux)
 \openout1 = `write-up.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
@@ -765,19 +783,18 @@ File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@lstlisting=\count156
 (/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count157
+\scratchcounter=\count156
 \scratchdimen=\dimen179
 \scratchbox=\box43
-\nofMPsegments=\count158
-\nofMParguments=\count159
+\nofMPsegments=\count157
+\nofMParguments=\count158
 \everyMPshowfont=\toks50
-\MPscratchCnt=\count160
+\MPscratchCnt=\count159
 \MPscratchDim=\dimen180
-\MPnumerator=\count161
-\makeMPintoPDFobject=\count162
+\MPnumerator=\count160
+\makeMPintoPDFobject=\count161
 \everyMPtoPDFconversion=\toks51
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -794,9 +811,12 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+Package grffile Info: \Gin@ii of package `graphicx' fixed on input line 42.
+\c@lstlisting=\count162
+
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box44
-Package hyperref Info: Link coloring ON on input line 41.
+Package hyperref Info: Link coloring ON on input line 42.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -806,25 +826,25 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count163
 )
-LaTeX Info: Redefining \ref on input line 41.
-LaTeX Info: Redefining \pageref on input line 41.
-LaTeX Info: Redefining \nameref on input line 41.
+LaTeX Info: Redefining \ref on input line 42.
+LaTeX Info: Redefining \pageref on input line 42.
+LaTeX Info: Redefining \nameref on input line 42.
 
 (./write-up.out) (./write-up.out)
 \@outlinefile=\write4
 \openout4 = `write-up.out'.
 
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 43.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 44.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 43.
+LaTeX Font Info:    Try loading font information for U+msa on input line 44.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 43.
+LaTeX Font Info:    Try loading font information for U+msb on input line 44.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -838,95 +858,129 @@ LaTeX Warning: No \author given.
 [2] [3]
 
 LaTeX Warning: Citation `hammond2011wavelets' on page 4 undefined on input line
- 131.
+ 132.
 
 
 LaTeX Warning: Citation `shuman_DCOSS_2011' on page 4 undefined on input line 1
-31.
+32.
 
 
 LaTeX Warning: Citation `hammond2011wavelets' on page 4 undefined on input line
- 135.
+ 136.
 
 
 LaTeX Warning: Citation `shuman_DCOSS_2011' on page 4 undefined on input line 1
-35.
+36.
 
 
 LaTeX Warning: Citation `approximating spectral densities of large matrices' on
- page 4 undefined on input line 135.
+ page 4 undefined on input line 136.
+
+[4]
+
+LaTeX Warning: Citation `shuman2013spectrum' on page 5 undefined on input line 
+158.
 
 
-LaTeX Warning: Citation `Druskin and Knizhnerman' on page 4 undefined on input 
-line 150.
+LaTeX Warning: Citation `Druskin and Knizhnerman' on page 5 undefined on input 
+line 158.
 
 
-LaTeX Warning: Citation `fast filtering' on page 4 undefined on input line 150.
+LaTeX Warning: Citation `fast filtering' on page 5 undefined on input line 158.
 
 
+<ideal filter bank sensor.pdf, id=89, 562.1pt x 421.575pt>
+File: ideal filter bank sensor.pdf Graphic file (type pdf)
 
-LaTeX Warning: Citation `shuman2013spectrum' on page 4 undefined on input line 
-153.
+<use ideal filter bank sensor.pdf>
+Package pdftex.def Info: ideal filter bank sensor.pdf used on input line 162.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
 
-[4] <filter_bank_1.jpg, id=89, 2176.13pt x 1218.5525pt>
-File: filter_bank_1.jpg Graphic file (type jpg)
+<approx filter bank sensor.pdf, id=90, 562.1pt x 421.575pt>
+File: approx filter bank sensor.pdf Graphic file (type pdf)
 
-<use filter_bank_1.jpg>
-Package pdftex.def Info: filter_bank_1.jpg used on input line 161.
-(pdftex.def)             Requested size: 142.26378pt x 79.65494pt.
- <filter_bank_2.jpg, id=90, 2176.13pt x 1218.5525pt>
-File: filter_bank_2.jpg Graphic file (type jpg)
+<use approx filter bank sensor.pdf>
+Package pdftex.def Info: approx filter bank sensor.pdf used on input line 163.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
 
-<use filter_bank_2.jpg>
-Package pdftex.def Info: filter_bank_2.jpg used on input line 162.
-(pdftex.def)             Requested size: 142.26378pt x 79.65494pt.
- <filter_bank_4.jpg, id=91, 2176.13pt x 1218.5525pt>
-File: filter_bank_4.jpg Graphic file (type jpg)
+<ideal filter bank net25.pdf, id=91, 562.1pt x 421.575pt>
+File: ideal filter bank net25.pdf Graphic file (type pdf)
 
-<use filter_bank_4.jpg>
-Package pdftex.def Info: filter_bank_4.jpg used on input line 164.
-(pdftex.def)             Requested size: 142.26378pt x 79.65494pt.
- <filter_bank_3.jpg, id=92, 2176.13pt x 1218.5525pt>
-File: filter_bank_3.jpg Graphic file (type jpg)
+<use ideal filter bank net25.pdf>
+Package pdftex.def Info: ideal filter bank net25.pdf used on input line 165.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
 
-<use filter_bank_3.jpg>
-Package pdftex.def Info: filter_bank_3.jpg used on input line 165.
-(pdftex.def)             Requested size: 142.26378pt x 79.65494pt.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 184.
+<approx filter bank net25.pdf, id=92, 562.1pt x 421.575pt>
+File: approx filter bank net25.pdf Graphic file (type pdf)
+
+<use approx filter bank net25.pdf>
+Package pdftex.def Info: approx filter bank net25.pdf used on input line 166.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
+ <cdf.pdf, id=93, 562.1pt x 421.575pt>
+File: cdf.pdf Graphic file (type pdf)
+
+<use cdf.pdf>
+Package pdftex.def Info: cdf.pdf used on input line 186.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
+ <original filter bank.pdf, id=94, 562.1pt x 421.575pt>
+File: original filter bank.pdf Graphic file (type pdf)
+
+<use original filter bank.pdf>
+Package pdftex.def Info: original filter bank.pdf used on input line 187.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
+ <shifted ends.pdf, id=95, 562.1pt x 421.575pt>
+File: shifted ends.pdf Graphic file (type pdf)
+
+<use shifted ends.pdf>
+Package pdftex.def Info: shifted ends.pdf used on input line 189.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
+ <updated filter bank.pdf, id=96, 562.1pt x 421.575pt>
+File: updated filter bank.pdf Graphic file (type pdf)
+
+<use updated filter bank.pdf>
+Package pdftex.def Info: updated filter bank.pdf used on input line 190.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
+ [5 <./ideal filter bank sensor.pdf> <./approx filter bank sensor.pdf> <./ideal
+ filter bank net25.pdf> <./approx filter bank net25.pdf>]
+
+LaTeX Warning: Citation `random sampling' on page 6 undefined on input line 216
+.
 
 
-(/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
+LaTeX Warning: Citation `puy' on page 6 undefined on input line 222.
+
+[6 <./cdf.pdf> <./original filter bank.pdf> <./shifted ends.pdf> <./updated fil
+ter bank.pdf>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 262.
+
+ (/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 184.
- [5 <./filter_bank_1.jpg> <./filter_bank_2.jpg> <./filter_bank_4.jpg> <./filter
-_bank_3.jpg>]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 262.
 
-LaTeX Warning: Citation `puy' on page 6 undefined on input line 192.
-
-[6]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 242.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 242.
+[7]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 272.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 272.
  (./write-up.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 242.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 242.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 272.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 272.
 Package rerunfilecheck Info: File `write-up.out' has not changed.
-(rerunfilecheck)             Checksum: 5BAADCF19D06B3F6F9FA4C03ECBD59E2;695.
+(rerunfilecheck)             Checksum: E830475ED0130B1F5BB87DE51BF07411;692.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 242.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 272.
  ) 
 Here is how much of TeX's memory you used:
- 19734 strings out of 493014
- 355806 string characters out of 6133351
- 444225 words of memory out of 5000000
- 22843 multiletter control sequences out of 15000+600000
+ 19821 strings out of 493014
+ 358225 string characters out of 6133351
+ 445685 words of memory out of 5000000
+ 22919 multiletter control sequences out of 15000+600000
  25153 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,9n,56p,1120b,397s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,9n,56p,1120b,487s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy7.
 pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.p
@@ -950,10 +1004,10 @@ exlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/tex
 live/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texli
 ve/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive
 /2016/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on write-up.pdf (6 pages, 612979 bytes).
+Output written on write-up.pdf (7 pages, 402173 bytes).
 PDF statistics:
- 191 PDF objects out of 1000 (max. 8388607)
- 155 compressed objects within 2 object streams
- 29 named destinations out of 1000 (max. 500000)
- 121 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 276 PDF objects out of 1000 (max. 8388607)
+ 218 compressed objects within 3 object streams
+ 31 named destinations out of 1000 (max. 500000)
+ 141 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -84,10 +84,7 @@ end
 % plot cdf, pdf, eigenvalues, band_ends
 if param.plot_density_functions
     if ~isfield(G,'spectrum_cdf_approx')
-        %G=gsp_spectrum_cdf_approx(G);
-        step = G.lmax/G.N/2;
-        param.pts = 0:0.5:G.lmax;
-        [G.spectrum_cdf_approx, cdf_vals]= spectral_cdf_approx(G, param);
+        [G, cdf_vals]= spectral_cdf_approx(G, param);
     end
 
     if ~isfield(G,'spectrum_pdf_approx')
@@ -176,7 +173,7 @@ if param.plot_filters
    xx=0:.001:G.lmax;
    filter_sum=zeros(size(xx));
    for i=1:num_bands
-       approx_filters{i}=@(x) gsp_cheby_eval(x,filter_coeffs(:,i),[0,G.lmax]);
+       approx_filters{i}=@(x) gsp_jackson_cheby_eval(x,filter_coeffs(:,i),[0,G.lmax]);
        filter_sum=filter_sum+approx_filters{i}(xx);
    end
    plot_param.show_sum=1;

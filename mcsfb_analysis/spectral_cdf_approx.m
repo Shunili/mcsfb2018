@@ -1,4 +1,8 @@
-function [ cdf_approx, vals ] = spectral_cdf_approx( G , param)
+function [ G, vals ] = spectral_cdf_approx( G , param)
+
+if ~isfield(G,'lmax')
+    G=gsp_estimate_lmax(G);
+end
 
 if ~isfield(param, 'order')
     param.order = 30;
@@ -17,9 +21,6 @@ if ~isfield(param, 'num_pts')
     param.num_pts = length(param.pts);
 end
 
-if ~isfield(G,'lmax')
-    G=gsp_estimate_lmax(G);
-end
 
 % replace num_pts by actual pts, currently using linear spacing
 % put in one more parameter, actual pts
@@ -49,7 +50,7 @@ vals=vals/G.N;
 if(vals(1)>vals(2))
     vals(1)=vals(2);
 end
-cdf_approx = @(s) gsp_mono_cubic_warp_fn(param.pts',vals,s);
+G.spectrum_cdf_approx = @(s) gsp_mono_cubic_warp_fn(param.pts',vals,s);
 
 end
 

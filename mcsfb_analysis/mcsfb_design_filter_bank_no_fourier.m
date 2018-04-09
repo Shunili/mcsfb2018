@@ -11,7 +11,7 @@ end
 %         step = G.lmax/G.N/2;
 %         param.pts = 0:step:G.lmax;
 %         param.pts = 0:0.1:G.lmax;
-        [G.spectrum_cdf_approx, ~]= spectral_cdf_approx(G, param);
+        [G, ~]= spectral_cdf_approx(G, param);
   end
 
 if ~isfield(G,'spectrum_pdf_approx')
@@ -73,7 +73,7 @@ else %search in the interval
 %     shifted_ends(k) = (min_idx+low_idx-1+min_idx+low_idx)*step/2;
 
     for k = 2:num_bands
-        bandwidth = min((band_ends(k)-band_ends(k-1))/2, (band_ends(k+1)-band_ends(k))/2); 
+        bandwidth = max((band_ends(k)-band_ends(k-1))/2, (band_ends(k+1)-band_ends(k))/2); 
         shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,band_ends(k)-bandwidth, band_ends(k)+bandwidth);
     end
 

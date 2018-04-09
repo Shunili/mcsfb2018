@@ -33,11 +33,10 @@ if gsp_check_fourier(G)
                 idx = floor(G.N*(1/2)^k);
                 shifted_ends(num_bands-k+1) = (G.e(idx)+G.e(idx+1))/2;
             end
-            shifted_ends(1) = -1;
+            shifted_ends(1) = 0;
             shifted_ends(num_bands+1) = G.lmax+1;
-
             for l = 1:num_bands
-                filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x < shifted_ends(l+1)));
+                filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
             end
         else
             % 2.spectrum_adapted = 0; spacing = even; check_fourier=1;
@@ -86,7 +85,7 @@ else
         %step = G.lmax/G.N/2;
         %param.pts = 0:step:G.lmax;
         %param.pts = 0:0.001:G.lmax;
-        [G.spectrum_cdf_approx, ~] = spectral_cdf_approx(G, param);
+        [G, ~] = spectral_cdf_approx(G, param);
        
     end
             
