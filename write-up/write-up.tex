@@ -159,11 +159,8 @@ For the scalable filter bank, instead of storing the exact filters, we store the
  
  \begin{figure}[h]
  \centering
- \includegraphics[width = 5cm]{ideal filter bank sensor.pdf}
- \includegraphics[width = 5cm]{approx filter bank sensor.pdf}
- 
- \includegraphics[width = 5cm]{ideal filter bank net25.pdf}
- \includegraphics[width = 5cm]{approx filter bank net25.pdf}
+ \includegraphics[width = 5cm]{approx filter sensor.pdf}
+ \includegraphics[width = 5cm]{approx filter net25.pdf}
  
  \caption{The first two examples are ideal and approximated filter banks for a more evenly distributed spectrum. The other two examples are for a graph with noticeable spectral gaps.}
  \end{figure}
@@ -186,7 +183,7 @@ Our approach to locate the spectral gaps is simply to find the minimum of the pr
 \includegraphics[width = 5cm]{cdf.pdf}
 \includegraphics[width = 5cm]{original filter bank.pdf}
 
-\includegraphics[width = 5cm]{shifted ends.pdf}
+\includegraphics[width = 5cm]{pdf.pdf}
 \includegraphics[width = 5cm]{updated filter bank.pdf}
 
 \caption{(a) shows the initial band end choices for a a spectrum-adapted and logarithmic spaced filter bank of 3 filters. (b) is the approximated filter bank based on the initial choices. In (c), the green dots indicate the shifted band ends and (d) is the update filter bank.}
@@ -215,7 +212,7 @@ Our approach to locate the spectral gaps is simply to find the minimum of the pr
 
 In this section, we select the dowmsampling sets using the non-uniform random sampling method and reconstruction the original signal from samples based on the the decoder derived from the sampling distribution. This method is first studied in \cite{random sampling} only for bandlimited signals. We extend this idea to all $\R$-concentrated signal models.
 
-First, we need to determine the number of samples needed for each band in order to ensure critically sampling and perfect reconstruction. It has been shown in \cite{} \cite{} that any signal whose graph Fourier transform has exactly $k$ non-zero coefficients can be perfectly recovered from samples of that signal on $k$ appropriately selected vertices. That is, the number of samples needed equals the number of eigenvalues covered in the band. We use the spectral density function estimated in the previous section to approximate the number of eigenvalues in each band.
+First, we need to determine the number of samples needed for each band in order to ensure critically sampling and perfect reconstruction. It has been shown in \cite{} \cite{} that any signal whose graph Fourier transform has exactly $k$ non-zero coefficients can be perfectly recovered from samples of that signal on $k$ appropriately selected vertices. That is, the number of samples needed equals the number of eigenvalues covered in the band. We use the spectral density function estimated in the previous section to approximate the number of eigenvalues in each band. TODO: force the number of samples in the last band. Or use the overcomplete transform 
 
 The goal of the non-uniform random sampling method is to minimizes the graph weighted coherence by imposing a sampling distribution on graph vertices. Graph weighted coherence is a quantity that measures of the localization of some Fourier modes on the nodes of the graph.The probability of node $i$ being selected is $p_i\propto ||U_{\R}^T\delta_i||_2$, which characterizes how much energy of $\delta_i$ is concentrated on the Fourier modes covered in $U_{\R}$. When this quantity is large, we would want high probability of selecting this node since there exists $\R$-concentrated signals whose energy is solely concentrated at the $i$th node. Including this node in our sample will increase our chance of perfect reconstruction later.
 
