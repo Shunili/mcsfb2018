@@ -19,7 +19,7 @@ end
 filter_bank=cell(num_bands,1);
 shifted_ends = zeros(num_bands+1,1);
 shifted_ends(1) = 0;
-shifted_ends(num_bands+1) = G.lmax;
+shifted_ends(num_bands+1) = G.lmax+1;
 
 band_ends = zeros(num_bands+1,1);
 band_ends(1) = 0;
@@ -33,8 +33,7 @@ if gsp_check_fourier(G)
                 idx = floor(G.N*(1/2)^k);
                 shifted_ends(num_bands-k+1) = (G.e(idx)+G.e(idx+1))/2;
             end
-            shifted_ends(1) = 0;
-            shifted_ends(num_bands+1) = G.lmax+1;
+            
             for l = 1:num_bands
                 filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
             end
@@ -55,7 +54,7 @@ if gsp_check_fourier(G)
             % 3. spectrum_adapted=1; spacing = even; check_fourier=1
             for k = 1:num_bands-1   
                 idx = floor(G.N/num_bands*k);
-                shifted_ends(k+1) = (G.e(idx)+G.e(idx+1))/2;;
+                shifted_ends(k+1) = (G.e(idx)+G.e(idx+1))/2;
             end
 
             for l = 1:num_bands
@@ -66,7 +65,7 @@ if gsp_check_fourier(G)
             for k = 1:num_bands-1
                 eigen = G.lmax/num_bands*k;
                 [~,idx] = min(abs(G.e-eigen));
-                shifted_ends(k+1) = (G.e(idx)+G.e(idx+1))/2;;
+                shifted_ends(k+1) = (G.e(idx)+G.e(idx+1))/2;
             end
 
             for l = 1:num_bands
@@ -81,20 +80,15 @@ else
 %     band_ends(num_bands+1) =G.lmax;
     
     if ~isfield(G,'spectrum_cdf_approx')
-        %G=gsp_spectrum_cdf_approx(G);
-        %step = G.lmax/G.N/2;
-        %param.pts = 0:step:G.lmax;
-        %param.pts = 0:0.001:G.lmax;
         [G, ~] = spectral_cdf_approx(G, param);
-       
+    end
+    
+    if ~isfield(G,'spectrum_pdf_approx')
+        xx = 0:0.001:G.lmax;
+        delta=.1;
+        G.spectrum_pdf_approx = @(x) (G.spectrum_cdf_approx(x+delta) - G.spectrum_cdf_approx(x-delta)) / (2*delta);% first derivative
     end
             
-    % compute pdf, update this to use the "new spetral cdf function"
-    xx = 0:0.001:G.lmax;
-    delta=.1;
-    G.spectrum_pdf_approx = @(x) (G.spectrum_cdf_approx(x+delta) - G.spectrum_cdf_approx(x-delta)) / (2*delta);% first derivative
-
-    
     if param.spacing 
         if param.spectrum_adapted
             % 5.spectrum_adapted=1; spacing = log; check_fourier=0

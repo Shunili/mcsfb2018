@@ -45,8 +45,8 @@ param.compute_full_eigen = 0;
 % filter bank
 num_bands = 5;
 param.band_structure = 0;
+param.spectrum_adapted=1;
 param.plot_filters = 1;
-param.spectrum_adapted=0;
 param.plot_density_functions = 1;
 
 % downsampling
@@ -74,7 +74,6 @@ end
 
 % plot filters
 if param.plot_filters
-    % add eigenvalues to plots?
     figure;
     plot_param.show_sum=0;
     gsp_plot_filter(G,filter_bank,plot_param);
@@ -88,31 +87,27 @@ if param.plot_density_functions
     end
 
     if ~isfield(G,'spectrum_pdf_approx')
-      % compute pdf
       xx = 0:0.001:G.lmax;
       delta=.001;
       G.spectrum_pdf_approx = @(x) (G.spectrum_cdf_approx(x+delta) - G.spectrum_cdf_approx(x-delta)) / (2*delta);% first derivative
     end
-  
     xx = 0:0.001:G.lmax;
     yy_cdf = G.spectrum_cdf_approx(xx);
     yy_pdf = G.spectrum_pdf_approx(xx);
-    G = gsp_compute_fourier_basis(G);
-
-    figure; hold on;
-    plot(xx, yy_cdf);
-    plot(xx, yy_pdf);
-    for idx = 2 : 6
-        plot([shifted_ends(idx) shifted_ends(idx)], [0 1]);
-    end
+%     
+%     if ~isfield(G,'e')
+%         G = gsp_compute_fourier_basis(G);
+%     end
+    figure; 
+    hold on;
+    plot(xx, yy_cdf,'LineWidth',3);
+    plot(xx, yy_pdf,'LineWidth',3);
+    ylim([0,1]);
     set(gca,'FontSize',24);
     ax = gca;
     ax.YTick = [0 0.5 1];
-    set(gca, 'XTick', [0,G.e',15]);
-    %xTickLabels = cell(1,G.N+2);  % Empty cell array the same length as xAxis
-    %xTickLabels{1} = 0;
-    %xTickLabels{G.N+2}=15;% Fills in only the values you want
-    %set(gca,'XTickLabel',xTickLabels);   % Update the tick labels
+%     ax.XTick = [0,uniqG.e',15];
+%     ax.XTickLabel = [];
     box off;
     xlabel('$\lambda$','Interpreter','LaTex','FontSize',24) 
 end
@@ -173,7 +168,7 @@ if param.plot_filters
    xx=0:.001:G.lmax;
    filter_sum=zeros(size(xx));
    for i=1:num_bands
-       approx_filters{i}=@(x) gsp_jackson_cheby_eval(x,filter_coeffs(:,i),[0,G.lmax]);
+       approx_filters{i}=@(x) gsp_cheby_eval(x,filter_coeffs(:,i),[0,G.lmax]);
        filter_sum=filter_sum+approx_filters{i}(xx);
    end
    plot_param.show_sum=1;
@@ -209,7 +204,6 @@ for i=1:num_bands
     view(0,90)
     title('Reconstruction by Channel');
 end
-
 
 % plot reconstruction
 figure;

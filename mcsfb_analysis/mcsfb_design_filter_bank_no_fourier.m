@@ -6,16 +6,11 @@ if ~isfield(param,'band_structure')
     param.band_structure = 0; %1: minima of cdf; 0: search in the interval
 end
 
-  if ~isfield(G,'spectrum_cdf_approx')
-        %G=gsp_spectrum_cdf_approx(G);
-%         step = G.lmax/G.N/2;
-%         param.pts = 0:step:G.lmax;
-%         param.pts = 0:0.1:G.lmax;
-        [G, ~]= spectral_cdf_approx(G, param);
-  end
+if ~isfield(G,'spectrum_cdf_approx')
+    [G, ~]= spectral_cdf_approx(G, param);
+end
 
 if ~isfield(G,'spectrum_pdf_approx')
-% compute pdf
     xx = 0:0.001:G.lmax;
     delta=.1;
     G.spectrum_pdf_approx = @(x) (G.spectrum_cdf_approx(x+delta) - G.spectrum_cdf_approx(x-delta)) / (2*delta);% first derivative
@@ -50,7 +45,6 @@ if param.band_structure %minima of cdf
     end
 
 else %search in the interval
-    % search the minima in range 
     
 %     step = G.lmax/G.N/2;
 %     cdf_dif = cdf_vals(2:length(cdf_vals)) - cdf_vals(1:(length(cdf_vals)-1));

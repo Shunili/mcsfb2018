@@ -67,7 +67,6 @@ end
 
 % plot filters
 if param.plot_filters
-    % add eigenvalues to plots?
     figure;
     plot_param.show_sum=0;
     gsp_plot_filter(G,filter_bank,plot_param);
@@ -116,7 +115,6 @@ end
 % coefficients; perform filtering and then downsample; return cell; total coefficients should be N)
 % just one function (gsp_filter already does the switching)
 
-
 param.shifted_ends = shifted_ends;
 param.jackson = 1;
 
@@ -132,7 +130,6 @@ if param.plot_analysis_coeffs
         caxis([-max(abs(chan_coeffs)),max(abs(chan_coeffs))]);
     end
 end
-
 
 % mcsfb_sythesis
 [f_reconstruct, reconstruction_banded] = mcsfb_sythesis(G, num_bands, downsampling_sets, f, shifted_ends, weights_banded);
@@ -150,11 +147,6 @@ plot_param.climits = [0, max(error)];
 figure;
 gsp_plot_signal(G, error, plot_param);
 title('Reconstruction Error');
-
-
-
-
-
 
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
