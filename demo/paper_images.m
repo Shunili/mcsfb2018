@@ -60,6 +60,8 @@ A(4228,6327) = 1;
 A(6327,4228) = 1;
 G=gsp_graph(A);
 
+G = gsp_estimate_lmax(G);
+
 shifted_ends(1) = 0;
 shifted_ends(2) = 10;
 shifted_ends(3) = 40;
@@ -68,7 +70,7 @@ shifted_ends(4) = 166.8325;
 for l = 1:3
     filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
 end
-
+num_bands = 3;
 order = 80;
 filter_coeffs = zeros(order+1,num_bands);
 for i=1:num_bands
@@ -133,12 +135,12 @@ G=gsp_compute_fourier_basis(G); % for plotting x ticks
 figure;
 plot(xx, yy_cdf,'k','LineWidth',3);
 hold on;
-scatter(band_ends, [0,1/4,1/2,1],100,'b','filled');
+scatter(band_ends, [0,1/4,1/2,1],100,'x','MarkerFaceColor','b','LineWidth',4);
 a=annotation('line',[0.13,.26],[.535,.535]);
 a.Color='red';
 a.LineStyle=':';
 a.LineWidth=2;
-b=annotation('line',[.275,.275],[.53,.16]);
+b=annotation('line',[.272,.272],[.53,.16]);
 b.Color='red';
 b.LineStyle=':';
 b.LineWidth=2;
@@ -146,10 +148,18 @@ c=annotation('line',[0.13,.21],[.35,.35]);
 c.Color='red';
 c.LineStyle=':';
 c.LineWidth=2;
-d=annotation('line',[.225,.225],[.345,.16]);
+d=annotation('line',[.222,.222],[.345,.16]);
 d.Color='red';
 d.LineStyle=':';
 d.LineWidth=2;
+e=annotation('line',[0.13,0.87],[0.91,0.91]);
+e.Color='red';
+e.LineStyle=':';
+e.LineWidth=2;
+f=annotation('line',[.879,.879],[.91,.16]);
+f.Color='red';
+f.LineStyle=':';
+f.LineWidth=2;
 grid on;
 box on;
 xlim([0,170]);
@@ -237,6 +247,99 @@ xlim([0,G.lmax+1]);
 set(gca,'box','off');
 set(gca, 'YTick', 0:0.5:1);
 xlabel('$\lambda$','Interpreter','LaTex','FontSize',24);
+
+%% Non-uniform Random Sampling
+
+G=gsp_minnesota(1);
+G = gsp_estimate_lmax(G);
+
+up_limit=1.1;
+low_limit=0;
+range=[0,G.lmax];
+h = @(x) (x>=low_limit & x<=up_limit);
+order =80;
+[CH, JCH]=gsp_jackson_cheby_coeff(low_limit, up_limit, range, order);
+approx_h=@(x) gsp_cheby_eval(x,JCH,[0,G.lmax]);
+
+hh = cell(2,1);
+hh{1} = h;
+hh{2} = approx_h;
+
+poly1a=-2*G.coords(:,1)+.5;
+poly2a=G.coords(:,1).^2+G.coords(:,2).^2+.5;
+f=zeros(G.N,1);
+p1=(G.coords(:,2)>=(1-G.coords(:,1))) & (G.coords(:,2)<(1.5-G.coords(:,1)));
+p2=(G.coords(:,2)<(0.6-G.coords(:,1)));
+p3= p1 | p2;
+f(~p3)=poly1a(~p3);
+f(p3)=poly2a(p3);
+y = gsp_filter(G,h,f);
+
+
+figure;
+plot_param.vertex_size=100;
+plot_param.climits = [min(y),max(y)];
+gsp_plot_signal(G,y,plot_param);
+set(gca,'FontSize',24);
+
+figure;
+plot_param.show_sum=0;
+plot_param.plot_eigenvalues = 0;
+plot_param.x_tick = 2;
+gsp_plot_filter(G,hh,plot_param);
+xlabel('$\lambda$','Interpreter','LaTex','FontSize',24) 
+set(gca,'FontSize',24);
+xlim([0,8]);
+set(gca,'box','off');
+set(gca, 'YTick', 0:0.5:1);
+xlabel('$\lambda$','Interpreter','LaTex','FontSize',24);
+
+
+param.order = 80;
+if ~isfield(G,'spectrum_cdf_approx')
+    [G, cdf_vals]= spectral_cdf_approx(G, param);
+end
+
+if ~isfield(G,'spectrum_pdf_approx')
+    xx = 0:0.001:G.lmax;
+    delta=.1;
+    G.spectrum_pdf_approx = @(x) (G.spectrum_cdf_approx(x+delta) - G.spectrum_cdf_approx(x-delta)) / (2*delta);% first derivative
+end
+
+L = ceil(2*log(G.N));
+nb_meas=floor((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
+
+[weights, P_min_half] = compute_sampling_weights(G,L,h);
+
+figure;
+set(gca,'FontSize',24);
+plot_param.climits = [0,max(weights)];
+gsp_plot_signal(G, weights, plot_param);
+% title('\fontsize{30}Sampling Weights');
+
+[M, selected] = build_sampling_matrix(G, weights, nb_meas);
+
+selected_signal=ones(G.N,1);
+selected_signal(selected)=2;
+
+plot_param.climits = [0,2];
+figure;
+plot_param.colorbar = 0;
+set(gca,'FontSize',24);
+gsp_plot_signal(G, selected_signal, plot_param);
+% title('\fontsize{30}Selected Vertices');
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
