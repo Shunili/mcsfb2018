@@ -1,7 +1,16 @@
-function [ f_reconstruct, reconstruction_banded] = mcsfb_sythesis(G, num_bands, downsampling_sets, f_values, shifted_ends, weights)
+function [ f_reconstruct, reconstruction_banded] = mcsfb_sythesis(G, num_bands, downsampling_sets, f_values, shifted_ends, weights, param)
+% add one more input argument: param.order
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
     
+if nargin<7
+   param = struct;
+end
+
+if ~isfield(param,'order')
+    param.order=50;
+end
+
 reconstruction_banded = cell(num_bands, 1);
 f_reconstruct = zeros(G.N, 1);
 

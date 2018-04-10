@@ -135,7 +135,7 @@ G=gsp_compute_fourier_basis(G); % for plotting x ticks
 figure;
 plot(xx, yy_cdf,'k','LineWidth',3);
 hold on;
-scatter(band_ends, [0,1/4,1/2,1],100,'x','MarkerFaceColor','b','LineWidth',4);
+scatter(band_ends, [0,1/4,1/2,1],150,'x','MarkerFaceColor','b','LineWidth',4);
 a=annotation('line',[0.13,.26],[.535,.535]);
 a.Color='red';
 a.LineStyle=':';
@@ -257,13 +257,6 @@ up_limit=1.1;
 low_limit=0;
 range=[0,G.lmax];
 h = @(x) (x>=low_limit & x<=up_limit);
-order =80;
-[CH, JCH]=gsp_jackson_cheby_coeff(low_limit, up_limit, range, order);
-approx_h=@(x) gsp_cheby_eval(x,JCH,[0,G.lmax]);
-
-hh = cell(2,1);
-hh{1} = h;
-hh{2} = approx_h;
 
 poly1a=-2*G.coords(:,1)+.5;
 poly2a=G.coords(:,1).^2+G.coords(:,2).^2+.5;
@@ -281,6 +274,21 @@ plot_param.vertex_size=100;
 plot_param.climits = [min(y),max(y)];
 gsp_plot_signal(G,y,plot_param);
 set(gca,'FontSize',24);
+
+
+up_limit=3;
+low_limit=2;
+range=[0,G.lmax];
+h = @(x) (x>=low_limit & x<=up_limit);
+order =80;
+[CH, JCH]=gsp_jackson_cheby_coeff(low_limit, up_limit, range, order);
+approx_h=@(x) gsp_cheby_eval(x,JCH,[0,G.lmax]);
+
+hh = cell(2,1);
+hh{1} = h;
+hh{2} = approx_h;
+
+
 
 figure;
 plot_param.show_sum=0;
@@ -331,7 +339,7 @@ gsp_plot_signal(G, selected_signal, plot_param);
 
 
 
-
+%% Reconstruction
 
 
 
