@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  10 APR 2018 13:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  11 APR 2018 11:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -928,7 +928,7 @@ Package pdftex.def Info: updated filter bank.pdf used on input line 189.
 (pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 LaTeX Warning: Citation `random sampling' on page 5 undefined on input line 215
@@ -938,66 +938,106 @@ LaTeX Warning: Citation `random sampling' on page 5 undefined on input line 215
 File: signal graph mn.pdf Graphic file (type pdf)
  <use signal graph mn.pdf>
 Package pdftex.def Info: signal graph mn.pdf used on input line 219.
-(pdftex.def)             Requested size: 199.16928pt x 149.3739pt.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
 
 <filter mn.pdf, id=97, 562.1pt x 421.575pt>
 File: filter mn.pdf Graphic file (type pdf)
  <use filter mn.pdf>
 Package pdftex.def Info: filter mn.pdf used on input line 220.
-(pdftex.def)             Requested size: 199.16928pt x 149.3739pt.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
 
 <sampling weights.pdf, id=98, 562.1pt x 421.575pt>
 File: sampling weights.pdf Graphic file (type pdf)
  <use sampling weights.pdf>
 Package pdftex.def Info: sampling weights.pdf used on input line 222.
-(pdftex.def)             Requested size: 199.16928pt x 149.3739pt.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
 
 <selected.pdf, id=99, 562.1pt x 421.575pt>
 File: selected.pdf Graphic file (type pdf)
  <use selected.pdf>
 Package pdftex.def Info: selected.pdf used on input line 223.
-(pdftex.def)             Requested size: 199.16928pt x 149.3739pt.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[5 <./approx filter sensor.pdf> <./approx filter net25.pdf>]
+<signal graph mn midpass.pdf, id=100, 562.1pt x 421.575pt>
+File: signal graph mn midpass.pdf Graphic file (type pdf)
 
-LaTeX Warning: Citation `puy' on page 6 undefined on input line 230.
+<use signal graph mn midpass.pdf>
+Package pdftex.def Info: signal graph mn midpass.pdf used on input line 229.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
 
-[6 <./cdf.pdf> <./original filter bank.pdf> <./pdf.pdf> <./updated filter bank.
-pdf>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 272.
+<midpass filter mn.pdf, id=101, 562.1pt x 421.575pt>
+File: midpass filter mn.pdf Graphic file (type pdf)
 
- (/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
+<use midpass filter mn.pdf>
+Package pdftex.def Info: midpass filter mn.pdf used on input line 230.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
+
+<sampling weights midpass.pdf, id=102, 562.1pt x 421.575pt>
+File: sampling weights midpass.pdf Graphic file (type pdf)
+
+<use sampling weights midpass.pdf>
+Package pdftex.def Info: sampling weights midpass.pdf used on input line 232.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
+
+<selected midpass.pdf, id=103, 562.1pt x 421.575pt>
+File: selected midpass.pdf Graphic file (type pdf)
+ <use selected midpass.pdf>
+Package pdftex.def Info: selected midpass.pdf used on input line 233.
+(pdftex.def)             Requested size: 142.26378pt x 106.69289pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: Citation `chen2015discrete' on page 5 undefined on input line 23
+7.
+
+
+LaTeX Warning: Citation `anis2016efficient' on page 5 undefined on input line 2
+37.
+
+[5 <./approx filter sensor.pdf> <./approx filter net25.pdf>] [6 <./cdf.pdf> <./
+original filter bank.pdf> <./pdf.pdf> <./updated filter bank.pdf> <./signal gra
+ph mn.pdf> <./filter mn.pdf> <./sampling weights.pdf> <./selected.pdf>]
+
+LaTeX Warning: Citation `puy' on page 7 undefined on input line 241.
+
+[7 <./signal graph mn midpass.pdf> <./midpass filter mn.pdf> <./sampling weight
+s midpass.pdf> <./selected midpass.pdf>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 283.
+
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 272.
- [7 <./signal graph mn.pdf> <./filter mn.pdf> <./sampling weights.pdf> <./selec
-ted.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 282.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 282.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 283.
+ [8]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 293.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 293.
 
 (./write-up.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 282.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 282.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 293.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 293.
 Package rerunfilecheck Info: File `write-up.out' has not changed.
 (rerunfilecheck)             Checksum: E830475ED0130B1F5BB87DE51BF07411;692.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 282.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 293.
  ) 
 Here is how much of TeX's memory you used:
- 19830 strings out of 493014
- 358237 string characters out of 6133351
+ 19851 strings out of 493014
+ 358772 string characters out of 6133351
  445685 words of memory out of 5000000
- 22927 multiletter control sequences out of 15000+600000
+ 22945 multiletter control sequences out of 15000+600000
  25153 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,9n,56p,1120b,489s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,9n,56p,1120b,419s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy7.
 pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.p
@@ -1021,10 +1061,10 @@ exlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/tex
 live/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texli
 ve/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive
 /2016/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on write-up.pdf (7 pages, 9614713 bytes).
+Output written on write-up.pdf (8 pages, 18998965 bytes).
 PDF statistics:
- 252 PDF objects out of 1000 (max. 8388607)
- 197 compressed objects within 2 object streams
- 32 named destinations out of 1000 (max. 500000)
- 151 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 285 PDF objects out of 1000 (max. 8388607)
+ 212 compressed objects within 3 object streams
+ 35 named destinations out of 1000 (max. 500000)
+ 171 words of extra memory for PDF output out of 10000 (max. 10000000)
 

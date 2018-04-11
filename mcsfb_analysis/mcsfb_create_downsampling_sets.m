@@ -34,15 +34,9 @@ function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G,
         
         exact=gsp_check_fourier(G);
         if ~exact
-%             G=gsp_spectrum_cdf_approx(G);
-%             order=30;
-%             num_vec=30;
-%             pts = 
-%             num_pts = length(num_pts);
              [G, ~]= spectral_cdf_approx( G , param);
         end
-        
-        %update name
+  
         num_its = ceil(2*log(G.N));
         
         for i = 1:num_bands
@@ -60,7 +54,6 @@ function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G,
                 %extra_samps=0
                 nb_meas = sum(h(G.e)); %+extra_samps; % m: num eigenvalues in band, will need to estimate if don't have exact eigenvalues
             else
-                %replace by trace method: 
                 %if the total number of samples is < N, add them to last band
                 %nb_meas = round((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
                 %nb_meas = floor((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
@@ -76,8 +69,7 @@ function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G,
                 below_upper=sum(diag(HD_upper)<0);
                 nb_meas=below_upper-below_lower;
         
-                %replace by trace method:
-                
+
               
 
             end

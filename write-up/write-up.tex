@@ -164,23 +164,23 @@ For the scalable filter bank, instead of storing the exact filters, we store the
  \includegraphics[width = 5cm]{approx filter sensor.pdf}
  \includegraphics[width = 5cm]{approx filter net25.pdf}
  
- \caption{The first two examples are ideal and approximated filter banks for a more evenly distributed spectrum. The other two examples are for a graph with noticeable spectral gaps.}
+ \caption{The first figure shows a midpass band for a graph with more evenly distributed spectrum. The other figure is for a graph with noticeable spectral gaps.}
  \end{figure}
 
 
 \subsubsection{Adjust Band Ends to Minimize Approximation Error}
-When selecting the band ends for each of the $M$ ideal filters, we consider two factors: spectrum-adaptation and band spacing method. In our implementation, the filter bank can be either spectrum-adapted or not, and it can be either evenly spaced or logarithmic spaced.
+When selecting the band ends for each of the $M$ ideal filters, we consider two factors: spectrum-adaptation and band spacing methods. In our implementation, the filter bank can be either spectrum-adapted or not, and it can be either evenly spaced or logarithmic spaced.
 
 Without a full knowledge of the spectrum of the graph Laplacian, we cannot pick the band ends the way as we do for ideal filter banks. We first pick the band ends based on the approximated spectral functions. While satisfying the spectrum-adaptation and spacing requirements, we shift our initial choices of band ends in a small interval in order to reduce the resulting reconstruction error.
 
 Consider the exact filter $\hat{g}$ and the polynomial approximated filter $\hat{h}(\La)$. If $K$ is the order of the polynomial approximation, the filtering error is 
-$$||\hat{g}(\La) - \hat{h}(\La)|| = \text{max}_{l = 0,\cdots,n} |g(\lambda_l) - h(\lambda_l)| \leq \text{sup}_{\lambda \in [0, \lambda_{max}]} |g(\lambda) - h(\lambda)| = \Omega(\rho^{-K})$$
+$$||\hat{g}(\La) - \hat{h}(\La)|| = \underset{l = 0,\cdots,n}{\text{max}} |g(\lambda_l) - h(\lambda_l)| \leq \underset{\lambda \in [0, \lambda_{max}]}{ \text{sup}} |g(\lambda) - h(\lambda)| = \Omega(\rho^{-K})$$
 Notice that for Chebyshev and Jackson-Chebyshev approximations, the filtering error is always clustered around band boundaries (figure 1). If the boundaries are set in spectral gaps, i.e. there are no or very few eigenvalues around it, the approximated filters will not affect the filtering accuracy too much, thus leading to a small reconstruction error.  
 
 Our approach to locate the spectral gaps is simply to find the minimum of the probability distribution of Laplacian eigenvalues over a specified interval. Let the $w$ be the width of the adjustment interval. For an initial choice of the band end $m \in [\tau, \tau+w]$, we intend to find $\tau$ such that the cumulative density function $F(\tau+w)-F(w)$ is minimized. That is, we want to minimize the probability of eigenvalues existing in the interval $[\tau, \tau+w]$. When $w$ is small, it is equivalent to find the $\tau$ such that the probability distribution of the Laplacian eigenvalues $p(\tau)$ is minimized. This process is illustrated in the figure below.
 
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \includegraphics[width = 5cm]{cdf.pdf}
 \includegraphics[width = 5cm]{original filter bank.pdf}
@@ -212,20 +212,31 @@ Our approach to locate the spectral gaps is simply to find the minimum of the pr
 \section{Non-Uniform Sampling and Reconstruction}
 
 
-In this section, we select the dowmsampling sets using the non-uniform random sampling method and reconstruction the original signal from samples based on the the decoder derived from the sampling distribution. This method is first studied in \cite{random sampling} only for bandlimited signals. We extend this idea to all $\R$-concentrated signal models.
+In this section, we select the dowmsampling sets using the non-uniform random sampling method and reconstruct the original signal from samples based on the the decoder derived from the sampling distribution. This method is first studied in \cite{random sampling} only for bandlimited signals. We extend this idea to all $\R$-concentrated signal models.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
-\includegraphics[width = 7 cm]{signal graph mn.pdf}
-\includegraphics[width = 7 cm]{filter mn.pdf}
+\includegraphics[width = 5 cm]{signal graph mn.pdf}
+\includegraphics[width = 5 cm]{filter mn.pdf}
 
-\includegraphics[width = 7 cm]{sampling weights.pdf}
-\includegraphics[width = 7 cm]{selected.pdf}
+\includegraphics[width = 5 cm]{sampling weights.pdf}
+\includegraphics[width = 5 cm]{selected.pdf}
+\caption{low pass}
 \end{figure}
 
-First, we need to determine the number of samples needed for each band in order to ensure critically sampling and perfect reconstruction. It has been shown in \cite{} \cite{} that any signal whose graph Fourier transform has exactly $k$ non-zero coefficients can be perfectly recovered from samples of that signal on $k$ appropriately selected vertices. That is, the number of samples needed equals the number of eigenvalues covered in the band. We use the spectral density function estimated in the previous section to approximate the number of eigenvalues in each band. TODO: force the number of samples in the last band. Or use the overcomplete transform 
+\begin{figure}[h!]
+\centering
+\includegraphics[width = 5 cm]{signal graph mn midpass.pdf}
+\includegraphics[width = 5 cm]{midpass filter mn.pdf}
 
-The goal of the non-uniform random sampling method is to minimizes the graph weighted coherence by imposing a sampling distribution on graph vertices. Graph weighted coherence is a quantity that measures of the localization of some Fourier modes on the nodes of the graph.The probability of node $i$ being selected is $p_i\propto ||U_{\R}^T\delta_i||_2$, which characterizes how much energy of $\delta_i$ is concentrated on the Fourier modes covered in $U_{\R}$. When this quantity is large, we would want high probability of selecting this node since there exists $\R$-concentrated signals whose energy is solely concentrated at the $i$th node. Including this node in our sample will increase our chance of perfect reconstruction later.
+\includegraphics[width = 5 cm]{sampling weights midpass.pdf}
+\includegraphics[width = 5 cm]{selected midpass.pdf}
+\caption{mid pass}
+\end{figure}
+
+First, we need to determine the number of samples needed for each band in order to ensure critically sampling and perfect reconstruction. It has been shown in \cite[Theorem 1]{chen2015discrete} \cite[Proposition 1]{anis2016efficient} that any signal whose graph Fourier transform has exactly $k$ non-zero coefficients can be perfectly recovered from samples of that signal on $k$ appropriately selected vertices. That is, the number of samples needed for each band has to equal the number of eigenvalues covered in the band. We use the spectral density function estimated in the previous section to approximate the number of eigenvalues in any given band. However, we force the number of samples for the last band such that the total number of samples taken is equal to the size of the graph. TODO: or use the over-complete transform.
+
+The goal of the non-uniform random sampling method is to minimize the graph weighted coherence by imposing a sampling distribution on graph vertices. Graph weighted coherence is a quantity that measures localization of some Fourier modes on the nodes of the graph.The probability of node $i$ being selected is $$p_i\propto ||U_{\R}^T\delta_i||_2,$$ which characterizes how much energy of $\delta_i$ is concentrated on the Fourier modes covered in $U_{\R}$. When this quantity is large, we would want high probability of selecting this node since there exists $\R$-concentrated signals whose energy is solely concentrated at the $i$th node. Including this node in our sample will increase our chance of perfect reconstruction later.
 
 \begin{thm}[\cite{puy}, Theorem 3.2]
 Consider any graph $\G = \{\V, \E, W\}$ with its Laplacian $\La = U\Lambda U^*$. Notice that $\La$ is real, symmetric and positive semi-definite and thus the columns of U are orthonormal and its eigenvalues are non-negative. We propose the following sampling procedure:
