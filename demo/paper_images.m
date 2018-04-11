@@ -251,12 +251,18 @@ xlabel('$\lambda$','Interpreter','LaTex','FontSize',24);
 %% Non-uniform Random Sampling
 
 G=gsp_minnesota(1);
-G = gsp_estimate_lmax(G);
+% G = gsp_estimate_lmax(G);
+G=gsp_compute_fourier_basis(G);
+
+[filter_bank, shifted_ends, band_ends] = mcsfb_design_filter_bank(G, num_bands,param);
 
 up_limit=1.1;
 low_limit=0;
 range=[0,G.lmax];
 h = @(x) (x>=low_limit & x<=up_limit);
+order =80;
+[CH, JCH]=gsp_jackson_cheby_coeff(low_limit, up_limit, range, order);
+approx_h=@(x) gsp_cheby_eval(x,JCH,[0,G.lmax]);
 
 poly1a=-2*G.coords(:,1)+.5;
 poly2a=G.coords(:,1).^2+G.coords(:,2).^2+.5;
@@ -266,7 +272,8 @@ p2=(G.coords(:,2)<(0.6-G.coords(:,1)));
 p3= p1 | p2;
 f(~p3)=poly1a(~p3);
 f(p3)=poly2a(p3);
-y = gsp_filter(G,h,f);
+
+y = gsp_filter(G,approx_h,f);
 
 
 figure;
@@ -276,28 +283,18 @@ gsp_plot_signal(G,y,plot_param);
 set(gca,'FontSize',24);
 
 
-up_limit=3;
-low_limit=2;
-range=[0,G.lmax];
-h = @(x) (x>=low_limit & x<=up_limit);
-order =80;
-[CH, JCH]=gsp_jackson_cheby_coeff(low_limit, up_limit, range, order);
-approx_h=@(x) gsp_cheby_eval(x,JCH,[0,G.lmax]);
-
 hh = cell(2,1);
 hh{1} = h;
 hh{2} = approx_h;
 
-
-
 figure;
 plot_param.show_sum=0;
-plot_param.plot_eigenvalues = 0;
+plot_param.plot_eigenvalues = 1;
 plot_param.x_tick = 2;
 gsp_plot_filter(G,hh,plot_param);
 xlabel('$\lambda$','Interpreter','LaTex','FontSize',24) 
 set(gca,'FontSize',24);
-xlim([0,8]);
+xlim([-10,8]);
 set(gca,'box','off');
 set(gca, 'YTick', 0:0.5:1);
 xlabel('$\lambda$','Interpreter','LaTex','FontSize',24);
@@ -317,7 +314,7 @@ end
 L = ceil(2*log(G.N));
 nb_meas=floor((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
 
-[weights, P_min_half] = compute_sampling_weights(G,L,h);
+[weights, P_min_half] = compute_sampling_weights(G,L,approx_h);
 
 figure;
 set(gca,'FontSize',24);

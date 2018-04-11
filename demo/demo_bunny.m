@@ -64,6 +64,8 @@ if ~param.compute_full_eigen
     G = rmfield(G, 'e');
     G = rmfield(G, 'lmax');
     G = gsp_estimate_lmax(G);
+    %compute the cdf and pdf here
+    
 end
 
 % mcsfb_design_filter_bank
