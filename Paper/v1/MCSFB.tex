@@ -11,16 +11,20 @@ A Scalable $M$-Channel Critically Sampled Filter Bank for Graph Signals
 }
 \author{\IEEEauthorblockN{Yan Jin, Shuni Li, and David I Shuman}
 %\thanks{Copyright (c) 2015 IEEE. Personal use of this material is permitted. However, permission to use this material for any other purposes must be obtained from the IEEE by sending a request to pubs-permissions@ieee.org.}
-\thanks{Yan Jin is with the {\color{red}XXX (email: yjin1@mit.edu)}. Shuni Li and David I Shuman are with the Department of Mathematics, Statistics, and Computer Science, Macalester College, St. Paul, MN 55105, USA (email: \{sli,dshuman1\}@macalester.edu).  }
+\thanks{Yan Jin is with the Institute for Data, Systems, and Society, Massachusetts Institute of Technology, Cambridge, MA 02139, USA (email: yjin1@mit.edu). Shuni Li and David I Shuman are with the Department of Mathematics, Statistics, and Computer Science, Macalester College, St. Paul, MN 55105, USA (email: \{sli,dshuman1\}@macalester.edu).  }
 \thanks{This research has been funded in part by a grant to Macalester College from the Howard Hughes Medical Institute through the Precollege and Undergraduate Science Education Program.}
 \thanks{The authors would like to thank Federico Poloni for providing a proof to Proposition \ref{Pr:mat_part}, and Andrew Bernoff for helpful discussions about the matrix partitioning problem discussed in Section \ref{Se:partition}.}
 \thanks{MATLAB code for all numerical experiments in this paper is available at \url{http://www.macalester.edu/\textasciitilde dshuman1/publications.html}. It leverages the open access GSPBox \cite{gspbox}, into which it will soon be integrated.}}
 
 \maketitle
 
+%\begin{abstract}
+%We investigate an $M$-channel critically sampled filter bank for graph signals where each of the $M$ filters is supported on a different subband of the graph Laplacian spectrum. We partition the graph vertices such that the $m^{th}$ set comprises a uniqueness set for signals supported on the $m^{th}$ subband. For analysis, the graph signal is filtered on each subband and downsampled on the corresponding set of vertices. However, the classical synthesis filters are replaced with interpolation operators, circumventing the issue of how to design a downsampling pattern and graph spectral filters to ensure perfect reconstruction for signals that do not reside on bipartite graphs. The resulting transform is critically sampled and graph signals are perfectly reconstructable from their analysis coefficients. We empirically explore the joint vertex-frequency localization of the dictionary atoms and sparsity of the analysis coefficients, as well as the ability of the proposed transform to compress 
+%piecewise-smooth graph signals. {\color{red} Update abstract.}
+%\end{abstract}
+
 \begin{abstract}
-We investigate an $M$-channel critically sampled filter bank for graph signals where each of the $M$ filters is supported on a different subband of the graph Laplacian spectrum. We partition the graph vertices such that the $m^{th}$ set comprises a uniqueness set for signals supported on the $m^{th}$ subband. For analysis, the graph signal is filtered on each subband and downsampled on the corresponding set of vertices. However, the classical synthesis filters are replaced with interpolation operators, circumventing the issue of how to design a downsampling pattern and graph spectral filters to ensure perfect reconstruction for signals that do not reside on bipartite graphs. The resulting transform is critically sampled and graph signals are perfectly reconstructable from their analysis coefficients. We empirically explore the joint vertex-frequency localization of the dictionary atoms and sparsity of the analysis coefficients, as well as the ability of the proposed transform to compress 
-piecewise-smooth graph signals. {\color{red} Update abstract.}
+We investigate a scalable $M$-channel critically sampled filter bank for graph signals, where each of the $M$ filters is supported on a different subband of the graph Laplacian spectrum. For analysis, the graph signal is filtered on each subband and downsampled on a corresponding set of vertices. However, the classical synthesis filters are replaced with interpolation operators. For small graphs, we use a full eigendecomposition of the graph Laplacian to partition the graph vertices such that the $m^{th}$ set comprises a uniqueness set for signals supported on the $m^{th}$ subband. The resulting transform is critically sampled, the dictionary atoms are orthogonal to those supported on different bands, and graph signals are perfectly reconstructable from their analysis coefficients. We also investigate a fast version of the proposed transform that scales efficiently for large, sparse graphs. Issues that arise in this context include designing the filter bank to be more amenable to polynomial approximation, estimating the number of samples required for each band, performing non-uniform random sampling for the filtered signals on each band, and efficient reconstruction methods. We empirically explore the joint vertex-frequency localization of the dictionary atoms, the sparsity of the analysis coefficients for different classes of signals, the ability of the proposed transform to compress piecewise-smooth graph signals, and the reconstruction error resulting from the numerical approximations.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -40,7 +44,7 @@ Broad classes of recently proposed transforms include graph Fourier transforms, 
 \end{figure}
 
 
-The extension of the classical two channel critically sampled filter bank to the graph setting was first proposed in \cite{narang_icip}. Fig.\ \ref{Fig:two_channel} shows the analysis and synthesis banks, where $H_i$ and $G_i$ are graph spectral filters \cite{shuman2013emerging}, and the lowpass and highpass bands are downsampled on complementary sets of vertices. For a general weighted, undirected graph, it is not straightforward %{\color{red} (impossible?)} 
+The extension of the classical two channel critically sampled filter bank to the graph setting was first proposed in \cite{narang_icip}. Fig.\ \ref{Fig:two_channel} shows the analysis and synthesis banks, where ${\bf H}_i$ and ${\bf G}_i$ are graph spectral filters \cite{shuman2013emerging}, and the lowpass and highpass bands are downsampled on complementary sets of vertices. For a general weighted, undirected graph, it is not straightforward %{\color{red} (impossible?)} 
 how to design the downsampling and the four graph spectral filters to ensure perfect reconstruction. One approach is to separate the graph into a union of subgraphs, each of which has some regular structure. For example, \cite{narang2012perfect,narang_bior_filters} show that the normalized graph Laplacian eigenvectors of \emph{bipartite} graphs have a spectral folding property that make it possible to design analysis and synthesis filters to guarantee perfect reconstruction. They take advantage of this property by decomposing the graph into bipartite graphs and constructing a multichannel, separable filter bank, while \cite{sakiyama} adds vertices and edges to the original graph to form an approximating bipartite graph. References \cite{teke2016,teke2017ii} generalize this spectral folding property to $M$-block cyclic graphs, and leverage it to construct $M$-channel graph filter banks. Another class of regular structured graphs is \emph{shift invariant} graphs \cite[Chapter 5.1]{grady}. These graphs have a circulant graph Laplacian and their eigenvectors are the columns of the discrete Fourier transform matrix. Any graph can be written as the sum of circulant graphs, and \cite{ekambaram_icip,ekambaram2013globalsip,kotzagiannidis2016icassp} take advantage of this fact in designing critically sampled graph filter banks with perfect reconstruction. Another approach is to use architectures other than the critically sampled filter bank, such as lifting transforms \cite{jansen,narang_lifting_graphs} or pyramid transforms \cite{shuman_TSP_multiscale}.
 
 Our approach in this paper is to replace the synthesis filters with interpolation operators on each subband of the graph spectrum. While this idea was initially suggested independently in \cite{chen2015discrete}, we investigate it in more detail here. Our construction leverages the recent flurry of work in sampling and reconstruction of graph signals \cite{chen2015discrete}-\nocite{pesenson_paley,narang2013interpolation,anis2014towards,gadde2015probabilistic,shomorony,PuyTGV15,chen2015signal,tsitsvero2016uncertainty}\cite{anis2016efficient}. The key property we use is that any signal whose graph Fourier transform has exactly $k$ non-zero coefficients can be perfectly recovered from samples of that signal on $k$ appropriately selected vertices (see, e.g., \cite[Theorem 1]{chen2015discrete} \cite[Proposition 1]{anis2016efficient}).
@@ -50,10 +54,19 @@ Our approach in this paper is to replace the synthesis filters with interpolatio
 
 \section{$M$-Channel Critically Sampled Filter Bank}
 We consider graph signals $f \in \R^N$ residing on a weighted, undirected graph $\G=\{\V,\E,\mathbf{W}\}$, where $\V$ is the set of $N$ vertices, $\E$ is the set of edges, and $\mathbf{W}$ is the weighted adjacency matrix. 
-Throughout, we take $\L$ to be the combinatorial graph Laplacian $\mathbf{D}-\mathbf{W}$, where $\mathbf{D}$ is the diagonal matrix of vertex degrees. However, our theory and proposed transform also apply to the normalized graph Laplacian $\mathbf{I}-\mathbf{D}^{-\frac{1}{2}}\mathbf{W}\mathbf{D}^{-\frac{1}{2}}$, or any other Hermitian operator. We can diagonalize the graph Laplacian as $\L=\mathbf{U}{\boldsymbol \Lambda}\mathbf{U}^{*}$, where ${\boldsymbol \Lambda}$ is the diagonal matrix of eigenvalues $\lambda_0,\lambda_1,\ldots,\lambda_{N-1}$ of $\L$, and the columns $u_0,u_1,\ldots,u_{N-1}$ of $\mathbf{U}$ are the associated eigenvectors of $\L$. The graph Fourier transform of a signal is $\hat{f}=\mathbf{U}^{*}f$, and $\hat{g}(\L)f=\mathbf{U}\hat{g}({\boldsymbol \Lambda})\mathbf{U}^{*}f$ filters a graph signal by $\hat{g}(\cdot)$. We use the notation $\mathbf{U}_{{\cal R}}$ to denote the submatrix formed by taking the columns of $\mathbf{U}$ associated with the Laplacian eigenvalues indexed by ${\cal R} \subseteq \{0,1,\ldots,N-1\}$. Similarly, we use the notation $\mathbf{U}_{{\cal S},{\cal R}}$ to denote the submatrix  formed by taking the rows of $\mathbf{U}_{{\cal R}}$ associated with the vertices indexed by the set ${\cal S} \subseteq \{1,2,\ldots,N\}$.
+Throughout, we take $\L$ to be the combinatorial graph Laplacian $\mathbf{D}-\mathbf{W}$, where $\mathbf{D}$ is the diagonal matrix of vertex degrees. However, our theory and proposed transform also apply to the normalized graph Laplacian $\mathbf{I}-\mathbf{D}^{-\frac{1}{2}}\mathbf{W}\mathbf{D}^{-\frac{1}{2}}$, or any other Hermitian operator. We can diagonalize the graph Laplacian as $\L=\mathbf{U}{\boldsymbol \Lambda}\mathbf{U}^{*}$, where ${\boldsymbol \Lambda}$ is the diagonal matrix of eigenvalues $\lambda_0,\lambda_1,\ldots,\lambda_{N-1}$ of $\L$, and the columns ${\bf u}_0,{\bf u}_1,\ldots,{\bf u}_{N-1}$ of $\mathbf{U}$ are the associated eigenvectors of $\L$. The graph Fourier transform of a signal is $\hat{\bf{f}}=\mathbf{U}^{*}{\bf f}$, and ${h}(\L){\bf f}=\mathbf{U}{h}({\boldsymbol \Lambda})\mathbf{U}^{*}{\bf f}$ applies the filter ${h}: [0,\lambda_{\max}] \rightarrow \R$ to the graph signal ${\bf f}$. We use the notation $\mathbf{U}_{{\cal R}}$ to denote the submatrix formed by taking the columns of $\mathbf{U}$ associated with the Laplacian eigenvalues indexed by ${\cal R} \subseteq \{0,1,\ldots,N-1\}$. Similarly, we use the notation $\mathbf{U}_{{\cal S},{\cal R}}$ to denote the submatrix  formed by taking the rows of $\mathbf{U}_{{\cal R}}$ associated with the vertices indexed by the set ${\cal S} \subseteq \{1,2,\ldots,N\}$.
 
-We start by constructing an ideal filter bank of $M$ graph spectral filters, where each filter $\hat{h}_m(\lambda)$ is equal to 1 on a subset of the spectrum, and 0 elsewhere. We choose the filters so that for each $\l \in \{0,1,\ldots,N-1\}$, $\hat{h}_m(\lambda_\l)=1$ for exactly one $m$. Fig.\ \ref{Fig:fb} shows an example of such an ideal filter bank. Equivalently, we are forming a partition $\{{\cal R}_1,{\cal R}_2,\ldots,{\cal R}_M\}$ of $\{0,1,\ldots,N-1\}$ and setting 
-
+We start by constructing an ideal filter bank of $M$ graph spectral filters, where each filter ${h}_m(\lambda)$ is equal to 1 on a subset of the spectrum, and 0 elsewhere. We choose the filters so that for each $\l \in \{0,1,\ldots,N-1\}$, ${h}_m(\lambda_\l)=1$ for exactly one $m$. Fig. \ref{Fig:fb} shows an example of such an ideal filter bank. 
+Equivalently, we are forming a partition $\{{\cal R}_1,{\cal R}_2,\ldots,{\cal R}_M\}$ of $\{0,1,\ldots,N-1\}$ and setting
+
+\begin{align*}
+{h}_m(\lambda_{\l})=
+\begin{cases}
+1,&\hbox{ if } {\l} \in {\cal R}_m \\
+0,&\hbox{ otherwise}
+\end{cases},~m=1,2,\ldots,M.
+\end{align*}
+
 \begin{figure}[t]
 \centerline{\includegraphics[width=3.1in]{fig_filter_bank}}
 \caption{Example ideal filter bank. The red, orange, yellow, green, and blue filters span 31, 31, 63, 125, and 250 graph Laplacian eigenvalues, respectively, on a 500 node sensor network with %500 vertices and 
@@ -68,13 +81,13 @@ Let ${\cal P}$ be a subspace of $\R^n$.
 Then a subset $\V_s$ of the vertices $\V$ is a uniqueness set for 
 %the subspace $\mbox{col}\left({\mathbf{U}}_{{\cal R}}\right)=\mbox{span}\{u_{r_1},u_{r_2}\ldots,u_{r_K}\} \subseteq \R^n$ 
 ${\cal P}$ if  and only if for all %$f,g \in \mbox{col}\left({\mathbf{U}}_{{\cal R}}\right)$, 
-$f,g \in {\cal P}$,
-$f_{\V_s}=g_{\V_s}$ implies $f=g$. That is, if two signals in ${\cal P}$ have the same values on the vertices in the uniqueness set $\V_s$, then they must be the same signal.
+${\bf f},{\bf g} \in {\cal P}$,
+${\bf f}_{\V_s}={\bf g}_{\V_s}$ implies ${\bf f}={\bf g}$. That is, if two signals in ${\cal P}$ have the same values on the vertices in the uniqueness set $\V_s$, then they must be the same signal.
 \end{definition}
 The following equivalent characterization of a uniqueness set is often useful.
 \begin{lemma}[\cite{anis2014towards}, \cite{shomorony}]\label{Le:eq_uniq}
-The set $\mathcal{S}$ of $k$ vertices is a uniqueness set for $\mbox{col}({\mathbf{U}}_{\mathcal T})$ if and only if the matrix whose columns are $u_{{\mathcal T}_1},u_{{\mathcal T}_2},\ldots,u_{{\mathcal T}_k}, \delta_{{\mathcal{S}}^c_1}, \delta_{{\mathcal{S}}^c_2}, \ldots, \delta_{{\mathcal{S}}^c_{n-k}}$ is nonsingular,
-where each $\delta_{{\mathcal{S}}^c_i}$ is a Kronecker delta centered on a vertex not included in $S$. 
+The set $\mathcal{S}$ of $k$ vertices is a uniqueness set for $\mbox{col}({\mathbf{U}}_{\mathcal T})$ if and only if the matrix whose columns are ${\bf u}_{{\mathcal T}_1},{\bf u}_{{\mathcal T}_2},\ldots,{\bf u}_{{\mathcal T}_k}, {\boldsymbol \delta}_{{\mathcal{S}}^c_1}, {\boldsymbol \delta}_{{\mathcal{S}}^c_2}, \ldots, {\boldsymbol \delta}_{{\mathcal{S}}^c_{n-k}}$ is nonsingular,
+where each ${\boldsymbol \delta}_{{\mathcal{S}}^c_i}$ is a Kronecker delta centered on a vertex not included in $S$. 
 \end{lemma}
 The $m^{th}$ channel of the analysis %filter 
 bank %then 
@@ -115,24 +128,24 @@ We also provide a standalone proof below that only requires that the space spann
 We assume without loss of generality that ${\mathcal T}=\{0,1,2,\ldots,k-1\}$. 
 Suppose first that the set $\mathcal{S}$ is a uniqueness set for $\mbox{col}({\mathbf{U}}_{\mathcal T})$, but $\mathcal{S}^c$ is not a uniqueness set for $\mbox{col}({\mathbf{U}}_{{\mathcal T}^c})$. Then by Lemma \ref{Le:eq_uniq}, the matrix $$\mathbf{A}=
  \left[ \begin{array}{cccccccc}
-u_{0} & u_{1} & \cdots & u_{k-1} & \delta_{{\mathcal{S}}^c_1} & \delta_{{\mathcal{S}}^c_2} \cdots & \delta_{{\mathcal{S}}^c_{N-k}} \end{array} \right]$$
+{\bf u}_{0} & {\bf u}_{1} & \cdots & {\bf u}_{k-1} & {\boldsymbol \delta}_{{\mathcal{S}}^c_1} & {\boldsymbol \delta}_{{\mathcal{S}}^c_2} \cdots & {\boldsymbol \delta}_{{\mathcal{S}}^c_{N-k}} \end{array} \right]$$
 has full rank, and the matrix $$\mathbf{B}=
  \left[ \begin{array}{cccccccc}
-u_{k} & u_{k+1} & \cdots & u_{N-1} & \delta_{\mathcal{S}_{1}} & \delta_{\mathcal{S}_{2}} \cdots & \delta_{\mathcal{S}_k} \end{array} \right]$$
+{\bf u}_{k} & {\bf u}_{k+1} & \cdots & {\bf u}_{N-1} & {\boldsymbol \delta}_{\mathcal{S}_{1}} & {\boldsymbol \delta}_{\mathcal{S}_{2}} \cdots & {\boldsymbol \delta}_{\mathcal{S}_k} \end{array} \right]$$
 is singular, implying
 \begin{align}\label{Eq:span}
-\mbox{span}(u_{k}, u_{k+1},\ldots, u_{N-1}, \delta_{\mathcal{S}_{1}}, \delta_{\mathcal{S}_{2}}, \ldots, \delta_{\mathcal{S}_k}) \neq \mathbb{R}^N.
+\mbox{span}({\bf u}_{k}, {\bf u}_{k+1},\ldots, {\bf u}_{N-1}, {\boldsymbol \delta}_{\mathcal{S}_{1}}, {\boldsymbol \delta}_{\mathcal{S}_{2}}, \ldots, {\boldsymbol \delta}_{\mathcal{S}_k}) \neq \mathbb{R}^N.
 \end{align}
 Since 
-$$\mbox{dim}(\mbox{span}(u_{k}, u_{k+1},\ldots, u_{N-1}))=N-k$$ and $$\mbox{dim}(\mbox{span}(\delta_{S_{1}}, \delta_{S_{2}}, \ldots, \delta_{\mathcal{S}_k}))=k,$$ equation 
+$$\mbox{dim}(\mbox{span}({\bf u}_{k}, {\bf u}_{k+1},\ldots, {\bf u}_{N-1}))=N-k$$ and $$\mbox{dim}(\mbox{span}({\boldsymbol \delta}_{S_{1}}, {\boldsymbol \delta}_{S_{2}}, \ldots, {\boldsymbol \delta}_{\mathcal{S}_k}))=k,$$ equation 
 \eqref{Eq:span} implies that
-there must exist a vector $x \neq 0$ such that 
+there must exist a vector ${\bf x} \neq {\bf 0}$ such that 
 \begin{align*}
-&x \in  \mbox{span}(u_{k}, u_{k+1},\ldots, u_{N-1})  \hbox{ and } \\
-& x \in \mbox{span}(\delta_{\mathcal{S}_{1}}, \delta_{\mathcal{S}_{2}}, \ldots, \delta_{\mathcal{S}_{k}}).\end{align*}
-Yet, $x \in \mbox{col}({\mathbf{U}}_{{\mathcal T}^c})$ implies $x$ is orthogonal to  $u_0, u_1, \ldots, u_{k-1}$, and, similarly, 
-$x \in \mbox{span}(\delta_{\mathcal{S}_{1}}, \delta_{\mathcal{S}_{2}}, \ldots, \delta_{\mathcal{S}_{k}})$ implies $x$ is orthogonal to $\delta_{\mathcal{S}^c_{1}}, \delta_{\mathcal{S}^c_{2}}, \ldots, \delta_{\mathcal{S}^c_{N-k}}.$
-In matrix notation, we have $\mathbf{A}^{\top}x=0$, so $\mathbf{A}^{\top}$ has a non-trivial null space, and thus the square matrix $\mathbf{A}$ is not full rank and $\mathcal{S}$ is not a uniqueness set for $\mbox{col}({\mathbf{U}}_{\mathcal T})$, a contradiction. We conclude that if $\mathbf{A}$ is full rank, then $\mathbf{B}$ must be full rank and $\mathcal{S}^c$ is a uniqueness set for $\mbox{col}({\mathbf{U}}_{{\mathcal T}^c})$, completing the proof of sufficiency. Necessity follows from the same argument, with the roles of $\mathbf{A}$ and $\mathbf{B}$ interchanged.
+&{\bf x} \in  \mbox{span}({\bf u}_{k}, {\bf u}_{k+1},\ldots, {\bf u}_{N-1})  \hbox{ and } \\
+& {\bf x} \in \mbox{span}({\boldsymbol \delta}_{\mathcal{S}_{1}}, {\boldsymbol \delta}_{\mathcal{S}_{2}}, \ldots, {\boldsymbol \delta}_{\mathcal{S}_{k}}).\end{align*}
+Yet, ${\bf x} \in \mbox{col}({\mathbf{U}}_{{\mathcal T}^c})$ implies ${\bf x}$ is orthogonal to  ${\bf u}_0, {\bf u}_1, \ldots, {\bf u}_{k-1}$, and, similarly, 
+${\bf x} \in \mbox{span}({\boldsymbol \delta}_{\mathcal{S}_{1}}, {\boldsymbol \delta}_{\mathcal{S}_{2}}, \ldots, {\boldsymbol \delta}_{\mathcal{S}_{k}})$ implies ${\bf x}$ is orthogonal to ${\boldsymbol \delta}_{\mathcal{S}^c_{1}}, {\boldsymbol \delta}_{\mathcal{S}^c_{2}}, \ldots, {\boldsymbol \delta}_{\mathcal{S}^c_{N-k}}.$
+In matrix notation, we have $\mathbf{A}^{\top}{\bf x}={\bf 0}$, so $\mathbf{A}^{\top}$ has a non-trivial null space, and thus the square matrix $\mathbf{A}$ is not full rank and $\mathcal{S}$ is not a uniqueness set for $\mbox{col}({\mathbf{U}}_{\mathcal T})$, a contradiction. We conclude that if $\mathbf{A}$ is full rank, then $\mathbf{B}$ must be full rank and $\mathcal{S}^c$ is a uniqueness set for $\mbox{col}({\mathbf{U}}_{{\mathcal T}^c})$, completing the proof of sufficiency. Necessity follows from the same argument, with the roles of $\mathbf{A}$ and $\mathbf{B}$ interchanged.
 \end{proof}
 
 The Steinitz exchange lemma \cite{steinitz} guarantees that we can find the uniqueness set $\mathcal{S}$ (and thus $\mathcal{S}^c$), and the graph signal processing literature contains methods such as Algorithm 1 of \cite{shomorony} to do so.
@@ -191,7 +204,7 @@ to an element $z \in \gamma_1 \cap \gamma_2$ (c.f. \cite{greene_magnanti} for de
 
 \begin{remark}
 While Algorithm \ref{Al:uniqueness} always finds a partition into uniqueness sets, such a partition is usually not unique, and the initial choices of $\gamma_i$ in each loop play a significant role in the final 
-partition. In the numerical experiments in the next section, we use the greedy algorithm in \cite[Algorithm 1]{shomorony} to find an initial choice for $\gamma_1$, and use row reduction after permuting the complement of $\gamma_1$ to the top to find an initial choice for $\gamma_2$. We discuss this issue further in Section \ref{Se:noisy_ext}.
+partition. In the numerical experiments in the next section, we use the greedy algorithm in \cite[Algorithm 1]{shomorony} to find an initial choice for $\gamma_1$, and use row reduction after permuting the complement of $\gamma_1$ to the top to find an initial choice for $\gamma_2$.  %We discuss this issue further in Section \ref{Se:noisy_ext}.
 \end{remark}
 
 \begin{figure}[tb]
@@ -216,6 +229,13 @@ partition. In the numerical experiments in the next section, we use the greedy a
 \item Mention signals that are sparse
 \item Characterization of joint localization?
 \end{itemize}
+
+While the transform is not orthogonal, each atom is orthogonal to all atoms concentrated on other spectral bands. One possible extension is to find a fast algorithm to orthogonalize the atoms within each band. Note also that the wavelet atoms at all scales have mean zero, as they have no energy at eigenvalue zero.
+
+
+We  plan to more formally characterize the relationships between the decay of the analysis coefficients under the proposed transform and different properties of graph signals, as well as the underlying graph structure.
+Globally smooth signals trivially lead to sparse analysis coefficients because the coefficients are only nonzero for first set of vertices in the partition. The same line of reasoning applies more generally to signals that are sparse in the graph spectral domain. More interesting is a theory for the coefficient decay for piecewise-smooth graph signals such as the ones shown in Fig. \ref{Fig:bunny_signal}(a) and Fig. \ref{Fig:comp}(a).
+
 }
 
 \section{Illustrative Examples I: Exact Calculations}
@@ -338,16 +358,16 @@ We can represent the proposed filter bank as an $N \times N$ dictionary matrix $
 
 \subsection{Joint vertex-frequency localization of atoms and example analysis coefficients}
 We start by empirically showing that the dictionary atoms (the columns of $\boldsymbol{\Phi}$) are jointly localized in the vertex and graph spectral domains. On the Stanford bunny graph \cite{bunny} with 2503 vertices, we partition the spectrum into five bands, and show the resulting partition into uniqueness sets 
-in Fig.\ \ref{Fig:bunny_signal}(c). The first row of Fig.\ \ref{Fig:bunny_coef} shows five different example atoms whose energy is concentrated on different spectral bands. We see that these atoms are generally localized in the vertex domain as well. Some atoms such as the one shown at wavelet scale 3 are more spread in the vertex domain, possibly as a result of using ideal filters in the filter bank, an issue we revisit in Section \ref{Se:filtering}. The second row of Fig.\ \ref{Fig:bunny_coef} shows the spectral content of all atoms in each band, with the average for each represented by a thick black line. As expected, the energies of the atoms are localized in the spectral domain as well. While the transform is not orthogonal, each atom is orthogonal to all atoms concentrated on other spectral bands. One possible extension is to find a fast algorithm to orthogonalize the atoms within each band. Note also that the wavelet atoms at all scales have mean zero, as they have no energy at eigenvalue zero.
+in Fig.\ \ref{Fig:bunny_signal}(c). The first row of Fig.\ \ref{Fig:bunny_coef} shows five different example atoms whose energy is concentrated on different spectral bands. We see that these atoms are generally localized in the vertex domain as well. Some atoms such as the one shown at wavelet scale 3 are more spread in the vertex domain, possibly as a result of using ideal filters in the filter bank, an issue we revisit in Section \ref{Se:ill2}. The second row of Fig.\ \ref{Fig:bunny_coef} shows the spectral content of all atoms in each band, with the average for each represented by a thick black line. As expected, the energies of the atoms are localized in the spectral domain as well. 
 
 Next we apply the proposed transform to a piecewise-smooth graph signal $f$ that is shown in the vertex domain in Fig.\ \ref{Fig:bunny_signal}(a), and in the graph spectral domain in Fig.\ \ref{Fig:bunny_signal}(b). The full set of analysis coefficients is shown in Fig.\ \ref{Fig:bunny_signal}(d), and these are separated by band in the third row of Fig.\ \ref{Fig:bunny_coef}. We see that with the exception of the lowpass channel, the coefficients are clustered around the two main discontinuities (around the midsection and tail of the bunny). The bottom row of Fig.\ \ref{Fig:bunny_coef} shows the interpolation of these coefficients onto the corresponding spectral bands, and if we sum these reconstructions together, we recover exactly the original signal in Fig.\ \ref{Fig:bunny_signal}(a).
 
 
 \subsection{Sparse approximation}
 Next, we compress 
-a piecewise-smooth graph signal $f$ via the sparse coding optimization
+a piecewise-smooth graph signal ${\bf f}$ via the sparse coding optimization
 \begin{align}\label{Eq:sparse_coding}
-\argmin_x   || f-\boldsymbol{\Phi}x ||_2^2 \hbox{~~~subject to } ||x||_0 \leq T,
+\argmin_{\bf x}   || {\bf f}-\boldsymbol{\Phi}{\bf x} ||_2^2 \hbox{~~~subject to } ||{\bf x}||_0 \leq T,
 \end{align}
 where $T$ is a predefined sparsity level. After first normalizing the atoms of various critically-sampled dictionaries, we use the greedy %approximately solve the optimization problem
  % with 
@@ -373,17 +393,76 @@ where $T$ is a predefined sparsity level. After first normalizing the atoms of v
 \centerline{\includegraphics[width=.98\linewidth]{fig_comp_error}}
 \centerline{\small{(d)}}
 \end{minipage}
-\caption{Compression example. (a)-(b) Piecewise-smooth signal from \cite[Fig. 11]{shuman_TSP_multiscale} in the vertex and graph spectral domains. (c) The normalized sorted magnitudes of the transform coefficients for the proposed $M$-channel critically sampled filter bank, the graph Fourier transform, the basis of Kronecker deltas, the quadrature mirror filterbank \cite{narang2012perfect}, and the diffusion wavelet transform \cite{coifman2006diffusion}. (d) The reconstruction errors  $\frac{\left|\left|f_{\mbox{reconstruction}}-f\right|\right|_2}{||f||_2}$, as a function of the sparsity threshold $T$ in \eqref{Eq:sparse_coding}.} \label{Fig:comp}
+\caption{Compression example. (a)-(b) Piecewise-smooth signal from \cite[Fig. 11]{shuman_TSP_multiscale} in the vertex and graph spectral domains. (c) The normalized sorted magnitudes of the transform coefficients for the proposed $M$-channel critically sampled filter bank, the graph Fourier transform, the basis of Kronecker deltas, the quadrature mirror filterbank \cite{narang2012perfect}, and the diffusion wavelet transform \cite{coifman2006diffusion}. (d) The reconstruction errors  $\frac{\left|\left|{\bf f}_{\mbox{reconstruction}}-{\bf f}\right|\right|_2}{||{\bf f}||_2}$, as a function of the sparsity threshold $T$ in \eqref{Eq:sparse_coding}.} \label{Fig:comp}
 \end{figure}
 
 {\color{blue}
-\section{Filter Bank Design}
+\section{Polynomial Filter Bank Design}
+In the numerical examples in the previous sections, we have computed a full eigendecomposition of the graph Laplacian and subsequently used it for all three of the filtering, sampling, and interpolation operations; however, such an eigendecomposition does not scale well with the size of the graph as it requires ${\cal O}(N^3)$ operations with naive methods. In these next three sections, we develop a fast approximate version of the proposed transform that scales more efficiently for large, sparse graphs. 
+
+\subsection{Approximation by Polynomial Filters} 
+
 \begin{itemize}
-\item Approximate filtering, and theory showing that the error (i) clusters around boundaries, and (ii) only matters where there are eigenvalues
-\item Design to aim for spectral gaps
+\item To compute $g_i(\L)f$, Matrix function times a vector literature (2-3 general surveys, graph signal processing literature) the polynomial approximation method discussed in \cite{hammond2011wavelets,shuman_DCOSS_2011}
+\item Approximate filtering, and theory showing that the error (i) clusters around boundaries, and (ii) only matters where there are eigenvalues, approximation error
+\item Use Jackson-Chebyshev, in attempt to preserve orthogonality across bands. Give equations, references, and explain damping
+\item Another advantage of the approximation is that the value of the filtered signal at a given vertex is a weighted average of the signal values in a neighborhood around that vertex \cite{shuman2013emerging}. 
 \end{itemize}
 
-\section{Non-Uniform Sampling and Reconstruction}
+\begin{figure}[tbh]
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1.15\linewidth]{fig_approx_filter_sensor}}
+\centerline{~~\small{(a)}}
+\end{minipage}
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1.15\linewidth]{fig_approx_filter_net25}}
+\centerline{~~\small{(b)}}
+\end{minipage} 
+\caption{Caption}\label{Fig:approx_filtering_error}
+\end{figure}
+
+\subsection{Filter Bank Design}
+
+
+\begin{figure}[tbh]
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1.1\linewidth]{fig_cdf}}
+\centerline{~~\small{(a)}}
+\end{minipage}
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1.1\linewidth]{fig_orig_fb}}
+\centerline{~~\small{(b)}}
+\end{minipage} \\
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1.1\linewidth]{fig_pdf}}
+\centerline{~~\small{(c)}}
+\end{minipage}
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1.1\linewidth]{fig_updated_fb}}
+\centerline{~~\small{(d)}}
+\end{minipage}
+\caption{Caption}\label{Fig:fb_design}
+\end{figure}
+
+
+
+
+\begin{itemize}
+\item refer back to error equation, Design to aim for spectral gaps, more amenable to polynomial approximation
+\item Don't know where these gaps are, but can estimate the spectral distribution
+\item References, and KPM, approximation of the eigenvalue distribution based on the spectrum slicing method of \cite[Section 3.3]{parlett}
+\item Set the initial band ends either logarithmically or evenly spaced, spectrum-adapted or not, similar to the tight warped filter bank design of \cite{shuman2013spectrum}.
+\item Then search for local minima in the pdf 
+\end{itemize}
+%One possibility for efficiently designing the filter bank without full knowledge of the spectrum is to use . These can either be adapted to the width of the spectrum using only an estimate of the maximum eigenvalue, or to an . In either case, the filters can then be applied using t. %However, the interpolation step needs to be adjusted accordingly. 
+
+%Issues that arise in this context include designing the filter bank to be , 
+
+
+
+
+
+\section{Non-Uniform Random Sampling and Reconstruction}
 \begin{itemize}
 \item Estimating number of measurements for each band
 \item Review of non-uniform random sampling literature
@@ -391,41 +470,35 @@ where $T$ is a predefined sparsity level. After first normalizing the atoms of v
 \item {\color{red} Solving the reconstruction equation efficiently and robustly}
 \end{itemize}
 
-\section{Illustrative Examples II: Approximate Calculations}
+\subsection{Sampling}
+
+Reference \cite{anis2016efficient} has a nice review of the computational complexities of the various routines for identifying uniqueness sets.  The random sampling method proposed in \cite{PuyTGV15} does not require the full eigendecomposition of the graph Laplacian and therefore scales significantly better with the size of the graph.
+We are currently examining whether there is a way to extend the approach of \cite{PuyTGV15} to non-uniformly randomly sample in a manner that leads with high probability to uniqueness sets for higher bands of the graph Laplacian spectrum. 
+
+\subsection{Interpolation}
+If $y_{\V_m}$ are the analysis coefficients of the $m^{th}$ branch, the standard least squares reconstruction is to solve $x_m^*=\argmin_{x \in \R^{k_m}} ||\mathbf{U}_{{\cal R}_m}x - y_{\V_m} ||_2$, and let $f_{m,{rec}}(\V_m)=y_{\V_m}$ and $f_{m,{rec}}(\V_m^c)=\mathbf{U}_{\V_m^c,{\cal R}_m}x_m^*$; however, this requires a full eigendcomposition of $\L$ to get $\mathbf{U}$. Our ongoing work includes developing an efficient optimization algorithm that directly uses a function of $\L$ rather than $\mathbf{U}$ to stably reconstruct signals supported on a specific spectral band from its samples. 
+
+\subsection{Reconstruction robustness to noisy or thresholded filter bank coefficients} \label{Se:noisy_ext}
+For any partition into uniqueness sets, the proposed transform perfectly recovers the signal from the analysis coefficients. However, the choice of the downsampling patterns and interpolation method can dramatically affect the stability of the reconstruction if the analysis coefficients are corrupted by noise or are only partially available, or approximate filters are used to speed up the transform (see, e.g., \cite[Section III.B]{anis2016efficient} for more on reconstruction stability). Thus, we plan to investigate the role of the initial choice of the $\gamma_i$'s in Algorithm \ref{Al:uniqueness} in improving the stability of the reconstruction.
+
+\section{Illustrative Examples II: Approximate Calculations} \label{Se:ill2}
 \begin{itemize}
 \item Make sure to have some very large examples and show computation times
 \end{itemize}
 }
 
 
-\section{Ongoing Work}
+\section{Conclusion and Extensions}
 \label{Sec:ongoing}
-{\color{red} Eliminate once we've covered all of these issues elsewhere.}
-We now briefly outline a number of extensions that we are currently investigating for the proposed transform.
+{\color{red} %Eliminate once we've covered all of these issues elsewhere.}
 
-\subsection{Computational approximations to improve scalability}
-In the numerical examples in the previous sections, we have computed a full eigendecomposition of the graph Laplacian and subsequently used it for all three of the sampling, filtering, and interpolation operations; however, such an eigendecomposition does not scale well with the size of the graph as it requires ${\cal O}(N^3)$ operations with naive methods. We briefly mention a few potential computational approximations that would improve the scalability of the proposed filter bank.
-\subsubsection{Sampling}
 
-Reference \cite{anis2016efficient} has a nice review of the computational complexities of the various routines for identifying uniqueness sets.  The random sampling method proposed in \cite{PuyTGV15} does not require the full eigendecomposition of the graph Laplacian and therefore scales significantly better with the size of the graph.
-We are currently examining whether there is a way to extend the approach of \cite{PuyTGV15} to non-uniformly randomly sample in a manner that leads with high probability to uniqueness sets for higher bands of the graph Laplacian spectrum.
- 
-\subsubsection{Filtering}\label{Se:filtering}
-One possibility for efficiently designing the filter bank without full knowledge of the spectrum is to use the tight warped filter bank design of \cite{shuman2013spectrum}. These can either be adapted to the width of the spectrum using only an estimate of the maximum eigenvalue, or to an approximation of the eigenvalue distribution based on the spectrum slicing method of \cite[Section 3.3]{parlett}. In either case, the filters can then be applied using the polynomial approximation method discussed in \cite{hammond2011wavelets,shuman_DCOSS_2011}. An advantage of the approximation is that the value of the filtered signal at a given vertex is a weighted average of the signal values in a neighborhood around that vertex \cite{shuman2013emerging}. However, the interpolation step needs to be adjusted accordingly. 
 
-\subsubsection{Interpolation}
-If $y_{\V_m}$ are the analysis coefficients of the $m^{th}$ branch, the standard least squares reconstruction is to solve $x_m^*=\argmin_{x \in \R^{k_m}} ||\mathbf{U}_{{\cal R}_m}x - y_{\V_m} ||_2$, and let $f_{m,{rec}}(\V_m)=y_{\V_m}$ and $f_{m,{rec}}(\V_m^c)=\mathbf{U}_{\V_m^c,{\cal R}_m}x_m^*$; however, this requires a full eigendcomposition of $\L$ to get $\mathbf{U}$. Our ongoing work includes developing an efficient optimization algorithm that directly uses a function of $\L$ rather than $\mathbf{U}$ to stably reconstruct signals supported on a specific spectral band from its samples. 
 
-\subsection{Reconstruction robustness to noisy or thresholded filter bank coefficients} \label{Se:noisy_ext}
-For any partition into uniqueness sets, the proposed transform perfectly recovers the signal from the analysis coefficients. However, the choice of the downsampling patterns and interpolation method can dramatically affect the stability of the reconstruction if the analysis coefficients are corrupted by noise or are only partially available, or approximate filters are used to speed up the transform (see, e.g., \cite[Section III.B]{anis2016efficient} for more on reconstruction stability). Thus, we plan to investigate the role of the initial choice of the $\gamma_i$'s in Algorithm \ref{Al:uniqueness} in improving the stability of the reconstruction.
-
-\subsection{Iterated filter bank} 
+%\subsection{Iterated filter bank} 
 As with the classical wavelet construction, it is possible to iterate the filter bank on the output from the lowpass channel.
 This could be beneficial, for example, in the case that we want to visualize the graph signal at different resolutions on  a sequence of coarser and coarser graphs. An interesting question is how iterating the filter bank with fewer channels at each step compares to a single filter bank with more channels and each filter supported on a smaller region of the spectrum.
-
-\subsection{Signals that are sparsely represented by the MCSFB transform}
-We  plan to more formally characterize the relationships between the decay of the analysis coefficients under the proposed transform and different properties of graph signals, as well as the underlying graph structure.
-Globally smooth signals trivially lead to sparse analysis coefficients because the coefficients are only nonzero for first set of vertices in the partition. The same line of reasoning applies more generally to signals that are sparse in the graph spectral domain. More interesting is a theory for the coefficient decay for piecewise-smooth graph signals such as the ones shown in Fig. \ref{Fig:bunny_signal}(a) and Fig. \ref{Fig:comp}(a).
+}
 
 \balance
 \bibliographystyle{IEEEtran}

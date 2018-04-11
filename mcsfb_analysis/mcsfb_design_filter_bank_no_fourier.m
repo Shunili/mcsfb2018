@@ -67,9 +67,9 @@ else %search in the interval
 %     shifted_ends(k) = (min_idx+low_idx-1+min_idx+low_idx)*step/2;
 
     for k = 2:num_bands
-%         bandwidth = max((band_ends(k)-band_ends(k-1))/2, (band_ends(k+1)-band_ends(k))/2); 
-%         shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,band_ends(k)-bandwidth, band_ends(k)+bandwidth);
-        shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,(band_ends(k)+band_ends(k-1))/2, (band_ends(k)+band_ends(k+1))/2);
+         bandwidth = min((band_ends(k)-band_ends(k-1))/2, (band_ends(k+1)-band_ends(k))/2); 
+         shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,band_ends(k)-bandwidth, band_ends(k)+bandwidth);
+%        shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,(band_ends(k)+band_ends(k-1))/2, (band_ends(k)+band_ends(k+1))/2);
     end
 
     for l = 1:num_bands

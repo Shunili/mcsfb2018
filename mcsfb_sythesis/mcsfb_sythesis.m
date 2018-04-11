@@ -5,8 +5,11 @@ function [ f_reconstruct, reconstruction_banded] = mcsfb_sythesis(G, num_bands, 
 reconstruction_banded = cell(num_bands, 1);
 f_reconstruct = zeros(G.N, 1);
 
+%reconstruction_banded{1} = mcsfb_reconstruct_band(G, downsampling_sets{1}, f_values{1}, shifted_ends(1), shifted_ends(1+1), weights{1}(downsampling_sets{1}));
+%f_reconstruct=reconstruction_banded{1};
+
 for i = 1:num_bands
-   reconstruction_banded{i} = mcsfb_reconstruct_band(G, downsampling_sets{i}, f_values{i}, shifted_ends(i), shifted_ends(i+1), weights{i}(downsampling_sets{i}));
+   reconstruction_banded{i} = mcsfb_reconstruct_band2(G, downsampling_sets{i}, f_values{i}, shifted_ends(i), shifted_ends(i+1), weights{i}(downsampling_sets{i}));
    f_reconstruct = f_reconstruct + reconstruction_banded{i};
 end
 

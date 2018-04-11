@@ -159,7 +159,7 @@ end
 
 param.shifted_ends = shifted_ends;
 param.jackson = 1;
-param.order=80;
+param.order=20;
 
 [analysis_coeffs,filter_coeffs] = mcsfb_analysis(G, f, filter_bank, downsampling_sets, param);
 
@@ -196,13 +196,18 @@ end
 
 [f_reconstruct, reconstruction_banded] = mcsfb_sythesis(G, num_bands, downsampling_sets, analysis_coeffs, shifted_ends, weights_banded);
 
-% plot reconstruction for each channel
+% plot reconstruction and error for each channel
 for i=1:num_bands
     figure;
     gsp_plot_signal(G,reconstruction_banded{i}, param);
     caxis([-2.5,2.5]);
     view(0,90)
     title('Reconstruction by Channel');
+    
+    figure;
+    gsp_plot_signal(G,abs(gsp_cheby_op(G,filter_coeffs(:,i),f)-reconstruction_banded{i}),param);
+    title('Reconstruction Error by Channel');
+    view(0,90)
 end
 
 % plot reconstruction
@@ -225,66 +230,68 @@ caxis([-2.5,2.5]);
 view(0,90)
 title('Reconstruction Error');
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Dictionary atom
-% exact_downsampling_partition
-
-total_samples=length(vertcat(downsampling_sets{:}));
-dict=zeros(G.N,total_samples);
-for i=1:G.N
-    del=gsp_delta(G,i);
-    analysis_coeffs = mcsfb_analysis(G, del, filter_bank, downsampling_sets, param);
-    dict(i,:)=vertcat(analysis_coeffs{:}); %sum(analysis_coeffs)';
-end
-
-atom_norms=sqrt(sum(dict.*dict,1))
-G=gsp_compute_fourier_basis(G);
-figure;
-imagesc(G.U'*dict);
-colorbar;
-caxis([-.05,.05])
-
-figure;
-gsp_plot_signal_spectral(G,gsp_gft(G,dict(:,250)));
-
-% normalized_dict=dict*diag(1./atom_norms);
-% [~,ind]=sort(p,'ascend');
-% sorted_dict=dict(:,ind);
-% sorted_norm_dict=normalized_dict(:,ind);
+mean_squared_error=sum(error.^2)/G.N
 
 % 
-% % localization in graph Fourier domain? Yes
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % Dictionary atom
+% % exact_downsampling_partition
+% 
+% total_samples=length(vertcat(downsampling_sets{:}));
+% dict=zeros(G.N,total_samples);
+% for i=1:G.N
+%     del=gsp_delta(G,i);
+%     analysis_coeffs = mcsfb_analysis(G, del, filter_bank, downsampling_sets, param);
+%     dict(i,:)=vertcat(analysis_coeffs{:}); %sum(analysis_coeffs)';
+% end
+% 
+% atom_norms=sqrt(sum(dict.*dict,1))
+% G=gsp_compute_fourier_basis(G);
 % figure;
-% imagesc(G.U'*sorted_dict);
+% imagesc(G.U'*dict);
 % colorbar;
+% caxis([-.05,.05])
+% 
+% figure;
+% gsp_plot_signal_spectral(G,gsp_gft(G,dict(:,250)));
+% 
+% % normalized_dict=dict*diag(1./atom_norms);
+% % [~,ind]=sort(p,'ascend');
+% % sorted_dict=dict(:,ind);
+% % sorted_norm_dict=normalized_dict(:,ind);
+% 
+% % 
+% % % localization in graph Fourier domain? Yes
+% % figure;
+% % imagesc(G.U'*sorted_dict);
+% % colorbar;
+% % 
+% % 
+% % start=1;
+% % for i=1:length(subband_sizes)
+% %     figure;
+% %     plot(G.e,abs(G.U'*sorted_dict(:,start:start+subband_sizes(i)-1)));
+% %     hold on;
+% %     plot(G.e, mean(abs(G.U'*sorted_dict(:,start:start+subband_sizes(i)-1)),2),'k','LineWidth',3);
+% %     xlim([0,max(G.e)]);
+% %     set(gca,'FontSize',24);
+% %     start=start+subband_sizes(i);
+% %     xlabel('$\lambda$','Interpreter','latex','FontSize',24);
+% %     ylabel('$|\hat{\phi_i}(\lambda)|$','Interpreter','latex','FontSize',24);
+% % end
+% % 
+% % % localization in the vertex domain (normalized_atoms, sorted by frequency, with first row belonging to first two bands, and so forth)
+% % param.vertex_size=300;
+% % selected_inds=[1,160,325,627,1252];
+% % for i=1:length(selected_inds)
+% %     figure;
+% %     gsp_plot_signal(G,sorted_dict(:,selected_inds(i)),param);
+% %     %gsp_plot_signal(G,sorted_norm_dict(:,selected_inds(i)),param);
+% %     m=max(abs(sorted_dict(:,selected_inds(i))));
+% %     caxis([-m,m]);
+% %     view(0,90);
+% %     set(gca,'FontSize',24);
+% % end
 % 
 % 
-% start=1;
-% for i=1:length(subband_sizes)
-%     figure;
-%     plot(G.e,abs(G.U'*sorted_dict(:,start:start+subband_sizes(i)-1)));
-%     hold on;
-%     plot(G.e, mean(abs(G.U'*sorted_dict(:,start:start+subband_sizes(i)-1)),2),'k','LineWidth',3);
-%     xlim([0,max(G.e)]);
-%     set(gca,'FontSize',24);
-%     start=start+subband_sizes(i);
-%     xlabel('$\lambda$','Interpreter','latex','FontSize',24);
-%     ylabel('$|\hat{\phi_i}(\lambda)|$','Interpreter','latex','FontSize',24);
-% end
 % 
-% % localization in the vertex domain (normalized_atoms, sorted by frequency, with first row belonging to first two bands, and so forth)
-% param.vertex_size=300;
-% selected_inds=[1,160,325,627,1252];
-% for i=1:length(selected_inds)
-%     figure;
-%     gsp_plot_signal(G,sorted_dict(:,selected_inds(i)),param);
-%     %gsp_plot_signal(G,sorted_norm_dict(:,selected_inds(i)),param);
-%     m=max(abs(sorted_dict(:,selected_inds(i))));
-%     caxis([-m,m]);
-%     view(0,90);
-%     set(gca,'FontSize',24);
-% end
-
-
-

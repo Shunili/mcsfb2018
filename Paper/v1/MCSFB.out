@@ -7,15 +7,13 @@
 \BOOKMARK [1][-]{section.5}{Illustrative Examples I: Exact Calculations}{}% 7
 \BOOKMARK [2][-]{subsection.5.1}{Joint vertex-frequency localization of atoms and example analysis coefficients}{section.5}% 8
 \BOOKMARK [2][-]{subsection.5.2}{Sparse approximation}{section.5}% 9
-\BOOKMARK [1][-]{section.6}{Filter Bank Design}{}% 10
-\BOOKMARK [1][-]{section.7}{Non-Uniform Sampling and Reconstruction}{}% 11
-\BOOKMARK [1][-]{section.8}{Illustrative Examples II: Approximate Calculations}{}% 12
-\BOOKMARK [1][-]{section.9}{Ongoing Work}{}% 13
-\BOOKMARK [2][-]{subsection.9.1}{Computational approximations to improve scalability}{section.9}% 14
-\BOOKMARK [3][-]{subsubsection.9.1.1}{Sampling}{subsection.9.1}% 15
-\BOOKMARK [3][-]{subsubsection.9.1.2}{Filtering}{subsection.9.1}% 16
-\BOOKMARK [3][-]{subsubsection.9.1.3}{Interpolation}{subsection.9.1}% 17
-\BOOKMARK [2][-]{subsection.9.2}{Reconstruction robustness to noisy or thresholded filter bank coefficients}{section.9}% 18
-\BOOKMARK [2][-]{subsection.9.3}{Iterated filter bank}{section.9}% 19
-\BOOKMARK [2][-]{subsection.9.4}{Signals that are sparsely represented by the MCSFB transform}{section.9}% 20
-\BOOKMARK [1][-]{section*.1}{References}{}% 21
+\BOOKMARK [1][-]{section.6}{Polynomial Filter Bank Design}{}% 10
+\BOOKMARK [2][-]{subsection.6.1}{Approximation by Polynomial Filters}{section.6}% 11
+\BOOKMARK [2][-]{subsection.6.2}{Filter Bank Design}{section.6}% 12
+\BOOKMARK [1][-]{section.7}{Non-Uniform Random Sampling and Reconstruction}{}% 13
+\BOOKMARK [2][-]{subsection.7.1}{Sampling}{section.7}% 14
+\BOOKMARK [2][-]{subsection.7.2}{Interpolation}{section.7}% 15
+\BOOKMARK [2][-]{subsection.7.3}{Reconstruction robustness to noisy or thresholded filter bank coefficients}{section.7}% 16
+\BOOKMARK [1][-]{section.8}{Illustrative Examples II: Approximate Calculations}{}% 17
+\BOOKMARK [1][-]{section.9}{Conclusion and Extensions}{}% 18
+\BOOKMARK [1][-]{section*.1}{References}{}% 19
