@@ -15,8 +15,8 @@ if length(weights) ~= num_selected
 end
 
 if ~isfield(param,'reg_eps')
-    reg_eps=1/G.N;
-    reg_eps=1/100;
+    %reg_eps=1/G.N;
+    reg_eps=1/1;
 else
     reg_eps=param.reg_eps;
 end
@@ -30,7 +30,7 @@ if ~isfield(param,'pcgmaxits')
 end
 
 if ~isfield(param,'order')
-    order=80;
+    order=20;
 else
     order=param.order;
 end
@@ -43,15 +43,20 @@ B=diag(wd);
 right_side = zeros(G.N,1);
 right_side(selected)=values./weights;
 
+
 if (isfield(G,'U') && isfield(G,'e'))
     A=B+G.U*diag(reg_filter(G.e))*G.U'; 
     z=A\right_side;
 else
     range=[0,G.lmax];
+    grid_order=1000;
     [~, JCH]=gsp_jackson_cheby_coeff(lower, upper, range, order);
-    gte=@(x) gsp_cheby_op(G, JCH, x)+reg_eps*x;
-    LHS=@(z) B*z-(1/(1+reg_eps))*z+pcg(gte,z);
-    z=pcg(LHS,right_side,1e-8,100);
+    reg_short=@(x) 1./(gsp_cheby_eval(x,JCH,range)+reg_eps);
+    short_coeff=gsp_cheby_coeff(G,reg_short,order,grid_order);  % may need to use damping here
+    %gte=@(x) gsp_cheby_op(G, JCH, x)+reg_eps*x;
+    %LHS=@(z) B*z-(1/(1+reg_eps))*z+pcg(gte,z,1e-10,100);
+    LHS=@(z) B*z-(1/(1+reg_eps))*z+gsp_cheby_op(G,short_coeff,z);
+    z=pcg(LHS,right_side,1e-10,100);
 end
 
 
