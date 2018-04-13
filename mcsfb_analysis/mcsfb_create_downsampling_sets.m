@@ -17,7 +17,7 @@ function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G,
         end
         subband_ids = zeros(G.N, 1);
         for i=1:num_bands
-            subband_ids(filter_bank{i}(G.e)~=0)=i; % if some eigenvalues are included in multiple filters, this code will put them in the last one 
+            subband_ids(filter_bank{i}(G.e)~=0)=i;% if some eigenvalues are included in multiple filters, this code will put them in the last one 
         end
 %         subband_ids(1:floor(G.N*(1/2)^(num_bands-1)),:) = ones(floor(G.N*(1/2)^(num_bands-1)), 1);
 %          t = 2;
@@ -28,6 +28,7 @@ function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G,
         partition_ids = part_mat(G.U,subband_ids,param);
         for i=1:num_bands
             downsampling_sets{i}=find(partition_ids==i);
+            weights_banded{i}=ones(G.N,1);
         end
         
     else
@@ -46,8 +47,8 @@ function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G,
            % r = rand(G.N,1);
            % y = gsp_filter(G,h,r); 
             
-            %up_limit = shifted_ends(i+1);
-            %low_limit = shifted_ends(i);
+            up_limit = shifted_ends(i+1);
+            low_limit = shifted_ends(i);
             
             % find approximate number of eigenvalues in each band
             if exact

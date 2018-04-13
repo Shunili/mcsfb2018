@@ -8,7 +8,7 @@ analysis_coeffs = cell(num_bands, 1);
 
 if gsp_check_fourier(G)
     transformed_coeffs = gsp_vec2mat(gsp_filter_analysis(G,filter_bank,s,param),num_bands);
-    varargout{1} = zeros(param.order+1,num_bands);
+    varargout{1} = 0; %zeros(param.order+1,num_bands);
 else
     if ~isfield(param,'order'); param.order = 30; end
     if ~isfield(param,'grid_order'); param.grid_order = param.order+1; end

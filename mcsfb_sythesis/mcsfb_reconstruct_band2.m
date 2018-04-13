@@ -6,14 +6,23 @@ if nargin<7
    param = struct;
 end
 
-num_selected=length(selected);
-if length(values) ~= num_selected
-    error('Values should be defined only on selected vertices');
-end
-if length(weights) ~= num_selected
-    error('Weights should be defined only on selected vertices');
+if ~isfield(param,'exact_downsampling_partition')
+    param.exact_downsampling_partition=0;
 end
 
+num_selected=length(selected);
+
+if ~param.exact_downsampling_partition
+    if length(values) ~= num_selected
+        error('Values should be defined only on selected vertices');
+    end
+    if length(weights) ~= num_selected
+        error('Weights should be defined only on selected vertices');
+    end
+else
+    weights=ones(num_selected,1);
+end
+    
 if ~isfield(param,'reg_eps')
     %reg_eps=1/G.N;
     reg_eps=1/1;
