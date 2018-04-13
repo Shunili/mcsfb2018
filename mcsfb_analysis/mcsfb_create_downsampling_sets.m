@@ -46,8 +46,8 @@ function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G,
            % r = rand(G.N,1);
            % y = gsp_filter(G,h,r); 
             
-            %up_limit = shifted_ends(i+1);
-            %low_limit = shifted_ends(i);
+            up_limit = shifted_ends(i+1);
+            low_limit = shifted_ends(i);
             
             % find approximate number of eigenvalues in each band
             if exact

@@ -1,52 +1,87 @@
 %% Sensor Network
-close all;
-clear all;
+%close all;
+%clear all;
 randn('seed', 18);  
 rand('seed', 18);
 
 G=gsp_david_sensor_network(500);
-param.compute_full_eigen = 1;
-% filter bank
-num_bands = 3;
-param.band_structure = 0;
-param.plot_filters = 1;
-param.plot_density_functions = 1;
+% param.compute_full_eigen = 1;
+% % filter bank
+% num_bands = 3;
+% param.band_structure = 0;
+% param.plot_filters = 1;
+% param.plot_density_functions = 1;
+% 
+% if ~param.compute_full_eigen
+%     G = gsp_estimate_lmax(G);
+% else
+     G=gsp_compute_fourier_basis(G);
+% end
 
-if ~param.compute_full_eigen
-    G = gsp_estimate_lmax(G);
-else
-    G=gsp_compute_fourier_basis(G);
+% param.spacing = 1;
+% param.spectrum_adapted = 1;
+% [filter_bank,shifted_ends,band_ends] = mcsfb_design_filter_bank(G,num_bands,param);
+
+shifted_ends(1) = 0;
+shifted_ends(2) = 1;
+shifted_ends(3) = 3.5;
+shifted_ends(4) = 7;
+
+for l = 1:3
+    filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x < shifted_ends(l+1)));
 end
-
-param.spacing = 1;
-param.spectrum_adapted = 1;
-[filter_bank,shifted_ends,band_ends] = mcsfb_design_filter_bank(G,num_bands,param);
 
 order = 80;
 filter_coeffs = zeros(order+1,num_bands);
+cheby_coeffs = zeros(order+1,num_bands);
 for i=1:num_bands
-    [~,filter_coeffs(:,i)]=gsp_jackson_cheby_coeff(shifted_ends(i), shifted_ends(i+1),[0 G.lmax], order);
-end
-approx_filters=cell(num_bands,1);
-for i=1:num_bands
-    approx_filters{i}=@(x) gsp_cheby_eval(x,filter_coeffs(:,i),[0,G.lmax]);
+    [cheby_coeffs(:,i),filter_coeffs(:,i)]=gsp_jackson_cheby_coeff(shifted_ends(i), shifted_ends(i+1),[0 G.lmax], order);
 end
 
-hh = cell(2,1);
+
+approx_filters=cell(num_bands,1);
+approx_filters_cheby=cell(num_bands,1);
+for i=1:num_bands
+    approx_filters{i}=@(x) gsp_cheby_eval(x,filter_coeffs(:,i),[0,G.lmax]);
+    approx_filters_cheby{i}=@(x) gsp_cheby_eval(x,cheby_coeffs(:,i),[0,G.lmax]);
+end
+
+hh = cell(3,1);
 hh{1} = filter_bank{2};
 hh{2} = approx_filters{2};
+hh{3} = approx_filters_cheby{2};
+diff_hh = @(x) hh{1}(x) - hh{2}(x);
+
+
 figure;
 plot_param.show_sum=0;
 plot_param.plot_eigenvalues = 1;
 plot_param.x_tic = 2;
-gsp_plot_filter(G,hh,plot_param);
+gsp_plot_filter(G,hh(1:2),plot_param);
 xlabel('$\lambda$','Interpreter','LaTex','FontSize',24) 
 set(gca,'FontSize',24);
-xlim([0,G.lmax+1]);
+xlim([0,15]);
+ylim([0,1]);
 set(gca,'box','off');
 % set(gca, 'XTick', [0,G.e',15]);
 % set(gca,'xticklabel',{[]}) 
 set(gca, 'YTick', 0:0.5:1);
+xlabel('$\lambda$','Interpreter','LaTex','FontSize',24);
+
+figure;
+plot_param.show_sum=0;
+plot_param.plot_eigenvalues = 1;
+plot_param.x_tic = 2;
+scatter(G.e, abs(diff_hh(G.e)),100,'filled');
+% gsp_plot_filter(G,hh{4},plot_param);
+xlabel('$\lambda$','Interpreter','LaTex','FontSize',24) 
+set(gca,'FontSize',24);
+xlim([0,15]);
+ylim([0,0.6]);
+set(gca,'box','off');
+set(gca, 'XTick', 0:2:15);
+% set(gca,'xticklabel',{[]}) 
+set(gca, 'YTick', 0:0.1:1);
 xlabel('$\lambda$','Interpreter','LaTex','FontSize',24);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -68,28 +103,58 @@ shifted_ends(3) = 40;
 shifted_ends(4) = 166.8325;
 
 for l = 1:3
-    filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
+    filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x < shifted_ends(l+1)));
 end
 num_bands = 3;
+
 order = 80;
 filter_coeffs = zeros(order+1,num_bands);
+cheby_coeffs = zeros(order+1,num_bands);
 for i=1:num_bands
-    [~,filter_coeffs(:,i)]=gsp_jackson_cheby_coeff(shifted_ends(i), shifted_ends(i+1),[0 G.lmax], order);
+    [cheby_coeffs(:,i),filter_coeffs(:,i)]=gsp_jackson_cheby_coeff(shifted_ends(i), shifted_ends(i+1),[0 G.lmax], order);
 end
+
 approx_filters=cell(num_bands,1);
+approx_filters_cheby=cell(num_bands,1);
 for i=1:num_bands
     approx_filters{i}=@(x) gsp_cheby_eval(x,filter_coeffs(:,i),[0,G.lmax]);
+    approx_filters_cheby{i}=@(x) gsp_cheby_eval(x,cheby_coeffs(:,i),[0,G.lmax]);
 end
 
-hh = cell(2,1);
+hh = cell(3,1);
 hh{1} = filter_bank{2};
 hh{2} = approx_filters{2};
+hh{3} = approx_filters_cheby{2};
+diff_hh = @(x) hh{1}(x) - hh{2}(x);
 
 figure;
+% plot_param.show_sum=0;
+% plot_param.plot_eigenvalues = 1;
+% plot_param.x_tic = 2;
+scatter(G.e, abs(diff_hh(G.e)),100, 'filled');
+% gsp_plot_filter(G,hh{4},plot_param);
+xlabel('$\lambda$','Interpreter','LaTex','FontSize',24) 
+set(gca,'FontSize',24);
+xlim([0,170]);
+ylim([0,0.6]);
+set(gca,'box','off');
+set(gca, 'XTick', 0:30:160);
+% set(gca,'xticklabel',{[]}) 
+set(gca, 'YTick', 0:0.1:0.6);
+xlabel('$\lambda$','Interpreter','LaTex','FontSize',24);
+
+figure;
+hold on;
+% lll = 0:0.001:G.lmax;
+% yy_h = filter_bank{2}(lll);
+% yy_approx_h = approx_filters{2}(lll);
+% plot(lll,yy_h, 'r', 'LineWidth',4);
+% plot(lll,yy_approx_h, 'b', 'LineWidth',4);
+% scatter(G.e, abs(diff_hh(G.e)));
 plot_param.show_sum=0;
 plot_param.plot_eigenvalues = 1;
 plot_param.x_tic = 30;
-gsp_plot_filter(G,hh,plot_param);
+gsp_plot_filter(G,hh(1:2),plot_param);
 xlabel('$\lambda$','Interpreter','LaTex','FontSize',24) 
 set(gca,'FontSize',24);
 xlim([0,170]);
