@@ -18,10 +18,10 @@ end
 
 
 % filter describing band
-lower=0; %sensor low
-upper=.635;
-%lower=.85; %sensor mid
-%upper=2.55;
+%lower=0; %sensor low
+%upper=.635;
+lower=.85; %sensor mid
+upper=2.55;
 %upper=.49; % make sure edge are in gaps
 
 %minn low
@@ -95,8 +95,8 @@ else
 %     below_upper=sum(diag(HD_upper)<0);
 %     nb_meas=below_upper-below_lower;
    
-    nb_meas=36; % sensor low
-  %nb_meas=42; % sensor band
+    %nb_meas=36; % sensor low
+  nb_meas=42; % sensor band
   
   %minn
   %nb_meas=50;
@@ -144,24 +144,28 @@ gsp_plot_signal(G, selected_signal, param);
 title('Selected Vertices');
 
 %% Reconstruct
-gamma = 10*G.N; % regularization parameter
+lower_wide=lower-.4;
+upper_wide=upper+1;
+gamma = G.N; % regularization parameter
 precondition=1;
 tic
-z = approx_reconstruct(G, y, weights, selected, gamma , lower,upper,precondition);
+z = approx_reconstruct(G, y, weights, selected, gamma , lower_wide,upper_wide,precondition);
 time1=toc
 tic
 z2 =approx_reconstruct_new_method(G, y, weights, selected, gamma , lower,upper);
 time2=toc
 
 
-tau1=10;
+tau1=.01;
 g_tilde_L=gsp_cheby_op(G,JCH,eye(G.N));
 
 cvx_begin
    variable z4(G.N)
-   minimize( norm((1./sqrt(weights(selected))).*(M*z4-y(selected)) - 1/tau1 * log(-z'*g_tilde_L*z) ))
+   minimize( norm((1./sqrt(weights(selected))).*(M*z4-y(selected)) - 1/tau1 * log(-z'*(eye(G.N)-g_tilde_L)*z) ))
 cvx_end
 
+eps_reg=1/G.N;
+z5 = approx_reconstruct_updated(G, y, weights, selected, eps_reg , lower,upper);
 
 % plot reconstruction
 figure;
@@ -175,10 +179,15 @@ param.climits = [-max_val,max_val];
 gsp_plot_signal(G, z2, param);
 title('Reconstruction 2');
 
-% plot reconstruction 2
+% plot reconstruction 4
 figure;
 gsp_plot_signal(G, z4, param);
 title('Reconstruction 4');
+
+% plot reconstruction 5
+figure;
+gsp_plot_signal(G, z5, param);
+title('Reconstruction 5');
 
 % plot reconstruction error
 error=abs(y-z);
@@ -202,6 +211,13 @@ figure;
 gsp_plot_signal(G, error4, param);
 title('Reconstruction Error 4');
 
+% plot reconstruction error 5
+error5=abs(y-z5);
+param.climits = [0, max(error5)];
+figure;
+gsp_plot_signal(G, error5, param);
+title('Reconstruction Error 5');
+
 % average of two methods
 z3=(z+z2)/2;
 
@@ -222,6 +238,7 @@ se1=sum(error.^2)
 se2=sum(error2.^2)
 se3=sum(error3.^2)
 se4=sum(error4.^2)
+se5=sum(error5.^2)
 
 % 
 
@@ -244,3 +261,59 @@ for i=1:length(xxx)
     ccc(i)=cc(xxx(i));
 end
 ccc
+
+
+JCH_reg=zeros(size(JCH));
+JCH_reg(1)=2;
+JCH_reg=JCH_reg-JCH;
+xx=0:.0001:G.lmax;
+h1=@(x)gamma*gsp_cheby_eval(x,JCH_reg,[0,G.lmax]);
+h2=@(x)(1./(gsp_cheby_eval(x,JCH,[0,G.lmax])+eps_reg))-1/(1+eps_reg);
+
+h2c = gsp_cheby_coeff(G,h2, param.order,param.grid_order);
+
+figure;
+hold on;
+plot(xx,h1(xx),'b','LineWidth',3);
+plot(xx,h2(xx),'r','LineWidth',3);
+plot(xx,gsp_cheby_eval(xx,h2c,[0,G.lmax]),'m','LineWidth',3);
+vline(lower,'g');
+vline(upper,'g');
+    
+if ~compute_full_eigen
+    param.grid_order=1000;
+    param.order=50;
+    [~, JCH]=gsp_jackson_cheby_coeff(lower, upper, [0,G.lmax], param.order);
+
+end
+
+G=gsp_compute_fourier_basis(G);
+figure;
+gsp_plot_signal_spectral(G,gsp_gft(G,y));
+hold on;
+vline(lower,'r');
+vline(upper,'r');
+
+figure;
+gsp_plot_signal_spectral(G,gsp_gft(G,z));
+hold on;
+vline(lower,'r');
+vline(upper,'r');
+
+figure;
+gsp_plot_signal_spectral(G,gsp_gft(G,z2));
+hold on;
+vline(lower,'r');
+vline(upper,'r');
+
+figure;
+gsp_plot_signal_spectral(G,gsp_gft(G,z4));
+hold on;
+vline(lower,'r');
+vline(upper,'r');
+
+figure;
+gsp_plot_signal_spectral(G,gsp_gft(G,z5));
+hold on;
+vline(lower,'r');
+vline(upper,'r');
