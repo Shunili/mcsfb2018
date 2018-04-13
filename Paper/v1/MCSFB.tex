@@ -4,6 +4,7 @@
 %\documentclass[11pt,draftcls,onecolumn]{IEEEtran}
 \input{preamble}
 
+
 \begin{document}
 
 \title{
@@ -56,9 +57,18 @@ Our approach in this paper is to replace the synthesis filters with interpolatio
 We consider graph signals $f \in \R^N$ residing on a weighted, undirected graph $\G=\{\V,\E,\mathbf{W}\}$, where $\V$ is the set of $N$ vertices, $\E$ is the set of edges, and $\mathbf{W}$ is the weighted adjacency matrix. 
 Throughout, we take $\L$ to be the combinatorial graph Laplacian $\mathbf{D}-\mathbf{W}$, where $\mathbf{D}$ is the diagonal matrix of vertex degrees. However, our theory and proposed transform also apply to the normalized graph Laplacian $\mathbf{I}-\mathbf{D}^{-\frac{1}{2}}\mathbf{W}\mathbf{D}^{-\frac{1}{2}}$, or any other Hermitian operator. We can diagonalize the graph Laplacian as $\L=\mathbf{U}{\boldsymbol \Lambda}\mathbf{U}^{*}$, where ${\boldsymbol \Lambda}$ is the diagonal matrix of eigenvalues $\lambda_0,\lambda_1,\ldots,\lambda_{N-1}$ of $\L$, and the columns ${\bf u}_0,{\bf u}_1,\ldots,{\bf u}_{N-1}$ of $\mathbf{U}$ are the associated eigenvectors of $\L$. The graph Fourier transform of a signal is $\hat{\bf{f}}=\mathbf{U}^{*}{\bf f}$, and ${h}(\L){\bf f}=\mathbf{U}{h}({\boldsymbol \Lambda})\mathbf{U}^{*}{\bf f}$ applies the filter ${h}: [0,\lambda_{\max}] \rightarrow \R$ to the graph signal ${\bf f}$. We use the notation $\mathbf{U}_{{\cal R}}$ to denote the submatrix formed by taking the columns of $\mathbf{U}$ associated with the Laplacian eigenvalues indexed by ${\cal R} \subseteq \{0,1,\ldots,N-1\}$. Similarly, we use the notation $\mathbf{U}_{{\cal S},{\cal R}}$ to denote the submatrix  formed by taking the rows of $\mathbf{U}_{{\cal R}}$ associated with the vertices indexed by the set ${\cal S} \subseteq \{1,2,\ldots,N\}$.
 
-We start by constructing an ideal filter bank of $M$ graph spectral filters, where each filter ${h}_m(\lambda)$ is equal to 1 on a subset of the spectrum, and 0 elsewhere. We choose the filters so that for each $\l \in \{0,1,\ldots,N-1\}$, ${h}_m(\lambda_\l)=1$ for exactly one $m$. Fig. \ref{Fig:fb} shows an example of such an ideal filter bank. 
+We start by constructing an ideal filter bank of $M$ graph spectral filters, where for a set of band endpoints $0=\tau_0 < \tau_1 < \ldots < \tau_{M-1} \leq \tau_M$ (with $\tau_M > \lambda_{\max}$), the $m^{th}$ filter is defined as
+\begin{align*}
+{h}_m(\lambda)=
+\begin{cases}
+1,& \tau_{m-1} \leq \lambda < \tau_m  \\
+0,&\hbox{ otherwise}
+\end{cases},~m=1,2,\ldots,M.
+\end{align*}
+%\{\tau_m\}each filter ${h}_m(\lambda)$ is equal to 1 on a subset of the spectrum, and 0 elsewhere.
+%We choose the filters so that for each $\l \in \{0,1,\ldots,N-1\}$, ${h}_m(\lambda_\l)=1$ for exactly one $m$. 
+ Fig. \ref{Fig:fb} shows an example of such an ideal filter bank. Note that for each $\l \in \{0,1,\ldots,N-1\}$, ${h}_m(\lambda_\l)=1$ for exactly one $m$. 
 Equivalently, we are forming a partition $\{{\cal R}_1,{\cal R}_2,\ldots,{\cal R}_M\}$ of $\{0,1,\ldots,N-1\}$ and setting
-
 \begin{align*}
 {h}_m(\lambda_{\l})=
 \begin{cases}
@@ -92,7 +102,7 @@ where each ${\boldsymbol \delta}_{{\mathcal{S}}^c_i}$ is a Kronecker delta cente
 The $m^{th}$ channel of the analysis %filter 
 bank %then 
 filters the graph signal by an ideal %low pass 
-filter on subband ${\cal R}_m$, and downsamples the result onto the vertices in $\V_m$. For synthesis, we can interpolate from the samples on $\V_m$ to $\mbox{col}\left(\mathbf{U}_{{\cal R}_m}\right)$. If there is no error in the coefficients, then the reconstruction is perfect, because $\V_m$ is a uniqueness set for $\mbox{col}\left(\mathbf{U}_{{\cal R}_m}\right)$. Fig.\ \ref{Fig:arch} shows the architecture of the proposed $M$-channel critically sampled filter bank with interpolation on the synthesis side.
+filter on subband ${\cal R}_m$, and downsamples the result onto the vertices in $\V_m$. For synthesis, we can interpolate from the samples on $\V_m$ to $\mbox{col}\left(\mathbf{U}_{{\cal R}_m}\right)$. If there is no error in the coefficients, then the reconstruction is perfect, because $\V_m$ is a uniqueness set for $\mbox{col}\left(\mathbf{U}_{{\cal R}_m}\right)$. Fig.\ \ref{Fig:arch} shows the architecture of the proposed $M$-channel critically sampled filter bank (M-CSFB) with interpolation on the synthesis side.
 
 \begin{figure}[t]
 \centerline{\includegraphics[width=2.8in]{fig_mcsfb_structure3}}
@@ -222,20 +232,42 @@ partition. In the numerical experiments in the next section, we use the greedy a
 \caption{Partitions of a 500 node random sensor network and the Minnesota road network \cite{gleich} into uniqueness sets for five different spectral bands, with the indices increasing from lowpass bands (1) to highpass bands (5).} \label{Fig:part_examples}
 \end{figure} 
 
+
+%\section{Dictionary Atoms and Signals that are Sparsely Represented by the MCSFB Transform}
+\section{Transform Properties}
+We now briefly examine some properties of the proposed transform. 
+\subsection{Dictionary atoms}
+Let ${\bf M}_m \in \R^{|{\cal V}_m| \times N}$ be the downsampling matrix for the $m^{th}$ channel. That is, ${\bf M}_m(i,j)=1$ if vertex $j$ is the $i^{th}$ element of ${\cal V}_m$, and 0 otherwise. The proposed transform is a linear mapping ${\cal F}: \R^N \rightarrow \R^N$ by ${\cal F}{\bf f} = {\bf Tf}$, where 
+\begin{align*}
+{\bf T}=\left[
+\begin{array}{c}
+{\bf M}_1 h_1(\L) \\  \hdashline[.05cm/.05cm]
+{\bf M}_2 h_2(\L) \\  \hdashline[.05cm/.05cm]
+\vdots \\  \hdashline[.05cm/.05cm]
+{\bf M}_M h_M(\L)
+\end{array}
+\right] \in \R^{N \times N}.
+\end{align*}
+The atoms of the resulting dictionary are given by the columns of ${\bf T}^{\top}$. While the transform is not orthogonal, each atom is orthogonal to all atoms concentrated on other spectral bands. Informally, this is because the atoms are projections of Kronecker deltas onto the orthogonal subspaces spanned by the Laplacian eigenvectors of each band. More formally, each atom is of the form $h_m(\L){\boldsymbol \delta}_i$, where vertex $i$ is in ${\cal V}_m$. If $m \neq m^{\prime}$, then the inner product of the two atoms from different bands is given by
+\begin{align} \label{Eq:ortho_bands}
+&\langle h_m(\L){\boldsymbol \delta}_i , h_{m^{\prime}}(\L){\boldsymbol \delta}_{i^{\prime}} \rangle \nonumber \\
+&~~~~~~= {\boldsymbol \delta}_i^{\top} {\bf U} h_m({\boldsymbol \Lambda}) {\bf U}^* {\bf U} h_{m^{\prime}}({\boldsymbol \Lambda}) {\bf U}^* {\boldsymbol \delta}_{i^{\prime}}= 0,
+\end{align}
+since ${\bf U}^* {\bf U}={\bf I}$ and $h_m(\lambda)h_{m^{\prime}}(\lambda)=0$ for all $\lambda$ by design.
+%One possible extension is to find a fast algorithm to orthogonalize the atoms within each band. 
+Note also that the wavelet atoms at all scales ($m>1$) have mean zero, as they have no energy at eigenvalue zero.
+
 {\color{red}
-\section{Signals that are Sparsely Represented by the MCSFB Transform}
+
+\subsection{Signals that are sparsely represented by the M-CSFB transform}
 \begin{itemize}
-\item Add theorem about orthogonality across bands
-\item Mention signals that are sparse
-\item Characterization of joint localization?
-\end{itemize}
-
-While the transform is not orthogonal, each atom is orthogonal to all atoms concentrated on other spectral bands. One possible extension is to find a fast algorithm to orthogonalize the atoms within each band. Note also that the wavelet atoms at all scales have mean zero, as they have no energy at eigenvalue zero.
-
-
-We  plan to more formally characterize the relationships between the decay of the analysis coefficients under the proposed transform and different properties of graph signals, as well as the underlying graph structure.
+%\item Add theorem about orthogonality across bands
+\item Concentrated in the graph Fourier domain
+\item If spectral coefficients decay, transform coefficients also decay
+\item Characterization of joint localization? Localization in vertex domain guaranteed when polynomial filters used
+\item We  plan to more formally characterize the relationships between the decay of the analysis coefficients under the proposed transform and different properties of graph signals, as well as the underlying graph structure.
 Globally smooth signals trivially lead to sparse analysis coefficients because the coefficients are only nonzero for first set of vertices in the partition. The same line of reasoning applies more generally to signals that are sparse in the graph spectral domain. More interesting is a theory for the coefficient decay for piecewise-smooth graph signals such as the ones shown in Fig. \ref{Fig:bunny_signal}(a) and Fig. \ref{Fig:comp}(a).
-
+\end{itemize}
 }
 
 \section{Illustrative Examples I: Exact Calculations}
@@ -396,19 +428,48 @@ where $T$ is a predefined sparsity level. After first normalizing the atoms of v
 \caption{Compression example. (a)-(b) Piecewise-smooth signal from \cite[Fig. 11]{shuman_TSP_multiscale} in the vertex and graph spectral domains. (c) The normalized sorted magnitudes of the transform coefficients for the proposed $M$-channel critically sampled filter bank, the graph Fourier transform, the basis of Kronecker deltas, the quadrature mirror filterbank \cite{narang2012perfect}, and the diffusion wavelet transform \cite{coifman2006diffusion}. (d) The reconstruction errors  $\frac{\left|\left|{\bf f}_{\mbox{reconstruction}}-{\bf f}\right|\right|_2}{||{\bf f}||_2}$, as a function of the sparsity threshold $T$ in \eqref{Eq:sparse_coding}.} \label{Fig:comp}
 \end{figure}
 
-{\color{blue}
+
 \section{Polynomial Filter Bank Design}
 In the numerical examples in the previous sections, we have computed a full eigendecomposition of the graph Laplacian and subsequently used it for all three of the filtering, sampling, and interpolation operations; however, such an eigendecomposition does not scale well with the size of the graph as it requires ${\cal O}(N^3)$ operations with naive methods. In these next three sections, we develop a fast approximate version of the proposed transform that scales more efficiently for large, sparse graphs. 
 
-\subsection{Approximation by Polynomial Filters} 
+\subsection{Approximation by polynomial filters} \label{Se:poly_approx}
 
-\begin{itemize}
-\item To compute $g_i(\L)f$, Matrix function times a vector literature (2-3 general surveys, graph signal processing literature) the polynomial approximation method discussed in \cite{hammond2011wavelets,shuman_DCOSS_2011}
-\item Approximate filtering, and theory showing that the error (i) clusters around boundaries, and (ii) only matters where there are eigenvalues, approximation error
-\item Use Jackson-Chebyshev, in attempt to preserve orthogonality across bands. Give equations, references, and explain damping
-\item Another advantage of the approximation is that the value of the filtered signal at a given vertex is a weighted average of the signal values in a neighborhood around that vertex \cite{shuman2013emerging}. 
-\end{itemize}
+Fast, approximate methods for computing $h_m(\L){\bf f}$ a function of sparse matrix times a vector, include approximating the function $h_m(\cdot)$ by a polynomial (e.g., via a truncated Chebyshev or Legendre expansion), approximating $h_m(\cdot)$ by a rational function, Krylov space methods (Lanczos in our case of a symmetric matrix $\L$), the matrix version of the Cauchy integral theorem (see, e.g., \cite{higham}\nocite{davies2005computing, frommer}-\cite{dubious} and references therein). The first three of these methods have been examined in graph signal processing settings \cite{hammond2011wavelets,PuyTGV15},  \cite{shuman_distributed_sipn}\nocite{susnjara, shi2015infinite}-\cite{loukas2015distributed}. While all of these could be used to approximate the filters in the analysis step of the proposed filter bank, we focus on order $K$ Chebyshev polynomial approximations of the form
+\begin{align}\label{Eq:cheb}
+\tilde{h}(\L){\bf f} := \sum_{k=0}^K \alpha_k \bar{T}_k(\L){\bf f}.
+\end{align}
+In \eqref{Eq:cheb}, $\bar{T}_k(\cdot)$ are Chebyshev polynomials shifted to the interval $[0,\lambda_{\max}]$. Thus,  $\bar{T}_0(\L){\bf f} = {\bf f}$, $\bar{T}_1(\L){\bf f} = \frac{2}{\lambda_{\max}}\L{\bf f}-{\bf f}$, and for $k\geq 2$, by the three term recurrence relation of Chebyshev polynomials, we have
+\begin{align*}
+\bar{T}_k(\L){\bf f} = \frac{4}{\lambda_{\max}}\left(\L-\frac{\lambda_{\max}}{2}{\bf I}\right)\bar{T}_{k-1}(\L){\bf f}-\bar{T}_{k-2}(\L){\bf f}.
+\end{align*}
 
+
+%{\color{blue}
+The coefficients in \eqref{Eq:cheb} are often taken to be $\alpha_0=\frac{1}{2}c_0$ and $\alpha_k=c_k$ for $k=1,2,\ldots,K$, where  $\{c_k\}_{k=0,\ldots,K}$ are the truncated Chebyshev expansion coefficients 
+%\cite{jay} formula
+\begin{align*}
+c_{k}&:=\langle h , \bar{T}_k \rangle \\&~= \frac{2}{\pi}\int_{0}^{\pi}\cos(k\phi)~h\Bigl(\frac{\lambda_{\max}}{2} \bigl(\cos(\phi) +1\bigr)\Bigr)~d\phi.
+\end{align*}
+However, the oscillations that arise in Chebyshev polynomial approximations of bandpass filters may result in larger values of $\tilde{h}_m(\lambda)\tilde{h}_{m^{\prime}}(\lambda)$, even when the ideal filters $h_m(\cdot)$ and $h_{m^{\prime}}(\cdot)$ have supports that do not come close to overlapping. This negates the orthogonality of the atoms across bands shown in \eqref{Eq:ortho_bands}. In an attempt to at least preserve \emph{near} orthogonality across bands, we 
+% Note that if 
+%\begin{itemize}
+%%\item $c_k$ formula for truncated Chebyshev expansion
+%\item However
+%%\item To compute $g_i(\L)f$, Matrix function times a vector literature (2-3 general surveys, graph signal processing literature) the polynomial approximation method discussed in \cite{hammond2011wavelets,shuman_DCOSS_2011}
+%%\item Approximate filtering, and theory showing that the error (i) clusters around boundaries, and (ii) only matters where there are eigenvalues, approximation error
+%\item Use Jackson-Chebyshev, in attempt to preserve orthogonality across bands. Give equations, references, and explain damping
+%%\item Another advantage of the approximation is that the value of the filtered signal at a given vertex is a weighted average of the signal values in a neighborhood around that vertex \cite{shuman2013emerging}. 
+%\end{itemize}
+%}
+therefore use the Jackson-Chebyshev polynomial approximations from \cite{di2016efficient,puy_structured_sampling} that damp the Gibbs oscillations appearing in Chebyshev expansions. With the damping, $\alpha_0=\frac{1}{2}c_0$ and $\alpha_k=\gamma_{k,K}c_k$ for $k=1,2,\ldots,K$, where, as presented in \cite{di2016efficient}, 
+\begin{align*}
+\gamma_{k,K} &= \frac{\left(1-\frac{k}{K+2}\right)\sin\left(\frac{\pi}{K+2}\right)\cos\left(\frac{k\pi}{K+2}\right)}{\sin\left(\frac{\pi}{K+2}\right)} \\
+&~~~~+~\frac{\frac{1}{K+2}\cos\left(\frac{\pi}{K+2}\right)\sin\left(\frac{k\pi}{K+2}\right)}{\sin\left(\frac{\pi}{K+2}\right)}.
+\end{align*}
+%{\color{blue} Reference 
+Figure \ref{Fig:approx_filtering_error} shows the Jackson-Chebyshev polynomial approximations for ideal bandpass filters of two different graphs.\footnote{For the net25 graph, we have removed the self loops and added a single edge to connect the two connected components.}
+
+%}
 \begin{figure}[tbh]
 \begin{minipage}[m]{0.49\linewidth}
 \centerline{\includegraphics[width=1.15\linewidth]{fig_approx_filter_sensor}}
@@ -417,14 +478,62 @@ In the numerical examples in the previous sections, we have computed a full eige
 \begin{minipage}[m]{0.49\linewidth}
 \centerline{\includegraphics[width=1.15\linewidth]{fig_approx_filter_net25}}
 \centerline{~~\small{(b)}}
-\end{minipage} 
-\caption{Caption}\label{Fig:approx_filtering_error}
+\end{minipage} \\
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1.15\linewidth]{fig_approx_filter_sensor_error}}
+\centerline{~~\small{(c)}}
+\end{minipage}
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1.15\linewidth]{fig_approx_filter_net25_error}}
+\centerline{~~\small{(d)}}
+\end{minipage}
+\caption{Degree 80 Jackson-Chebyshev polynomial approximations for ideal bandpass filters on the (a) 500 vertex random sensor network of Figure \ref{Fig:part_examples} and (b) Andrianov net25 graph from \cite{davis2011university} with 9,520 vertices. In (c) and (d), we show the errors $|\tilde{h}(\lambda_{\l})-h(\lambda_{\l})|$ at each of the Laplacian eigenvalues of the corresponding graphs in (a) and (b).}
+%\caption{{\color{red} Fix: check symmetry of second one, make the relative widths the same, show scatter plots of errors at eigenvalues, add Chebyshev?}
+\label{Fig:approx_filtering_error}
 \end{figure}
 
-\subsection{Filter Bank Design}
+%{\protect\footnotemark} 
+%\footnotetext{We have removed the self loops in the graph and added a single edge to connect the two connected components.}
+
+\subsection{Filter bank design}
+
+We can quantify the worst case error introduced when approximating  $h_m(\cdot)$ by an approximant $\tilde{h}_m(\cdot)$ as follows:
+\begin{align} \label{Eq:poly_approx_error}
+&||\tilde{h}_m(\L)-h_m(\L) ||_2  \nonumber \\ &~~~~~~~= \max_{\l \in \{0,1,\ldots,N-1\}}|\tilde{h}_m(\lambda_{\l})-h_m(\lambda_{\l}) |  \nonumber \\
+ &~~~~~~~\leq \max_{\lambda \in [0,\lambda_{\max}]}|\tilde{h}_m(\lambda)-h_m(\lambda) |.
+\end{align}
+While approximation theory often aims to minimize the upper bound in \eqref{Eq:poly_approx_error}, only the errors exactly at the graph Laplacian eigenvalues affect the overall approximation error $||\tilde{h}_m(\L)-h_m(\L) ||_2$. Since, as seen in Figure \ref{Fig:approx_filtering_error}, the errors of the Jackson-Chebyshev polynomial approximation are concentrated around the discontinuities of $h_m(\cdot)$, a guiding principle when designing the filter bank to be more amenable to fast approximation is to choose the endpoints $\{\tau_m\}_{m=1,\ldots,M-1}$ of the bandpass filters to be in gaps in the graph Laplacian spectrum. Unfortunately, we do not have access to the exact graph Laplacian eigenvalues (the reason for introducing this approximation in the first place is that they are too expensive to compute for large graphs); however, we can efficiently estimate the density of the spectrum in order to design the filters in a way that aims to have the endpoints close to fewer eigenvalues of $\L$.
+
+\subsubsection{Estimating the spectral density}
+
+Lin et al. \cite{lin_spectral_density} provide an excellent overview of methods to approximate the \emph{spectral density function} \cite[Chapter 6]{van_mieghem}) (also called the \emph{Density of States} or \emph{empirical spectral distribution} \cite[Chapter 2.4]{tao_random_matrix}) of a matrix, which in our context for the graph Laplacian $\L$ is the probability measure 
+\begin{align*}
+p_{\lambda}(s):=\frac{1}{N}\sum_{\l=0}^{N-1} \Identity_{\left\{\lambda_{\l}=s\right\}}.
+\end{align*}
+Here, we use a variant of the Kernel Polynomial Method \cite{silver1994densities}\nocite{silver1996kernel}-\cite{wang1994calculating} described in \cite{lin_spectral_density} to estimate the \emph{cumulative spectral density function} or \emph{empirical spectral cumulative distribution}
+\begin{align}
+P_{\lambda}(z):=\frac{1}{N}\sum_{\l=0}^{N-1} \Identity_{\left\{\lambda_{\l}\leq z\right\}}.
+\end{align}
+The procedure{\color{red}, outlined in Algorithm  XXX,} starts by estimating $\lambda_{\max}$, for example via the power iteration. Then for each of $T$ linearly spaced points $\xi_i$ between 0 and $\lambda_{\max}$, we use Hutchinson's stochastic trace estimator \cite{hutchinson} to estimate $\eta_i$, the number of eigenvalues less than or equal to $\xi_i$. Defining the Heaviside function $\Theta_{\xi_i}(\lambda):=\Identity_{\left\{\lambda \leq \xi_i\right\}},$ we have
+\begin{align}
+\eta_i =\mbox{tr}\Bigl(\Theta_{\xi_i}(\L)\Bigr) 
+&=\mathbb{E}[{\bf x}^{\top}\Theta_{\xi_i}(\L){\bf x}] \label{Eq:hutch1}\\
+&\approx \frac{1}{J} \sum_{j=1}^J {{\bf x}^{(j)}}^{\top}\Theta_{\xi_i}(\L){\bf x}^{(j)} \label{Eq:hutch2} \\
+&\approx \frac{1}{J} \sum_{j=1}^J {{\bf x}^{(j)}}^{\top}\tilde{\Theta}_{\xi_i}(\L){\bf x}^{(j)}. \label{Eq:hutch3}
+\end{align}
+In \eqref{Eq:hutch1}, ${\bf x}$ is a random vector with each component having an independent and identical standard normal distribution. Each vector  ${\bf x}^{(j)}$ in \eqref{Eq:hutch2} is chosen according to this same distribution, and in our experiments, we take the default number of vectors to be $J=30$. In \eqref{Eq:hutch3}, $\tilde{\Theta}_{\xi_i}$ is the Jackson-Chebyshev approximation to ${\Theta}_{\xi_i}$ discussed in Section \ref{Se:poly_approx}, with a default polynomial order of $K=30$. If we place the $J$ random vectors into the columns of an $N \times J$ matrix ${\bf X}$, the computational cost of estimating the spectral distribution is dominated by computing $\tilde{\Theta}_{\xi_i}(\L){\bf X}=\sum_{k=0}^K \alpha_k \bar{T}_k(\L){\bf X}$ for each $\xi_i$. Yet, %the $\alpha_k$'s for each ${\Theta}_{\xi_i}$ can be computed in closed form, and 
+we only need to compute $\{ \bar{T}_k(\L){\bf X}\}_{k=0,1,\ldots,K}$ recursively once, as this sequence can be reused for each $\xi_i$, with different choices of the $\alpha_k$'s. Therefore, the overall computational cost is ${\cal O}(KJ|\E|)$.
+
+As in \cite{shuman2013spectrum}, once we compute the eigenvalue count estimates $\{\eta_i\}$, we approximate the empirical spectral cumulative distribution $P_{\lambda}(\cdot)$ by performing monotonic piecewise cubic interpolation \cite{fritsch} on the series of points $\left\{\left(\xi_i,\frac{\eta_i}{N}\right)\right\}_{i=1,2,\ldots,T}$. We denote the result as $\tilde{P}_{\lambda}(\cdot)$.
 
 
-\begin{figure}[tbh]
+
+
+\subsubsection{Choosing initial band ends}
+
+When selecting the band ends $\{\tau_m\}$ for each of the $M$ ideal filters, we consider two factors: spectrum-adaptation and spacing. In our implementation, the filter bank can either be adapted to the spectral distribution or just to the support of the spectrum $[0,\lambda_{\max}]$, and it can be either evenly or logarithmically spaced (four options in all). For example, if the filter bank is only adapted to the support of the spectrum and is evenly spaced, then $\tau_m=\frac{m}{M}\lambda_{\max}$. Figure \ref{Fig:fb_design}(a) shows a spectrum-adapted, logarithmically spaced choice with $\tau_m=\tilde{P}^{-1}_{\lambda}\Bigl(\frac{1}{2}^{M-m}\Bigr)$ for $m=1,2,\ldots,M$, such that approximately half of the eigenvalues are in the highest band, a quarter in the next highest band, and so forth. 
+
+\begin{figure}[tb]
 \begin{minipage}[m]{0.49\linewidth}
 \centerline{\includegraphics[width=1.1\linewidth]{fig_cdf}}
 \centerline{~~\small{(a)}}
@@ -441,29 +550,43 @@ In the numerical examples in the previous sections, we have computed a full eige
 \centerline{\includegraphics[width=1.1\linewidth]{fig_updated_fb}}
 \centerline{~~\small{(d)}}
 \end{minipage}
-\caption{Caption}\label{Fig:fb_design}
+\caption{{\color{red} (a) The approximate cumulative spectral density function, $\tilde{P}_{\lambda}$ for the net25 graph described in Figure \ref{Fig:approx_filtering_error}. The blue X marks correspond to the initial choice of band endpoints computed by taking the inverse of logarithmically spaced points on the vertical axis. (b) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the initial choice of band ends. (c) The objective function of \eqref{Eq:adjustment} (an approximation of the spectral density function) with $\Delta=.001$. The blue horizontal lines correspond to the search intervals ${\cal I}_1$ and ${\cal I}_2$, and the red circles represent the adjusted band ends $\{\tau_m\}_{m=0,1,2,3}$. (d) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the adjusted choice of band ends. Note that errors between the approximate filters and ideal bandpass filters are concentrated in regions with fewer eigenvalues (gaps in the spectrum).}}\label{Fig:fb_design}
 \end{figure}
 
+\subsubsection{Adjusting the band ends}
+
+In order to make the filters more amenable to approximation, we then adjust the initial choice of band endpoints so that they lie in lower density regions of the spectrum. Specifically, for each $m=1,2,\ldots,M-1$ and some choice of $\Delta>0$, we let the final endpoint be
+\begin{align} \label{Eq:adjustment}
+\tau_m^* = \argmin_{\tau \in {\cal I}_m} \left\{\frac{\tilde{P}_{\lambda}(\tau+\Delta)-\tilde{P}_{\lambda}(\tau-\Delta)}{2\Delta}\right\},
+\end{align}
+%search for the minimizer of $\frac{\tilde{P}_{\lambda}(\cdot)}{2 \Delta}$ 
+where ${\cal I}_m$ is an interval around the initial choice of $\tau_m$. Figure \ref{Fig:fb_design}(c) shows the objective function in \eqref{Eq:adjustment}, along with the initial band ends, search intervals, and adjusted band ends. Comparing Figure \ref{Fig:fb_design}(b) and Figure \ref{Fig:fb_design}(d), we 
+see that adjusting the band ends leads to fewer eigenvalues falling close to the borders of the filters, reducing the error incurred by the polynomial approximation process.
+ 
 
 
 
-\begin{itemize}
-\item refer back to error equation, Design to aim for spectral gaps, more amenable to polynomial approximation
-\item Don't know where these gaps are, but can estimate the spectral distribution
-\item References, and KPM, approximation of the eigenvalue distribution based on the spectrum slicing method of \cite[Section 3.3]{parlett}
-\item Set the initial band ends either logarithmically or evenly spaced, spectrum-adapted or not, similar to the tight warped filter bank design of \cite{shuman2013spectrum}.
-\item Then search for local minima in the pdf 
-\end{itemize}
+
+
+%\begin{itemize}
+%\item refer back to error equation, Design to aim for spectral gaps, more amenable to polynomial approximation
+%\item Don't know where these gaps are, but can estimate the spectral distribution
+%\item References, and KPM, approximation of the eigenvalue distribution based on the spectrum slicing method of \cite[Section 3.3]{parlett}
+%\item Set the initial band ends either logarithmically or evenly spaced, spectrum-adapted or not, similar to the tight warped filter bank design of \cite{shuman2013spectrum}.
+%\item Then search for local minima in the pdf 
+%\end{itemize}
 %One possibility for efficiently designing the filter bank without full knowledge of the spectrum is to use . These can either be adapted to the width of the spectrum using only an estimate of the maximum eigenvalue, or to an . In either case, the filters can then be applied using t. %However, the interpolation step needs to be adjusted accordingly. 
 
 %Issues that arise in this context include designing the filter bank to be , 
 
 
-
+{\color{blue}
 
 
 \section{Non-Uniform Random Sampling and Reconstruction}
 \begin{itemize}
+\item Fast sampling and reconstruction. Two main approaches to sampling: greedy and random
+\item Most work on lowpass/smooth signals
 \item Estimating number of measurements for each band
 \item Review of non-uniform random sampling literature
 \item Reconstruction - emphasize change from only lowpass bands
@@ -483,6 +606,8 @@ For any partition into uniqueness sets, the proposed transform perfectly recover
 
 \section{Illustrative Examples II: Approximate Calculations} \label{Se:ill2}
 \begin{itemize}
+\item Reconstruction of bandpass signal. Tradeoff between number of samples and reconstruction error. Show different methods? 
+\item Repeat bunny compression example. Much worse?
 \item Make sure to have some very large examples and show computation times
 \end{itemize}
 }

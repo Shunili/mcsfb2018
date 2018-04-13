@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  10 APR 2018 13:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  13 APR 2018 16:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -462,62 +462,85 @@ Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
 \extratabsurround=\skip58
 \backup@length=\skip59
 )
+(/usr/local/texlive/2015/texmf-dist/tex/latex/arydshln/arydshln.sty
+Package: arydshln 2004/08/31 v1.71 
+\dashlinedash=\dimen151
+\dashlinegap=\dimen152
+\adl@box=\box31
+\adl@height=\dimen153
+\adl@heightsave=\dimen154
+\adl@depth=\dimen155
+\adl@depthsave=\dimen156
+\adl@finaldepth=\dimen157
+\adl@columns=\count132
+\adl@ncol=\count133
+\adl@currentcolumn=\count134
+\adl@currentcolumnsave=\count135
+\adl@totalheight=\count136
+\adl@totalheightsave=\count137
+\adl@dash=\count138
+\adl@gap=\count139
+\adl@cla=\count140
+\adl@clb=\count141
+\adl@everyvbox=\toks33
+\adl@LTpagetotal=\dimen158
+)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/multirow/multirow.sty
-\bigstrutjot=\dimen151
+\bigstrutjot=\dimen159
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2005/04/14 v1.61803 publication quality tables
-\heavyrulewidth=\dimen152
-\lightrulewidth=\dimen153
-\cmidrulewidth=\dimen154
-\belowrulesep=\dimen155
-\belowbottomsep=\dimen156
-\aboverulesep=\dimen157
-\abovetopsep=\dimen158
-\cmidrulesep=\dimen159
-\cmidrulekern=\dimen160
-\defaultaddspace=\dimen161
-\@cmidla=\count132
-\@cmidlb=\count133
-\@aboverulesep=\dimen162
-\@belowrulesep=\dimen163
-\@thisruleclass=\count134
-\@lastruleclass=\count135
-\@thisrulewidth=\dimen164
+\heavyrulewidth=\dimen160
+\lightrulewidth=\dimen161
+\cmidrulewidth=\dimen162
+\belowrulesep=\dimen163
+\belowbottomsep=\dimen164
+\aboverulesep=\dimen165
+\abovetopsep=\dimen166
+\cmidrulesep=\dimen167
+\cmidrulekern=\dimen168
+\defaultaddspace=\dimen169
+\@cmidla=\count142
+\@cmidlb=\count143
+\@aboverulesep=\dimen170
+\@belowrulesep=\dimen171
+\@thisruleclass=\count144
+\@lastruleclass=\count145
+\@thisrulewidth=\dimen172
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/preprint/balance.sty
 Package: balance 1999/02/23 4.3 (PWD)
-\oldvsize=\dimen165
+\oldvsize=\dimen173
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
-\c@theorem=\count136
-\c@definition=\count137
-\c@problem=\count138
-\c@example=\count139
-\c@remark=\count140
-\c@lemma=\count141
-\c@corollary=\count142
-\c@proposition=\count143
+\c@theorem=\count146
+\c@definition=\count147
+\c@problem=\count148
+\c@example=\count149
+\c@remark=\count150
+\c@lemma=\count151
+\c@corollary=\count152
+\c@proposition=\count153
 )
 (./MCSFB.aux)
 \openout1 = `MCSFB.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -555,71 +578,71 @@ LaTeX Font Info:    ... okay on input line 7.
 
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count144
-\scratchdimen=\dimen166
-\scratchbox=\box31
-\nofMPsegments=\count145
-\nofMParguments=\count146
-\everyMPshowfont=\toks33
-\MPscratchCnt=\count147
-\MPscratchDim=\dimen167
-\MPnumerator=\count148
-\makeMPintoPDFobject=\count149
-\everyMPtoPDFconversion=\toks34
+\scratchcounter=\count154
+\scratchdimen=\dimen174
+\scratchbox=\box32
+\nofMPsegments=\count155
+\nofMParguments=\count156
+\everyMPshowfont=\toks34
+\MPscratchCnt=\count157
+\MPscratchDim=\dimen175
+\MPnumerator=\count158
+\makeMPintoPDFobject=\count159
+\everyMPtoPDFconversion=\toks35
 )
-\AtBeginShipoutBox=\box32
-Package hyperref Info: Link coloring OFF on input line 7.
+\AtBeginShipoutBox=\box33
+Package hyperref Info: Link coloring OFF on input line 8.
  (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count150
+\c@section@level=\count160
 )
-LaTeX Info: Redefining \ref on input line 7.
-LaTeX Info: Redefining \pageref on input line 7.
-LaTeX Info: Redefining \nameref on input line 7.
+LaTeX Info: Redefining \ref on input line 8.
+LaTeX Info: Redefining \pageref on input line 8.
+LaTeX Info: Redefining \nameref on input line 8.
 
 (./MCSFB.out) (./MCSFB.out)
 \@outlinefile=\write3
 \openout3 = `MCSFB.out'.
 
-LaTeX Font Info:    Calculating math sizes for size <24> on input line 20.
-LaTeX Font Info:    Try loading font information for U+msa on input line 20.
+LaTeX Font Info:    Calculating math sizes for size <24> on input line 21.
+LaTeX Font Info:    Try loading font information for U+msa on input line 21.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 20.
+LaTeX Font Info:    Try loading font information for U+msb on input line 21.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 20.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 21.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 20.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 21.
 
-Underfull \hbox (badness 1874) in paragraph at lines 20--20
+Underfull \hbox (badness 1874) in paragraph at lines 21--21
 [][][]\OT1/ptm/m/n/8 Yan Jin is with the In-sti-tute for Data, Sys-tems, and So
 -ci-
  []
 
 
-Underfull \hbox (badness 2065) in paragraph at lines 20--20
+Underfull \hbox (badness 2065) in paragraph at lines 21--21
 \OT1/ptm/m/n/8 with the De-part-ment of Math-e-mat-ics, Statis-tics, and Com-pu
 ter
  []
 
-<fig_two_channel_classical.pdf, id=96, 621.18071pt x 220.39941pt>
+<fig_two_channel_classical.pdf, id=116, 621.18071pt x 220.39941pt>
 File: fig_two_channel_classical.pdf Graphic file (type pdf)
 
 <use fig_two_channel_classical.pdf>
-Package pdftex.def Info: fig_two_channel_classical.pdf used on input line 42.
+Package pdftex.def Info: fig_two_channel_classical.pdf used on input line 43.
 (pdftex.def)             Requested size: 238.49121pt x 84.61693pt.
  [1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
@@ -629,429 +652,389 @@ s been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.49 
+l.50 
       <./fig_two_channel_classical.pdf>]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 55.
+(hyperref)                removing `math shift' on input line 56.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 55.
+(hyperref)                removing `math shift' on input line 56.
 
-<fig_filter_bank.pdf, id=182, 940.74564pt x 405.41734pt>
+<fig_filter_bank.pdf, id=202, 940.74564pt x 405.41734pt>
 File: fig_filter_bank.pdf Graphic file (type pdf)
 
 <use fig_filter_bank.pdf>
-Package pdftex.def Info: fig_filter_bank.pdf used on input line 71.
+Package pdftex.def Info: fig_filter_bank.pdf used on input line 81.
 (pdftex.def)             Requested size: 224.03743pt x 96.54742pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 89--91
+Underfull \hbox (badness 10000) in paragraph at lines 99--101
 [][]\OT1/ptm/b/n/10 Lemma 1 \OT1/ptm/m/n/10 ([[]], [[]])\OT1/ptm/b/n/10 . []\OT
 1/ptm/m/it/10 The set $\OMS/cmsy/m/n/10 S$ \OT1/ptm/m/it/10 of $\OML/cmm/m/it/1
 0 k$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 89--91
+Underfull \hbox (badness 10000) in paragraph at lines 99--101
 \OT1/ptm/m/it/10 ver-tices is a unique-ness set for $[]\OT1/cmr/m/n/10 (\OT1/cm
 r/bx/n/10 U[]\OT1/cmr/m/n/10 )$ \OT1/ptm/m/it/10 if
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 89--91
+Underfull \hbox (badness 10000) in paragraph at lines 99--101
 \OT1/ptm/m/it/10 and only if the ma-trix whose columns are
  []
 
-<fig_mcsfb_structure3.pdf, id=187, 613.34247pt x 434.07368pt>
+<fig_mcsfb_structure3.pdf, id=207, 613.34247pt x 434.07368pt>
 File: fig_mcsfb_structure3.pdf Graphic file (type pdf)
 
 <use fig_mcsfb_structure3.pdf>
-Package pdftex.def Info: fig_mcsfb_structure3.pdf used on input line 98.
+Package pdftex.def Info: fig_mcsfb_structure3.pdf used on input line 108.
 (pdftex.def)             Requested size: 202.35622pt x 143.21164pt.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 109.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 109.
-
-[2pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
-has been already used, duplicate ignored
+ [2pdfTeX warning (ext4): destination with the same identifier (name{figure.2})
+ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.112 \begin{proposition}
-                         \label{Le:highpass_uniqueness} <./fig_filter_bank.pdf>
-]
-** ATTENTION: \proof is deprecated (line 127). Use \IEEEproof instead.
+l.118 
+       <./fig_filter_bank.pdf>]
 
-Underfull \vbox (badness 1270) has occurred while \output is active []
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 119.
 
 
-Underfull \hbox (badness 6364) in paragraph at lines 145--149
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 119.
+
+** ATTENTION: \proof is deprecated (line 137). Use \IEEEproof instead.
+
+Underfull \hbox (badness 6364) in paragraph at lines 155--159
 \OT1/ptm/m/n/10 Yet, $\OT1/cmr/bx/n/10 x \OMS/cmsy/m/n/10 2 []\OT1/cmr/m/n/10 (
 \OT1/cmr/bx/n/10 U[]\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 im-plies $\OT1/cmr/bx/n/
 10 x$ \OT1/ptm/m/n/10 is or-thog-o-nal
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 145--149
+Underfull \hbox (badness 10000) in paragraph at lines 155--159
 \OT1/ptm/m/n/10 to $\OT1/cmr/bx/n/10 u[]\OML/cmm/m/it/10 ; \OT1/cmr/bx/n/10 u[]
 \OML/cmm/m/it/10 ; [] ; \OT1/cmr/bx/n/10 u[]$\OT1/ptm/m/n/10 , and, sim-i-larly
 , $\OT1/cmr/bx/n/10 x \OMS/cmsy/m/n/10 2
  []
 
 
-Underfull \hbox (badness 1910) in paragraph at lines 145--149
+Underfull \hbox (badness 1910) in paragraph at lines 155--159
 []\OT1/cmr/m/n/10 ([][]\OML/cmm/m/it/10 ; [][]; [] ; [][]\OT1/cmr/m/n/10 )$ \OT
 1/ptm/m/n/10 im-plies $\OT1/cmr/bx/n/10 x$ \OT1/ptm/m/n/10 is or-thog-o-nal to
  []
 
 
-Underfull \hbox (badness 3590) in paragraph at lines 145--149
+Underfull \hbox (badness 3590) in paragraph at lines 155--159
 [][]\OML/cmm/m/it/10 ; [][]; [] ; [][]:$ \OT1/ptm/m/n/10 In ma-trix no-ta-tion,
  we have
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 153.
+(hyperref)                removing `math shift' on input line 163.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 153.
+(hyperref)                removing `math shift' on input line 163.
 
-** ATTENTION: \proof is deprecated (line 159). Use \IEEEproof instead.
-
-Underfull \vbox (badness 1158) has occurred while \output is active []
-
- [3pdfTeX warning (ext4): destination with the same identifier (name{figure.3})
- has been already used, duplicate ignored
+** ATTENTION: \proof is deprecated (line 169). Use \IEEEproof instead.
+[3pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) 
+has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.167 \end{align}
+l.177 \end{align}
                   <./fig_mcsfb_structure3.pdf>]
-Underfull \hbox (badness 2698) in paragraph at lines 171--176
+Underfull \hbox (badness 2698) in paragraph at lines 181--186
 [][]\OT1/ptm/b/n/10 Corollary 1. []\OT1/ptm/m/it/10 For any par-ti-tion $\OMS/c
 msy/m/n/10 fR[]\OML/cmm/m/it/10 ; \OMS/cmsy/m/n/10 R[]\OML/cmm/m/it/10 ; [] \OM
 S/cmsy/m/n/10 R[]g$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 171--176
+Underfull \hbox (badness 10000) in paragraph at lines 181--186
 \OT1/ptm/m/it/10 of the graph Lapla-cian eigen-value in-dices
  []
 
 
-Underfull \hbox (badness 1888) in paragraph at lines 171--176
+Underfull \hbox (badness 1888) in paragraph at lines 181--186
 \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 1\OML/cmm
 /m/it/10 ; [] ; N \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1\OMS/cmsy/m/n/10 g$ \OT
 1/ptm/m/it/10 into $\OML/cmm/m/it/10 M$ \OT1/ptm/m/it/10 sub-sets, there ex-ist
 s a
  []
 
-** ATTENTION: \proof is deprecated (line 177). Use \IEEEproof instead.
+** ATTENTION: \proof is deprecated (line 187). Use \IEEEproof instead.
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 185.
+put line 195.
 
-Underfull \hbox (badness 4254) in paragraph at lines 191--192
+Underfull \hbox (badness 4254) in paragraph at lines 201--202
 [] \OT1/ptm/m/n/10 Find sets $\OML/cmm/m/it/10 ^^M[]; ^^M[] \OMS/cmsy/m/n/10 ^^
 Z S[]$ \OT1/ptm/m/n/10 s.t. $\OT1/cmr/bx/n/10 U[]$ \OT1/ptm/m/n/10 and
  []
 
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 200.
-<fig_uniq_part_sensor3.pdf, id=299, 407.77113pt x 355.31546pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 210.
+<fig_uniq_part_sensor3.pdf, id=319, 407.77113pt x 355.31546pt>
 File: fig_uniq_part_sensor3.pdf Graphic file (type pdf)
 
 <use fig_uniq_part_sensor3.pdf>
-Package pdftex.def Info: fig_uniq_part_sensor3.pdf used on input line 212.
+Package pdftex.def Info: fig_uniq_part_sensor3.pdf used on input line 222.
 (pdftex.def)             Requested size: 96.44691pt x 84.03587pt.
 
-<fig_uniq_part_col2.pdf, id=300, 50.12828pt x 351.80833pt>
+<fig_uniq_part_col2.pdf, id=320, 50.12828pt x 351.80833pt>
 File: fig_uniq_part_col2.pdf Graphic file (type pdf)
 
 <use fig_uniq_part_col2.pdf>
-Package pdftex.def Info: fig_uniq_part_col2.pdf used on input line 216.
+Package pdftex.def Info: fig_uniq_part_col2.pdf used on input line 226.
 (pdftex.def)             Requested size: 10.30003pt x 72.28758pt.
 
-<fig_uniq_part_minn4.pdf, id=301, 346.94618pt x 283.7541pt>
+<fig_uniq_part_minn4.pdf, id=321, 346.94618pt x 283.7541pt>
 File: fig_uniq_part_minn4.pdf Graphic file (type pdf)
 
 <use fig_uniq_part_minn4.pdf>
-Package pdftex.def Info: fig_uniq_part_minn4.pdf used on input line 220.
+Package pdftex.def Info: fig_uniq_part_minn4.pdf used on input line 230.
 (pdftex.def)             Requested size: 105.28519pt x 86.1054pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [4pdfTeX warning (ext4): destination with the same identifier (name{figure.4})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.243 
-       <./fig_uniq_part_sensor3.pdf> <./fig_uniq_part_col2.pdf> <./fig_uniq_par
-t_minn4.pdf>] <fig_bunny_atom_scalinga.png, id=336, 480.79625pt x 354.32375pt>
+l.255 \end{align}
+                  <./fig_uniq_part_sensor3.pdf> <./fig_uniq_part_col2.pdf> <./f
+ig_uniq_part_minn4.pdf>]
+<fig_bunny_atom_scalinga.png, id=355, 480.79625pt x 354.32375pt>
 File: fig_bunny_atom_scalinga.png Graphic file (type png)
 
 <use fig_bunny_atom_scalinga.png>
-Package pdftex.def Info: fig_bunny_atom_scalinga.png used on input line 265.
+Package pdftex.def Info: fig_bunny_atom_scalinga.png used on input line 297.
 (pdftex.def)             Requested size: 63.8886pt x 47.08012pt.
 
-<fig_bunny_atom_wav1a.png, id=338, 480.79625pt x 354.32375pt>
+<fig_bunny_atom_wav1a.png, id=357, 480.79625pt x 354.32375pt>
 File: fig_bunny_atom_wav1a.png Graphic file (type png)
 
 <use fig_bunny_atom_wav1a.png>
-Package pdftex.def Info: fig_bunny_atom_wav1a.png used on input line 268.
+Package pdftex.def Info: fig_bunny_atom_wav1a.png used on input line 300.
 (pdftex.def)             Requested size: 63.8886pt x 47.08012pt.
 
-<fig_bunny_atom_wav2a.png, id=339, 480.79625pt x 354.32375pt>
+<fig_bunny_atom_wav2a.png, id=358, 480.79625pt x 354.32375pt>
 File: fig_bunny_atom_wav2a.png Graphic file (type png)
 
 <use fig_bunny_atom_wav2a.png>
-Package pdftex.def Info: fig_bunny_atom_wav2a.png used on input line 271.
+Package pdftex.def Info: fig_bunny_atom_wav2a.png used on input line 303.
 (pdftex.def)             Requested size: 63.8886pt x 47.08012pt.
 
-<fig_bunny_atom_wav3a.png, id=340, 480.79625pt x 354.32375pt>
+<fig_bunny_atom_wav3a.png, id=359, 480.79625pt x 354.32375pt>
 File: fig_bunny_atom_wav3a.png Graphic file (type png)
 
 <use fig_bunny_atom_wav3a.png>
-Package pdftex.def Info: fig_bunny_atom_wav3a.png used on input line 274.
+Package pdftex.def Info: fig_bunny_atom_wav3a.png used on input line 306.
 (pdftex.def)             Requested size: 63.8886pt x 47.08012pt.
 
-<fig_bunny_atom_wav4a.png, id=341, 480.79625pt x 354.32375pt>
+<fig_bunny_atom_wav4a.png, id=360, 480.79625pt x 354.32375pt>
 File: fig_bunny_atom_wav4a.png Graphic file (type png)
 
 <use fig_bunny_atom_wav4a.png>
-Package pdftex.def Info: fig_bunny_atom_wav4a.png used on input line 277.
+Package pdftex.def Info: fig_bunny_atom_wav4a.png used on input line 309.
 (pdftex.def)             Requested size: 63.8886pt x 47.08012pt.
 
-<fig_bunny_freq_scaling3.png, id=342, 516.93124pt x 403.5075pt>
+<fig_bunny_freq_scaling3.png, id=361, 516.93124pt x 403.5075pt>
 File: fig_bunny_freq_scaling3.png Graphic file (type png)
 
 <use fig_bunny_freq_scaling3.png>
-Package pdftex.def Info: fig_bunny_freq_scaling3.png used on input line 284.
+Package pdftex.def Info: fig_bunny_freq_scaling3.png used on input line 316.
 (pdftex.def)             Requested size: 60.13023pt x 46.93497pt.
 
-<fig_bunny_freq_wav1a.png, id=343, 516.93124pt x 403.5075pt>
+<fig_bunny_freq_wav1a.png, id=362, 516.93124pt x 403.5075pt>
 File: fig_bunny_freq_wav1a.png Graphic file (type png)
 
 <use fig_bunny_freq_wav1a.png>
-Package pdftex.def Info: fig_bunny_freq_wav1a.png used on input line 287.
+Package pdftex.def Info: fig_bunny_freq_wav1a.png used on input line 319.
 (pdftex.def)             Requested size: 60.13023pt x 46.93497pt.
 
-<fig_bunny_freq_wav2a.png, id=344, 516.93124pt x 403.5075pt>
+<fig_bunny_freq_wav2a.png, id=363, 516.93124pt x 403.5075pt>
 File: fig_bunny_freq_wav2a.png Graphic file (type png)
 
 <use fig_bunny_freq_wav2a.png>
-Package pdftex.def Info: fig_bunny_freq_wav2a.png used on input line 290.
+Package pdftex.def Info: fig_bunny_freq_wav2a.png used on input line 322.
 (pdftex.def)             Requested size: 60.13023pt x 46.93497pt.
 
-<fig_bunny_freq_wav3a.png, id=345, 516.93124pt x 403.5075pt>
+<fig_bunny_freq_wav3a.png, id=364, 516.93124pt x 403.5075pt>
 File: fig_bunny_freq_wav3a.png Graphic file (type png)
 
 <use fig_bunny_freq_wav3a.png>
-Package pdftex.def Info: fig_bunny_freq_wav3a.png used on input line 293.
+Package pdftex.def Info: fig_bunny_freq_wav3a.png used on input line 325.
 (pdftex.def)             Requested size: 60.13023pt x 46.93497pt.
 
-<fig_bunny_freq_wav4a.png, id=346, 516.93124pt x 403.5075pt>
+<fig_bunny_freq_wav4a.png, id=365, 516.93124pt x 403.5075pt>
 File: fig_bunny_freq_wav4a.png Graphic file (type png)
 
 <use fig_bunny_freq_wav4a.png>
-Package pdftex.def Info: fig_bunny_freq_wav4a.png used on input line 296.
+Package pdftex.def Info: fig_bunny_freq_wav4a.png used on input line 328.
 (pdftex.def)             Requested size: 60.13023pt x 46.93497pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_coef_scaling.pdf): PDF i
 nclusion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_coef_scaling.pdf, id=347, 426.51346pt x 340.8735pt>
+<fig_bunny_coef_scaling.pdf, id=366, 426.51346pt x 340.8735pt>
 File: fig_bunny_coef_scaling.pdf Graphic file (type pdf)
 
 <use fig_bunny_coef_scaling.pdf>
-Package pdftex.def Info: fig_bunny_coef_scaling.pdf used on input line 303.
+Package pdftex.def Info: fig_bunny_coef_scaling.pdf used on input line 335.
 (pdftex.def)             Requested size: 60.13023pt x 48.05484pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_coef_wav1.pdf): PDF incl
 usion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_coef_wav1.pdf, id=348, 426.51346pt x 340.8735pt>
+<fig_bunny_coef_wav1.pdf, id=367, 426.51346pt x 340.8735pt>
 File: fig_bunny_coef_wav1.pdf Graphic file (type pdf)
 
 <use fig_bunny_coef_wav1.pdf>
-Package pdftex.def Info: fig_bunny_coef_wav1.pdf used on input line 306.
+Package pdftex.def Info: fig_bunny_coef_wav1.pdf used on input line 338.
 (pdftex.def)             Requested size: 60.13023pt x 48.05484pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_coef_wav2.pdf): PDF incl
 usion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_coef_wav2.pdf, id=349, 426.51346pt x 340.8735pt>
+<fig_bunny_coef_wav2.pdf, id=368, 426.51346pt x 340.8735pt>
 File: fig_bunny_coef_wav2.pdf Graphic file (type pdf)
 
 <use fig_bunny_coef_wav2.pdf>
-Package pdftex.def Info: fig_bunny_coef_wav2.pdf used on input line 309.
+Package pdftex.def Info: fig_bunny_coef_wav2.pdf used on input line 341.
 (pdftex.def)             Requested size: 60.13023pt x 48.05484pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_coef_wav3.pdf): PDF incl
 usion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_coef_wav3.pdf, id=350, 426.51346pt x 340.8735pt>
+<fig_bunny_coef_wav3.pdf, id=369, 426.51346pt x 340.8735pt>
 File: fig_bunny_coef_wav3.pdf Graphic file (type pdf)
 
 <use fig_bunny_coef_wav3.pdf>
-Package pdftex.def Info: fig_bunny_coef_wav3.pdf used on input line 312.
+Package pdftex.def Info: fig_bunny_coef_wav3.pdf used on input line 344.
 (pdftex.def)             Requested size: 60.13023pt x 48.05484pt.
 
-<fig_bunny_coef_wav4.pdf, id=351, 455.30101pt x 361.35pt>
+<fig_bunny_coef_wav4.pdf, id=370, 455.30101pt x 361.35pt>
 File: fig_bunny_coef_wav4.pdf Graphic file (type pdf)
 
 <use fig_bunny_coef_wav4.pdf>
-Package pdftex.def Info: fig_bunny_coef_wav4.pdf used on input line 315.
+Package pdftex.def Info: fig_bunny_coef_wav4.pdf used on input line 347.
 (pdftex.def)             Requested size: 63.8886pt x 50.70444pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_rec_scaling.pdf): PDF in
 clusion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_rec_scaling.pdf, id=352, 423.38174pt x 338.46451pt>
+<fig_bunny_rec_scaling.pdf, id=371, 423.38174pt x 338.46451pt>
 File: fig_bunny_rec_scaling.pdf Graphic file (type pdf)
 
 <use fig_bunny_rec_scaling.pdf>
-Package pdftex.def Info: fig_bunny_rec_scaling.pdf used on input line 322.
+Package pdftex.def Info: fig_bunny_rec_scaling.pdf used on input line 354.
 (pdftex.def)             Requested size: 60.13023pt x 48.06642pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_rec_wav1.pdf): PDF inclu
 sion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_rec_wav1.pdf, id=353, 426.51346pt x 340.8735pt>
+<fig_bunny_rec_wav1.pdf, id=372, 426.51346pt x 340.8735pt>
 File: fig_bunny_rec_wav1.pdf Graphic file (type pdf)
 
 <use fig_bunny_rec_wav1.pdf>
-Package pdftex.def Info: fig_bunny_rec_wav1.pdf used on input line 325.
+Package pdftex.def Info: fig_bunny_rec_wav1.pdf used on input line 357.
 (pdftex.def)             Requested size: 60.13023pt x 48.05484pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_rec_wav2.pdf): PDF inclu
 sion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_rec_wav2.pdf, id=354, 426.51346pt x 340.8735pt>
+<fig_bunny_rec_wav2.pdf, id=373, 426.51346pt x 340.8735pt>
 File: fig_bunny_rec_wav2.pdf Graphic file (type pdf)
 
 <use fig_bunny_rec_wav2.pdf>
-Package pdftex.def Info: fig_bunny_rec_wav2.pdf used on input line 328.
+Package pdftex.def Info: fig_bunny_rec_wav2.pdf used on input line 360.
 (pdftex.def)             Requested size: 60.13023pt x 48.05484pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_rec_wav3.pdf): PDF inclu
 sion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_rec_wav3.pdf, id=355, 426.51346pt x 340.8735pt>
+<fig_bunny_rec_wav3.pdf, id=374, 426.51346pt x 340.8735pt>
 File: fig_bunny_rec_wav3.pdf Graphic file (type pdf)
 
 <use fig_bunny_rec_wav3.pdf>
-Package pdftex.def Info: fig_bunny_rec_wav3.pdf used on input line 331.
+Package pdftex.def Info: fig_bunny_rec_wav3.pdf used on input line 363.
 (pdftex.def)             Requested size: 60.13023pt x 48.05484pt.
 
-<fig_bunny_rec_wav4.pdf, id=356, 455.30101pt x 361.35pt>
+<fig_bunny_rec_wav4.pdf, id=375, 455.30101pt x 361.35pt>
 File: fig_bunny_rec_wav4.pdf Graphic file (type pdf)
 
 <use fig_bunny_rec_wav4.pdf>
-Package pdftex.def Info: fig_bunny_rec_wav4.pdf used on input line 334.
+Package pdftex.def Info: fig_bunny_rec_wav4.pdf used on input line 366.
 (pdftex.def)             Requested size: 63.8886pt x 50.70444pt.
 
-<fig_bunny_signal.pdf, id=359, 455.30101pt x 361.35pt>
+<fig_bunny_signal.pdf, id=378, 455.30101pt x 361.35pt>
 File: fig_bunny_signal.pdf Graphic file (type pdf)
 
 <use fig_bunny_signal.pdf>
-Package pdftex.def Info: fig_bunny_signal.pdf used on input line 341.
+Package pdftex.def Info: fig_bunny_signal.pdf used on input line 373.
 (pdftex.def)             Requested size: 87.8885pt x 69.74893pt.
 
-<fig_bunny_signal_hat.pdf, id=360, 517.79158pt x 402.57301pt>
+<fig_bunny_signal_hat.pdf, id=379, 517.79158pt x 402.57301pt>
 File: fig_bunny_signal_hat.pdf Graphic file (type pdf)
 
 <use fig_bunny_signal_hat.pdf>
-Package pdftex.def Info: fig_bunny_signal_hat.pdf used on input line 345.
+Package pdftex.def Info: fig_bunny_signal_hat.pdf used on input line 377.
 (pdftex.def)             Requested size: 87.8885pt x 68.32593pt.
 
-<fig_bunny_partition.pdf, id=361, 455.30101pt x 361.35pt>
+<fig_bunny_partition.pdf, id=380, 455.30101pt x 361.35pt>
 File: fig_bunny_partition.pdf Graphic file (type pdf)
 
 <use fig_bunny_partition.pdf>
-Package pdftex.def Info: fig_bunny_partition.pdf used on input line 349.
+Package pdftex.def Info: fig_bunny_partition.pdf used on input line 381.
 (pdftex.def)             Requested size: 87.8885pt x 69.74893pt.
 
-<fig_bunny_coef_all.pdf, id=362, 455.30101pt x 361.35pt>
+<fig_bunny_coef_all.pdf, id=381, 455.30101pt x 361.35pt>
 File: fig_bunny_coef_all.pdf Graphic file (type pdf)
 
 <use fig_bunny_coef_all.pdf>
-Package pdftex.def Info: fig_bunny_coef_all.pdf used on input line 353.
+Package pdftex.def Info: fig_bunny_coef_all.pdf used on input line 385.
 (pdftex.def)             Requested size: 87.8885pt x 69.74893pt.
 
-<fig_comp_sig.pdf, id=382, 484.76056pt x 364.30002pt>
+<fig_comp_sig.pdf, id=401, 484.76056pt x 364.30002pt>
 File: fig_comp_sig.pdf Graphic file (type pdf)
  <use fig_comp_sig.pdf>
-Package pdftex.def Info: fig_comp_sig.pdf used on input line 378.
+Package pdftex.def Info: fig_comp_sig.pdf used on input line 410.
 (pdftex.def)             Requested size: 98.87352pt x 74.30399pt.
 
-<fig_comp_sig_hat.pdf, id=383, 495.88803pt x 400.5645pt>
+<fig_comp_sig_hat.pdf, id=402, 495.88803pt x 400.5645pt>
 File: fig_comp_sig_hat.pdf Graphic file (type pdf)
 
 <use fig_comp_sig_hat.pdf>
-Package pdftex.def Info: fig_comp_sig_hat.pdf used on input line 384.
+Package pdftex.def Info: fig_comp_sig_hat.pdf used on input line 416.
 (pdftex.def)             Requested size: 98.87352pt x 79.86699pt.
 
-<fig_comp_coeff2.pdf, id=384, 552.7587pt x 409.96964pt>
+<fig_comp_coeff2.pdf, id=403, 552.7587pt x 409.96964pt>
 File: fig_comp_coeff2.pdf Graphic file (type pdf)
 
 <use fig_comp_coeff2.pdf>
-Package pdftex.def Info: fig_comp_coeff2.pdf used on input line 389.
+Package pdftex.def Info: fig_comp_coeff2.pdf used on input line 421.
 (pdftex.def)             Requested size: 105.46654pt x 78.22032pt.
 
-<fig_comp_error.pdf, id=385, 568.00188pt x 408.25124pt>
+<fig_comp_error.pdf, id=404, 568.00188pt x 408.25124pt>
 File: fig_comp_error.pdf Graphic file (type pdf)
 
 <use fig_comp_error.pdf>
-Package pdftex.def Info: fig_comp_error.pdf used on input line 393.
+Package pdftex.def Info: fig_comp_error.pdf used on input line 425.
 (pdftex.def)             Requested size: 107.66254pt x 77.38165pt.
-
-<fig_approx_filter_sensor.pdf, id=397, 562.1pt x 421.575pt>
-File: fig_approx_filter_sensor.pdf Graphic file (type pdf)
-
-<use fig_approx_filter_sensor.pdf>
-Package pdftex.def Info: fig_approx_filter_sensor.pdf used on input line 414.
-(pdftex.def)             Requested size: 128.97322pt x 96.72862pt.
-
-<fig_approx_filter_net25.pdf, id=398, 562.1pt x 421.575pt>
-File: fig_approx_filter_net25.pdf Graphic file (type pdf)
-
-<use fig_approx_filter_net25.pdf>
-Package pdftex.def Info: fig_approx_filter_net25.pdf used on input line 418.
-(pdftex.def)             Requested size: 128.97322pt x 96.72862pt.
- <fig_cdf.pdf, id=399, 562.1pt x 421.575pt>
-File: fig_cdf.pdf Graphic file (type pdf)
-
-<use fig_cdf.pdf>
-Package pdftex.def Info: fig_cdf.pdf used on input line 429.
-(pdftex.def)             Requested size: 123.36703pt x 92.52164pt.
- <fig_orig_fb.pdf, id=400, 562.1pt x 421.575pt>
-File: fig_orig_fb.pdf Graphic file (type pdf)
-
-<use fig_orig_fb.pdf>
-Package pdftex.def Info: fig_orig_fb.pdf used on input line 433.
-(pdftex.def)             Requested size: 123.36703pt x 92.52164pt.
- <fig_pdf.pdf, id=401, 562.1pt x 421.575pt>
-File: fig_pdf.pdf Graphic file (type pdf)
-
-<use fig_pdf.pdf>
-Package pdftex.def Info: fig_pdf.pdf used on input line 437.
-(pdftex.def)             Requested size: 123.36703pt x 92.52164pt.
- <fig_updated_fb.pdf, id=402, 562.1pt x 421.575pt>
-File: fig_updated_fb.pdf Graphic file (type pdf)
-
-<use fig_updated_fb.pdf>
-Package pdftex.def Info: fig_updated_fb.pdf used on input line 441.
-(pdftex.def)             Requested size: 123.36703pt x 92.52164pt.
  [5]
+Overfull \hbox (2.51256pt too wide) in paragraph at lines 444--444
+[] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [6pdfTeX warning (ext4): destination with the same identifier (name{figure.5})
@@ -1059,115 +1042,9 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.480 
-      pdfTeX warning (ext4): destination with the same identifier (name{figure.
-6}) has been already used, duplicate ignored
+l.452 \end{align*}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{figure.6}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.480 
-      pdfTeX warning (ext4): destination with the same identifier (name{figure.
-7}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.480 
-       <./fig_bunny_atom_scalinga.png> <./fig_bunny_atom_wav1a.png> <./fig_bunn
-y_atom_wav2a.png> <./fig_bunny_atom_wav3a.png> <./fig_bunny_atom_wav4a.png> <./
-fig_bunny_freq_scaling3.png> <./fig_bunny_freq_wav1a.png> <./fig_bunny_freq_wav
-2a.png> <./fig_bunny_freq_wav3a.png> <./fig_bunny_freq_wav4a.png> <./fig_bunny_
-coef_scaling.pdf> <./fig_bunny_coef_wav1.pdf> <./fig_bunny_coef_wav2.pdf> <./fi
-g_bunny_coef_wav3.pdf> <./fig_bunny_coef_wav4.pdf> <./fig_bunny_rec_scaling.pdf
-> <./fig_bunny_rec_wav1.pdf> <./fig_bunny_rec_wav2.pdf> <./fig_bunny_rec_wav3.p
-df> <./fig_bunny_rec_wav4.pdf> <./fig_bunny_signal.pdf> <./fig_bunny_signal_hat
-.pdf> <./fig_bunny_partition.pdf> <./fig_bunny_coef_all.pdf> <./fig_comp_sig.pd
-f> <./fig_comp_sig_hat.pdf> <./fig_comp_coeff2.pdf> <./fig_comp_error.pdf>]
-(./MCSFB.bbl
-Underfull \hbox (badness 1584) in paragraph at lines 81--84
-[]\OT1/ptm/m/n/8 D. I Shu-man, B. Ri-caud, and P. Van-dergheynst, ``Vertex-
- []
-
-
-Package balance Warning: You have called \balance in second column
-(balance)                Columns might not be balanced.
-
-[7pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) 
-has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.110 \bibitem{teke2017ii}
-                          pdfTeX warning (ext4): destination with the same iden
-tifier (name{figure.9}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.110 \bibitem{teke2017ii}
-                           <./fig_approx_filter_sensor.pdf> <./fig_approx_filte
-r_net25.pdf> <./fig_cdf.pdf> <./fig_orig_fb.pdf> <./fig_pdf.pdf> <./fig_updated
-_fb.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 210--211
-[]\OT1/ptm/m/n/8 Wikipedia, []$https : / / en . wikipedia . org / wiki / Steini
-tz[]exchange[]
- []
-
-)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 508.
-
-Overfull \vbox (1.72194pt too high) has occurred while \output is active []
-
-
-[8]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 508.
- (./MCSFB.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 508.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 508.
-Package rerunfilecheck Info: File `MCSFB.out' has not changed.
-(rerunfilecheck)             Checksum: A61A2D2A59E35D1E9DF99CD8D4F8380E;1460.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 508.
- ) 
-Here is how much of TeX's memory you used:
- 9047 strings out of 493089
- 138178 string characters out of 6134842
- 258466 words of memory out of 5000000
- 12234 multiletter control sequences out of 15000+600000
- 52272 words of font info for 122 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 32i,14n,32p,1609b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/t
-exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/te
-xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></usr/local/texl
-ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texliv
-e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/
-2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2
-015/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/local/texliv
-e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive
-/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/
-2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/20
-15/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2015
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2015/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2015/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2015/texmf
--dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2015/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2015/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2015/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/pu
-blic/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type
-1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
-ype1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/t
-imes/utmbi8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr
-8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on MCSFB.pdf (8 pages, 2443552 bytes).
-PDF statistics:
- 801 PDF objects out of 1000 (max. 8388607)
- 587 compressed objects within 6 object streams
- 96 named destinations out of 1000 (max. 500000)
- 353 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+                                       
