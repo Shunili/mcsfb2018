@@ -472,19 +472,19 @@ Figure \ref{Fig:approx_filtering_error} shows the Jackson-Chebyshev polynomial a
 %}
 \begin{figure}[tbh]
 \begin{minipage}[m]{0.49\linewidth}
-\centerline{\includegraphics[width=1.15\linewidth]{fig_approx_filter_sensor}}
+\centerline{\includegraphics[width=1.1\linewidth]{fig_approx_filter_sensor}}
 \centerline{~~\small{(a)}}
 \end{minipage}
 \begin{minipage}[m]{0.49\linewidth}
-\centerline{\includegraphics[width=1.15\linewidth]{fig_approx_filter_net25}}
+\centerline{\includegraphics[width=1.1\linewidth]{fig_approx_filter_net25}}
 \centerline{~~\small{(b)}}
 \end{minipage} \\
 \begin{minipage}[m]{0.49\linewidth}
-\centerline{\includegraphics[width=1.15\linewidth]{fig_approx_filter_sensor_error}}
+\centerline{\includegraphics[width=1.1\linewidth]{fig_approx_filter_sensor_error}}
 \centerline{~~\small{(c)}}
 \end{minipage}
 \begin{minipage}[m]{0.49\linewidth}
-\centerline{\includegraphics[width=1.15\linewidth]{fig_approx_filter_net25_error}}
+\centerline{\includegraphics[width=1.1\linewidth]{fig_approx_filter_net25_error}}
 \centerline{~~\small{(d)}}
 \end{minipage}
 \caption{Degree 80 Jackson-Chebyshev polynomial approximations for ideal bandpass filters on the (a) 500 vertex random sensor network of Figure \ref{Fig:part_examples} and (b) Andrianov net25 graph from \cite{davis2011university} with 9,520 vertices. In (c) and (d), we show the errors $|\tilde{h}(\lambda_{\l})-h(\lambda_{\l})|$ at each of the Laplacian eigenvalues of the corresponding graphs in (a) and (b).}
@@ -550,7 +550,7 @@ When selecting the band ends $\{\tau_m\}$ for each of the $M$ ideal filters, we 
 \centerline{\includegraphics[width=1.1\linewidth]{fig_updated_fb}}
 \centerline{~~\small{(d)}}
 \end{minipage}
-\caption{{\color{red} (a) The approximate cumulative spectral density function, $\tilde{P}_{\lambda}$ for the net25 graph described in Figure \ref{Fig:approx_filtering_error}. The blue X marks correspond to the initial choice of band endpoints computed by taking the inverse of logarithmically spaced points on the vertical axis. (b) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the initial choice of band ends. (c) The objective function of \eqref{Eq:adjustment} (an approximation of the spectral density function) with $\Delta=.001$. The blue horizontal lines correspond to the search intervals ${\cal I}_1$ and ${\cal I}_2$, and the red circles represent the adjusted band ends $\{\tau_m\}_{m=0,1,2,3}$. (d) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the adjusted choice of band ends. Note that errors between the approximate filters and ideal bandpass filters are concentrated in regions with fewer eigenvalues (gaps in the spectrum).}}\label{Fig:fb_design}
+\caption{{(a) The approximate cumulative spectral density function, $\tilde{P}_{\lambda}(\cdot),$ for the net25 graph described in Figure \ref{Fig:approx_filtering_error}. The blue X marks correspond to the initial choice of band endpoints computed by taking the inverse of logarithmically spaced points on the vertical axis. (b) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the initial choice of band ends from (a). (c) The objective function of \eqref{Eq:adjustment} (a discrete approximation of the spectral density function) with $\Delta=.001$. The blue horizontal lines correspond to the search intervals ${\cal I}_1$ and ${\cal I}_2$, and the red circles represent the adjusted band ends $\{\tau_m\}_{m=0,1,2,3}$. (d) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the adjusted choice of band ends. Note that the errors between the approximate filters and ideal bandpass filters are concentrated in regions with fewer eigenvalues (gaps in the spectrum).}}\label{Fig:fb_design}
 \end{figure}
 
 \subsubsection{Adjusting the band ends}
