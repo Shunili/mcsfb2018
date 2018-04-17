@@ -1,0 +1,63 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: MCSFB.aux
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: mcsfb_refs.bib
+-- IEEEtran.bst version 1.12 (2007/01/11) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty journal in gspbox
+Warning--empty year in gspbox
+Warning--empty title in steinitz
+Warning--empty title in steinitz
+Warning--empty title in gle
+Warning--empty title in gle
+
+Done.
+You've used 67 entries,
+            4024 wiz_defined-function locations,
+            1170 strings with 16595 characters,
+and the built_in function-call counts, 51976 in all, are:
+= -- 4296
+> -- 1095
+< -- 503
++ -- 639
+- -- 165
+* -- 2498
+:= -- 7684
+add.period$ -- 134
+call.type$ -- 67
+change.case$ -- 66
+chr.to.int$ -- 1146
+cite$ -- 73
+duplicate$ -- 3726
+empty$ -- 4124
+format.name$ -- 218
+if$ -- 12071
+int.to.chr$ -- 0
+int.to.str$ -- 67
+missing$ -- 611
+newline$ -- 230
+num.names$ -- 67
+pop$ -- 1305
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 4056
+stack$ -- 0
+substring$ -- 2753
+swap$ -- 3200
+text.length$ -- 121
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 67
+warning$ -- 6
+while$ -- 235
+width$ -- 69
+write$ -- 676
+(There were 6 warnings)
