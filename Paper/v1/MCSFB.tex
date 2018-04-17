@@ -48,7 +48,7 @@ Broad classes of recently proposed transforms include graph Fourier transforms, 
 The extension of the classical two channel critically sampled filter bank to the graph setting was first proposed in \cite{narang_icip}. Fig.\ \ref{Fig:two_channel} shows the analysis and synthesis banks, where ${\bf H}_i$ and ${\bf G}_i$ are graph spectral filters \cite{shuman2013emerging}, and the lowpass and highpass bands are downsampled on complementary sets of vertices. For a general weighted, undirected graph, it is not straightforward %{\color{red} (impossible?)} 
 how to design the downsampling and the four graph spectral filters to ensure perfect reconstruction. One approach is to separate the graph into a union of subgraphs, each of which has some regular structure. For example, \cite{narang2012perfect,narang_bior_filters} show that the normalized graph Laplacian eigenvectors of \emph{bipartite} graphs have a spectral folding property that make it possible to design analysis and synthesis filters to guarantee perfect reconstruction. They take advantage of this property by decomposing the graph into bipartite graphs and constructing a multichannel, separable filter bank, while \cite{sakiyama} adds vertices and edges to the original graph to form an approximating bipartite graph. References \cite{teke2016,teke2017ii} generalize this spectral folding property to $M$-block cyclic graphs, and leverage it to construct $M$-channel graph filter banks. Another class of regular structured graphs is \emph{shift invariant} graphs \cite[Chapter 5.1]{grady}. These graphs have a circulant graph Laplacian and their eigenvectors are the columns of the discrete Fourier transform matrix. Any graph can be written as the sum of circulant graphs, and \cite{ekambaram_icip,ekambaram2013globalsip,kotzagiannidis2016icassp} take advantage of this fact in designing critically sampled graph filter banks with perfect reconstruction. Another approach is to use architectures other than the critically sampled filter bank, such as lifting transforms \cite{jansen,narang_lifting_graphs} or pyramid transforms \cite{shuman_TSP_multiscale}.
 
-Our approach in this paper is to replace the synthesis filters with interpolation operators on each subband of the graph spectrum. While this idea was initially suggested independently in \cite{chen2015discrete}, we investigate it in more detail here. Our construction leverages the recent flurry of work in sampling and reconstruction of graph signals \cite{chen2015discrete}-\nocite{pesenson_paley,narang2013interpolation,anis2014towards,gadde2015probabilistic,shomorony,PuyTGV15,chen2015signal,tsitsvero2016uncertainty}\cite{anis2016efficient}. The key property we use is that any signal whose graph Fourier transform has exactly $k$ non-zero coefficients can be perfectly recovered from samples of that signal on $k$ appropriately selected vertices (see, e.g., \cite[Theorem 1]{chen2015discrete} \cite[Proposition 1]{anis2016efficient}).
+Our approach in this paper is to replace the synthesis filters with interpolation operators on each subband of the graph spectrum. While this idea was initially suggested independently in \cite{chen2015discrete}, we investigate it in more detail here. Our construction leverages the recent flurry of work in sampling and reconstruction of graph signals \cite{chen2015discrete}-\nocite{pesenson_paley,narang2013interpolation,anis2014towards,gadde2015probabilistic,shomorony,PuyTGV15,chen2015signal,tsitsvero2016uncertainty,chen2016signal}\cite{anis2016efficient}. The key property we use is that any signal whose graph Fourier transform has exactly $k$ non-zero coefficients can be perfectly recovered from samples of that signal on $k$ appropriately selected vertices (see, e.g., \cite[Theorem 1]{chen2015discrete} \cite[Proposition 1]{anis2016efficient}).
 
 {\color{red} Add to intro here: scalable issues, outline, and contribution relative to conference paper.}
 
@@ -598,9 +598,15 @@ Both the partitioning of the vertices into uniqueness sets described in Algorith
 
 
 \subsection{Sampling distribution}
+Two broad approaches to more efficient sampling have recently been investigated: greedy methods \cite{chen2015discrete,anis2016efficient,tsitsvero2016uncertainty} and random sampling methods \cite{PuyTGV15,chen2016signal}. 
 
+anis2014towards,shomorony
+
+new book chapter?
+ 
+ 
 \begin{itemize}
-\item Fast sampling and reconstruction. Two main approaches to sampling: greedy and random
+%\item Fast sampling and reconstruction. Two main approaches to sampling: greedy and random
 \item Most work on lowpass/smooth signals
 %\item Estimating number of measurements for each band
 \item Review of non-uniform random sampling literature
@@ -614,7 +620,7 @@ We are currently examining whether there is a way to extend the approach of \cit
 
 {\color{red}
 \begin{itemize}
-\item Note that the benefits of non-uniform sampling come when eigenvectors are more localized (c.f., Section 5.1.2 of Gilles? paper); this is especially important for high pass filters
+\item Note that the benefits of non-uniform sampling come when eigenvectors are more localized (c.f., Section 5.1.2 of Gilles' paper); this is especially important for high pass filters
 \item Link to literature on column subset selection (statistical leverage)
 \item Note that for any walk regular graph, optimal sampling distribution is uniform; give some examples (cycle, path, grid, vertex transitive graphs, etc.); cite godsil paper on symmetry and eigenvectors
 \end{itemize}
@@ -654,7 +660,21 @@ to
 \begin{align}\label{Eq:approx_rec_opt}
 \min_{{\bf z} \in \R^N} ||{\boldsymbol \Omega}_{m,\V_m}^{-\frac{1}{2}}\left({\bf M_m z}-{{\bf y}_{\V_m}} \right) ||_2+{\bf z}^{\top}\varphi_m(\L){\bf z},
 \end{align} 
-where ${\boldsymbol \Omega}_{m,\V_m}$ is a $|\V_m| \times |\V_m|$  diagonal matrix with the $m^{th}$ channel sampling weights of $\V_m$ along the diagonal. The regularization term ${\bf z}^{\top}\varphi_m(\L){\bf z}$ in \eqref{Eq:approx_rec_opt} penalizes reconstructions with support outside of the desired spectral band. For lowpass signals, Puy et al. \cite{PuyTGV15} take the penalty function $\varphi_m(\lambda)$ to be a nonnegative, nondecreasing polynomial, such as $\kappa \lambda^l$, with $\kappa>0$ and $l$ a positive integer. For more general classes of signals (i.e., the midpass and highpass signals output from the higher bands of the proposed filter bank), it is important to keep the nonnegativity property, in order to ensure that $\varphi_m(\L)$ is positive semi-definite and the optimization problem \eqref{Eq:approx_rec_opt} is convex. However, we can drop the nondecreasing requirement, and instead choose penalty functions concentrated outside the $m^{th}$ spectral band. Options we explore include (i) $\varphi_m(\lambda)=\kappa\left[1-\tilde{h}(\lambda)\right]$; (ii) $\varphi_m(\lambda)=\frac{1}{\tilde{h}(\lambda)+\epsilon}-\frac{1}{1+\epsilon}$ {\color{red} Check nonnegativity}; and (iii) {\color{red} Spline approach of Saad. See Figure XXX.}
+where ${\boldsymbol \Omega}_{m,\V_m}$ is a $|\V_m| \times |\V_m|$  diagonal matrix with the $m^{th}$ channel sampling weights of $\V_m$ along the diagonal. The regularization term ${\bf z}^{\top}\varphi_m(\L){\bf z}$ in \eqref{Eq:approx_rec_opt} penalizes reconstructions with support outside of the desired spectral band. For lowpass signals, Puy et al. \cite{PuyTGV15} take the penalty function $\varphi_m(\lambda)$ to be a nonnegative, nondecreasing polynomial, such as $\kappa \lambda^l$, with $\kappa>0$ and $l$ a positive integer. For more general classes of signals (i.e., the midpass and highpass signals output from the higher bands of the proposed filter bank), it is important to keep the nonnegativity property, in order to ensure that $\varphi_m(\L)$ is positive semi-definite and the optimization problem \eqref{Eq:approx_rec_opt} is convex. However, we can drop the nondecreasing requirement, and instead choose penalty functions concentrated outside the $m^{th}$ spectral band. Options we explore include (i) $\varphi_m(\lambda)=\kappa\left[1-\tilde{h}(\lambda)\right]$; (ii) $\varphi_m(\lambda)=\frac{1}{\tilde{h}(\lambda)+\epsilon}-\frac{1}{1+\epsilon}$ {\color{red} Check nonnegativity}; and (iii) {\color{red} Spline approach of Saad. See Figure \ref{Fig:penalty} for example graphs of these penalty functions.}
+
+\begin{figure}[tb]
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\small{$K=20$}}
+\centerline{\includegraphics[width=1.1\linewidth]{fig_reg_filters_20}}
+\centerline{~~\small{(a)}}
+\end{minipage}
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\small{$K=50$}}
+\centerline{\includegraphics[width=1.1\linewidth]{fig_reg_filters_50}}
+\centerline{~~\small{(b)}}
+\end{minipage} 
+\caption{Example penalty filters $\varphi_m$ for the regularization term in \eqref{Eq:approx_rec_opt}, with $\epsilon=\frac{1}{\kappa}=0.01$. Here, $\tilde{h}_m$ is a Jackson-Chebyshev polynomial approximation of $h_m$ of degree 20 and 50 in (a) and (b), respectively.}\label{Fig:penalty}
+\end{figure}
 
 From the first-order optimality conditions, the solution to \eqref{Eq:approx_rec_opt} is the solution to the linear system of equations
 \begin{align}\label{Eq:approx_rec_sol}
