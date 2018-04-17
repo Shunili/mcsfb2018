@@ -331,4 +331,16 @@ M.~F. Hutchinson, ``A stochastic estimator of the trace of the influence matrix
 F.~N. Fritsch and R.~E. Carlson, ``Monotone piecewise cubic interpolation,''
   \emph{SIAM J. Numer. Anal.}, vol.~17, no.~2, pp. 238--246, Apr. 1980.
 
+\bibitem{halko}
+N.~Halko, P.-G. Martinsson, and J.~A. Tropp, ``Finding structure with
+  randomness: {Probabilistic} algorithms for constructing approximate matrix
+  decompositions,'' \emph{SIAM Review}, vol.~53, no.~2, pp. 217--288, 2011.
+
+\bibitem{paratte}
+\BIBentryALTinterwordspacing
+J.~Paratte and L.~Martin, ``Fast eigenspace approximation using random
+  signals,'' \emph{ar{X}iv e-Prints}, 2016. [Online]. Available:
+  \url{http://arxiv.org/abs/1611.00938}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}

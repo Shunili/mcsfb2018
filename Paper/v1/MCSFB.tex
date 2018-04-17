@@ -58,13 +58,13 @@ We consider graph signals $f \in \R^N$ residing on a weighted, undirected graph 
 Throughout, we take $\L$ to be the combinatorial graph Laplacian $\mathbf{D}-\mathbf{W}$, where $\mathbf{D}$ is the diagonal matrix of vertex degrees. However, our theory and proposed transform also apply to the normalized graph Laplacian $\mathbf{I}-\mathbf{D}^{-\frac{1}{2}}\mathbf{W}\mathbf{D}^{-\frac{1}{2}}$, or any other Hermitian operator. We can diagonalize the graph Laplacian as $\L=\mathbf{U}{\boldsymbol \Lambda}\mathbf{U}^{*}$, where ${\boldsymbol \Lambda}$ is the diagonal matrix of eigenvalues $\lambda_0,\lambda_1,\ldots,\lambda_{N-1}$ of $\L$, and the columns ${\bf u}_0,{\bf u}_1,\ldots,{\bf u}_{N-1}$ of $\mathbf{U}$ are the associated eigenvectors of $\L$. The graph Fourier transform of a signal is $\hat{\bf{f}}=\mathbf{U}^{*}{\bf f}$, and ${h}(\L){\bf f}=\mathbf{U}{h}({\boldsymbol \Lambda})\mathbf{U}^{*}{\bf f}$ applies the filter ${h}: [0,\lambda_{\max}] \rightarrow \R$ to the graph signal ${\bf f}$. We use the notation $\mathbf{U}_{{\cal R}}$ to denote the submatrix formed by taking the columns of $\mathbf{U}$ associated with the Laplacian eigenvalues indexed by ${\cal R} \subseteq \{0,1,\ldots,N-1\}$. Similarly, we use the notation $\mathbf{U}_{{\cal S},{\cal R}}$ to denote the submatrix  formed by taking the rows of $\mathbf{U}_{{\cal R}}$ associated with the vertices indexed by the set ${\cal S} \subseteq \{1,2,\ldots,N\}$.
 
 We start by constructing an ideal filter bank of $M$ graph spectral filters, where for a set of band endpoints $0=\tau_0 < \tau_1 < \ldots < \tau_{M-1} \leq \tau_M$ (with $\tau_M > \lambda_{\max}$), the $m^{th}$ filter is defined as
-\begin{align*}
+\begin{align} \label{Eq:bandpass}
 {h}_m(\lambda)=
 \begin{cases}
 1,& \tau_{m-1} \leq \lambda < \tau_m  \\
 0,&\hbox{ otherwise}
 \end{cases},~m=1,2,\ldots,M.
-\end{align*}
+\end{align}
 %\{\tau_m\}each filter ${h}_m(\lambda)$ is equal to 1 on a subset of the spectrum, and 0 elsewhere.
 %We choose the filters so that for each $\l \in \{0,1,\ldots,N-1\}$, ${h}_m(\lambda_\l)=1$ for exactly one $m$. 
  Fig. \ref{Fig:fb} shows an example of such an ideal filter bank. Note that for each $\l \in \{0,1,\ldots,N-1\}$, ${h}_m(\lambda_\l)=1$ for exactly one $m$. 
@@ -102,7 +102,12 @@ where each ${\boldsymbol \delta}_{{\mathcal{S}}^c_i}$ is a Kronecker delta cente
 The $m^{th}$ channel of the analysis %filter 
 bank %then 
 filters the graph signal by an ideal %low pass 
-filter on subband ${\cal R}_m$, and downsamples the result onto the vertices in $\V_m$. For synthesis, we can interpolate from the samples on $\V_m$ to $\mbox{col}\left(\mathbf{U}_{{\cal R}_m}\right)$. If there is no error in the coefficients, then the reconstruction is perfect, because $\V_m$ is a uniqueness set for $\mbox{col}\left(\mathbf{U}_{{\cal R}_m}\right)$. Fig.\ \ref{Fig:arch} shows the architecture of the proposed $M$-channel critically sampled filter bank (M-CSFB) with interpolation on the synthesis side.
+filter on subband ${\cal R}_m$, and downsamples the result onto the vertices in $\V_m$. For synthesis, we can interpolate from the samples on $\V_m$ to $\mbox{col}\left(\mathbf{U}_{{\cal R}_m}\right)$. Namely, denoting the analysis coefficients of the $m^{th}$ branch by ${\bf y}_{\V_m}$, we have
+\begin{align} \label{Eq:synth}
+{\bf f}_{rec} = \sum_{m=1}^M  \mathbf{U}_{{\cal R}_m} \mathbf{U}_{\V_m,{\cal R}_m}^{-1} {\bf y}_{\V_m}.
+\end{align}
+% the standard least squares reconstruction is to solve $x_m^*=\argmin_{x \in \R^{k_m}} ||\mathbf{U}_{{\cal R}_m}x - y_{\V_m} ||_2$, and let $f_{m,{rec}}(\V_m)=y_{\V_m}$ and $f_{m,{rec}}(\V_m^c)=\mathbf{U}_{\V_m^c,{\cal R}_m}x_m^*$; 
+If there is no error in the coefficients, then the reconstruction is perfect, because $\V_m$ is a uniqueness set for $\mbox{col}\left(\mathbf{U}_{{\cal R}_m}\right)$, ensuring $\mathbf{U}_{\V_m,{\cal R}_m}$ is full rank. Fig.\ \ref{Fig:arch} shows the architecture of the proposed $M$-channel critically sampled filter bank (M-CSFB) with interpolation on the synthesis side.
 
 \begin{figure}[t]
 \centerline{\includegraphics[width=2.8in]{fig_mcsfb_structure3}}
@@ -521,7 +526,11 @@ The procedure{\color{red}, outlined in Algorithm  XXX,} starts by estimating $\l
 &\approx \frac{1}{J} \sum_{j=1}^J {{\bf x}^{(j)}}^{\top}\Theta_{\xi_i}(\L){\bf x}^{(j)} \label{Eq:hutch2} \\
 &\approx \frac{1}{J} \sum_{j=1}^J {{\bf x}^{(j)}}^{\top}\tilde{\Theta}_{\xi_i}(\L){\bf x}^{(j)}. \label{Eq:hutch3}
 \end{align}
-In \eqref{Eq:hutch1}, ${\bf x}$ is a random vector with each component having an independent and identical standard normal distribution. Each vector  ${\bf x}^{(j)}$ in \eqref{Eq:hutch2} is chosen according to this same distribution, and in our experiments, we take the default number of vectors to be $J=30$. In \eqref{Eq:hutch3}, $\tilde{\Theta}_{\xi_i}$ is the Jackson-Chebyshev approximation to ${\Theta}_{\xi_i}$ discussed in Section \ref{Se:poly_approx}, with a default polynomial order of $K=30$. If we place the $J$ random vectors into the columns of an $N \times J$ matrix ${\bf X}$, the computational cost of estimating the spectral distribution is dominated by computing $\tilde{\Theta}_{\xi_i}(\L){\bf X}=\sum_{k=0}^K \alpha_k \bar{T}_k(\L){\bf X}$ for each $\xi_i$. Yet, %the $\alpha_k$'s for each ${\Theta}_{\xi_i}$ can be computed in closed form, and 
+In \eqref{Eq:hutch1}, ${\bf x}$ is a random vector with each component having an independent and identical standard normal distribution. Each vector  ${\bf x}^{(j)}$ in \eqref{Eq:hutch2} is chosen according to this same distribution, and in our experiments, we take the default number of vectors to be $J=30$. In \eqref{Eq:hutch3}, $\tilde{\Theta}_{\xi_i}$ is the Jackson-Chebyshev approximation to ${\Theta}_{\xi_i}$ discussed in Section \ref{Se:poly_approx}, with a default polynomial order of $K=30$. If we place the $J$ random vectors into the columns of an $N \times J$ matrix ${\bf X}$, the computational cost of estimating the spectral distribution is dominated by computing 
+\begin{align} \label{Eq:hutch4}
+\tilde{\Theta}_{\xi_i}(\L){\bf X}=\sum_{k=0}^K \alpha_k \bar{T}_k(\L){\bf X}
+\end{align}
+ for each $\xi_i$. Yet, %the $\alpha_k$'s for each ${\Theta}_{\xi_i}$ can be computed in closed form, and 
 we only need to compute $\{ \bar{T}_k(\L){\bf X}\}_{k=0,1,\ldots,K}$ recursively once, as this sequence can be reused for each $\xi_i$, with different choices of the $\alpha_k$'s. Therefore, the overall computational cost is ${\cal O}(KJ|\E|)$.
 
 As in \cite{shuman2013spectrum}, once we compute the eigenvalue count estimates $\{\eta_i\}$, we approximate the empirical spectral cumulative distribution $P_{\lambda}(\cdot)$ by performing monotonic piecewise cubic interpolation \cite{fritsch} on the series of points $\left\{\left(\xi_i,\frac{\eta_i}{N}\right)\right\}_{i=1,2,\ldots,T}$. We denote the result as $\tilde{P}_{\lambda}(\cdot)$.
@@ -550,10 +559,10 @@ When selecting the band ends $\{\tau_m\}$ for each of the $M$ ideal filters, we 
 \centerline{\includegraphics[width=1.1\linewidth]{fig_updated_fb}}
 \centerline{~~\small{(d)}}
 \end{minipage}
-\caption{{(a) The approximate cumulative spectral density function, $\tilde{P}_{\lambda}(\cdot),$ for the net25 graph described in Figure \ref{Fig:approx_filtering_error}. The blue X marks correspond to the initial choice of band endpoints computed by taking the inverse of logarithmically spaced points on the vertical axis. (b) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the initial choice of band ends from (a). (c) The objective function of \eqref{Eq:adjustment} (a discrete approximation of the spectral density function) with $\Delta=.001$. The blue horizontal lines correspond to the search intervals ${\cal I}_1$ and ${\cal I}_2$, and the red circles represent the adjusted band ends $\{\tau_m\}_{m=0,1,2,3}$. (d) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the adjusted choice of band ends. Note that the errors between the approximate filters and ideal bandpass filters are concentrated in regions with fewer eigenvalues (gaps in the spectrum).}}\label{Fig:fb_design}
+\caption{{(a) The approximate cumulative spectral density function, $\tilde{P}_{\lambda}(\cdot),$ for the net25 graph described in Figure \ref{Fig:approx_filtering_error}. The blue X marks correspond to the initial choice of band endpoints computed by taking the inverse of logarithmically spaced points on the vertical axis. (b) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the initial choice of band ends from (a). (c) The objective function of \eqref{Eq:adjustment} (a discrete approximation of the spectral density function $p_{\lambda}(\cdot)$) with $\Delta=.001$. The blue horizontal lines correspond to the search intervals ${\cal I}_1$ and ${\cal I}_2$, and the red circles represent the adjusted band ends $\{\tau_m\}_{m=0,1,2,3}$. (d) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the adjusted choice of band ends. Note that the errors between the approximate filters and ideal bandpass filters are concentrated in regions with fewer eigenvalues (gaps in the spectrum).}}\label{Fig:fb_design}
 \end{figure}
 
-\subsubsection{Adjusting the band ends}
+\subsubsection{Adjusting the band ends} \label{Se:adjust}
 
 In order to make the filters more amenable to approximation, we then adjust the initial choice of band endpoints so that they lie in lower density regions of the spectrum. Specifically, for each $m=1,2,\ldots,M-1$ and some choice of $\Delta>0$, we let the final endpoint be
 \begin{align} \label{Eq:adjustment}
@@ -580,30 +589,106 @@ see that adjusting the band ends leads to fewer eigenvalues falling close to the
 %Issues that arise in this context include designing the filter bank to be , 
 
 
-{\color{blue}
 
 
 \section{Non-Uniform Random Sampling and Reconstruction}
+Both the partitioning of the vertices into uniqueness sets described in Algorithm 1 and the synthesis via interpolation in \eqref{Eq:synth} require a full eigendecomposition of the graph Laplacian to compute the matrix ${\bf U}$. In this section, we examine more efficient sampling and reconstruction methods that do not require the full eigendecomposition.
+
+{\color{blue}
+
+
+\subsection{Sampling distribution}
+
 \begin{itemize}
 \item Fast sampling and reconstruction. Two main approaches to sampling: greedy and random
 \item Most work on lowpass/smooth signals
-\item Estimating number of measurements for each band
+%\item Estimating number of measurements for each band
 \item Review of non-uniform random sampling literature
-\item Reconstruction - emphasize change from only lowpass bands
-\item {\color{red} Solving the reconstruction equation efficiently and robustly}
+%\item Reconstruction - emphasize change from only lowpass bands
+%\item {\color{red} Solving the reconstruction equation efficiently and robustly}
 \end{itemize}
-
-\subsection{Sampling}
 
 Reference \cite{anis2016efficient} has a nice review of the computational complexities of the various routines for identifying uniqueness sets.  The random sampling method proposed in \cite{PuyTGV15} does not require the full eigendecomposition of the graph Laplacian and therefore scales significantly better with the size of the graph.
 We are currently examining whether there is a way to extend the approach of \cite{PuyTGV15} to non-uniformly randomly sample in a manner that leads with high probability to uniqueness sets for higher bands of the graph Laplacian spectrum. 
+}
 
+{\color{red}
+\begin{itemize}
+\item Note that the benefits of non-uniform sampling come when eigenvectors are more localized (c.f., Section 5.1.2 of Gilles? paper); this is especially important for high pass filters
+\item Link to literature on column subset selection (statistical leverage)
+\item Note that for any walk regular graph, optimal sampling distribution is uniform; give some examples (cycle, path, grid, vertex transitive graphs, etc.); cite godsil paper on symmetry and eigenvectors
+\end{itemize}
+}
+
+\subsection{Number of samples}
+
+To yield a critically sampled transform, one option is to choose the number of samples for each band to be in correspondence with the initial filter bank design. For example, if the filter bank is designed to be adapted to the spectrum with logarithmic spacing, we can choose $\frac{N}{2}$ samples for the highest band, $\frac{N}{4}$ for the next highest, and so forth. However, the adjustments we make in Section \ref{Se:adjust} affect the number of eigenvalues contained in each band. Since we have an estimate of the cumulative spectral distribution, one approximation for the number of samples in the adjusted $m^{th}$ band is to round $N*(\tilde{P}_{\lambda}(\tau_{m})-\tilde{P}_{\lambda}(\tau_{m-1}))$. As a band end $\tau_m$ may fall at a point where $\tilde{P}_\lambda$ has been interpolated via cubic functions, another option is to estimate the number of eigenvalues between $\tau_{m-1}$ and $\tau_m$, once again with the stochastic trace estimator in \eqref{Eq:hutch3}, except using the bandpass filter $h_m(\lambda)$ from \eqref{Eq:bandpass}. Since we have already computed and stored the series of matrices $\bar{T}_k(\L){\bf X}$, we just need to compute the polynomial approximation coefficients $\{\alpha_k\}$ in \eqref{Eq:hutch4} for  $h_m(\lambda)$, and substitute the resulting $\tilde{h}_m(\L){\bf x}^{(j)}$ values into \eqref{Eq:hutch3} for an estimate of the number of eigenvalues in the $m^{th}$ band. An added benefit of this extra step is that the thresholds $\{\tau_m\}$ are chosen to be in areas of low spectral density, which improves the accuracy of the eigenvalue count estimate \cite{di2016efficient}. If critical sampling is desired, we can make small adjustments to ensure the total number of samples is equal to $N$. Our default is to add samples to the lowest band if the estimated total is lower than $N$, and remove samples from the highest band if the estimated total is higher than $N$.
+
+Note that due to the polynomial approximation, the dimension of $\hbox{col}(\tilde{h}_m(\L))$ is at least as large as the dimension of $\hbox{col}({h}_m(\L))$, with the difference depending on the number of Laplacian eigenvalues just outside the end points of $h_m(\cdot)$ and the degree of approximation used for $\tilde{h}_m(\cdot)$. Therefore, we expect that to perfectly reconstruct signals in $\hbox{col}(\tilde{h}_m(\L))$, we need more samples than the number of eigenvalues in the support of $h_m(\cdot)$. In Section \ref{Se:ill2}, we explore how the reconstruction error is reduced as we increase the number of samples in each band. The tradeoff is the loss of critical sampling, as the total number of samples extends beyond $N$. 
+
+
+%{\color{red} In practice, these two methods of estimating the number of eigenvalues in each band do not }
+
+%\begin{itemize}
+%\item Would expect critical sampling won't work with approximate filtering, because actual support of each projection is wider
+%\item Review number of samples guarantee from \cite{PuyTGV15} with high probability; how does this scale across channels
+%%\item $\tilde{P}_{\lambda}(\tau_{m})-\tilde{P}_{\lambda}(\tau{m-1})$
+%%\item However, since we have also computed and stored the series of matrices $\bar{T}_k(\L){\bf X}$ in XXX, we can estimate the number of samples in each band by 
+%\item With either of these, we can make a small adjustment to ensure the filter bank is critically sampled
+%%\item Or just use design numbers (e.g., logarithmically spaced). put first, doesn't account for adjustments
+%%\item In practice
+%%\item 
+%\end{itemize}
 \subsection{Interpolation}
-If $y_{\V_m}$ are the analysis coefficients of the $m^{th}$ branch, the standard least squares reconstruction is to solve $x_m^*=\argmin_{x \in \R^{k_m}} ||\mathbf{U}_{{\cal R}_m}x - y_{\V_m} ||_2$, and let $f_{m,{rec}}(\V_m)=y_{\V_m}$ and $f_{m,{rec}}(\V_m^c)=\mathbf{U}_{\V_m^c,{\cal R}_m}x_m^*$; however, this requires a full eigendcomposition of $\L$ to get $\mathbf{U}$. Our ongoing work includes developing an efficient optimization algorithm that directly uses a function of $\L$ rather than $\mathbf{U}$ to stably reconstruct signals supported on a specific spectral band from its samples. 
+The exact interpolation \eqref{Eq:synth} requires the eigenvector matrix ${\bf U}$, and in case $U_{\V_m,{\cal R}_m}$ is not full rank, the standard least squares reconstruction for the $m^{th}$ channel
+\begin{align}
+{\bf f}_{m,{rec}}=\mathbf{U}_{{\cal R}_m}(\mathbf{U}_{\V_m,{\cal R}_m}^{\top}\mathbf{U}_{\V_m,{\cal R}_m})^{-1}\mathbf{U}_{\V_m,{\cal R}_m}^{\top}{\bf y}_{\V_m}
+\end{align}
+also requires ${\bf U}_{{\cal R}_m}$. One option explored in \cite{halko,paratte} is to leverage $\{\bar{T}_k(\L){\bf X}\}$ again to approximate the column space of ${\bf U}_{{\cal R}_m}$ by filtering at least $|{\cal R}_m|$ standard normal random vectors with the filter $\tilde{h}_m(\cdot)$, possibly followed by orthonormalization via QR factorization.
 
-\subsection{Reconstruction robustness to noisy or thresholded filter bank coefficients} \label{Se:noisy_ext}
-For any partition into uniqueness sets, the proposed transform perfectly recovers the signal from the analysis coefficients. However, the choice of the downsampling patterns and interpolation method can dramatically affect the stability of the reconstruction if the analysis coefficients are corrupted by noise or are only partially available, or approximate filters are used to speed up the transform (see, e.g., \cite[Section III.B]{anis2016efficient} for more on reconstruction stability). Thus, we plan to investigate the role of the initial choice of the $\gamma_i$'s in Algorithm \ref{Al:uniqueness} in improving the stability of the reconstruction.
+A second approach suggested in \cite{PuyTGV15} to efficiently reconstruct lowpass signals is to relax the optimization problem
+\begin{align*}
+\min_{{\bf z} \in \hbox{col}({\bf U}_{{\cal R}_m})} ||{\boldsymbol \Omega}_{m,\V_m}^{-\frac{1}{2}}\left({\bf M_m z}-{{\bf y}_{\V_m}} \right) ||_2
+\end{align*} 
+to 
+\begin{align}\label{Eq:approx_rec_opt}
+\min_{{\bf z} \in \R^N} ||{\boldsymbol \Omega}_{m,\V_m}^{-\frac{1}{2}}\left({\bf M_m z}-{{\bf y}_{\V_m}} \right) ||_2+{\bf z}^{\top}\varphi_m(\L){\bf z},
+\end{align} 
+where ${\boldsymbol \Omega}_{m,\V_m}$ is a $|\V_m| \times |\V_m|$  diagonal matrix with the $m^{th}$ channel sampling weights of $\V_m$ along the diagonal. The regularization term ${\bf z}^{\top}\varphi_m(\L){\bf z}$ in \eqref{Eq:approx_rec_opt} penalizes reconstructions with support outside of the desired spectral band. For lowpass signals, Puy et al. \cite{PuyTGV15} take the penalty function $\varphi_m(\lambda)$ to be a nonnegative, nondecreasing polynomial, such as $\kappa \lambda^l$, with $\kappa>0$ and $l$ a positive integer. For more general classes of signals (i.e., the midpass and highpass signals output from the higher bands of the proposed filter bank), it is important to keep the nonnegativity property, in order to ensure that $\varphi_m(\L)$ is positive semi-definite and the optimization problem \eqref{Eq:approx_rec_opt} is convex. However, we can drop the nondecreasing requirement, and instead choose penalty functions concentrated outside the $m^{th}$ spectral band. Options we explore include (i) $\varphi_m(\lambda)=\kappa\left[1-\tilde{h}(\lambda)\right]$; (ii) $\varphi_m(\lambda)=\frac{1}{\tilde{h}(\lambda)+\epsilon}-\frac{1}{1+\epsilon}$ {\color{red} Check nonnegativity}; and (iii) {\color{red} Spline approach of Saad. See Figure XXX.}
 
+From the first-order optimality conditions, the solution to \eqref{Eq:approx_rec_opt} is the solution to the linear system of equations
+\begin{align}\label{Eq:approx_rec_sol}
+\Bigl(M_m^{\top}{\boldsymbol \Omega}_{m,\V_m}^{-1}M_m+\varphi_m(\L)\Bigr){\bf  z}=M_m^{\top}{\boldsymbol \Omega}_{m,\V_m}^{-1}{\bf y}_{\V_m},
+\end{align}
+which can be solved, for example, with the preconditioned conjugate gradient method. {\color{red}Add more details? Preconditioner? How to compute $\varphi_m(\L){\bf z}$.}
+
+%\begin{itemize}
+%%\item standard with U
+%%\item one option is to leverage $\{\bar{T}_k(\L){\bf X}\}$ again to approximate the column space
+%%\item Another is to follow Gilles' approach (optimization problem, relaxation)
+%\item Solution
+%%\item They take nonnegative and nondecreasing for lowpass priors. The nonnegative is important to keep the problem convex, but we can use any penalty function that 
+%%\item Example penalty functions: $1-\tilde{h}(\lambda)$, $\frac{1}{h(\lambda)+\epsilon}-\frac{1}{1+\epsilon}$, spline based approach of Saad. 
+%\item how to solve the solution
+%%Compare these empirically in the next section.
+%\end{itemize}
+
+%If $y_{\V_m}$ are the analysis coefficients of the $m^{th}$ branch, the standard least squares reconstruction is to solve $x_m^*=\argmin_{x \in \R^{k_m}} ||\mathbf{U}_{{\cal R}_m}x - y_{\V_m} ||_2$, and let $f_{m,{rec}}(\V_m)=y_{\V_m}$ and $f_{m,{rec}}(\V_m^c)=\mathbf{U}_{\V_m^c,{\cal R}_m}x_m^*$; however, this requires a full eigendcomposition of $\L$ to get $\mathbf{U}$. Our ongoing work includes developing an efficient optimization algorithm that directly uses a function of $\L$ rather than $\mathbf{U}$ to stably reconstruct signals supported on a specific spectral band from its samples. 
+
+
+{\color{red}
+[Say something about which option we choose and why, and point to empirical comparison in the next section.]
+The analysis and synthesis operations for the proposed scalable $M$-channel filter bank are summarized in Algorithms XXX and ZZZ, respectively.
+
+\begin{itemize}
+\item Theoretical analysis of reconstruction error
+\item Reconstruction robustness to noisy or thresholded filter bank coefficients (see, e.g., \cite[Section III.B]{anis2016efficient} for more on reconstruction stability)
+\end{itemize}
+}
+%\subsection{Reconstruction robustness to noisy or thresholded filter bank coefficients} \label{Se:noisy_ext}
+%For any partition into uniqueness sets, the proposed transform perfectly recovers the signal from the analysis coefficients. However, the choice of the downsampling patterns and interpolation method can dramatically affect the stability of the reconstruction if the analysis coefficients are corrupted by noise or are only partially available, or approximate filters are used to speed up the transform . Thus, we plan to investigate the role of the initial choice of the $\gamma_i$'s in Algorithm \ref{Al:uniqueness} in improving the stability of the reconstruction.
+
+{\color{blue}
 \section{Illustrative Examples II: Approximate Calculations} \label{Se:ill2}
 \begin{itemize}
 \item Reconstruction of bandpass signal. Tradeoff between number of samples and reconstruction error. Show different methods? 
@@ -617,13 +702,17 @@ For any partition into uniqueness sets, the proposed transform perfectly recover
 \label{Sec:ongoing}
 {\color{red} %Eliminate once we've covered all of these issues elsewhere.}
 
-
-
+Insert key findings here
+\begin{itemize}
+\item Leveraged the computation of $\{\bar{T}_k(\L){\bf X}\}$ in multiple ways 
+\item Can be seen as a coarse, fast GFT, maybe compare to that literature
+\end{itemize}
+}
 
 %\subsection{Iterated filter bank} 
 As with the classical wavelet construction, it is possible to iterate the filter bank on the output from the lowpass channel.
-This could be beneficial, for example, in the case that we want to visualize the graph signal at different resolutions on  a sequence of coarser and coarser graphs. An interesting question is how iterating the filter bank with fewer channels at each step compares to a single filter bank with more channels and each filter supported on a smaller region of the spectrum.
-}
+This could be beneficial, for example, in the case that we want to visualize the graph signal at different resolutions on  a sequence of coarser and coarser graphs. An interesting question for future work is how iterating the filter bank with fewer channels at each step compares to a single filter bank with more channels and each filter supported on a smaller region of the spectrum.
+
 
 \balance
 \bibliographystyle{IEEEtran}

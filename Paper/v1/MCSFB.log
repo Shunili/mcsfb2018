@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  13 APR 2018 16:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  17 APR 2018 13:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -690,409 +690,412 @@ Underfull \hbox (badness 10000) in paragraph at lines 99--101
 File: fig_mcsfb_structure3.pdf Graphic file (type pdf)
 
 <use fig_mcsfb_structure3.pdf>
-Package pdftex.def Info: fig_mcsfb_structure3.pdf used on input line 108.
+Package pdftex.def Info: fig_mcsfb_structure3.pdf used on input line 113.
 (pdftex.def)             Requested size: 202.35622pt x 143.21164pt.
  [2pdfTeX warning (ext4): destination with the same identifier (name{figure.2})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.118 
-       <./fig_filter_bank.pdf>]
+l.115 \end{figure}
+                   <./fig_filter_bank.pdf>]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 119.
+(hyperref)                removing `math shift' on input line 124.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 119.
+(hyperref)                removing `math shift' on input line 124.
 
-** ATTENTION: \proof is deprecated (line 137). Use \IEEEproof instead.
+** ATTENTION: \proof is deprecated (line 142). Use \IEEEproof instead.
 
-Underfull \hbox (badness 6364) in paragraph at lines 155--159
+Underfull \hbox (badness 6364) in paragraph at lines 160--164
 \OT1/ptm/m/n/10 Yet, $\OT1/cmr/bx/n/10 x \OMS/cmsy/m/n/10 2 []\OT1/cmr/m/n/10 (
 \OT1/cmr/bx/n/10 U[]\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 im-plies $\OT1/cmr/bx/n/
 10 x$ \OT1/ptm/m/n/10 is or-thog-o-nal
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 155--159
+Underfull \hbox (badness 10000) in paragraph at lines 160--164
 \OT1/ptm/m/n/10 to $\OT1/cmr/bx/n/10 u[]\OML/cmm/m/it/10 ; \OT1/cmr/bx/n/10 u[]
 \OML/cmm/m/it/10 ; [] ; \OT1/cmr/bx/n/10 u[]$\OT1/ptm/m/n/10 , and, sim-i-larly
 , $\OT1/cmr/bx/n/10 x \OMS/cmsy/m/n/10 2
  []
 
 
-Underfull \hbox (badness 1910) in paragraph at lines 155--159
+Underfull \hbox (badness 1910) in paragraph at lines 160--164
 []\OT1/cmr/m/n/10 ([][]\OML/cmm/m/it/10 ; [][]; [] ; [][]\OT1/cmr/m/n/10 )$ \OT
 1/ptm/m/n/10 im-plies $\OT1/cmr/bx/n/10 x$ \OT1/ptm/m/n/10 is or-thog-o-nal to
  []
 
 
-Underfull \hbox (badness 3590) in paragraph at lines 155--159
+Underfull \hbox (badness 3590) in paragraph at lines 160--164
 [][]\OML/cmm/m/it/10 ; [][]; [] ; [][]:$ \OT1/ptm/m/n/10 In ma-trix no-ta-tion,
  we have
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 163.
+(hyperref)                removing `math shift' on input line 168.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 163.
+(hyperref)                removing `math shift' on input line 168.
 
-** ATTENTION: \proof is deprecated (line 169). Use \IEEEproof instead.
+** ATTENTION: \proof is deprecated (line 174). Use \IEEEproof instead.
 [3pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.177 \end{align}
-                  <./fig_mcsfb_structure3.pdf>]
-Underfull \hbox (badness 2698) in paragraph at lines 181--186
+l.180 \begin{align}
+                   \label{Eq:detM} <./fig_mcsfb_structure3.pdf>]
+Underfull \hbox (badness 2698) in paragraph at lines 186--191
 [][]\OT1/ptm/b/n/10 Corollary 1. []\OT1/ptm/m/it/10 For any par-ti-tion $\OMS/c
 msy/m/n/10 fR[]\OML/cmm/m/it/10 ; \OMS/cmsy/m/n/10 R[]\OML/cmm/m/it/10 ; [] \OM
 S/cmsy/m/n/10 R[]g$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 181--186
+Underfull \hbox (badness 10000) in paragraph at lines 186--191
 \OT1/ptm/m/it/10 of the graph Lapla-cian eigen-value in-dices
  []
 
 
-Underfull \hbox (badness 1888) in paragraph at lines 181--186
+Underfull \hbox (badness 1888) in paragraph at lines 186--191
 \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 1\OML/cmm
 /m/it/10 ; [] ; N \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1\OMS/cmsy/m/n/10 g$ \OT
 1/ptm/m/it/10 into $\OML/cmm/m/it/10 M$ \OT1/ptm/m/it/10 sub-sets, there ex-ist
 s a
  []
 
-** ATTENTION: \proof is deprecated (line 187). Use \IEEEproof instead.
+** ATTENTION: \proof is deprecated (line 192). Use \IEEEproof instead.
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 195.
+put line 200.
 
-Underfull \hbox (badness 4254) in paragraph at lines 201--202
+Underfull \hbox (badness 4254) in paragraph at lines 206--207
 [] \OT1/ptm/m/n/10 Find sets $\OML/cmm/m/it/10 ^^M[]; ^^M[] \OMS/cmsy/m/n/10 ^^
 Z S[]$ \OT1/ptm/m/n/10 s.t. $\OT1/cmr/bx/n/10 U[]$ \OT1/ptm/m/n/10 and
  []
 
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 210.
-<fig_uniq_part_sensor3.pdf, id=319, 407.77113pt x 355.31546pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 215.
+<fig_uniq_part_sensor3.pdf, id=321, 407.77113pt x 355.31546pt>
 File: fig_uniq_part_sensor3.pdf Graphic file (type pdf)
 
 <use fig_uniq_part_sensor3.pdf>
-Package pdftex.def Info: fig_uniq_part_sensor3.pdf used on input line 222.
+Package pdftex.def Info: fig_uniq_part_sensor3.pdf used on input line 227.
 (pdftex.def)             Requested size: 96.44691pt x 84.03587pt.
 
-<fig_uniq_part_col2.pdf, id=320, 50.12828pt x 351.80833pt>
+<fig_uniq_part_col2.pdf, id=322, 50.12828pt x 351.80833pt>
 File: fig_uniq_part_col2.pdf Graphic file (type pdf)
 
 <use fig_uniq_part_col2.pdf>
-Package pdftex.def Info: fig_uniq_part_col2.pdf used on input line 226.
+Package pdftex.def Info: fig_uniq_part_col2.pdf used on input line 231.
 (pdftex.def)             Requested size: 10.30003pt x 72.28758pt.
 
-<fig_uniq_part_minn4.pdf, id=321, 346.94618pt x 283.7541pt>
+<fig_uniq_part_minn4.pdf, id=323, 346.94618pt x 283.7541pt>
 File: fig_uniq_part_minn4.pdf Graphic file (type pdf)
 
 <use fig_uniq_part_minn4.pdf>
-Package pdftex.def Info: fig_uniq_part_minn4.pdf used on input line 230.
+Package pdftex.def Info: fig_uniq_part_minn4.pdf used on input line 235.
 (pdftex.def)             Requested size: 105.28519pt x 86.1054pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
  [4pdfTeX warning (ext4): destination with the same identifier (name{figure.4})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.255 \end{align}
-                  <./fig_uniq_part_sensor3.pdf> <./fig_uniq_part_col2.pdf> <./f
-ig_uniq_part_minn4.pdf>]
-<fig_bunny_atom_scalinga.png, id=355, 480.79625pt x 354.32375pt>
+l.257 \begin{align}
+                    \label{Eq:ortho_bands} <./fig_uniq_part_sensor3.pdf> <./fig
+_uniq_part_col2.pdf> <./fig_uniq_part_minn4.pdf>]
+<fig_bunny_atom_scalinga.png, id=357, 480.79625pt x 354.32375pt>
 File: fig_bunny_atom_scalinga.png Graphic file (type png)
 
 <use fig_bunny_atom_scalinga.png>
-Package pdftex.def Info: fig_bunny_atom_scalinga.png used on input line 297.
+Package pdftex.def Info: fig_bunny_atom_scalinga.png used on input line 302.
 (pdftex.def)             Requested size: 63.8886pt x 47.08012pt.
 
-<fig_bunny_atom_wav1a.png, id=357, 480.79625pt x 354.32375pt>
+<fig_bunny_atom_wav1a.png, id=359, 480.79625pt x 354.32375pt>
 File: fig_bunny_atom_wav1a.png Graphic file (type png)
 
 <use fig_bunny_atom_wav1a.png>
-Package pdftex.def Info: fig_bunny_atom_wav1a.png used on input line 300.
+Package pdftex.def Info: fig_bunny_atom_wav1a.png used on input line 305.
 (pdftex.def)             Requested size: 63.8886pt x 47.08012pt.
 
-<fig_bunny_atom_wav2a.png, id=358, 480.79625pt x 354.32375pt>
+<fig_bunny_atom_wav2a.png, id=360, 480.79625pt x 354.32375pt>
 File: fig_bunny_atom_wav2a.png Graphic file (type png)
 
 <use fig_bunny_atom_wav2a.png>
-Package pdftex.def Info: fig_bunny_atom_wav2a.png used on input line 303.
+Package pdftex.def Info: fig_bunny_atom_wav2a.png used on input line 308.
 (pdftex.def)             Requested size: 63.8886pt x 47.08012pt.
 
-<fig_bunny_atom_wav3a.png, id=359, 480.79625pt x 354.32375pt>
+<fig_bunny_atom_wav3a.png, id=361, 480.79625pt x 354.32375pt>
 File: fig_bunny_atom_wav3a.png Graphic file (type png)
 
 <use fig_bunny_atom_wav3a.png>
-Package pdftex.def Info: fig_bunny_atom_wav3a.png used on input line 306.
+Package pdftex.def Info: fig_bunny_atom_wav3a.png used on input line 311.
 (pdftex.def)             Requested size: 63.8886pt x 47.08012pt.
 
-<fig_bunny_atom_wav4a.png, id=360, 480.79625pt x 354.32375pt>
+<fig_bunny_atom_wav4a.png, id=362, 480.79625pt x 354.32375pt>
 File: fig_bunny_atom_wav4a.png Graphic file (type png)
 
 <use fig_bunny_atom_wav4a.png>
-Package pdftex.def Info: fig_bunny_atom_wav4a.png used on input line 309.
+Package pdftex.def Info: fig_bunny_atom_wav4a.png used on input line 314.
 (pdftex.def)             Requested size: 63.8886pt x 47.08012pt.
 
-<fig_bunny_freq_scaling3.png, id=361, 516.93124pt x 403.5075pt>
+<fig_bunny_freq_scaling3.png, id=363, 516.93124pt x 403.5075pt>
 File: fig_bunny_freq_scaling3.png Graphic file (type png)
 
 <use fig_bunny_freq_scaling3.png>
-Package pdftex.def Info: fig_bunny_freq_scaling3.png used on input line 316.
+Package pdftex.def Info: fig_bunny_freq_scaling3.png used on input line 321.
 (pdftex.def)             Requested size: 60.13023pt x 46.93497pt.
 
-<fig_bunny_freq_wav1a.png, id=362, 516.93124pt x 403.5075pt>
+<fig_bunny_freq_wav1a.png, id=364, 516.93124pt x 403.5075pt>
 File: fig_bunny_freq_wav1a.png Graphic file (type png)
 
 <use fig_bunny_freq_wav1a.png>
-Package pdftex.def Info: fig_bunny_freq_wav1a.png used on input line 319.
+Package pdftex.def Info: fig_bunny_freq_wav1a.png used on input line 324.
 (pdftex.def)             Requested size: 60.13023pt x 46.93497pt.
 
-<fig_bunny_freq_wav2a.png, id=363, 516.93124pt x 403.5075pt>
+<fig_bunny_freq_wav2a.png, id=365, 516.93124pt x 403.5075pt>
 File: fig_bunny_freq_wav2a.png Graphic file (type png)
 
 <use fig_bunny_freq_wav2a.png>
-Package pdftex.def Info: fig_bunny_freq_wav2a.png used on input line 322.
+Package pdftex.def Info: fig_bunny_freq_wav2a.png used on input line 327.
 (pdftex.def)             Requested size: 60.13023pt x 46.93497pt.
 
-<fig_bunny_freq_wav3a.png, id=364, 516.93124pt x 403.5075pt>
+<fig_bunny_freq_wav3a.png, id=366, 516.93124pt x 403.5075pt>
 File: fig_bunny_freq_wav3a.png Graphic file (type png)
 
 <use fig_bunny_freq_wav3a.png>
-Package pdftex.def Info: fig_bunny_freq_wav3a.png used on input line 325.
+Package pdftex.def Info: fig_bunny_freq_wav3a.png used on input line 330.
 (pdftex.def)             Requested size: 60.13023pt x 46.93497pt.
 
-<fig_bunny_freq_wav4a.png, id=365, 516.93124pt x 403.5075pt>
+<fig_bunny_freq_wav4a.png, id=367, 516.93124pt x 403.5075pt>
 File: fig_bunny_freq_wav4a.png Graphic file (type png)
 
 <use fig_bunny_freq_wav4a.png>
-Package pdftex.def Info: fig_bunny_freq_wav4a.png used on input line 328.
+Package pdftex.def Info: fig_bunny_freq_wav4a.png used on input line 333.
 (pdftex.def)             Requested size: 60.13023pt x 46.93497pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_coef_scaling.pdf): PDF i
 nclusion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_coef_scaling.pdf, id=366, 426.51346pt x 340.8735pt>
+<fig_bunny_coef_scaling.pdf, id=368, 426.51346pt x 340.8735pt>
 File: fig_bunny_coef_scaling.pdf Graphic file (type pdf)
 
 <use fig_bunny_coef_scaling.pdf>
-Package pdftex.def Info: fig_bunny_coef_scaling.pdf used on input line 335.
+Package pdftex.def Info: fig_bunny_coef_scaling.pdf used on input line 340.
 (pdftex.def)             Requested size: 60.13023pt x 48.05484pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_coef_wav1.pdf): PDF incl
 usion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_coef_wav1.pdf, id=367, 426.51346pt x 340.8735pt>
+<fig_bunny_coef_wav1.pdf, id=369, 426.51346pt x 340.8735pt>
 File: fig_bunny_coef_wav1.pdf Graphic file (type pdf)
 
 <use fig_bunny_coef_wav1.pdf>
-Package pdftex.def Info: fig_bunny_coef_wav1.pdf used on input line 338.
+Package pdftex.def Info: fig_bunny_coef_wav1.pdf used on input line 343.
 (pdftex.def)             Requested size: 60.13023pt x 48.05484pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_coef_wav2.pdf): PDF incl
 usion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_coef_wav2.pdf, id=368, 426.51346pt x 340.8735pt>
+<fig_bunny_coef_wav2.pdf, id=370, 426.51346pt x 340.8735pt>
 File: fig_bunny_coef_wav2.pdf Graphic file (type pdf)
 
 <use fig_bunny_coef_wav2.pdf>
-Package pdftex.def Info: fig_bunny_coef_wav2.pdf used on input line 341.
+Package pdftex.def Info: fig_bunny_coef_wav2.pdf used on input line 346.
 (pdftex.def)             Requested size: 60.13023pt x 48.05484pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_coef_wav3.pdf): PDF incl
 usion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_coef_wav3.pdf, id=369, 426.51346pt x 340.8735pt>
+<fig_bunny_coef_wav3.pdf, id=371, 426.51346pt x 340.8735pt>
 File: fig_bunny_coef_wav3.pdf Graphic file (type pdf)
 
 <use fig_bunny_coef_wav3.pdf>
-Package pdftex.def Info: fig_bunny_coef_wav3.pdf used on input line 344.
+Package pdftex.def Info: fig_bunny_coef_wav3.pdf used on input line 349.
 (pdftex.def)             Requested size: 60.13023pt x 48.05484pt.
 
-<fig_bunny_coef_wav4.pdf, id=370, 455.30101pt x 361.35pt>
+<fig_bunny_coef_wav4.pdf, id=372, 455.30101pt x 361.35pt>
 File: fig_bunny_coef_wav4.pdf Graphic file (type pdf)
 
 <use fig_bunny_coef_wav4.pdf>
-Package pdftex.def Info: fig_bunny_coef_wav4.pdf used on input line 347.
+Package pdftex.def Info: fig_bunny_coef_wav4.pdf used on input line 352.
 (pdftex.def)             Requested size: 63.8886pt x 50.70444pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_rec_scaling.pdf): PDF in
 clusion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_rec_scaling.pdf, id=371, 423.38174pt x 338.46451pt>
+<fig_bunny_rec_scaling.pdf, id=373, 423.38174pt x 338.46451pt>
 File: fig_bunny_rec_scaling.pdf Graphic file (type pdf)
 
 <use fig_bunny_rec_scaling.pdf>
-Package pdftex.def Info: fig_bunny_rec_scaling.pdf used on input line 354.
+Package pdftex.def Info: fig_bunny_rec_scaling.pdf used on input line 359.
 (pdftex.def)             Requested size: 60.13023pt x 48.06642pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_rec_wav1.pdf): PDF inclu
 sion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_rec_wav1.pdf, id=372, 426.51346pt x 340.8735pt>
+<fig_bunny_rec_wav1.pdf, id=374, 426.51346pt x 340.8735pt>
 File: fig_bunny_rec_wav1.pdf Graphic file (type pdf)
 
 <use fig_bunny_rec_wav1.pdf>
-Package pdftex.def Info: fig_bunny_rec_wav1.pdf used on input line 357.
+Package pdftex.def Info: fig_bunny_rec_wav1.pdf used on input line 362.
 (pdftex.def)             Requested size: 60.13023pt x 48.05484pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_rec_wav2.pdf): PDF inclu
 sion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_rec_wav2.pdf, id=373, 426.51346pt x 340.8735pt>
+<fig_bunny_rec_wav2.pdf, id=375, 426.51346pt x 340.8735pt>
 File: fig_bunny_rec_wav2.pdf Graphic file (type pdf)
 
 <use fig_bunny_rec_wav2.pdf>
-Package pdftex.def Info: fig_bunny_rec_wav2.pdf used on input line 360.
+Package pdftex.def Info: fig_bunny_rec_wav2.pdf used on input line 365.
 (pdftex.def)             Requested size: 60.13023pt x 48.05484pt.
 
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./fig_bunny_rec_wav3.pdf): PDF inclu
 sion: found PDF version <1.6>, but at most version <1.5> allowed
-<fig_bunny_rec_wav3.pdf, id=374, 426.51346pt x 340.8735pt>
+<fig_bunny_rec_wav3.pdf, id=376, 426.51346pt x 340.8735pt>
 File: fig_bunny_rec_wav3.pdf Graphic file (type pdf)
 
 <use fig_bunny_rec_wav3.pdf>
-Package pdftex.def Info: fig_bunny_rec_wav3.pdf used on input line 363.
+Package pdftex.def Info: fig_bunny_rec_wav3.pdf used on input line 368.
 (pdftex.def)             Requested size: 60.13023pt x 48.05484pt.
 
-<fig_bunny_rec_wav4.pdf, id=375, 455.30101pt x 361.35pt>
+<fig_bunny_rec_wav4.pdf, id=377, 455.30101pt x 361.35pt>
 File: fig_bunny_rec_wav4.pdf Graphic file (type pdf)
 
 <use fig_bunny_rec_wav4.pdf>
-Package pdftex.def Info: fig_bunny_rec_wav4.pdf used on input line 366.
+Package pdftex.def Info: fig_bunny_rec_wav4.pdf used on input line 371.
 (pdftex.def)             Requested size: 63.8886pt x 50.70444pt.
 
-<fig_bunny_signal.pdf, id=378, 455.30101pt x 361.35pt>
+<fig_bunny_signal.pdf, id=380, 455.30101pt x 361.35pt>
 File: fig_bunny_signal.pdf Graphic file (type pdf)
 
 <use fig_bunny_signal.pdf>
-Package pdftex.def Info: fig_bunny_signal.pdf used on input line 373.
+Package pdftex.def Info: fig_bunny_signal.pdf used on input line 378.
 (pdftex.def)             Requested size: 87.8885pt x 69.74893pt.
 
-<fig_bunny_signal_hat.pdf, id=379, 517.79158pt x 402.57301pt>
+<fig_bunny_signal_hat.pdf, id=381, 517.79158pt x 402.57301pt>
 File: fig_bunny_signal_hat.pdf Graphic file (type pdf)
 
 <use fig_bunny_signal_hat.pdf>
-Package pdftex.def Info: fig_bunny_signal_hat.pdf used on input line 377.
+Package pdftex.def Info: fig_bunny_signal_hat.pdf used on input line 382.
 (pdftex.def)             Requested size: 87.8885pt x 68.32593pt.
 
-<fig_bunny_partition.pdf, id=380, 455.30101pt x 361.35pt>
+<fig_bunny_partition.pdf, id=382, 455.30101pt x 361.35pt>
 File: fig_bunny_partition.pdf Graphic file (type pdf)
 
 <use fig_bunny_partition.pdf>
-Package pdftex.def Info: fig_bunny_partition.pdf used on input line 381.
+Package pdftex.def Info: fig_bunny_partition.pdf used on input line 386.
 (pdftex.def)             Requested size: 87.8885pt x 69.74893pt.
 
-<fig_bunny_coef_all.pdf, id=381, 455.30101pt x 361.35pt>
+<fig_bunny_coef_all.pdf, id=383, 455.30101pt x 361.35pt>
 File: fig_bunny_coef_all.pdf Graphic file (type pdf)
 
 <use fig_bunny_coef_all.pdf>
-Package pdftex.def Info: fig_bunny_coef_all.pdf used on input line 385.
+Package pdftex.def Info: fig_bunny_coef_all.pdf used on input line 390.
 (pdftex.def)             Requested size: 87.8885pt x 69.74893pt.
 
-<fig_comp_sig.pdf, id=401, 484.76056pt x 364.30002pt>
+<fig_comp_sig.pdf, id=403, 484.76056pt x 364.30002pt>
 File: fig_comp_sig.pdf Graphic file (type pdf)
  <use fig_comp_sig.pdf>
-Package pdftex.def Info: fig_comp_sig.pdf used on input line 410.
+Package pdftex.def Info: fig_comp_sig.pdf used on input line 415.
 (pdftex.def)             Requested size: 98.87352pt x 74.30399pt.
 
-<fig_comp_sig_hat.pdf, id=402, 495.88803pt x 400.5645pt>
+<fig_comp_sig_hat.pdf, id=404, 495.88803pt x 400.5645pt>
 File: fig_comp_sig_hat.pdf Graphic file (type pdf)
 
 <use fig_comp_sig_hat.pdf>
-Package pdftex.def Info: fig_comp_sig_hat.pdf used on input line 416.
+Package pdftex.def Info: fig_comp_sig_hat.pdf used on input line 421.
 (pdftex.def)             Requested size: 98.87352pt x 79.86699pt.
 
-<fig_comp_coeff2.pdf, id=403, 552.7587pt x 409.96964pt>
+<fig_comp_coeff2.pdf, id=405, 552.7587pt x 409.96964pt>
 File: fig_comp_coeff2.pdf Graphic file (type pdf)
 
 <use fig_comp_coeff2.pdf>
-Package pdftex.def Info: fig_comp_coeff2.pdf used on input line 421.
+Package pdftex.def Info: fig_comp_coeff2.pdf used on input line 426.
 (pdftex.def)             Requested size: 105.46654pt x 78.22032pt.
 
-<fig_comp_error.pdf, id=404, 568.00188pt x 408.25124pt>
+<fig_comp_error.pdf, id=406, 568.00188pt x 408.25124pt>
 File: fig_comp_error.pdf Graphic file (type pdf)
 
 <use fig_comp_error.pdf>
-Package pdftex.def Info: fig_comp_error.pdf used on input line 425.
+Package pdftex.def Info: fig_comp_error.pdf used on input line 430.
 (pdftex.def)             Requested size: 107.66254pt x 77.38165pt.
  [5]
-Overfull \hbox (2.51256pt too wide) in paragraph at lines 444--444
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (2.51256pt too wide) in paragraph at lines 449--449
 [] 
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 3375) has occurred while \output is active []
 
  [6pdfTeX warning (ext4): destination with the same identifier (name{figure.5})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.452 \end{align*}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{figure.6}) has been already used, duplicate ignored
+l.455 \begin{align*}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.6}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.452 \end{align*}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{figure.7}) has been already used, duplicate ignored
+l.455 \begin{align*}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.7}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.452 \end{align*}
-                   <./fig_bunny_atom_scalinga.png> <./fig_bunny_atom_wav1a.png>
- <./fig_bunny_atom_wav2a.png> <./fig_bunny_atom_wav3a.png> <./fig_bunny_atom_wa
-v4a.png> <./fig_bunny_freq_scaling3.png> <./fig_bunny_freq_wav1a.png> <./fig_bu
-nny_freq_wav2a.png> <./fig_bunny_freq_wav3a.png> <./fig_bunny_freq_wav4a.png> <
-./fig_bunny_coef_scaling.pdf> <./fig_bunny_coef_wav1.pdf> <./fig_bunny_coef_wav
-2.pdf> <./fig_bunny_coef_wav3.pdf> <./fig_bunny_coef_wav4.pdf> <./fig_bunny_rec
-_scaling.pdf> <./fig_bunny_rec_wav1.pdf> <./fig_bunny_rec_wav2.pdf> <./fig_bunn
-y_rec_wav3.pdf> <./fig_bunny_rec_wav4.pdf> <./fig_bunny_signal.pdf> <./fig_bunn
-y_signal_hat.pdf> <./fig_bunny_partition.pdf> <./fig_bunny_coef_all.pdf> <./fig
-_comp_sig.pdf> <./fig_comp_sig_hat.pdf> <./fig_comp_coeff2.pdf> <./fig_comp_err
-or.pdf>] <fig_approx_filter_sensor.pdf, id=654, 562.1pt x 421.575pt>
+l.455 \begin{align*}
+                     <./fig_bunny_atom_scalinga.png> <./fig_bunny_atom_wav1a.pn
+g> <./fig_bunny_atom_wav2a.png> <./fig_bunny_atom_wav3a.png> <./fig_bunny_atom_
+wav4a.png> <./fig_bunny_freq_scaling3.png> <./fig_bunny_freq_wav1a.png> <./fig_
+bunny_freq_wav2a.png> <./fig_bunny_freq_wav3a.png> <./fig_bunny_freq_wav4a.png>
+ <./fig_bunny_coef_scaling.pdf> <./fig_bunny_coef_wav1.pdf> <./fig_bunny_coef_w
+av2.pdf> <./fig_bunny_coef_wav3.pdf> <./fig_bunny_coef_wav4.pdf> <./fig_bunny_r
+ec_scaling.pdf> <./fig_bunny_rec_wav1.pdf> <./fig_bunny_rec_wav2.pdf> <./fig_bu
+nny_rec_wav3.pdf> <./fig_bunny_rec_wav4.pdf> <./fig_bunny_signal.pdf> <./fig_bu
+nny_signal_hat.pdf> <./fig_bunny_partition.pdf> <./fig_bunny_coef_all.pdf> <./f
+ig_comp_sig.pdf> <./fig_comp_sig_hat.pdf> <./fig_comp_coeff2.pdf> <./fig_comp_e
+rror.pdf>] <fig_approx_filter_sensor.pdf, id=656, 562.1pt x 421.575pt>
 File: fig_approx_filter_sensor.pdf Graphic file (type pdf)
 
 <use fig_approx_filter_sensor.pdf>
-Package pdftex.def Info: fig_approx_filter_sensor.pdf used on input line 475.
+Package pdftex.def Info: fig_approx_filter_sensor.pdf used on input line 480.
 (pdftex.def)             Requested size: 123.36703pt x 92.52164pt.
 
-<fig_approx_filter_net25.pdf, id=655, 562.1pt x 421.575pt>
+<fig_approx_filter_net25.pdf, id=657, 562.1pt x 421.575pt>
 File: fig_approx_filter_net25.pdf Graphic file (type pdf)
 
 <use fig_approx_filter_net25.pdf>
-Package pdftex.def Info: fig_approx_filter_net25.pdf used on input line 479.
+Package pdftex.def Info: fig_approx_filter_net25.pdf used on input line 484.
 (pdftex.def)             Requested size: 123.36703pt x 92.52164pt.
 
-<fig_approx_filter_sensor_error.pdf, id=656, 562.1pt x 421.575pt>
+<fig_approx_filter_sensor_error.pdf, id=658, 562.1pt x 421.575pt>
 File: fig_approx_filter_sensor_error.pdf Graphic file (type pdf)
 
 <use fig_approx_filter_sensor_error.pdf>
 Package pdftex.def Info: fig_approx_filter_sensor_error.pdf used on input line 
-483.
+488.
 (pdftex.def)             Requested size: 123.36703pt x 92.52164pt.
 
-<fig_approx_filter_net25_error.pdf, id=657, 562.1pt x 421.575pt>
+<fig_approx_filter_net25_error.pdf, id=659, 562.1pt x 421.575pt>
 File: fig_approx_filter_net25_error.pdf Graphic file (type pdf)
 
 <use fig_approx_filter_net25_error.pdf>
 Package pdftex.def Info: fig_approx_filter_net25_error.pdf used on input line 4
-87.
+92.
 (pdftex.def)             Requested size: 123.36703pt x 92.52164pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1102,87 +1105,86 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.523 \end{align}
+l.528 \end{align}
                   <./fig_approx_filter_sensor.pdf> <./fig_approx_filter_net25.p
 df> <./fig_approx_filter_sensor_error.pdf> <./fig_approx_filter_net25_error.pdf
->] <fig_cdf.pdf, id=714, 562.1pt x 421.575pt>
+>]
+Underfull \hbox (badness 10000) in paragraph at lines 532--535
+\OT1/ptm/m/n/10 for each $\OML/cmm/m/it/10 ^^X[]$\OT1/ptm/m/n/10 . Yet, we only
+ need to com-pute
+ []
+
+<fig_cdf.pdf, id=716, 562.1pt x 421.575pt>
 File: fig_cdf.pdf Graphic file (type pdf)
  <use fig_cdf.pdf>
-Package pdftex.def Info: fig_cdf.pdf used on input line 538.
+Package pdftex.def Info: fig_cdf.pdf used on input line 547.
 (pdftex.def)             Requested size: 123.36703pt x 92.52164pt.
 
-<fig_orig_fb.pdf, id=715, 562.1pt x 421.575pt>
+<fig_orig_fb.pdf, id=717, 562.1pt x 421.575pt>
 File: fig_orig_fb.pdf Graphic file (type pdf)
  <use fig_orig_fb.pdf>
-Package pdftex.def Info: fig_orig_fb.pdf used on input line 542.
+Package pdftex.def Info: fig_orig_fb.pdf used on input line 551.
 (pdftex.def)             Requested size: 123.36703pt x 92.52164pt.
 
-<fig_pdf.pdf, id=716, 562.1pt x 421.575pt>
+<fig_pdf.pdf, id=718, 562.1pt x 421.575pt>
 File: fig_pdf.pdf Graphic file (type pdf)
  <use fig_pdf.pdf>
-Package pdftex.def Info: fig_pdf.pdf used on input line 546.
+Package pdftex.def Info: fig_pdf.pdf used on input line 555.
 (pdftex.def)             Requested size: 123.36703pt x 92.52164pt.
 
-<fig_updated_fb.pdf, id=717, 562.1pt x 421.575pt>
+<fig_updated_fb.pdf, id=719, 562.1pt x 421.575pt>
 File: fig_updated_fb.pdf Graphic file (type pdf)
  <use fig_updated_fb.pdf>
-Package pdftex.def Info: fig_updated_fb.pdf used on input line 550.
+Package pdftex.def Info: fig_updated_fb.pdf used on input line 559.
 (pdftex.def)             Requested size: 123.36703pt x 92.52164pt.
 
-Underfull \vbox (badness 6204) has occurred while \output is active []
-
-
-Underfull \vbox (badness 1546) has occurred while \output is active []
+Underfull \vbox (badness 3049) has occurred while \output is active []
 
  [8pdfTeX warning (ext4): destination with the same identifier (name{figure.9})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.600 
-       <./fig_cdf.pdf> <./fig_orig_fb.pdf> <./fig_pdf.pdf> <./fig_updated_fb.pd
-f>] (./MCSFB.bbl
+l.604 \item M
+             ost work on lowpass/smooth signals <./fig_cdf.pdf> <./fig_orig_fb.
+pdf> <./fig_pdf.pdf> <./fig_updated_fb.pdf>] [9] (./MCSFB.bbl
 Underfull \hbox (badness 1584) in paragraph at lines 81--84
 []\OT1/ptm/m/n/8 D. I Shu-man, B. Ri-caud, and P. Van-dergheynst, ``Vertex-
  []
 
 
-Package balance Warning: You have called \balance in second column
-(balance)                Columns might not be balanced.
+Overfull \vbox (14.35834pt too high) has occurred while \output is active []
 
-[9]
+
+[10]
 Underfull \hbox (badness 10000) in paragraph at lines 207--208
 []\OT1/ptm/m/n/8 Wikipedia, []$https : / / en . wikipedia . org / wiki / Steini
 tz[]exchange[]
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 633.
-
-Overfull \vbox (1.23193pt too high) has occurred while \output is active []
-
-
-[10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 633.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 722.
+ [11]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 722.
  (./MCSFB.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 633.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 633.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 722.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 722.
 Package rerunfilecheck Info: File `MCSFB.out' has not changed.
-(rerunfilecheck)             Checksum: 399A4D05B3CE1BED76516E39DECEC76A;1857.
+(rerunfilecheck)             Checksum: 202378DF467F3924EACE27585759D841;1813.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 633.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 722.
  ) 
 Here is how much of TeX's memory you used:
- 9328 strings out of 493089
- 142407 string characters out of 6134842
- 283375 words of memory out of 5000000
- 12475 multiletter control sequences out of 15000+600000
+ 9344 strings out of 493089
+ 142599 string characters out of 6134842
+ 280467 words of memory out of 5000000
+ 12482 multiletter control sequences out of 15000+600000
  53350 words of font info for 123 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,19n,32p,1609b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 32i,19n,32p,1955b,508s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -1217,10 +1219,10 @@ lic/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/
 urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/
 utmbi8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr8a.pf
 b></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on MCSFB.pdf (10 pages, 2600663 bytes).
+Output written on MCSFB.pdf (11 pages, 2611299 bytes).
 PDF statistics:
- 915 PDF objects out of 1000 (max. 8388607)
- 691 compressed objects within 7 object streams
- 129 named destinations out of 1000 (max. 500000)
+ 945 PDF objects out of 1000 (max. 8388607)
+ 719 compressed objects within 8 object streams
+ 138 named destinations out of 1000 (max. 500000)
  403 words of extra memory for PDF output out of 10000 (max. 10000000)
 
