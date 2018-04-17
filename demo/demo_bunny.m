@@ -4,6 +4,21 @@ close all;
 rand('seed',0);
 randn('seed',0);
 
+%
+% G=gsp_david_sensor_network(500);
+% G=gsp_compute_fourier_basis(G);
+% poly1a=-2*G.coords(:,1)+.5;
+% poly2a=G.coords(:,1).^2+G.coords(:,2).^2+.5;
+% f=zeros(G.N,1);
+% p1=(G.coords(:,2)>=(1-G.coords(:,1))) & (G.coords(:,2)<(1.5-G.coords(:,1)));
+% p2=(G.coords(:,2)<(0.6-G.coords(:,1)));
+% p3= p1 | p2;
+% f(~p3)=poly1a(~p3);
+% f(p3)=poly2a(p3);
+% signal = f;
+% 
+% 
+
 % Initialize graph
 G=gsp_bunny();
 G=gsp_compute_fourier_basis(G);
@@ -23,19 +38,20 @@ signal(tail)=1;
 f = signal;
 
 % plot signal in both domains
-param.vertex_size=100;
-figure;
-gsp_plot_signal(G,signal,param);
-caxis([-2.5,2.5]);
-view(0,90)
-title('Signal in the Vertex Domain');
-
-figure;
-gsp_plot_signal_spectral(G,gsp_gft(G,signal));
-set(gca,'FontSize',24);
-xlabel('$\lambda$','Interpreter','latex','FontSize',24);
-ylabel('$|\hat{f}(\lambda)|$','Interpreter','latex','FontSize',24);
-title('Signal in the Spectral Domain');
+% param.vertex_size=100;
+% figure;
+% gsp_plot_signal(G,signal,param);
+% caxis([-2.5,2.5]);
+% view(0,90)
+% set(gca,'FontSize',24);
+% % title('Signal in the Vertex Domain');
+% 
+% figure;
+% gsp_plot_signal_spectral(G,gsp_gft(G,signal));
+% set(gca,'FontSize',24);
+% xlabel('$\lambda$','Interpreter','latex','FontSize',24);
+% ylabel('$|\hat{f}(\lambda)|$','Interpreter','latex','FontSize',24);
+% title('Signal in the Spectral Domain');
 
 % Params
 
@@ -46,8 +62,8 @@ param.compute_full_eigen = 0;
 num_bands = 5;
 param.band_structure = 0;
 param.spectrum_adapted=1;
-param.plot_filters = 1;
-param.plot_density_functions = 1;
+param.plot_filters = 0;
+param.plot_density_functions = 0;
 
 % downsampling
 param.exact_downsampling_partition=0;
@@ -77,7 +93,15 @@ if param.plot_filters
     figure;
     plot_param.show_sum=0;
     gsp_plot_filter(G,filter_bank,plot_param);
-    title('Filters');
+    xlabel('$\lambda$','Interpreter','LaTex','FontSize',24) 
+    set(gca,'FontSize',24);
+    xlim([0,8]);
+    ylim([0,1]);
+set(gca,'box','off');
+% set(gca, 'XTick', [0,G.e',15]);
+% set(gca,'xticklabel',{[]}) 
+set(gca, 'YTick', 0:0.5:1);
+xlabel('$\lambda$','Interpreter','LaTex','FontSize',24);
 end
 
 % plot cdf, pdf, eigenvalues, band_ends
@@ -159,7 +183,7 @@ end
 
 param.shifted_ends = shifted_ends;
 param.jackson = 1;
-param.order=20;
+param.order=80;
 
 [analysis_coeffs,filter_coeffs] = mcsfb_analysis(G, f, filter_bank, downsampling_sets, param);
 
@@ -176,6 +200,7 @@ if param.plot_filters
    hold on;
    plot(xx,filter_sum,'r:','LineWidth',3);   
    title('Approximate Filters');
+   set(gca,'FontSize',24);
 end
 
 % plot coeffs by channel
@@ -196,18 +221,37 @@ end
 
 [f_reconstruct, reconstruction_banded] = mcsfb_sythesis(G, num_bands, downsampling_sets, analysis_coeffs, shifted_ends, weights_banded);
 
+
+figure;
+    param.vertex_size=100;
+    param.climits = [-2.5,2.5];
+    gsp_plot_signal(G,gsp_filter(G,filter_bank{1},f),param); 
+    view(0,90)
+%     title('Reconstruction by Channel');
+    set(gca,'FontSize',24);
+%     title('Reconstruction Error by Channel');
+
+
 % plot reconstruction and error for each channel
-for i=1:num_bands
+for i=1:1
     figure;
+    param.vertex_size=100;
+    param.climits = [-2.5,2.5];
     gsp_plot_signal(G,reconstruction_banded{i}, param);
     caxis([-2.5,2.5]);
     view(0,90)
-    title('Reconstruction by Channel');
+%     title('Reconstruction by Channel');
+    set(gca,'FontSize',24);
     
     figure;
-    gsp_plot_signal(G,abs(gsp_cheby_op(G,filter_coeffs(:,i),f)-reconstruction_banded{i}),param);
+    param.vertex_size=100;
+    param.climits = [0,2.5];
+    gsp_plot_signal(G,abs(gsp_cheby_op(G,filter_coeffs(:,i),f)-reconstruction_banded{i}),param);  
     title('Reconstruction Error by Channel');
+    
     view(0,90)
+    set(gca,'FontSize',24);
+    set(gca,'FontSize',24);
 end
 
 % plot reconstruction
@@ -218,7 +262,8 @@ plot_param.vertex_size = 100;
 gsp_plot_signal(G, f_reconstruct, plot_param);
 caxis([-2.5,2.5]);
 view(0,90)
-title('Reconstruction');
+set(gca,'FontSize',24);
+% title('Reconstruction');
 
 % plot reconstruction error
 error=abs(f-f_reconstruct);
@@ -227,8 +272,9 @@ plot_param.vertex_size = 100;
 figure;
 gsp_plot_signal(G, error, plot_param);
 caxis([-2.5,2.5]);
-view(0,90)
-title('Reconstruction Error');
+view(0,90);
+set(gca,'FontSize',24);
+% title('Reconstruction Error');
 
 mean_squared_error=sum(error.^2)/G.N
 

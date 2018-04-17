@@ -1,11 +1,12 @@
 \BOOKMARK [1][-]{section.1}{Things to fix:}{}% 1
-\BOOKMARK [1][-]{section.2}{Notations}{}% 2
-\BOOKMARK [1][-]{section.3}{Definitions}{}% 3
-\BOOKMARK [1][-]{section.4}{Theorems}{}% 4
-\BOOKMARK [1][-]{section.5}{Abstract}{}% 5
-\BOOKMARK [1][-]{section.6}{Filter Bank Design}{}% 6
-\BOOKMARK [2][-]{subsection.6.1}{Estimate Spectral Density Function}{section.6}% 7
-\BOOKMARK [2][-]{subsection.6.2}{Fast Filtering}{section.6}% 8
-\BOOKMARK [3][-]{subsubsection.6.2.1}{Adjust Band Ends to Minimize Approximation Error}{subsection.6.2}% 9
-\BOOKMARK [1][-]{section.7}{Non-Uniform Sampling and Reconstruction}{}% 10
-\BOOKMARK [1][-]{section.8}{Illustrative Examples II: Approximate Calculations}{}% 11
+\BOOKMARK [1][-]{section.2}{dd}{}% 2
+\BOOKMARK [1][-]{section.3}{Notations}{}% 3
+\BOOKMARK [1][-]{section.4}{Definitions}{}% 4
+\BOOKMARK [1][-]{section.5}{Theorems}{}% 5
+\BOOKMARK [1][-]{section.6}{Abstract}{}% 6
+\BOOKMARK [1][-]{section.7}{Filter Bank Design}{}% 7
+\BOOKMARK [2][-]{subsection.7.1}{Estimate Spectral Density Function}{section.7}% 8
+\BOOKMARK [2][-]{subsection.7.2}{Fast Filtering}{section.7}% 9
+\BOOKMARK [3][-]{subsubsection.7.2.1}{Adjust Band Ends to Minimize Approximation Error}{subsection.7.2}% 10
+\BOOKMARK [1][-]{section.8}{Non-Uniform Sampling and Reconstruction}{}% 11
+\BOOKMARK [1][-]{section.9}{Illustrative Examples II: Approximate Calculations}{}% 12

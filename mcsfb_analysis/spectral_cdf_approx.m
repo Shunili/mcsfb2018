@@ -38,7 +38,7 @@ end
 
 %this can be more efficient by computing T_bar(L)f once and store them.
 %update the chby_op to retuen T_bar(L)f
-X = gsp_cheb y_op(G, jch, Sig); %jch, each column is the coeffs for one filter
+X = gsp_cheby_op(G, jch, Sig); %jch, each column is the coeffs for one filter
 
 St=Sig';
 for j=1:param.num_pts-1

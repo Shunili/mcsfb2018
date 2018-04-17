@@ -63,6 +63,9 @@ Error in mcsfb\_design\_filter\_bank\_no\_fourier
 
 \end{enumerate}
 
+\section{dd}
+
+$$\underset{z \in \RR^N}{\text{min}} \{ P^{-1/2}_\Omega (Mz-f)\vert\vert_2^2 + z^T \bigg( \frac{1}{h+\epsilon}-\frac{1}{1+\epsilon} \bigg) (\La)z\}$$
 \section{Notations}
 Consider a weighted, undirected graph $\G = \{ \V, \E, W\}$, where $\V$ is the set of $N$ vertices, $\E$ is the set of edges and $W$ is the associated weighted adjacency matrix. Let $D$ be the diagonal matrix of vertex degrees. Denote $\La$ as the graph Laplacian, where $\La = D-W$. Since $\La$ is real, symmetric and semi-definite, we can diagonalize it as $\La =U\Lambda U^*$, where $\Lambda$ is the diagonal matrix of its real eigenvalues $\lambda_0, \lambda_1,\cdots, \lambda_{N-1}$ and the columns $u_0, u_1 \cdots u_{N-1}$ of $U$ are corresponding orthonormal eigenvectors of $\La$. We use $\UR$ to denote the submatrix formed by taking the columns of $U$ associated with the Laplacian eigenvalues indexed by $\mathcal{R} \subseteq \{0,1,\cdots,N-1\}$. And we use $U_{\mathcal{S},\mathcal{R}}$ to denote the submatrix formed by taking the rows of $U_{\mathcal{R}}$ associated with the vertices indexed by the set $\mathcal{S} \subseteq \{1,2,\cdots, N\}$. For $i \in \{1,\cdots,n\}$, $\bm{\delta_i} \in \RR^n$ denotes the $i$th column of the identity matrix $I \in \RR^{n\times n}.$
 We consider graph signals $f \in \RR^N$ residing on a graph $\G$. A signal $f \in \RR^n$ defined on the nodes of the graph $\G$ is $\R$-concentrated if $f \in \text{span}(U_{\R})$. The graph Fourier transform of a signal is $\hat{f} = U*f$ and $\hat{g}(\La) f = U\hat{g}(\Lambda)U*f$ filters a graph signal by $\hat{g}(\cdot)$. Signal $r\in \RR^N$ is a random vector such that each entry is randomly draw from a standard gaussian distribution.
