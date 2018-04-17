@@ -154,14 +154,18 @@
 \newlabel{Eq:poly_approx_error}{{9}{7}{Filter bank design}{equation.6.9}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Degree 80 Jackson-Chebyshev polynomial approximations for ideal bandpass filters on the (a) 500 vertex random sensor network of Figure \ref  {Fig:part_examples} and (b) Andrianov net25 graph from \cite  {davis2011university} with 9,520 vertices. In (c) and (d), we show the errors $|\mathaccentV {tilde}07E{h}(\lambda _{\ell })-h(\lambda _{\ell })|$ at each of the Laplacian eigenvalues of the corresponding graphs in (a) and (b).}}{7}{figure.8}}
 \newlabel{Fig:approx_filtering_error}{{8}{7}{Degree 80 Jackson-Chebyshev polynomial approximations for ideal bandpass filters on the (a) 500 vertex random sensor network of Figure \ref {Fig:part_examples} and (b) Andrianov net25 graph from \cite {davis2011university} with 9,520 vertices. In (c) and (d), we show the errors $|\tilde {h}(\lambda _{\l })-h(\lambda _{\l })|$ at each of the Laplacian eigenvalues of the corresponding graphs in (a) and (b)}{figure.8}{}}
+\newlabel{Se:spectral_density}{{\unhbox \voidb@x \hbox {VI-B}1}{7}{Estimating the spectral density}{subsubsection.6.2.1}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {VI-B}1}Estimating the spectral density}{7}{subsubsection.6.2.1}}
 \citation{shuman2013spectrum}
 \citation{fritsch}
 \citation{chen2015discrete}
-\citation{anis2016efficient}
+\citation{anis2014towards}
 \citation{tsitsvero2016uncertainty}
+\citation{anis2016efficient}
+\citation{shomorony}
 \citation{PuyTGV15}
 \citation{chen2016signal}
+\citation{anis2016efficient}
 \newlabel{Eq:hutch1}{{11}{8}{Estimating the spectral density}{equation.6.11}{}}
 \newlabel{Eq:hutch2}{{12}{8}{Estimating the spectral density}{equation.6.12}{}}
 \newlabel{Eq:hutch3}{{13}{8}{Estimating the spectral density}{equation.6.13}{}}
@@ -173,7 +177,7 @@
 \newlabel{Fig:fb_design}{{9}{8}{(a) The approximate cumulative spectral density function, $\tilde {P}_{\lambda }(\cdot ),$ for the net25 graph described in Figure \ref {Fig:approx_filtering_error}. The blue X marks correspond to the initial choice of band endpoints computed by taking the inverse of logarithmically spaced points on the vertical axis. (b) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the initial choice of band ends from (a). (c) The objective function of \eqref {Eq:adjustment} (a discrete approximation of the spectral density function $p_{\lambda }(\cdot )$) with $\Delta =.001$. The blue horizontal lines correspond to the search intervals ${\cal I}_1$ and ${\cal I}_2$, and the red circles represent the adjusted band ends $\{\tau _m\}_{m=0,1,2,3}$. (d) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the adjusted choice of band ends. Note that the errors between the approximate filters and ideal bandpass filters are concentrated in regions with fewer eigenvalues (gaps in the spectrum)}{figure.9}{}}
 \newlabel{Eq:adjustment}{{15}{8}{Adjusting the band ends}{equation.6.15}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {VII}Non-Uniform Random Sampling and Reconstruction}{8}{section.7}}
-\citation{anis2016efficient}
+\citation{PuyTGV15}
 \citation{PuyTGV15}
 \citation{PuyTGV15}
 \citation{di2016efficient}
@@ -182,9 +186,10 @@
 \citation{PuyTGV15}
 \citation{PuyTGV15}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VII-A}}Sampling distribution}{9}{subsection.7.1}}
+\newlabel{Eq:samp_dist}{{16}{9}{Sampling distribution}{equation.7.16}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VII-B}}Number of samples}{9}{subsection.7.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VII-C}}Interpolation}{9}{subsection.7.3}}
-\newlabel{Eq:approx_rec_opt}{{17}{9}{Interpolation}{equation.7.17}{}}
+\newlabel{Eq:approx_rec_opt}{{18}{9}{Interpolation}{equation.7.18}{}}
 \citation{anis2016efficient}
 \bibstyle{IEEEtran}
 \bibdata{mcsfb_refs}
@@ -202,16 +207,16 @@
 \bibcite{shuman2015vertex}{12}
 \bibcite{narang_icip}{13}
 \bibcite{narang2012perfect}{14}
-\bibcite{narang_bior_filters}{15}
-\bibcite{sakiyama}{16}
 \@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Example penalty filters $\varphi _m$ for the regularization term in \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {Eq:approx_rec_opt}\unskip \@@italiccorr )}}, with $\epsilon =\frac  {1}{\kappa }=0.01$. Here, $\mathaccentV {tilde}07E{h}_m$ is a Jackson-Chebyshev polynomial approximation of $h_m$ of degree 20 and 50 in (a) and (b), respectively.}}{10}{figure.10}}
 \newlabel{Fig:penalty}{{10}{10}{Example penalty filters $\varphi _m$ for the regularization term in \eqref {Eq:approx_rec_opt}, with $\epsilon =\frac {1}{\kappa }=0.01$. Here, $\tilde {h}_m$ is a Jackson-Chebyshev polynomial approximation of $h_m$ of degree 20 and 50 in (a) and (b), respectively}{figure.10}{}}
-\newlabel{Eq:approx_rec_sol}{{18}{10}{Interpolation}{equation.7.18}{}}
+\newlabel{Eq:approx_rec_sol}{{19}{10}{Interpolation}{equation.7.19}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {VIII}Illustrative Examples II: Approximate Calculations}{10}{section.8}}
 \newlabel{Se:ill2}{{VIII}{10}{Illustrative Examples II: Approximate Calculations}{section.8}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {IX}Conclusion and Extensions}{10}{section.9}}
 \newlabel{Sec:ongoing}{{IX}{10}{Conclusion and Extensions}{section.9}{}}
 \@writefile{toc}{\contentsline {section}{References}{10}{section*.1}}
+\bibcite{narang_bior_filters}{15}
+\bibcite{sakiyama}{16}
 \bibcite{teke2016}{17}
 \bibcite{teke2017ii}{18}
 \bibcite{grady}{19}
@@ -230,36 +235,37 @@
 \bibcite{PuyTGV15}{32}
 \bibcite{chen2015signal}{33}
 \bibcite{tsitsvero2016uncertainty}{34}
-\bibcite{anis2016efficient}{35}
-\bibcite{paige}{36}
-\bibcite{strangInterplay}{37}
-\bibcite{steinitz}{38}
-\bibcite{poloni}{39}
-\bibcite{greeneMultiple}{40}
-\bibcite{greene_magnanti}{41}
-\bibcite{gle}{42}
-\bibcite{gleich}{43}
-\bibcite{bunny}{44}
-\bibcite{tropp2004greed}{45}
-\bibcite{elad_book}{46}
-\bibcite{higham}{47}
-\bibcite{davies2005computing}{48}
-\bibcite{frommer}{49}
-\bibcite{dubious}{50}
-\bibcite{shuman_distributed_sipn}{51}
-\bibcite{susnjara}{52}
-\bibcite{shi2015infinite}{53}
-\bibcite{loukas2015distributed}{54}
-\bibcite{di2016efficient}{55}
-\bibcite{puy_structured_sampling}{56}
-\bibcite{davis2011university}{57}
-\bibcite{lin_spectral_density}{58}
-\bibcite{van_mieghem}{59}
-\bibcite{tao_random_matrix}{60}
-\bibcite{silver1994densities}{61}
-\bibcite{silver1996kernel}{62}
-\bibcite{wang1994calculating}{63}
-\bibcite{hutchinson}{64}
-\bibcite{fritsch}{65}
-\bibcite{halko}{66}
-\bibcite{paratte}{67}
+\bibcite{chen2016signal}{35}
+\bibcite{anis2016efficient}{36}
+\bibcite{paige}{37}
+\bibcite{strangInterplay}{38}
+\bibcite{steinitz}{39}
+\bibcite{poloni}{40}
+\bibcite{greeneMultiple}{41}
+\bibcite{greene_magnanti}{42}
+\bibcite{gle}{43}
+\bibcite{gleich}{44}
+\bibcite{bunny}{45}
+\bibcite{tropp2004greed}{46}
+\bibcite{elad_book}{47}
+\bibcite{higham}{48}
+\bibcite{davies2005computing}{49}
+\bibcite{frommer}{50}
+\bibcite{dubious}{51}
+\bibcite{shuman_distributed_sipn}{52}
+\bibcite{susnjara}{53}
+\bibcite{shi2015infinite}{54}
+\bibcite{loukas2015distributed}{55}
+\bibcite{di2016efficient}{56}
+\bibcite{puy_structured_sampling}{57}
+\bibcite{davis2011university}{58}
+\bibcite{lin_spectral_density}{59}
+\bibcite{van_mieghem}{60}
+\bibcite{tao_random_matrix}{61}
+\bibcite{silver1994densities}{62}
+\bibcite{silver1996kernel}{63}
+\bibcite{wang1994calculating}{64}
+\bibcite{hutchinson}{65}
+\bibcite{fritsch}{66}
+\bibcite{halko}{67}
+\bibcite{paratte}{68}

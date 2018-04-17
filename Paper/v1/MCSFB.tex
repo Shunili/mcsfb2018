@@ -509,7 +509,7 @@ We can quantify the worst case error introduced when approximating  $h_m(\cdot)$
 \end{align}
 While approximation theory often aims to minimize the upper bound in \eqref{Eq:poly_approx_error}, only the errors exactly at the graph Laplacian eigenvalues affect the overall approximation error $||\tilde{h}_m(\L)-h_m(\L) ||_2$. Since, as seen in Figure \ref{Fig:approx_filtering_error}, the errors of the Jackson-Chebyshev polynomial approximation are concentrated around the discontinuities of $h_m(\cdot)$, a guiding principle when designing the filter bank to be more amenable to fast approximation is to choose the endpoints $\{\tau_m\}_{m=1,\ldots,M-1}$ of the bandpass filters to be in gaps in the graph Laplacian spectrum. Unfortunately, we do not have access to the exact graph Laplacian eigenvalues (the reason for introducing this approximation in the first place is that they are too expensive to compute for large graphs); however, we can efficiently estimate the density of the spectrum in order to design the filters in a way that aims to have the endpoints close to fewer eigenvalues of $\L$.
 
-\subsubsection{Estimating the spectral density}
+\subsubsection{Estimating the spectral density} \label{Se:spectral_density}
 
 Lin et al. \cite{lin_spectral_density} provide an excellent overview of methods to approximate the \emph{spectral density function} \cite[Chapter 6]{van_mieghem}) (also called the \emph{Density of States} or \emph{empirical spectral distribution} \cite[Chapter 2.4]{tao_random_matrix}) of a matrix, which in our context for the graph Laplacian $\L$ is the probability measure 
 \begin{align*}
@@ -594,32 +594,32 @@ see that adjusting the band ends leads to fewer eigenvalues falling close to the
 \section{Non-Uniform Random Sampling and Reconstruction}
 Both the partitioning of the vertices into uniqueness sets described in Algorithm 1 and the synthesis via interpolation in \eqref{Eq:synth} require a full eigendecomposition of the graph Laplacian to compute the matrix ${\bf U}$. In this section, we examine more efficient sampling and reconstruction methods that do not require the full eigendecomposition.
 
-{\color{blue}
-
 
 \subsection{Sampling distribution}
-Two broad approaches to more efficient sampling have recently been investigated: greedy methods \cite{chen2015discrete,anis2016efficient,tsitsvero2016uncertainty} and random sampling methods \cite{PuyTGV15,chen2016signal}. 
-
-anis2014towards,shomorony
-
-new book chapter?
+Two broad approaches to more efficient sampling have recently been investigated: greedy methods \cite{chen2015discrete,anis2014towards,tsitsvero2016uncertainty,anis2016efficient} and random sampling methods \cite{shomorony,PuyTGV15,chen2016signal}. Reference \cite{anis2016efficient} has a nice review of the computational complexities of the various greedy routines for identifying uniqueness sets. Most of these are designed specifically for lowpass signals. 
  
- 
-\begin{itemize}
-%\item Fast sampling and reconstruction. Two main approaches to sampling: greedy and random
-\item Most work on lowpass/smooth signals
-%\item Estimating number of measurements for each band
-\item Review of non-uniform random sampling literature
-%\item Reconstruction - emphasize change from only lowpass bands
-%\item {\color{red} Solving the reconstruction equation efficiently and robustly}
-\end{itemize}
+We adapt the non-uniform random sampling method of \cite{PuyTGV15}, which scales more efficiently than greedy methods. Namely, for the $m^{th}$ band, we identify the downsampling set $\V_m$ by sampling the vertices $\V$ {\color{red} without replacement} according to a discrete probability distribution ${\boldsymbol \omega}_m$. To minimize the graph weighted coherence, it is ideal to take ${\boldsymbol \omega}_m(i) \propto ||{\bf U}_{{\cal R}_m}^{\top} {\boldsymbol \delta}_i ||_2^2$ \cite{PuyTGV15}; however, we do not have access to ${\bf U}_{{\cal R}_m}$. Instead, we take 
+\begin{align}\label{Eq:samp_dist}
+{\boldsymbol \omega}_m(i) \propto ||(\tilde{h}_m(\L){\bf X})^{\top} {\boldsymbol \delta}_i ||_2^2,
+\end{align}
+which \cite{PuyTGV15} shows is an unbiased estimator of $||{\bf U}_{{\cal R}_m}^{\top} {\boldsymbol \delta}_i ||_2^2$ when ${\bf X}$ is the random matrix from \eqref{Eq:hutch4}. Since we already compute and store the series of matrices $\bar{T}_k(\L){\bf X}$ for the spectral density estimation of Section \ref{Se:spectral_density}, we just need to compute the polynomial approximation coefficients $\{\alpha_k\}$ in \eqref{Eq:hutch4} for $h_m(\lambda)$ in order to compute $\tilde{h}_m(\L){\bf X}$.
 
-Reference \cite{anis2016efficient} has a nice review of the computational complexities of the various routines for identifying uniqueness sets.  The random sampling method proposed in \cite{PuyTGV15} does not require the full eigendecomposition of the graph Laplacian and therefore scales significantly better with the size of the graph.
-We are currently examining whether there is a way to extend the approach of \cite{PuyTGV15} to non-uniformly randomly sample in a manner that leads with high probability to uniqueness sets for higher bands of the graph Laplacian spectrum. 
-}
+%\begin{itemize}
+%%\item Fast sampling and reconstruction. Two main approaches to sampling: greedy and random
+%%\item Most work on lowpass/smooth signals
+%%\item Estimating number of measurements for each band
+%\item Review of non-uniform random sampling literature
+%%\item Reconstruction - emphasize change from only lowpass bands
+%%\item {\color{red} Solving the reconstruction equation efficiently and robustly}
+%\end{itemize}
+
+% The random sampling method proposed in \cite{PuyTGV15} does not require the full eigendecomposition of the graph Laplacian and therefore scales significantly better with the size of the graph.
+%We are currently examining whether there is a way to extend the approach of \cite{PuyTGV15} to non-uniformly randomly sample in a manner that leads with high probability to uniqueness sets for higher bands of the graph Laplacian spectrum. 
+
 
 {\color{red}
 \begin{itemize}
+\item Check that embedding theorem works for upper bands as well and mention
 \item Note that the benefits of non-uniform sampling come when eigenvectors are more localized (c.f., Section 5.1.2 of Gilles' paper); this is especially important for high pass filters
 \item Link to literature on column subset selection (statistical leverage)
 \item Note that for any walk regular graph, optimal sampling distribution is uniform; give some examples (cycle, path, grid, vertex transitive graphs, etc.); cite godsil paper on symmetry and eigenvectors
@@ -628,7 +628,9 @@ We are currently examining whether there is a way to extend the approach of \cit
 
 \subsection{Number of samples}
 
-To yield a critically sampled transform, one option is to choose the number of samples for each band to be in correspondence with the initial filter bank design. For example, if the filter bank is designed to be adapted to the spectrum with logarithmic spacing, we can choose $\frac{N}{2}$ samples for the highest band, $\frac{N}{4}$ for the next highest, and so forth. However, the adjustments we make in Section \ref{Se:adjust} affect the number of eigenvalues contained in each band. Since we have an estimate of the cumulative spectral distribution, one approximation for the number of samples in the adjusted $m^{th}$ band is to round $N*(\tilde{P}_{\lambda}(\tau_{m})-\tilde{P}_{\lambda}(\tau_{m-1}))$. As a band end $\tau_m$ may fall at a point where $\tilde{P}_\lambda$ has been interpolated via cubic functions, another option is to estimate the number of eigenvalues between $\tau_{m-1}$ and $\tau_m$, once again with the stochastic trace estimator in \eqref{Eq:hutch3}, except using the bandpass filter $h_m(\lambda)$ from \eqref{Eq:bandpass}. Since we have already computed and stored the series of matrices $\bar{T}_k(\L){\bf X}$, we just need to compute the polynomial approximation coefficients $\{\alpha_k\}$ in \eqref{Eq:hutch4} for  $h_m(\lambda)$, and substitute the resulting $\tilde{h}_m(\L){\bf x}^{(j)}$ values into \eqref{Eq:hutch3} for an estimate of the number of eigenvalues in the $m^{th}$ band. An added benefit of this extra step is that the thresholds $\{\tau_m\}$ are chosen to be in areas of low spectral density, which improves the accuracy of the eigenvalue count estimate \cite{di2016efficient}. If critical sampling is desired, we can make small adjustments to ensure the total number of samples is equal to $N$. Our default is to add samples to the lowest band if the estimated total is lower than $N$, and remove samples from the highest band if the estimated total is higher than $N$.
+To yield a critically sampled transform, one option is to choose the number of samples for each band to be in correspondence with the initial filter bank design. For example, if the filter bank is designed to be adapted to the spectrum with logarithmic spacing, we can choose $\frac{N}{2}$ samples for the highest band, $\frac{N}{4}$ for the next highest, and so forth. However, the adjustments we make in Section \ref{Se:adjust} affect the number of eigenvalues contained in each band. Since we have an estimate of the cumulative spectral distribution, one approximation for the number of samples in the adjusted $m^{th}$ band is to round $N \cdot (\tilde{P}_{\lambda}(\tau_{m})-\tilde{P}_{\lambda}(\tau_{m-1}))$. As a band end $\tau_m$ may fall at a point where $\tilde{P}_\lambda$ has been interpolated via cubic functions, another option is to estimate the number of eigenvalues between $\tau_{m-1}$ and $\tau_m$, once again with the stochastic trace estimator in \eqref{Eq:hutch3}, except using the bandpass filter $h_m(\lambda)$ from \eqref{Eq:bandpass}. We already compute $\tilde{h}_m(\L){\bf X}$ to calculate the sampling distribution in \eqref{Eq:samp_dist}. We can substitute the columns $\tilde{h}_m(\L){\bf x}^{(j)}$ of this matrix into 
+%Since we have already computed and stored the series of matrices $\bar{T}_k(\L){\bf X}$, we just need to compute the polynomial approximation coefficients $\{\alpha_k\}$ in \eqref{Eq:hutch4} for  $h_m(\lambda)$, and substitute the resulting $\tilde{h}_m(\L){\bf x}^{(j)}$ values into 
+\eqref{Eq:hutch3} for an estimate of the number of eigenvalues in the $m^{th}$ band. An added benefit of this extra step is that the thresholds $\{\tau_m\}$ are chosen to be in areas of low spectral density, which improves the accuracy of the eigenvalue count estimate \cite{di2016efficient}. If critical sampling is desired, we can make small adjustments to ensure the total number of samples is equal to $N$. Our default is to add samples to the lowest band if the estimated total is lower than $N$, and remove samples from the highest band if the estimated total is higher than $N$.
 
 Note that due to the polynomial approximation, the dimension of $\hbox{col}(\tilde{h}_m(\L))$ is at least as large as the dimension of $\hbox{col}({h}_m(\L))$, with the difference depending on the number of Laplacian eigenvalues just outside the end points of $h_m(\cdot)$ and the degree of approximation used for $\tilde{h}_m(\cdot)$. Therefore, we expect that to perfectly reconstruct signals in $\hbox{col}(\tilde{h}_m(\L))$, we need more samples than the number of eigenvalues in the support of $h_m(\cdot)$. In Section \ref{Se:ill2}, we explore how the reconstruction error is reduced as we increase the number of samples in each band. The tradeoff is the loss of critical sampling, as the total number of samples extends beyond $N$. 
 

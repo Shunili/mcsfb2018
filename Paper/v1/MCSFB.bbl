@@ -171,7 +171,7 @@ A.~Gadde and A.~Ortega, ``A probabilistic interpretation of sampling theory of
   Process.}, Apr. 2015, pp. 3257--3261.
 
 \bibitem{shomorony}
-H.~Shomorony and A.~S. Avestimehr, ``Sampling large data on graphs,'' in
+I.~Shomorony and A.~S. Avestimehr, ``Sampling large data on graphs,'' in
   \emph{Proc. IEEE Glob. Conf. Signal and Inform. Process.}, Dec. 2014, pp.
   933--936.
 
@@ -189,6 +189,11 @@ S.~Chen, A.~Sandryhaila, J.~M.~F. Moura, and J.~Kova\v{c}evi{\'{c}}, ``Signal
 M.~Tsitsvero, S.~Barbarossa, and P.~{Di Lorenzo}, ``Signals on graphs:
   {U}ncertainty principle and sampling,'' \emph{IEEE Trans. Signal Process.},
   vol.~64, no.~18, pp. 4845--4860, Sep. 2016.
+
+\bibitem{chen2016signal}
+S.~Chen, R.~Varma, A.~Singh, and J.~Kova{\v{c}}evi{\'c}, ``Signal recovery on
+  graphs: {Fundamental} limits of sampling strategies,'' \emph{IEEE Trans.
+  Signal Inf. Process. Netw.}, vol.~2, no.~4, pp. 539--554, Dec. 2016.
 
 \bibitem{anis2016efficient}
 A.~Anis, A.~Gadde, and A.~Ortega, ``Efficient sampling set selection for
@@ -258,8 +263,8 @@ C.~Moler and C.~Van~Loan, ``Nineteen dubious ways to compute the exponential of
 
 \bibitem{shuman_distributed_sipn}
 {D. I Shuman}, P.~Vandergheynst, D.~Kressner, and P.~Frossard, ``Distributed
-  signal processing via {Chebyshev} polynomial approximation,'' \emph{Trans.
-  Signal Inf. Process. Netw.}, 2018, in press.
+  signal processing via {Chebyshev} polynomial approximation,'' \emph{IEEE
+  Trans. Signal Inf. Process. Netw.}, 2018, in press.
 
 \bibitem{susnjara}
 \BIBentryALTinterwordspacing
