@@ -54,8 +54,12 @@ right_side(selected)=values./weights;
 
 
 if (isfield(G,'U') && isfield(G,'e'))
-    A=B+G.U*diag(reg_filter(G.e))*G.U'; 
-    z=A\right_side;
+    eig_inds=(h(G.e)~=0);
+    LHS=G.U(selected,eig_inds);
+    rec_coef=LHS\values;
+    z=G.U(:,eig_inds)*rec_coef;
+%    A=B+G.U*diag(reg_filter(G.e))*G.U'; 
+%    z=A\right_side;
 else
     range=[0,G.lmax];
     grid_order=1000;

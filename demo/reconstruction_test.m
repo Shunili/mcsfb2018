@@ -14,6 +14,9 @@ tail=(G.A(930,:)==1);
 tail(930)=1;
 signal(tail)=1;
 
+% general
+param.compute_full_eigen = 0;
+
 %% 
 if ~param.compute_full_eigen
     G = rmfield(G, 'U');
@@ -22,12 +25,9 @@ if ~param.compute_full_eigen
     G = gsp_estimate_lmax(G);
 end
 
-% general
-param.compute_full_eigen = 0;
-
 % filter bank
 num_bands = 4;
-param.band_structure = 0;
+param.band_structure = 0; % logarithmic
 param.spectrum_adapted=1;
 param.plot_filters = 0;
 param.plot_density_functions = 0;
@@ -53,49 +53,64 @@ order = 80;
 h = @(x) filter_bank{3}(x);
 [~, JCH]=gsp_jackson_cheby_coeff(low_limit, up_limit, range, order);
 h_tilde = @(x) gsp_cheby_eval(x,JCH,[0,G.lmax]);
+f = gsp_cheby_op(G, JCH, signal);
 
-f = gsp_filter(G, h_tilde, signal);
+param.vertex_size=100;
+figure;
+gsp_plot_signal(G,f,param);
+view(0,90);
+
+% Check critical sampling value
+% nb_meas = 20;
+ideal_nb_meas=floor((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N)
+
 
 %% replacement = 1
 %different number of samples compute error, report the average of the errors
 param.replacement = 1;
 
-L = ceil(2*log(G.N));
+% L = ceil(2*log(G.N));
+L=50;
 
 G=spectral_cdf_approx(G, param);
-% nb_meas = 20;
-% nb_meas=floor((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
 
+nb_meas=200:100:500;
+num_trials=10;
+num_m=length(nb_meas);
+mean_squared_error = zeros(num_m,1);
 
-nb_meas = zeros(5,1);
-mean_squared_error = zeros(5,1);
+[weights, P_min_half] = compute_sampling_weights(G,L,h_tilde);
+synth_param.order=order;
 
-for i=1:5
-    nb_meas(i) = 200*i;
-    [weights, P_min_half] = compute_sampling_weights(G,L,h_tilde);
-    [M, selected] = build_sampling_matrix(G, weights, nb_meas(i));
-    downsampling_sets = selected;
+for i=1:num_m
+    total_mse=0;
+    total_error=zeros(G.N,1);
+    for j=1:num_trials
+        [M, selected] = build_sampling_matrix(G, weights, nb_meas(i));
 
-    %Analysis
-    param.order=80;
-    transformed_coeffs = gsp_cheby_op(G, JCH, f, param);
-    analysis_coeffs = transformed_coeffs(downsampling_sets,1);
+        %Analysis
+        analysis_coeffs = f(selected);
 
-    %Sythesis
-    f_reconstruct = mcsfb_reconstruct_band2(G, selected, analysis_coeffs, low_limit, up_limit, weights(selected), param);
-    error=abs(f-f_reconstruct);
-    mean_squared_error(i)=sum(error.^2)/G.N;
+        %Sythesis
+        f_reconstruct = mcsfb_reconstruct_band2(G, selected, analysis_coeffs, low_limit, up_limit, weights(selected), synth_param);
+        error=abs(f-f_reconstruct);
+        total_mse=total_mse+sum(error.^2)/G.N;
+        total_error=total_error+error;
+    end
+    mean_squared_error(i)=total_mse/num_trials;
+    total_error=total_error/num_trials;
 end
+
+figure;
+plot(nb_meas,mean_squared_error,'LineWidth',2);
+
+figure;
+gsp_plot_signal(G,total_error,param);
+view(0,90);
+
 
 %% replacement = 0
 param.replacement = 0;
-L = ceil(2*log(G.N));
-G=spectral_cdf_approx(G, param);
-% nb_meas = 20;
-% nb_meas=floor((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
-
-nb_meas = zeros(5,1);
-mean_squared_error = zeros(5,1);
 
 for i=1:5
     nb_meas(i) = 200*i;
@@ -104,7 +119,7 @@ for i=1:5
     downsampling_sets = selected;
 
     %Analysis
-    param.order=80;
+
     transformed_coeffs = gsp_cheby_op(G, JCH, f, param);
     analysis_coeffs = transformed_coeffs(downsampling_sets,1);
 
@@ -120,7 +135,6 @@ end
 % plot reconstruction and error for each channel
 for i=1:num_bands
     figure;
-    param.vertex_size=100;
     param.climits = [-2.5,2.5];
     gsp_plot_signal(G,reconstruction_banded{i}, param);
     caxis([-2.5,2.5]);
