@@ -80,7 +80,7 @@ function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G,
                 nb_meas=nb_meas*1;
             end
             [weights, ~] = compute_sampling_weights(G,num_its,h);
-            [~, selected] = build_sampling_matrix(G, weights, nb_meas);
+            [~, selected] = build_sampling_matrix(G, weights, nb_meas, param);
 
             downsampling_sets{i} = selected;
             weights_banded{i} = weights;
