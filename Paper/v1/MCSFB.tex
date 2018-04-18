@@ -240,6 +240,7 @@ partition. In the numerical experiments in the next section, we use the greedy a
 
 %\section{Dictionary Atoms and Signals that are Sparsely Represented by the MCSFB Transform}
 \section{Transform Properties}
+%{\color{red} Move this section until the end and discuss both the exact and approximate transforms together?}
 We now briefly examine some properties of the proposed transform. 
 \subsection{Dictionary atoms}
 Let ${\bf M}_m \in \R^{|{\cal V}_m| \times N}$ be the downsampling matrix for the $m^{th}$ channel. That is, ${\bf M}_m(i,j)=1$ if vertex $j$ is the $i^{th}$ element of ${\cal V}_m$, and 0 otherwise. The proposed transform is a linear mapping ${\cal F}: \R^N \rightarrow \R^N$ by ${\cal F}{\bf f} = {\bf Tf}$, where 
@@ -273,6 +274,7 @@ Note also that the wavelet atoms at all scales ($m>1$) have mean zero, as they h
 \item We  plan to more formally characterize the relationships between the decay of the analysis coefficients under the proposed transform and different properties of graph signals, as well as the underlying graph structure.
 Globally smooth signals trivially lead to sparse analysis coefficients because the coefficients are only nonzero for first set of vertices in the partition. The same line of reasoning applies more generally to signals that are sparse in the graph spectral domain. More interesting is a theory for the coefficient decay for piecewise-smooth graph signals such as the ones shown in Fig. \ref{Fig:bunny_signal}(a) and Fig. \ref{Fig:comp}(a).
 \end{itemize}
+%\subsection{Computational complexity}
 }
 
 \section{Illustrative Examples I: Exact Calculations}
@@ -709,7 +711,11 @@ The analysis and synthesis operations for the proposed scalable $M$-channel filt
 }
 %\subsection{Reconstruction robustness to noisy or thresholded filter bank coefficients} \label{Se:noisy_ext}
 %For any partition into uniqueness sets, the proposed transform perfectly recovers the signal from the analysis coefficients. However, the choice of the downsampling patterns and interpolation method can dramatically affect the stability of the reconstruction if the analysis coefficients are corrupted by noise or are only partially available, or approximate filters are used to speed up the transform . Thus, we plan to investigate the role of the initial choice of the $\gamma_i$'s in Algorithm \ref{Al:uniqueness} in improving the stability of the reconstruction.
-
+{\color{red}
+\section{Properties of the Fast M-CSFB Transform}
+\subsection{Joint vertex-frequency localization of the atoms}
+\subsection{Computational complexity}
+}
 {\color{blue}
 \section{Illustrative Examples II: Approximate Calculations} \label{Se:ill2}
 \begin{itemize}
