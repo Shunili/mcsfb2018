@@ -142,6 +142,7 @@ end
 % is a cell of length M where each entry has a vector with downsample
 % vertices
 
+param.replacement = 1;
 [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G, filter_bank, shifted_ends, param);
 
 % plot selected vertices
@@ -222,16 +223,6 @@ end
 [f_reconstruct, reconstruction_banded] = mcsfb_sythesis(G, num_bands, downsampling_sets, analysis_coeffs, shifted_ends, weights_banded);
 
 
-figure;
-    param.vertex_size=100;
-    param.climits = [-2.5,2.5];
-    gsp_plot_signal(G,gsp_filter(G,filter_bank{1},f),param); 
-    view(0,90)
-%     title('Reconstruction by Channel');
-    set(gca,'FontSize',24);
-%     title('Reconstruction Error by Channel');
-
-
 % plot reconstruction and error for each channel
 for i=1:1
     figure;
@@ -240,7 +231,7 @@ for i=1:1
     gsp_plot_signal(G,reconstruction_banded{i}, param);
     caxis([-2.5,2.5]);
     view(0,90)
-%     title('Reconstruction by Channel');
+    title('Reconstruction by Channel');
     set(gca,'FontSize',24);
     
     figure;
@@ -263,7 +254,7 @@ gsp_plot_signal(G, f_reconstruct, plot_param);
 caxis([-2.5,2.5]);
 view(0,90)
 set(gca,'FontSize',24);
-% title('Reconstruction');
+title('Reconstruction');
 
 % plot reconstruction error
 error=abs(f-f_reconstruct);
@@ -274,7 +265,7 @@ gsp_plot_signal(G, error, plot_param);
 caxis([-2.5,2.5]);
 view(0,90);
 set(gca,'FontSize',24);
-% title('Reconstruction Error');
+title('Reconstruction Error');
 
 mean_squared_error=sum(error.^2)/G.N
 
