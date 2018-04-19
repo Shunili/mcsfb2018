@@ -1,10 +1,10 @@
-function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G, filter_bank, shifted_ends, param)
+function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, filter_bank, shifted_ends, param)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
  
     num_bands=size(filter_bank,1);
     downsampling_sets=cell(num_bands,1); 
-    weights_banded = cell(num_bands,1); 
+    second_output = cell(num_bands,1); %weights banded if not exact, eigenvector ids for each band for exact
     
     if ~isfield(param,'exact_downsampling_partition')
         param.exact_downsampling_partition=0;
@@ -28,11 +28,11 @@ function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G,
         partition_ids = part_mat(G.U,subband_ids,param);
         for i=1:num_bands
             downsampling_sets{i}=find(partition_ids==i);
-            weights_banded{i}=ones(G.N,1);
+            second_output{i}=(filter_bank{i}(G.e)~=0);
         end
         
     else
-        
+        weights_banded = cell(num_bands,1);
         exact=gsp_check_fourier(G);
         if ~exact
              [G, ~]= spectral_cdf_approx( G , param);
@@ -85,6 +85,7 @@ function [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G,
             downsampling_sets{i} = selected;
             weights_banded{i} = weights;
         end
+        second_output=weights_banded;
     end
  end
   

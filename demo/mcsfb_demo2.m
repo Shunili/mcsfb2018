@@ -148,6 +148,21 @@ figure;
 gsp_plot_signal(G, error, plot_param);
 title('Reconstruction Error');
 
+% plot reconstruction error by band
+for i=1:num_bands
+    figure;
+    gsp_plot_signal(G, abs(reconstruction_banded{i}-gsp_filter(G,filter_bank{i},f)), plot_param);
+    title('Reconstruction Error by Band');
+end
+
+
+kk=4;
+LHS=G.U(downsampling_sets{kk},weights_banded{kk});
+rec_coef=LHS\analysis_coeffs{kk};
+rec2=G.U(:,weights_banded{kk})*rec_coef;
+figure;
+gsp_plot_signal(G, abs(rec2-gsp_filter(G,filter_bank{kk},f)), plot_param);
+title('Reconstruction Error - LS');
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
@@ -220,21 +235,31 @@ title('Reconstruction Error');
 % 
 % 
 % % examine resulting dictionary atoms (atoms in columns)
-dict=zeros(G.N);
-for i=1:G.N
-    c=zeros(G.N,1);
-    del=gsp_delta(G,i);
-    analysis_coeffs = mcsfb_analysis(G, del, filter_bank, downsampling_sets, param);
-    for m=1:num_bands
-        c(downsampling_sets{m})=analysis_coeffs{m};
-    end
-    dict(i,:)=c';
-end
 
-first_atoms=dict(:,downsampling_sets{4});
-g1L=G.U*diag(filter_bank{4}(G.e))*G.U';
-g1Lsel=g1L(:,downsampling_sets{4});
-max(max(abs(g1Lsel-first_atoms)))
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% dict=zeros(G.N);
+% for i=1:G.N
+%     c=zeros(G.N,1);
+%     del=gsp_delta(G,i);
+%     analysis_coeffs = mcsfb_analysis(G, del, filter_bank, downsampling_sets, param);
+%     for m=1:num_bands
+%         c(downsampling_sets{m})=analysis_coeffs{m};
+%     end
+%     dict(i,:)=c';
+% end
+% 
+% first_atoms=dict(:,downsampling_sets{4});
+% g1L=G.U*diag(filter_bank{4}(G.e))*G.U';
+% g1Lsel=g1L(:,downsampling_sets{4});
+% max(max(abs(g1Lsel-first_atoms)))
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % 
 % % full rank? Yes
