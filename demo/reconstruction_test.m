@@ -15,15 +15,14 @@ tail(930)=1;
 signal(tail)=1;
 
 %% 
+param.compute_full_eigen = 0;
+
 if ~param.compute_full_eigen
     G = rmfield(G, 'U');
     G = rmfield(G, 'e');
     G = rmfield(G, 'lmax');
     G = gsp_estimate_lmax(G);
 end
-
-% general
-param.compute_full_eigen = 0;
 
 % filter bank
 num_bands = 4;
@@ -65,7 +64,6 @@ L = ceil(2*log(G.N));
 G=spectral_cdf_approx(G, param);
 % nb_meas = 20;
 % nb_meas=floor((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
-
 
 nb_meas = zeros(5,1);
 mean_squared_error = zeros(5,1);
@@ -114,7 +112,8 @@ for i=1:5
     mean_squared_error(i)=sum(error.^2)/G.N;
 end
 
-
+%plot the error here using white black color scheme
+%use exact partitioning
 
 %% plot
 % plot reconstruction and error for each channel
