@@ -48,16 +48,26 @@ param.plot_analysis_coeffs = 0;
 up_limit=shifted_ends(4);
 low_limit=shifted_ends(3);
 range=[0,G.lmax];
-order = 80;
+order = 20;
 h = @(x) filter_bank{3}(x);
 [~, JCH]=gsp_jackson_cheby_coeff(low_limit, up_limit, range, order);
 h_tilde = @(x) gsp_cheby_eval(x,JCH,[0,G.lmax]);
 f = gsp_cheby_op(G, JCH, signal);
 
+figure;
+gsp_plot_filter(G, h_tilde);
+
+
 param.vertex_size=100;
 figure;
 gsp_plot_signal(G,f,param);
 view(0,90);
+title('signal');
+
+figure;
+gsp_plot_signal_spectral(G,gsp_gft(G,f),param);
+view(0,90);
+title('signal');
 
 % Check critical sampling value
 G=spectral_cdf_approx(G, param);
@@ -100,9 +110,11 @@ end
 
 figure;
 plot(nb_meas,mean_squared_error,'LineWidth',2);
+title('mean_squared_error');
 
 figure;
 gsp_plot_signal(G,total_error,param);
+title('total_error');
 view(0,90);
 colormap hot;
 colormap(flipud(hot))
@@ -134,9 +146,11 @@ end
 
 figure;
 plot(nb_meas,mean_squared_error,'LineWidth',2);
+title('mean_squared_error');
 
 figure;
 gsp_plot_signal(G,total_error,param);
+title('total_error');
 colormap hot;
 colormap(flipud(hot));
 view(0,90);
@@ -146,7 +160,7 @@ view(0,90);
 
 param.replacement = 0;
 L=50;
-nb_meas = ideal_nb_meas;
+nb_meas = G.N;%ideal_nb_meas;
 [weights, P_min_half] = compute_sampling_weights(G,L,h_tilde);
 [M, selected] = build_sampling_matrix(G, weights, nb_meas, param);
 analysis_coeffs = f(selected);
@@ -155,15 +169,18 @@ num_trials=10;
 total_mse = 0;
 total_error=zeros(G.N,1);
 synth_param.reg_filter = 1;
+synth_param.reg_eps = 1e-2;
 for i=1:num_trials
     f_reconstruct = mcsfb_reconstruct_band2(G, selected, analysis_coeffs, low_limit, up_limit, weights(selected), synth_param);
-    error=abs(f-f_reconstruct);
+    error=f-f_reconstruct;
     total_error=total_error+error;
     total_mse=total_mse+sum(error.^2)/G.N;
 end
 
+
 figure;
-gsp_plot_signal(G,total_error,param);
+param.climits = [0 1];
+gsp_plot_signal(G,total_error/num_trials,param);
 colormap hot;
 colormap(flipud(hot));
 view(0,90);
@@ -183,7 +200,7 @@ num_trials=10;
 total_mse = 0;
 total_error=zeros(G.N,1);
 synth_param.reg_filter = 0;
-synth_param.precondition = 0;
+synth_param.precondition = 1;
 for i=1:num_trials
     f_reconstruct = mcsfb_reconstruct_band2(G, selected, analysis_coeffs, low_limit, up_limit, weights(selected), synth_param);
     error=abs(f-f_reconstruct);
@@ -198,6 +215,35 @@ colormap(flipud(hot));
 view(0,90);
 
 
+%% 
+
+% G=gsp_compute_fourier_basis(G);
+G.e = ee;
+G.U = UU;
+figure;
+param.climits = [0 1];
+gsp_plot_signal_spectral(G,gsp_gft(G,total_error/num_trials),param);
+colormap hot;
+colormap(flipud(hot));
+view(0,90);
+G = rmfield(G, 'U');
+G = rmfield(G, 'e');
+G = rmfield(G, 'lmax');
+G = gsp_estimate_lmax(G);
+
+[~, JCH_wide]=gsp_jackson_cheby_coeff(.5, 4.5, range, order);
+h_tilde_wide = @(x) gsp_cheby_eval(x,JCH_wide,[0,G.lmax]);
+
+figure;
+reg_eps = 1e-2;
+hh = cell(3,1);
+hh{1} = @(x) 100*h_tilde(x);
+hh{2} = @(x) 1./(h_tilde_wide(x)+reg_eps)-1/(1+reg_eps);
+hh{3} = @(x) hh{1}(x).*hh{2}(x);
+%hh{3} = @(x) 100 - 100*h_tilde(x);
+%hh{4} = @(x) 100*(h_tilde(x)).*(100 - 100*h_tilde(x));
+param.show_sum = 0;
+gsp_plot_filter(G, hh,param);
 
 %% plot reconstruction and error for each channel
 % for i=1:num_bands
