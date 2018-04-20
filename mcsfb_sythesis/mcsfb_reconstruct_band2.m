@@ -49,6 +49,7 @@ if ~isfield(param,'order')
 else
     order=param.order;
 end
+
 lower_1 = 0.5;
 upper_1 = 4.5;
 h = @(x) (x>=lower_1 & x<upper_1);
@@ -103,7 +104,6 @@ else
         z=pcg(LHS,right_side,1e-10,100,[],[],initial_guess);
        
         
-         
     else 
         if ~isfield(param,'precondition')
             precondition=1;
