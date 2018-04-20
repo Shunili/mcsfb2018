@@ -44,6 +44,7 @@ else
     order=param.order;
 end
 
+
 h = @(x) (x>=lower & x<upper);
 reg_filter =@(x) 1./(h(x)+reg_eps)-1/(1+reg_eps);
 wd = zeros(G.N,1);
