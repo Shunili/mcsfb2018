@@ -1,12 +1,14 @@
 \documentclass[a4paper]{article}
 
 %% Language and font encodings
+\usepackage[margin=1in]{geometry}             % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}
+
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
 
 %% Sets page size and margins
-\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 
 %% Useful packages
 \usepackage{grffile}
@@ -281,20 +283,102 @@ provided that \[m \geq \frac{3}{\delta^2}\vv^k_{\bm{p}}\log(\frac{2k}{\epsilon})
 
 \end{thm}
 
-
-
-
-{\color{blue}
 \section{Illustrative Examples II: Approximate Calculations}
-\begin{itemize}
-\item Make sure to have some very large examples and show computation times
-\end{itemize}
-}
 
+We observe a tradeoff between the number of samples and reconstruction error. Note that the polynomial approximated filters have wider supports as compared to the ideal filters. By performing critical sampling based on ideal filters, we miss some parts of the spectrum on which the polynomial filters are supported. In order to get a better reconstruction, we might need to include more samples for each band. In figure \ref{}, we demonstrate that as we increase the number of samples for each band, we get smaller reconstruction errors.
 
+\begin{figure*}[bth] 
+\begin{minipage}[m]{0.16\linewidth}
+~
+\end{minipage}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{\small{Signal}}
+\end{minipage}
+\hspace{.01\linewidth}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{\small{Signal~~~~}}
+\end{minipage}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{\small{Error~~~~}}\end{minipage}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{\small{Error~~~~}}\end{minipage}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{\small{Error vs. \# Samples~~~~~}}\end{minipage} \\
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{\small{Low Pass Signal}}
+\end{minipage}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{~~\includegraphics[width=.85\linewidth]{fig_low_pass_signal_bunny}}
+\end{minipage}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{~~\includegraphics[width=.85\linewidth]{fig_low_pass_signal_spectral_bunny}}
+\end{minipage}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{~~\includegraphics[width=.85\linewidth]{fig_spline_filter_error_low_pass_bunny}}
+\end{minipage}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{~~\includegraphics[width=.85\linewidth]{fig_spline_filter_error_spectral_low_pass_bunny}}
+\end{minipage}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{~~\includegraphics[width=.85\linewidth]{fig_samlpes_error_trade_off_low_pass}}
+\end{minipage}\\
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{\small{Band Pass Signal}}
+\end{minipage}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{~~\includegraphics[width=.85\linewidth]{fig_band_pass_signal_bunny}}
+\end{minipage}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{~~\includegraphics[width=.85\linewidth]{fig_band_pass_signal_spectral_bunny}}
+\end{minipage}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{~~\includegraphics[width=.85\linewidth]{fig_spline_filter_error_band_pass_bunny}}
+\end{minipage}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{~~\includegraphics[width=.85\linewidth]{fig_spline_filter_error_spectral_band_pass_bunny}}
+\end{minipage}
+\begin{minipage}[m]{0.16\linewidth}
+\centerline{~~\includegraphics[width=.85\linewidth]{fig_samples_error_trade_off_band_pass}}
+\end{minipage}\\
 
+\caption{Reconstruction error decreases as the number of samples increases. In the first row, the first two figures show a low pass signal in both vertex and spectral domains. The reconstruction error yielded from critical sampling with spline regular filter are illustrated in the third and fourth figures. The fifth figure shows that the reconstruction error decreases for both regularization filters as the number of samples increases. The second row demonstrates the same things for a band pass signal.}
+\end{figure*}
 
+\begin{figure}[h!]
+\centering
+\includegraphics[width = 5 cm]{fig_rational_filter_error_band_pass_bunny}
+\includegraphics[width = 5 cm]{fig_rational_filter_error_spectral_band_pass_bunny}
 
+\includegraphics[width = 5 cm]{fig_reg_filter_error_band_pass_bunny}
+\includegraphics[width = 5 cm]{fig_reg_filter_error_spectral_band_pass_bunny}
 
+\includegraphics[width = 5 cm]{fig_spline_filter_error_band_pass_bunny}
+\includegraphics[width = 5 cm]{fig_spline_filter_error_spectral_band_pass_bunny}
+\caption{band pass}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width = 5 cm]{fig_rational_filter_error_low_pass_bunny}
+\includegraphics[width = 5 cm]{fig_rational_filter_error_spectral_low_pass_bunny}
+
+\includegraphics[width = 5 cm]{fig_reg_filter_error_low_pass_bunny}
+\includegraphics[width = 5 cm]{fig_reg_filter_error_spectral_low_pass_bunny}
+
+\includegraphics[width = 5 cm]{fig_spline_filter_error_low_pass_bunny}
+\includegraphics[width = 5 cm]{fig_spline_filter_error_spectral_low_pass_bunny}
+\caption{low pass}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width = 5 cm]{fig_samlpes_error_trade_off_low_pass}
+\includegraphics[width = 5 cm]{fig_samples_error_trade_off_low_pass_2}
+
+\includegraphics[width = 5 cm]{fig_samples_error_trade_off_band_pass}
+\includegraphics[width = 5 cm]{fig_samples_error_trade_off_band_pass2}
+\end{figure}
+
+\section{}
 
 \end{document}

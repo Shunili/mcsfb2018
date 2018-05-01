@@ -54,6 +54,7 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
             if exact
                 %extra_samps=0
                 nb_meas = sum(h(G.e)); %+extra_samps; % m: num eigenvalues in band, will need to estimate if don't have exact eigenvalues
+         
             else
                 %if the total number of samples is < N, add them to last band
                 nb_meas = round((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
@@ -69,16 +70,9 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
 %                 [~, HD_upper]=ldlnumeric(mat_upper,Lp,Parent,PO,PIn);
 %                 below_upper=sum(diag(HD_upper)<0);
 %                 nb_meas=below_upper-below_lower;
-%         
-
-              
-
+%  
             end
-            if i==1
-                nb_meas=floor(nb_meas*1)
-            elseif i==2
-                nb_meas=nb_meas*1;
-            end
+  
             [weights, ~] = compute_sampling_weights(G,num_its,h);
             [~, selected] = build_sampling_matrix(G, weights, nb_meas, param);
 

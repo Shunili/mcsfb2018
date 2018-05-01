@@ -29,8 +29,6 @@ end
 num_bands = 4;
 param.band_structure = 0; 
 param.spectrum_adapted=1;
-param.plot_filters = 0;
-param.plot_density_functions = 0;
 
 % downsampling
 param.exact_downsampling_partition=0;
@@ -48,7 +46,7 @@ param.plot_analysis_coeffs = 0;
 up_limit=shifted_ends(4);
 low_limit=shifted_ends(3);
 range=[0,G.lmax];
-order = 20;
+order = 80;
 h = @(x) filter_bank{3}(x);
 [~, JCH]=gsp_jackson_cheby_coeff(low_limit, up_limit, range, order);
 h_tilde = @(x) gsp_cheby_eval(x,JCH,[0,G.lmax]);
@@ -57,17 +55,28 @@ f = gsp_cheby_op(G, JCH, signal);
 figure;
 gsp_plot_filter(G, h_tilde);
 
+figure;
+gsp_plot_signal(G, signal, param);
+view(0,90);
 
 param.vertex_size=100;
+param.climits=[-2,2];
 figure;
 gsp_plot_signal(G,f,param);
 view(0,90);
-title('signal');
+set(gca,'FontSize',24);
+% title('signal');
+
+
 
 figure;
 gsp_plot_signal_spectral(G,gsp_gft(G,f),param);
 view(0,90);
-title('signal');
+% title('signal');
+xlabel('$\lambda$','Interpreter','LaTex','FontSize',24);
+ylabel('$|\hat{f}(\lambda)|$','Interpreter','LaTex','FontSize',24);
+set(gca,'FontSize',24);
+
 
 % Check critical sampling value
 G=spectral_cdf_approx(G, param);
@@ -122,6 +131,15 @@ colormap(flipud(hot))
 
 %% replacement = 0
 param.replacement = 0;
+
+% L = ceil(2*log(G.N));
+L=50;
+
+% nb_meas=200:100:500;
+nb_meas=ideal_nb_meas * ones(10,1);
+num_trials=10;
+num_m=length(nb_meas);
+mean_squared_error = zeros(num_m,1);
 
 [weights, P_min_half] = compute_sampling_weights(G,L,h_tilde);
 

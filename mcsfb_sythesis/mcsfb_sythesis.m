@@ -18,8 +18,8 @@ f_reconstruct = zeros(G.N, 1);
 %f_reconstruct=reconstruction_banded{1};
 
 for i = 1:num_bands
-   reconstruction_banded{i} = mcsfb_reconstruct_band2(G, downsampling_sets{i}, f_values{i}, shifted_ends(i), shifted_ends(i+1), weights{i}(downsampling_sets{i}),param);
-   f_reconstruct = f_reconstruct + reconstruction_banded{i};
+   reconstruction_banded(i) = mcsfb_reconstruct_band2(G, downsampling_sets{i}, f_values{i}, shifted_ends(i), shifted_ends(i+1), weights{i}(downsampling_sets{i}),param);
+   f_reconstruct = f_reconstruct + reconstruction_banded(i);
 end
 
 end
