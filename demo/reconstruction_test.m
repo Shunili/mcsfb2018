@@ -1,3 +1,10 @@
+clear all;
+close all;
+
+rand('seed',0);
+randn('seed',0);
+
+
 %%
 G=gsp_bunny();
 G=gsp_compute_fourier_basis(G);
@@ -19,6 +26,8 @@ signal(tail)=1;
 param.compute_full_eigen = 0;
 
 if ~param.compute_full_eigen
+    UU=G.U;
+    ee=G.e;
     G = rmfield(G, 'U');
     G = rmfield(G, 'e');
     G = rmfield(G, 'lmax');
@@ -60,7 +69,11 @@ gsp_plot_signal(G, signal, param);
 view(0,90);
 
 param.vertex_size=100;
+<<<<<<< HEAD
 param.climits=[-2,2];
+=======
+param.climits=[-1,1];
+>>>>>>> f9fdd307cc4a31a026b7abae9008ae2467132720
 figure;
 gsp_plot_signal(G,f,param);
 view(0,90);
@@ -69,6 +82,7 @@ set(gca,'FontSize',24);
 
 
 
+<<<<<<< HEAD
 figure;
 gsp_plot_signal_spectral(G,gsp_gft(G,f),param);
 view(0,90);
@@ -76,6 +90,8 @@ view(0,90);
 xlabel('$\lambda$','Interpreter','LaTex','FontSize',24);
 ylabel('$|\hat{f}(\lambda)|$','Interpreter','LaTex','FontSize',24);
 set(gca,'FontSize',24);
+=======
+>>>>>>> f9fdd307cc4a31a026b7abae9008ae2467132720
 
 
 % Check critical sampling value
@@ -90,7 +106,7 @@ param.replacement = 1;
 % L = ceil(2*log(G.N));
 L=50;
 
-nb_meas=200:100:500;
+nb_meas=400:10:500;
 num_trials=10;
 num_m=length(nb_meas);
 mean_squared_error = zeros(num_m,1);
@@ -164,11 +180,11 @@ end
 
 figure;
 plot(nb_meas,mean_squared_error,'LineWidth',2);
-title('mean_squared_error');
+title('mean squared error');
 
 figure;
 gsp_plot_signal(G,total_error,param);
-title('total_error');
+title('total error');
 colormap hot;
 colormap(flipud(hot));
 view(0,90);
@@ -178,7 +194,7 @@ view(0,90);
 
 param.replacement = 0;
 L=50;
-nb_meas = G.N;%ideal_nb_meas;
+nb_meas = ideal_nb_meas; %G.N;%
 [weights, P_min_half] = compute_sampling_weights(G,L,h_tilde);
 [M, selected] = build_sampling_matrix(G, weights, nb_meas, param);
 analysis_coeffs = f(selected);
@@ -195,9 +211,14 @@ for i=1:num_trials
     total_mse=total_mse+sum(error.^2)/G.N;
 end
 
+figure;
+param.climits=[-1,1];
+gsp_plot_signal(G,f_reconstruct,param);
+view(0,90);
+title('reconstruction');
 
 figure;
-param.climits = [0 1];
+param.climits=[0,1];
 gsp_plot_signal(G,total_error/num_trials,param);
 colormap hot;
 colormap(flipud(hot));
@@ -207,30 +228,30 @@ view(0,90);
 
 %% reg_filter = 1-h
 
-% param.replacement = 0;
-% L=50;
-% nb_meas = ideal_nb_meas;
-% [weights, P_min_half] = compute_sampling_weights(G,L,h_tilde);
-% [M, selected] = build_sampling_matrix(G, weights, nb_meas, param);
-% analysis_coeffs = f(selected);
-
-num_trials=10;
-total_mse = 0;
-total_error=zeros(G.N,1);
-synth_param.reg_filter = 0;
-synth_param.precondition = 1;
-for i=1:num_trials
-    f_reconstruct = mcsfb_reconstruct_band2(G, selected, analysis_coeffs, low_limit, up_limit, weights(selected), synth_param);
-    error=abs(f-f_reconstruct);
-    total_error=total_error+error;
-    total_mse=total_mse+sum(error.^2)/G.N;
-end
-
-figure;
-gsp_plot_signal(G,total_error/num_trials,param);
-colormap hot;
-colormap(flipud(hot));
-view(0,90);
+% % param.replacement = 0;
+% % L=50;
+% % nb_meas = ideal_nb_meas;
+% % [weights, P_min_half] = compute_sampling_weights(G,L,h_tilde);
+% % [M, selected] = build_sampling_matrix(G, weights, nb_meas, param);
+% % analysis_coeffs = f(selected);
+% 
+% num_trials=10;
+% total_mse = 0;
+% total_error=zeros(G.N,1);
+% synth_param.reg_filter = 0;
+% synth_param.precondition = 1;
+% for i=1:num_trials
+%     f_reconstruct = mcsfb_reconstruct_band2(G, selected, analysis_coeffs, low_limit, up_limit, weights(selected), synth_param);
+%     error=abs(f-f_reconstruct);
+%     total_error=total_error+error;
+%     total_mse=total_mse+sum(error.^2)/G.N;
+% end
+% 
+% figure;
+% gsp_plot_signal(G,total_error/num_trials,param);
+% colormap hot;
+% colormap(flipud(hot));
+% view(0,90);
 
 
 %% 
@@ -238,6 +259,13 @@ view(0,90);
 % G=gsp_compute_fourier_basis(G);
 G.e = ee;
 G.U = UU;
+G.lmax=max(ee);
+
+figure;
+gsp_plot_signal_spectral(G,gsp_gft(G,f),param);
+view(0,90);
+title('signal');
+
 figure;
 param.climits = [0 1];
 gsp_plot_signal_spectral(G,gsp_gft(G,total_error/num_trials),param);

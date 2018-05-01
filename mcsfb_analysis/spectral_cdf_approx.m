@@ -1,5 +1,9 @@
 function [ G, vals ] = spectral_cdf_approx( G , param)
 
+if nargin<2
+   param = struct;
+end
+
 if ~isfield(G,'lmax')
     G=gsp_estimate_lmax(G);
 end
@@ -26,7 +30,7 @@ end
 % put in one more parameter, actual pts
 %pts=linspace(0,G.lmax,param.num_pts);
 vals=zeros(param.num_pts,1);
-vals(1)=1;
+vals(1)=1; % force to be 0 or 1?
 %TODO: force last one to be N?
 
 jch=zeros(param.order+1,param.num_pts-1);

@@ -46,6 +46,7 @@
 \@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{section.1}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Extension of the classical two channel critically sampled filter bank to the graph setting. Here, $\mathbf  {H}_1$ is a lowpass graph spectral filter, and $\mathbf  {H}_2$ is a highpass graph spectral filter.}}{1}{figure.1}}
 \newlabel{Fig:two_channel}{{1}{1}{Extension of the classical two channel critically sampled filter bank to the graph setting. Here, $\mathbf {H}_1$ is a lowpass graph spectral filter, and $\mathbf {H}_2$ is a highpass graph spectral filter}{figure.1}{}}
+\citation{jin_conf}
 \citation{chen2015discrete}
 \citation{chen2015discrete}
 \citation{pesenson_paley}
@@ -61,43 +62,42 @@
 \citation{chen2015discrete}
 \citation{anis2016efficient}
 \citation{pesenson_paley}
-\citation{anis2014towards}
-\citation{shomorony}
 \@writefile{toc}{\contentsline {section}{\numberline {II}$M$-Channel Critically Sampled Filter Bank}{2}{section.2}}
-\newlabel{Eq:bandpass}{{1}{2}{$M$-Channel Critically Sampled Filter Bank}{equation.2.1}{}}
+\newlabel{Se:fb_design}{{II}{2}{$M$-Channel Critically Sampled Filter Bank}{section.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Example ideal filter bank. The red, orange, yellow, green, and blue filters span 31, 31, 63, 125, and 250 graph Laplacian eigenvalues, respectively, on a 500 node sensor network with a maximum graph Laplacian eigenvalue of 14.3. The tick marks on the x-axis represent the locations of the graph Laplacian eigenvalues.}}{2}{figure.2}}
 \newlabel{Fig:fb}{{2}{2}{Example ideal filter bank. The red, orange, yellow, green, and blue filters span 31, 31, 63, 125, and 250 graph Laplacian eigenvalues, respectively, on a 500 node sensor network with a maximum graph Laplacian eigenvalue of 14.3. The tick marks on the x-axis represent the locations of the graph Laplacian eigenvalues}{figure.2}{}}
-\newlabel{Le:eq_uniq}{{1}{2}{\cite {anis2014towards}, \cite {shomorony}}{lemma.1}{}}
-\newlabel{Eq:synth}{{2}{2}{$M$-Channel Critically Sampled Filter Bank}{equation.2.2}{}}
+\newlabel{Eq:bandpass}{{1}{2}{$M$-Channel Critically Sampled Filter Bank}{equation.2.1}{}}
+\citation{anis2014towards}
+\citation{shomorony}
 \citation{paige}
 \citation{strangInterplay}
 \citation{steinitz}
 \citation{shomorony}
-\citation{poloni}
-\citation{greeneMultiple}
-\citation{greene_magnanti}
-\citation{gle}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The $M$-channel critically sampled filter bank architecture. The sets ${\mathcal  {V}}_1, {\mathcal  {V}}_2, \ldots  ,{\mathcal  {V}}_M$ form a partition of the set ${\mathcal  {V}}$ of vertices, where each set ${\mathcal  {V}}_m$ is a uniqueness set for graph signals supported on a different subband in the graph spectral domain.}}{3}{figure.3}}
 \newlabel{Fig:arch}{{3}{3}{The $M$-channel critically sampled filter bank architecture. The sets $\V _1, \V _2, \ldots ,\V _M$ form a partition of the set $\V $ of vertices, where each set $\V _m$ is a uniqueness set for graph signals supported on a different subband in the graph spectral domain}{figure.3}{}}
+\newlabel{Le:eq_uniq}{{1}{3}{\cite {anis2014towards}, \cite {shomorony}}{lemma.1}{}}
+\newlabel{Eq:synth}{{2}{3}{$M$-Channel Critically Sampled Filter Bank}{equation.2.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {III}Partitioning the Graph into Uniqueness Sets for Different Frequency Bands}{3}{section.3}}
 \newlabel{Se:partition}{{III}{3}{Partitioning the Graph into Uniqueness Sets for Different Frequency Bands}{section.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-A}}$M=2$ channels}{3}{subsection.3.1}}
 \newlabel{Le:highpass_uniqueness}{{1}{3}{}{proposition.1}{}}
 \newlabel{Eq:span}{{3}{3}{$M=2$ channels}{equation.3.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-B}}$M>2$ channels}{3}{subsection.3.2}}
-\newlabel{Pr:mat_part}{{2}{3}{}{proposition.2}{}}
-\newlabel{Eq:det2}{{4}{3}{$M>2$ channels}{equation.3.4}{}}
+\citation{poloni}
+\citation{greeneMultiple}
+\citation{greene_magnanti}
+\citation{gle}
 \citation{greene_magnanti}
 \citation{greene_magnanti}
 \citation{shomorony}
 \citation{gleich}
 \citation{gleich}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-B}}$M>2$ channels}{4}{subsection.3.2}}
+\newlabel{Pr:mat_part}{{2}{4}{}{proposition.2}{}}
+\newlabel{Eq:det2}{{4}{4}{$M>2$ channels}{equation.3.4}{}}
 \newlabel{Eq:detM}{{5}{4}{$M>2$ channels}{equation.3.5}{}}
 \newlabel{Co:part_uniq}{{1}{4}{}{corollary.1}{}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Partition the vertices into uniqueness sets for each frequency band}}{4}{algorithm.1}}
 \newlabel{Al:uniqueness}{{1}{4}{$M>2$ channels}{algorithm.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Partitions of a 500 node random sensor network and the Minnesota road network \cite  {gleich} into uniqueness sets for five different spectral bands, with the indices increasing from lowpass bands (1) to highpass bands (5).}}{4}{figure.4}}
-\newlabel{Fig:part_examples}{{4}{4}{Partitions of a 500 node random sensor network and the Minnesota road network \cite {gleich} into uniqueness sets for five different spectral bands, with the indices increasing from lowpass bands (1) to highpass bands (5)}{figure.4}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {IV}Transform Properties}{4}{section.4}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}}Dictionary atoms}{4}{subsection.4.1}}
 \citation{bunny}
@@ -111,6 +111,14 @@
 \citation{shuman_TSP_multiscale}
 \citation{narang2012perfect}
 \citation{coifman2006diffusion}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Partitions of a 500 node random sensor network and the Minnesota road network \cite  {gleich} into uniqueness sets for five different spectral bands, with the indices increasing from lowpass bands (1) to highpass bands (5).}}{5}{figure.4}}
+\newlabel{Fig:part_examples}{{4}{5}{Partitions of a 500 node random sensor network and the Minnesota road network \cite {gleich} into uniqueness sets for five different spectral bands, with the indices increasing from lowpass bands (1) to highpass bands (5)}{figure.4}{}}
+\newlabel{Eq:ortho_bands}{{6}{5}{Dictionary atoms}{equation.4.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-B}}Signals that are sparsely represented by the M-CSFB transform}{5}{subsection.4.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Illustrative Examples I: Exact Calculations}{5}{section.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-A}}Joint vertex-frequency localization of atoms and example analysis coefficients}{5}{subsection.5.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-B}}Sparse approximation}{5}{subsection.5.2}}
+\newlabel{Eq:sparse_coding}{{7}{5}{Sparse approximation}{equation.5.7}{}}
 \citation{higham}
 \citation{davies2005computing}
 \citation{frommer}
@@ -121,22 +129,16 @@
 \citation{susnjara}
 \citation{shi2015infinite}
 \citation{loukas2015distributed}
-\newlabel{Eq:ortho_bands}{{6}{5}{Dictionary atoms}{equation.4.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-B}}Signals that are sparsely represented by the M-CSFB transform}{5}{subsection.4.2}}
-\@writefile{toc}{\contentsline {section}{\numberline {V}Illustrative Examples I: Exact Calculations}{5}{section.5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-A}}Joint vertex-frequency localization of atoms and example analysis coefficients}{5}{subsection.5.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-B}}Sparse approximation}{5}{subsection.5.2}}
-\newlabel{Eq:sparse_coding}{{7}{5}{Sparse approximation}{equation.5.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {VI}Polynomial Filter Bank Design}{5}{section.6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VI-A}}Approximation by polynomial filters}{5}{subsection.6.1}}
-\newlabel{Se:poly_approx}{{\unhbox \voidb@x \hbox {VI-A}}{5}{Approximation by polynomial filters}{subsection.6.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces $M$-channel filter bank example. The first row shows example atoms in the vertex domain. The second row shows all atoms in the spectral domain, with an average of the atoms in each band shown by the thick black lines. The third row shows the analysis coefficients of Fig.\ \ref  {Fig:bunny_signal}(d) by band, and the last row is the interpolation by band from those coefficients.}}{6}{figure.5}}
 \newlabel{Fig:bunny_coef}{{5}{6}{$M$-channel filter bank example. The first row shows example atoms in the vertex domain. The second row shows all atoms in the spectral domain, with an average of the atoms in each band shown by the thick black lines. The third row shows the analysis coefficients of Fig.\ \ref {Fig:bunny_signal}(d) by band, and the last row is the interpolation by band from those coefficients}{figure.5}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces (a)-(b) Piecewise smooth signal on the Stanford bunny graph \cite  {bunny} in the vertex and graph spectral domains, respectively. (c) Partition of the graph into uniqueness sets for five different spectral bands. (d) $M$-channel filter bank analysis coefficients of the signal shown in (a) and (b).}}{6}{figure.6}}
 \newlabel{Fig:bunny_signal}{{6}{6}{(a)-(b) Piecewise smooth signal on the Stanford bunny graph \cite {bunny} in the vertex and graph spectral domains, respectively. (c) Partition of the graph into uniqueness sets for five different spectral bands. (d) $M$-channel filter bank analysis coefficients of the signal shown in (a) and (b)}{figure.6}{}}
-\newlabel{Eq:cheb}{{8}{6}{Approximation by polynomial filters}{equation.6.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Polynomial Filter Bank Design}{6}{section.6}}
+\newlabel{Se:filt_design}{{VI}{6}{Polynomial Filter Bank Design}{section.6}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Compression example. (a)-(b) Piecewise-smooth signal from \cite  [Fig. 11]{shuman_TSP_multiscale} in the vertex and graph spectral domains. (c) The normalized sorted magnitudes of the transform coefficients for the proposed $M$-channel critically sampled filter bank, the graph Fourier transform, the basis of Kronecker deltas, the quadrature mirror filterbank \cite  {narang2012perfect}, and the diffusion wavelet transform \cite  {coifman2006diffusion}. (d) The reconstruction errors $\frac  {\left |\left |{\bf  f}_{\unhbox \voidb@x \hbox {reconstruction}}-{\bf  f}\right |\right |_2}{||{\bf  f}||_2}$, as a function of the sparsity threshold $T$ in \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {Eq:sparse_coding}\unskip \@@italiccorr )}}.}}{6}{figure.7}}
 \newlabel{Fig:comp}{{7}{6}{Compression example. (a)-(b) Piecewise-smooth signal from \cite [Fig. 11]{shuman_TSP_multiscale} in the vertex and graph spectral domains. (c) The normalized sorted magnitudes of the transform coefficients for the proposed $M$-channel critically sampled filter bank, the graph Fourier transform, the basis of Kronecker deltas, the quadrature mirror filterbank \cite {narang2012perfect}, and the diffusion wavelet transform \cite {coifman2006diffusion}. (d) The reconstruction errors $\frac {\left |\left |{\bf f}_{\mbox {reconstruction}}-{\bf f}\right |\right |_2}{||{\bf f}||_2}$, as a function of the sparsity threshold $T$ in \eqref {Eq:sparse_coding}}{figure.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VI-A}}Approximation by polynomial filters}{6}{subsection.6.1}}
+\newlabel{Se:poly_approx}{{\unhbox \voidb@x \hbox {VI-A}}{6}{Approximation by polynomial filters}{subsection.6.1}{}}
 \citation{di2016efficient}
 \citation{puy_structured_sampling}
 \citation{di2016efficient}
@@ -145,19 +147,29 @@
 \citation{lin_spectral_density}
 \citation{van_mieghem}
 \citation{tao_random_matrix}
+\newlabel{Eq:cheb}{{8}{7}{Approximation by polynomial filters}{equation.6.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Degree 80 Jackson-Chebyshev polynomial approximations for ideal bandpass filters on the (a) 500 vertex random sensor network of Fig. \ref  {Fig:part_examples} and (b) Andrianov net25 graph from \cite  {davis2011university} with 9,520 vertices. In (c) and (d), we show the errors $|\mathaccentV {tilde}07E{h}(\lambda _{\ell })-h(\lambda _{\ell })|$ at each of the Laplacian eigenvalues of the corresponding graphs in (a) and (b).}}{7}{figure.8}}
+\newlabel{Fig:approx_filtering_error}{{8}{7}{Degree 80 Jackson-Chebyshev polynomial approximations for ideal bandpass filters on the (a) 500 vertex random sensor network of Fig. \ref {Fig:part_examples} and (b) Andrianov net25 graph from \cite {davis2011university} with 9,520 vertices. In (c) and (d), we show the errors $|\tilde {h}(\lambda _{\l })-h(\lambda _{\l })|$ at each of the Laplacian eigenvalues of the corresponding graphs in (a) and (b)}{figure.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VI-B}}Filter bank design}{7}{subsection.6.2}}
+\newlabel{Eq:poly_approx_error}{{9}{7}{Filter bank design}{equation.6.9}{}}
+\newlabel{Se:spectral_density}{{\unhbox \voidb@x \hbox {VI-B}1}{7}{Estimating the spectral density}{subsubsection.6.2.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {VI-B}1}Estimating the spectral density}{7}{subsubsection.6.2.1}}
 \citation{silver1994densities}
 \citation{silver1996kernel}
 \citation{wang1994calculating}
 \citation{lin_spectral_density}
 \citation{hutchinson}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VI-B}}Filter bank design}{7}{subsection.6.2}}
-\newlabel{Eq:poly_approx_error}{{9}{7}{Filter bank design}{equation.6.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Degree 80 Jackson-Chebyshev polynomial approximations for ideal bandpass filters on the (a) 500 vertex random sensor network of Figure \ref  {Fig:part_examples} and (b) Andrianov net25 graph from \cite  {davis2011university} with 9,520 vertices. In (c) and (d), we show the errors $|\mathaccentV {tilde}07E{h}(\lambda _{\ell })-h(\lambda _{\ell })|$ at each of the Laplacian eigenvalues of the corresponding graphs in (a) and (b).}}{7}{figure.8}}
-\newlabel{Fig:approx_filtering_error}{{8}{7}{Degree 80 Jackson-Chebyshev polynomial approximations for ideal bandpass filters on the (a) 500 vertex random sensor network of Figure \ref {Fig:part_examples} and (b) Andrianov net25 graph from \cite {davis2011university} with 9,520 vertices. In (c) and (d), we show the errors $|\tilde {h}(\lambda _{\l })-h(\lambda _{\l })|$ at each of the Laplacian eigenvalues of the corresponding graphs in (a) and (b)}{figure.8}{}}
-\newlabel{Se:spectral_density}{{\unhbox \voidb@x \hbox {VI-B}1}{7}{Estimating the spectral density}{subsubsection.6.2.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {VI-B}1}Estimating the spectral density}{7}{subsubsection.6.2.1}}
 \citation{shuman2013spectrum}
 \citation{fritsch}
+\newlabel{Eq:hutch1}{{11}{8}{Estimating the spectral density}{equation.6.11}{}}
+\newlabel{Eq:hutch2}{{12}{8}{Estimating the spectral density}{equation.6.12}{}}
+\newlabel{Eq:hutch3}{{13}{8}{Estimating the spectral density}{equation.6.13}{}}
+\newlabel{Eq:hutch4}{{14}{8}{Estimating the spectral density}{equation.6.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces {(a) The approximate cumulative spectral density function, $\mathaccentV {tilde}07E{P}_{\lambda }(\cdot ),$ for the net25 graph described in Fig. \ref  {Fig:approx_filtering_error}. The blue X marks correspond to the initial choice of band endpoints computed by taking the inverse of logarithmically spaced points on the vertical axis. (b) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the initial choice of band ends from (a). (c) The objective function of \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {Eq:adjustment}\unskip \@@italiccorr )}} (a discrete approximation of the spectral density function $p_{\lambda }(\cdot )$) with $\Delta =.001$. The blue horizontal lines correspond to the search intervals ${\cal  I}_1$ and ${\cal  I}_2$, and the red circles represent the adjusted band ends $\{\tau _m\}_{m=0,1,2,3}$. (d) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the adjusted choice of band ends. Note that the errors between the approximate filters and ideal bandpass filters are concentrated in regions with fewer eigenvalues (gaps in the spectrum).}}}{8}{figure.9}}
+\newlabel{Fig:fb_design}{{9}{8}{(a) The approximate cumulative spectral density function, $\tilde {P}_{\lambda }(\cdot ),$ for the net25 graph described in Fig. \ref {Fig:approx_filtering_error}. The blue X marks correspond to the initial choice of band endpoints computed by taking the inverse of logarithmically spaced points on the vertical axis. (b) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the initial choice of band ends from (a). (c) The objective function of \eqref {Eq:adjustment} (a discrete approximation of the spectral density function $p_{\lambda }(\cdot )$) with $\Delta =.001$. The blue horizontal lines correspond to the search intervals ${\cal I}_1$ and ${\cal I}_2$, and the red circles represent the adjusted band ends $\{\tau _m\}_{m=0,1,2,3}$. (d) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the adjusted choice of band ends. Note that the errors between the approximate filters and ideal bandpass filters are concentrated in regions with fewer eigenvalues (gaps in the spectrum)}{figure.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {VI-B}2}Choosing initial band ends}{8}{subsubsection.6.2.2}}
+\newlabel{Se:adjust}{{\unhbox \voidb@x \hbox {VI-B}3}{8}{Adjusting the band ends}{subsubsection.6.2.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {VI-B}3}Adjusting the band ends}{8}{subsubsection.6.2.3}}
 \citation{chen2015discrete}
 \citation{anis2014towards}
 \citation{tsitsvero2016uncertainty}
@@ -166,54 +178,58 @@
 \citation{PuyTGV15}
 \citation{chen2016signal}
 \citation{anis2016efficient}
-\newlabel{Eq:hutch1}{{11}{8}{Estimating the spectral density}{equation.6.11}{}}
-\newlabel{Eq:hutch2}{{12}{8}{Estimating the spectral density}{equation.6.12}{}}
-\newlabel{Eq:hutch3}{{13}{8}{Estimating the spectral density}{equation.6.13}{}}
-\newlabel{Eq:hutch4}{{14}{8}{Estimating the spectral density}{equation.6.14}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {VI-B}2}Choosing initial band ends}{8}{subsubsection.6.2.2}}
-\newlabel{Se:adjust}{{\unhbox \voidb@x \hbox {VI-B}3}{8}{Adjusting the band ends}{subsubsection.6.2.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {VI-B}3}Adjusting the band ends}{8}{subsubsection.6.2.3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces {(a) The approximate cumulative spectral density function, $\mathaccentV {tilde}07E{P}_{\lambda }(\cdot ),$ for the net25 graph described in Figure \ref  {Fig:approx_filtering_error}. The blue X marks correspond to the initial choice of band endpoints computed by taking the inverse of logarithmically spaced points on the vertical axis. (b) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the initial choice of band ends from (a). (c) The objective function of \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {Eq:adjustment}\unskip \@@italiccorr )}} (a discrete approximation of the spectral density function $p_{\lambda }(\cdot )$) with $\Delta =.001$. The blue horizontal lines correspond to the search intervals ${\cal  I}_1$ and ${\cal  I}_2$, and the red circles represent the adjusted band ends $\{\tau _m\}_{m=0,1,2,3}$. (d) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the adjusted choice of band ends. Note that the errors between the approximate filters and ideal bandpass filters are concentrated in regions with fewer eigenvalues (gaps in the spectrum).}}}{8}{figure.9}}
-\newlabel{Fig:fb_design}{{9}{8}{(a) The approximate cumulative spectral density function, $\tilde {P}_{\lambda }(\cdot ),$ for the net25 graph described in Figure \ref {Fig:approx_filtering_error}. The blue X marks correspond to the initial choice of band endpoints computed by taking the inverse of logarithmically spaced points on the vertical axis. (b) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the initial choice of band ends from (a). (c) The objective function of \eqref {Eq:adjustment} (a discrete approximation of the spectral density function $p_{\lambda }(\cdot )$) with $\Delta =.001$. The blue horizontal lines correspond to the search intervals ${\cal I}_1$ and ${\cal I}_2$, and the red circles represent the adjusted band ends $\{\tau _m\}_{m=0,1,2,3}$. (d) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the adjusted choice of band ends. Note that the errors between the approximate filters and ideal bandpass filters are concentrated in regions with fewer eigenvalues (gaps in the spectrum)}{figure.9}{}}
-\newlabel{Eq:adjustment}{{15}{8}{Adjusting the band ends}{equation.6.15}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {VII}Non-Uniform Random Sampling and Reconstruction}{8}{section.7}}
 \citation{PuyTGV15}
 \citation{PuyTGV15}
 \citation{PuyTGV15}
 \citation{di2016efficient}
+\newlabel{Eq:adjustment}{{15}{9}{Adjusting the band ends}{equation.6.15}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VII}Non-Uniform Random Sampling and Reconstruction}{9}{section.7}}
+\newlabel{Se:samp_rec}{{VII}{9}{Non-Uniform Random Sampling and Reconstruction}{section.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VII-A}}Sampling distribution}{9}{subsection.7.1}}
+\newlabel{Eq:samp_dist}{{16}{9}{Sampling distribution}{equation.7.16}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VII-B}}Number of samples}{9}{subsection.7.2}}
 \citation{halko}
 \citation{paratte}
 \citation{PuyTGV15}
 \citation{PuyTGV15}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VII-A}}Sampling distribution}{9}{subsection.7.1}}
-\newlabel{Eq:samp_dist}{{16}{9}{Sampling distribution}{equation.7.16}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VII-B}}Number of samples}{9}{subsection.7.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VII-C}}Interpolation}{9}{subsection.7.3}}
-\newlabel{Eq:approx_rec_opt}{{18}{9}{Interpolation}{equation.7.18}{}}
+\citation{chen_saad}
 \citation{anis2016efficient}
+\citation{nClimGrid1}
+\citation{nClimGrid2}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VII-C}}Interpolation}{10}{subsection.7.3}}
+\newlabel{Eq:approx_rec_opt}{{18}{10}{Interpolation}{equation.7.18}{}}
+\newlabel{Eq:approx_rec_sol}{{19}{10}{Interpolation}{equation.7.19}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Example penalty filters $\varphi _m$ for the regularization term in \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {Eq:approx_rec_opt}\unskip \@@italiccorr )}}, with $\epsilon =\frac  {1}{\kappa }=0.01$. Here, $\mathaccentV {tilde}07E{h}_m$ is a Jackson-Chebyshev polynomial approximation of $h_m$ of degree 20 and 50 in (a) and (b), respectively. {\color  {red} Add spline and its approximation.}}}{10}{figure.10}}
+\newlabel{Fig:penalty}{{10}{10}{Example penalty filters $\varphi _m$ for the regularization term in \eqref {Eq:approx_rec_opt}, with $\epsilon =\frac {1}{\kappa }=0.01$. Here, $\tilde {h}_m$ is a Jackson-Chebyshev polynomial approximation of $h_m$ of degree 20 and 50 in (a) and (b), respectively. {\color {red} Add spline and its approximation.}}{figure.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VIII}Properties of the Fast M-CSFB Transform}{10}{section.8}}
+\newlabel{Se:fast_prop}{{VIII}{10}{Properties of the Fast M-CSFB Transform}{section.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VIII-A}}Joint vertex-frequency localization of the atoms}{10}{subsection.8.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VIII-B}}Computational complexity}{10}{subsection.8.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {IX}Illustrative Examples II: Approximate Calculations}{10}{section.9}}
+\newlabel{Se:ill2}{{IX}{10}{Illustrative Examples II: Approximate Calculations}{section.9}{}}
 \bibstyle{IEEEtran}
 \bibdata{mcsfb_refs}
 \bibcite{gspbox}{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces The eight-neighbor local graph structure for (a) the Eastern Massachusetts region, and (b) the Boston region.}}{11}{figure.11}}
+\newlabel{Fig:temp_graph_structure}{{11}{11}{The eight-neighbor local graph structure for (a) the Eastern Massachusetts region, and (b) the Boston region}{figure.11}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {X}Conclusion and Extensions}{11}{section.10}}
+\newlabel{Sec:ongoing}{{X}{11}{Conclusion and Extensions}{section.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces (a) Average temperatures for March 2018, measured at 469,404 locations. (b) Estimate of the cumulative spectral distribution function of the graph. (c) Approximate filter bank with six bands and degree 80 polynomial approximations. (d) Weights of the non-uniform sampling distribution for the first band (lowpass). (e) A zoom-in of the distribution in (d) on the northwest corner of the United States. (f) The 7,692 vertices randomly selected according to the distribution in (d) to be included in ${\mathcal  {V}}_1$.}}{11}{figure.12}}
+\newlabel{Fig:temp_demo}{{12}{11}{(a) Average temperatures for March 2018, measured at 469,404 locations. (b) Estimate of the cumulative spectral distribution function of the graph. (c) Approximate filter bank with six bands and degree 80 polynomial approximations. (d) Weights of the non-uniform sampling distribution for the first band (lowpass). (e) A zoom-in of the distribution in (d) on the northwest corner of the United States. (f) The 7,692 vertices randomly selected according to the distribution in (d) to be included in $\V _1$}{figure.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Analysis coefficient decay. (a) The absolute value of all 469,404 fast M-CSFB analysis coefficients for the average temperature signal in Fig. \ref  {Fig:temp_demo}, colored by band. (b) The sorted magnitudes of the 461,712 wavelet coefficients (bands 2 through 6).}}{11}{figure.13}}
+\newlabel{Fig:temp_coeffs}{{13}{11}{Analysis coefficient decay. (a) The absolute value of all 469,404 fast M-CSFB analysis coefficients for the average temperature signal in Fig. \ref {Fig:temp_demo}, colored by band. (b) The sorted magnitudes of the 461,712 wavelet coefficients (bands 2 through 6)}{figure.13}{}}
 \bibcite{shuman2013emerging}{2}
 \bibcite{Crovella2003}{3}
 \bibcite{wang}{4}
 \bibcite{szlam}{5}
 \bibcite{gavish}{6}
 \bibcite{irion}{7}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Fast $M$-channel filter bank example. The first column shows example atoms in the vertex domain. The second column shows the filtered signal for each channel; i.e., $\mathaccentV {tilde}07E{h}_m(\boldsymbol  {\mathcal  {L}}){\bf  f}$. The third column is the reconstruction error by band; i.e., $|\mathaccentV {tilde}07E{h}_m(\boldsymbol  {\mathcal  {L}}){\bf  f}-{\bf  z}^*_m|$, where ${\bf  z}^*_m$ is the solution to \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {Eq:approx_rec_sol}\unskip \@@italiccorr )}} for the $m^{th}$ band. The reconstruction in the last row, middle column is the sum of the six signals above it. The error in the bottom right is the absolute value of the different between the reconstruction and the original average temperature signal.}}{12}{figure.14}}
+\newlabel{Fig:temp_reconstruction}{{14}{12}{Fast $M$-channel filter bank example. The first column shows example atoms in the vertex domain. The second column shows the filtered signal for each channel; i.e., $\tilde {h}_m(\L ){\bf f}$. The third column is the reconstruction error by band; i.e., $|\tilde {h}_m(\L ){\bf f}-{\bf z}^*_m|$, where ${\bf z}^*_m$ is the solution to \eqref {Eq:approx_rec_sol} for the $m^{th}$ band. The reconstruction in the last row, middle column is the sum of the six signals above it. The error in the bottom right is the absolute value of the different between the reconstruction and the original average temperature signal}{figure.14}{}}
+\@writefile{toc}{\contentsline {section}{References}{12}{section*.1}}
 \bibcite{coifman2006diffusion}{8}
 \bibcite{Maggioni_biorthogonal}{9}
 \bibcite{hammond2011wavelets}{10}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Example penalty filters $\varphi _m$ for the regularization term in \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {Eq:approx_rec_opt}\unskip \@@italiccorr )}}, with $\epsilon =\frac  {1}{\kappa }=0.01$. Here, $\mathaccentV {tilde}07E{h}_m$ is a Jackson-Chebyshev polynomial approximation of $h_m$ of degree 20 and 50 in (a) and (b), respectively.}}{10}{figure.10}}
-\newlabel{Fig:penalty}{{10}{10}{Example penalty filters $\varphi _m$ for the regularization term in \eqref {Eq:approx_rec_opt}, with $\epsilon =\frac {1}{\kappa }=0.01$. Here, $\tilde {h}_m$ is a Jackson-Chebyshev polynomial approximation of $h_m$ of degree 20 and 50 in (a) and (b), respectively}{figure.10}{}}
-\newlabel{Eq:approx_rec_sol}{{19}{10}{Interpolation}{equation.7.19}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {VIII}Properties of the Fast M-CSFB Transform}{10}{section.8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VIII-A}}Joint vertex-frequency localization of the atoms}{10}{subsection.8.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {VIII-B}}Computational complexity}{10}{subsection.8.2}}
-\@writefile{toc}{\contentsline {section}{\numberline {IX}Illustrative Examples II: Approximate Calculations}{10}{section.9}}
-\newlabel{Se:ill2}{{IX}{10}{Illustrative Examples II: Approximate Calculations}{section.9}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {X}Conclusion and Extensions}{10}{section.10}}
-\newlabel{Sec:ongoing}{{X}{10}{Conclusion and Extensions}{section.10}{}}
-\@writefile{toc}{\contentsline {section}{References}{10}{section*.1}}
 \bibcite{shuman2013spectrum}{11}
 \bibcite{shuman2015vertex}{12}
 \bibcite{narang_icip}{13}
@@ -229,46 +245,50 @@
 \bibcite{jansen}{23}
 \bibcite{narang_lifting_graphs}{24}
 \bibcite{shuman_TSP_multiscale}{25}
-\bibcite{chen2015discrete}{26}
-\bibcite{pesenson_paley}{27}
-\bibcite{narang2013interpolation}{28}
-\bibcite{anis2014towards}{29}
-\bibcite{gadde2015probabilistic}{30}
-\bibcite{shomorony}{31}
-\bibcite{PuyTGV15}{32}
-\bibcite{chen2015signal}{33}
-\bibcite{tsitsvero2016uncertainty}{34}
-\bibcite{chen2016signal}{35}
-\bibcite{anis2016efficient}{36}
-\bibcite{paige}{37}
-\bibcite{strangInterplay}{38}
-\bibcite{steinitz}{39}
-\bibcite{poloni}{40}
-\bibcite{greeneMultiple}{41}
-\bibcite{greene_magnanti}{42}
-\bibcite{gle}{43}
-\bibcite{gleich}{44}
-\bibcite{bunny}{45}
-\bibcite{tropp2004greed}{46}
-\bibcite{elad_book}{47}
-\bibcite{higham}{48}
-\bibcite{davies2005computing}{49}
-\bibcite{frommer}{50}
-\bibcite{dubious}{51}
-\bibcite{shuman_distributed_sipn}{52}
-\bibcite{susnjara}{53}
-\bibcite{shi2015infinite}{54}
-\bibcite{loukas2015distributed}{55}
-\bibcite{di2016efficient}{56}
-\bibcite{puy_structured_sampling}{57}
-\bibcite{davis2011university}{58}
-\bibcite{lin_spectral_density}{59}
-\bibcite{van_mieghem}{60}
-\bibcite{tao_random_matrix}{61}
-\bibcite{silver1994densities}{62}
-\bibcite{silver1996kernel}{63}
-\bibcite{wang1994calculating}{64}
-\bibcite{hutchinson}{65}
-\bibcite{fritsch}{66}
-\bibcite{halko}{67}
-\bibcite{paratte}{68}
+\bibcite{jin_conf}{26}
+\bibcite{chen2015discrete}{27}
+\bibcite{pesenson_paley}{28}
+\bibcite{narang2013interpolation}{29}
+\bibcite{anis2014towards}{30}
+\bibcite{gadde2015probabilistic}{31}
+\bibcite{shomorony}{32}
+\bibcite{PuyTGV15}{33}
+\bibcite{chen2015signal}{34}
+\bibcite{tsitsvero2016uncertainty}{35}
+\bibcite{chen2016signal}{36}
+\bibcite{anis2016efficient}{37}
+\bibcite{paige}{38}
+\bibcite{strangInterplay}{39}
+\bibcite{steinitz}{40}
+\bibcite{poloni}{41}
+\bibcite{greeneMultiple}{42}
+\bibcite{greene_magnanti}{43}
+\bibcite{gle}{44}
+\bibcite{gleich}{45}
+\bibcite{bunny}{46}
+\bibcite{tropp2004greed}{47}
+\bibcite{elad_book}{48}
+\bibcite{higham}{49}
+\bibcite{davies2005computing}{50}
+\bibcite{frommer}{51}
+\bibcite{dubious}{52}
+\bibcite{shuman_distributed_sipn}{53}
+\bibcite{susnjara}{54}
+\bibcite{shi2015infinite}{55}
+\bibcite{loukas2015distributed}{56}
+\bibcite{di2016efficient}{57}
+\bibcite{puy_structured_sampling}{58}
+\bibcite{davis2011university}{59}
+\bibcite{lin_spectral_density}{60}
+\bibcite{van_mieghem}{61}
+\bibcite{tao_random_matrix}{62}
+\bibcite{silver1994densities}{63}
+\bibcite{silver1996kernel}{64}
+\bibcite{wang1994calculating}{65}
+\bibcite{hutchinson}{66}
+\bibcite{fritsch}{67}
+\bibcite{halko}{68}
+\bibcite{paratte}{69}
+\bibcite{chen_saad}{70}
+\bibcite{nClimGrid1}{71}
+\bibcite{nClimGrid2}{72}

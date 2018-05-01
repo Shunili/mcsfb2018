@@ -24,8 +24,9 @@ else
 end
     
 if ~isfield(param,'reg_eps')
-%    reg_eps=1/G.N;
-     reg_eps=.001;
+%   reg_eps=1/G.N;
+%     reg_eps=.001;
+reg_eps=1;
 else
     reg_eps=param.reg_eps;
 end
@@ -50,6 +51,18 @@ else
     order=param.order;
 end
 
+if ~isfield(param,'grid_order')
+    grid_order=1000;
+else
+    grid_order=param.grid_order;
+end
+
+%lower_1 = 0.5;
+%upper_1 = 4.5;
+lower_1=lower;
+upper_1=upper;
+h = @(x) (x>=lower_1 & x<upper_1);
+
 if ~isfield(param,'reg_filter')
     param.reg_filter = 3;
 else
@@ -69,10 +82,11 @@ end
 h = @(x) (x>=lower & x<upper);
 
 wd = zeros(G.N,1);
-wd(selected)=1./weights;
-B=diag(wd);
+wd(selected)=1./(G.N*weights);
+%B=diag(wd);
+B = spdiags(wd,0,G.N,G.N);
 right_side = zeros(G.N,1);
-right_side(selected)=values./weights;
+right_side(selected)=values./(weights*G.N);
 
 if (isfield(G,'U') && isfield(G,'e'))
     eig_inds=(h(G.e)~=0);
@@ -82,6 +96,7 @@ if (isfield(G,'U') && isfield(G,'e'))
 %    A=B+G.U*diag(reg_filter(G.e))*G.U'; 
 %    z=A\right_side;
 else
+
     % switch 1=rational,2=1-h,3=spline
     switch param.reg_filter
         case 1
@@ -127,46 +142,8 @@ else
                 z=pcg(afun,right_side,param.pcgtol,param.pcgmaxits); 
             end
         otherwise     
-            reg_eps=1;
-            k = 1/reg_eps;
-            lower_wide=lower-(upper-lower)/4;
-            upper_wide=upper+(upper-lower)/4;
-            delta=.15*(upper-lower);
-            num_per_side=4;
-            tt=[0,(lower_wide-delta)/2,linspace(lower_wide-delta,lower_wide,num_per_side),linspace(upper_wide,upper_wide+delta,num_per_side),(G.lmax+upper_wide+delta)/2,G.lmax];
-            if lower==0
-                zero_pen=0;
-            else
-                zero_pen=((lower_wide-delta)/G.lmax+1)*k;
-            end
-        
-            if upper>=G.lmax
-                high_pen=0;
-            else
-                high_pen=(2-(upper_wide+delta)/G.lmax)*k;
-            end
-
-            ftt=[zero_pen,((lower_wide-delta)/(2*G.lmax)+1)*k,linspace(k,0,num_per_side),linspace(0,k,num_per_side),(1.5-(upper_wide+delta)/(2*G.lmax))*k,high_pen];
-          
-            pp = pchip(tt, ftt);
-            pen=@(x)ppval(pp,x);
-            grid_order=1000;
-            penc=gsp_cheby_coeff(G,pen,order,grid_order);
-            kk=1:order;
-            damping_coeffs=((1-kk/(order+2))*sin(pi/(order+2)).*cos(kk*pi/(order+2))+(1/(order+2))*cos(pi/(order+2))*sin(kk*pi/(order+2)))/sin(pi/(order+2));
-            damping_coeffs=[1,damping_coeffs]';
-            penc=penc.*damping_coeffs;
-            LHS=@(z) B*z+gsp_cheby_op(G,penc,z);
-            
-            %  xi=stieltjes_spline(tt,ftt); 
-%             LHS=@(z) B*z+stieltjes_op(G,z,xi,tt,100,1e-6);
-            initial_guess=zeros(G.N,1);
-            initial_guess(selected)=values;
-            
-            preconditioner=@(z) z./(wd+1);
-            z=pcg(LHS,right_side,1e-10,400,preconditioner,[],initial_guess);
-            
-%             z=pcg(LHS,right_side,1e-10,100,[],[],initial_guess); 
+ 
+  
     end
 
 end

@@ -1,0 +1,35 @@
+```{r}
+library(tidyverse)
+library(fuzzyjoin)
+```
+
+```{r}
+tempData <- read_csv("/Users/davidshuman/Dropbox/Current\ Research\ Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/Data/nClimGrid_v1.0-preliminary_monthly_201803_c20180404/201803.tave.conus.csv")
+
+# 584 by 1385 grid
+# grid dist = 1/24
+# for long, might want to start with -67.02085
+#For Grid graph,
+# x: from -124.6875 to -67.02085
+# y: from 24.5625 to 49.3542
+
+### Join using fuzzyjoin
+tempData<-tempData%>%
+  mutate(lat_rounded=round(lat,digits=2))%>%
+  mutate(long_rounded=round(long,digits=2))
+```
+
+```{r}
+xx<-rep(seq(0,1384/24,by=1/24),596)-124.68752
+xx_rounded<-round(xx,digits=2)
+yy<-kronecker(seq(0,595/24,by=1/24),rep(1,1385))+24.5625
+yy_rounded<-round(yy,digits=2)
+inds<-1:length(xx)
+grid<-tibble(x=xx,y=yy,x_rounded=xx_rounded,y_rounded=yy_rounded,ind=inds)
+```
+
+```{r}
+joinedData <- left_join(tempData, grid, by = c('lat_rounded'='y_rounded', 'long_rounded'='x_rounded'))%>%
+  arrange(ind)
+```
+

@@ -10,7 +10,7 @@
 \title{
 A Scalable $M$-Channel Critically Sampled Filter Bank for Graph Signals 
 }
-\author{\IEEEauthorblockN{Yan Jin, Shuni Li, and David I Shuman}
+\author{\IEEEauthorblockN{{\color{red} Yan Jin, Shuni Li, and David I Shuman}}
 %\thanks{Copyright (c) 2015 IEEE. Personal use of this material is permitted. However, permission to use this material for any other purposes must be obtained from the IEEE by sending a request to pubs-permissions@ieee.org.}
 \thanks{Yan Jin is with the Institute for Data, Systems, and Society, Massachusetts Institute of Technology, Cambridge, MA 02139, USA (email: yjin1@mit.edu). Shuni Li and David I Shuman are with the Department of Mathematics, Statistics, and Computer Science, Macalester College, St. Paul, MN 55105, USA (email: \{sli,dshuman1\}@macalester.edu).  }
 \thanks{This research has been funded in part by a grant to Macalester College from the Howard Hughes Medical Institute through the Precollege and Undergraduate Science Education Program.}
@@ -48,12 +48,14 @@ Broad classes of recently proposed transforms include graph Fourier transforms, 
 The extension of the classical two channel critically sampled filter bank to the graph setting was first proposed in \cite{narang_icip}. Fig.\ \ref{Fig:two_channel} shows the analysis and synthesis banks, where ${\bf H}_i$ and ${\bf G}_i$ are graph spectral filters \cite{shuman2013emerging}, and the lowpass and highpass bands are downsampled on complementary sets of vertices. For a general weighted, undirected graph, it is not straightforward %{\color{red} (impossible?)} 
 how to design the downsampling and the four graph spectral filters to ensure perfect reconstruction. One approach is to separate the graph into a union of subgraphs, each of which has some regular structure. For example, \cite{narang2012perfect,narang_bior_filters} show that the normalized graph Laplacian eigenvectors of \emph{bipartite} graphs have a spectral folding property that make it possible to design analysis and synthesis filters to guarantee perfect reconstruction. They take advantage of this property by decomposing the graph into bipartite graphs and constructing a multichannel, separable filter bank, while \cite{sakiyama} adds vertices and edges to the original graph to form an approximating bipartite graph. References \cite{teke2016,teke2017ii} generalize this spectral folding property to $M$-block cyclic graphs, and leverage it to construct $M$-channel graph filter banks. Another class of regular structured graphs is \emph{shift invariant} graphs \cite[Chapter 5.1]{grady}. These graphs have a circulant graph Laplacian and their eigenvectors are the columns of the discrete Fourier transform matrix. Any graph can be written as the sum of circulant graphs, and \cite{ekambaram_icip,ekambaram2013globalsip,kotzagiannidis2016icassp} take advantage of this fact in designing critically sampled graph filter banks with perfect reconstruction. Another approach is to use architectures other than the critically sampled filter bank, such as lifting transforms \cite{jansen,narang_lifting_graphs} or pyramid transforms \cite{shuman_TSP_multiscale}.
 
-Our approach in this paper is to replace the synthesis filters with interpolation operators on each subband of the graph spectrum. While this idea was initially suggested independently in \cite{chen2015discrete}, we investigate it in more detail here. Our construction leverages the recent flurry of work in sampling and reconstruction of graph signals \cite{chen2015discrete}-\nocite{pesenson_paley,narang2013interpolation,anis2014towards,gadde2015probabilistic,shomorony,PuyTGV15,chen2015signal,tsitsvero2016uncertainty,chen2016signal}\cite{anis2016efficient}. The key property we use is that any signal whose graph Fourier transform has exactly $k$ non-zero coefficients can be perfectly recovered from samples of that signal on $k$ appropriately selected vertices (see, e.g., \cite[Theorem 1]{chen2015discrete} \cite[Proposition 1]{anis2016efficient}).
+Our approach in this paper, an extended version of \cite{jin_conf}, is to replace the synthesis filters with interpolation operators on each subband of the graph spectrum. While this idea was initially suggested independently in \cite{chen2015discrete}, we investigate it in more detail here. Our construction leverages the recent flurry of work in sampling and reconstruction of graph signals \cite{chen2015discrete}-\nocite{pesenson_paley,narang2013interpolation,anis2014towards,gadde2015probabilistic,shomorony,PuyTGV15,chen2015signal,tsitsvero2016uncertainty,chen2016signal}\cite{anis2016efficient}. The key property we use is that any signal whose graph Fourier transform has exactly $k$ non-zero coefficients can be perfectly recovered from samples of that signal on $k$ appropriately selected vertices (see, e.g., \cite[Theorem 1]{chen2015discrete} \cite[Proposition 1]{anis2016efficient}).
 
-{\color{red} Add to intro here: scalable issues, outline, and contribution relative to conference paper.}
+In Sections \ref{Se:fb_design} and \ref{Se:partition}, we present the filter bank architecture and a method to choose the downsampling sets for graphs that are small enough to perform a full eigendecomposition of the graph Laplacian matrix (say 10,000 or fewer vertices). Our main contributions in this extended version of the work include developing a fast version of the proposed transform that scales efficiently for large, sparse graphs; i.e., one that does not require a full eigendecomposition of the graph Laplacian. Specifically, we design the filter bank to be more amenable to polynomial approximation (Section \ref{Se:filt_design}), and then estimate the number of samples required for each band, perform non-uniform random sampling for the filtered signals on each band, and use efficient convex optimization methods to reconstruct the interpolation for each band on the synthesis side (Section \ref{Se:samp_rec}). We then {\color{red} discuss properties of the proposed fast filter bank transform (Section \ref{Se:fast_prop}), and } empirically explore the joint vertex-frequency localization of the dictionary atoms, the sparsity of the analysis coefficients, and the reconstruction error resulting from the numerical approximations (Section \ref{Se:ill2}).
+
+%{\color{blue} Add to intro here: scalable issues, outline, and contribution relative to conference paper.}
 
 
-\section{$M$-Channel Critically Sampled Filter Bank}
+\section{$M$-Channel Critically Sampled Filter Bank} \label{Se:fb_design}
 We consider graph signals $f \in \R^N$ residing on a weighted, undirected graph $\G=\{\V,\E,\mathbf{W}\}$, where $\V$ is the set of $N$ vertices, $\E$ is the set of edges, and $\mathbf{W}$ is the weighted adjacency matrix. 
 Throughout, we take $\L$ to be the combinatorial graph Laplacian $\mathbf{D}-\mathbf{W}$, where $\mathbf{D}$ is the diagonal matrix of vertex degrees. However, our theory and proposed transform also apply to the normalized graph Laplacian $\mathbf{I}-\mathbf{D}^{-\frac{1}{2}}\mathbf{W}\mathbf{D}^{-\frac{1}{2}}$, or any other Hermitian operator. We can diagonalize the graph Laplacian as $\L=\mathbf{U}{\boldsymbol \Lambda}\mathbf{U}^{*}$, where ${\boldsymbol \Lambda}$ is the diagonal matrix of eigenvalues $\lambda_0,\lambda_1,\ldots,\lambda_{N-1}$ of $\L$, and the columns ${\bf u}_0,{\bf u}_1,\ldots,{\bf u}_{N-1}$ of $\mathbf{U}$ are the associated eigenvectors of $\L$. The graph Fourier transform of a signal is $\hat{\bf{f}}=\mathbf{U}^{*}{\bf f}$, and ${h}(\L){\bf f}=\mathbf{U}{h}({\boldsymbol \Lambda})\mathbf{U}^{*}{\bf f}$ applies the filter ${h}: [0,\lambda_{\max}] \rightarrow \R$ to the graph signal ${\bf f}$. We use the notation $\mathbf{U}_{{\cal R}}$ to denote the submatrix formed by taking the columns of $\mathbf{U}$ associated with the Laplacian eigenvalues indexed by ${\cal R} \subseteq \{0,1,\ldots,N-1\}$. Similarly, we use the notation $\mathbf{U}_{{\cal S},{\cal R}}$ to denote the submatrix  formed by taking the rows of $\mathbf{U}_{{\cal R}}$ associated with the vertices indexed by the set ${\cal S} \subseteq \{1,2,\ldots,N\}$.
 
@@ -263,16 +265,18 @@ since ${\bf U}^* {\bf U}={\bf I}$ and $h_m(\lambda)h_{m^{\prime}}(\lambda)=0$ fo
 %One possible extension is to find a fast algorithm to orthogonalize the atoms within each band. 
 Note also that the wavelet atoms at all scales ($m>1$) have mean zero, as they have no energy at eigenvalue zero.
 
-{\color{red}
 
 \subsection{Signals that are sparsely represented by the M-CSFB transform}
+Globally smooth signals trivially lead to sparse analysis coefficients because the coefficients are only nonzero for first set of vertices in the partition. More generally, signals that are concentrated in the graph Fourier domain necessarily have sparse M-CSFB analysis coefficients, because the coefficients for any channel whose filter does not overlap with the support of the signal in the graph Fourier domain are all equal to zero. %Similarly, if the spectral coefficients decay, the transform coefficients should decay.
+{\color{red}
 \begin{itemize}
 %\item Add theorem about orthogonality across bands
-\item Concentrated in the graph Fourier domain
+%\item Concentrated in the graph Fourier domain
 \item If spectral coefficients decay, transform coefficients also decay
 \item Characterization of joint localization? Localization in vertex domain guaranteed when polynomial filters used
-\item We  plan to more formally characterize the relationships between the decay of the analysis coefficients under the proposed transform and different properties of graph signals, as well as the underlying graph structure.
-Globally smooth signals trivially lead to sparse analysis coefficients because the coefficients are only nonzero for first set of vertices in the partition. The same line of reasoning applies more generally to signals that are sparse in the graph spectral domain. More interesting is a theory for the coefficient decay for piecewise-smooth graph signals such as the ones shown in Fig. \ref{Fig:bunny_signal}(a) and Fig. \ref{Fig:comp}(a).
+%\item We  plan to more formally characterize the relationships between the decay of the analysis coefficients under the proposed transform and different properties of graph signals, as well as the underlying graph structure.
+%Globally smooth signals trivially lead to sparse analysis coefficients because the coefficients are only nonzero for first set of vertices in the partition. The same line of reasoning applies more generally to signals that are sparse in the graph spectral domain. More interesting is a 
+\item Theory for the coefficient decay for piecewise-smooth graph signals such as the ones shown in Fig. \ref{Fig:bunny_signal}(a) and Fig. \ref{Fig:comp}(a).
 \end{itemize}
 %\subsection{Computational complexity}
 }
@@ -436,7 +440,7 @@ where $T$ is a predefined sparsity level. After first normalizing the atoms of v
 \end{figure}
 
 
-\section{Polynomial Filter Bank Design}
+\section{Polynomial Filter Bank Design} \label{Se:filt_design}
 In the numerical examples in the previous sections, we have computed a full eigendecomposition of the graph Laplacian and subsequently used it for all three of the filtering, sampling, and interpolation operations; however, such an eigendecomposition does not scale well with the size of the graph as it requires ${\cal O}(N^3)$ operations with naive methods. In these next three sections, we develop a fast approximate version of the proposed transform that scales more efficiently for large, sparse graphs. 
 
 \subsection{Approximation by polynomial filters} \label{Se:poly_approx}
@@ -474,7 +478,7 @@ therefore use the Jackson-Chebyshev polynomial approximations from \cite{di2016e
 &~~~~+~\frac{\frac{1}{K+2}\cos\left(\frac{\pi}{K+2}\right)\sin\left(\frac{k\pi}{K+2}\right)}{\sin\left(\frac{\pi}{K+2}\right)}.
 \end{align*}
 %{\color{blue} Reference 
-Figure \ref{Fig:approx_filtering_error} shows the Jackson-Chebyshev polynomial approximations for ideal bandpass filters of two different graphs.\footnote{For the net25 graph, we have removed the self loops and added a single edge to connect the two connected components.}
+Fig. \ref{Fig:approx_filtering_error} shows the Jackson-Chebyshev polynomial approximations for ideal bandpass filters of two different graphs.\footnote{For the net25 graph, we have removed the self loops and added a single edge to connect the two connected components.}
 
 %}
 \begin{figure}[tbh]
@@ -494,7 +498,7 @@ Figure \ref{Fig:approx_filtering_error} shows the Jackson-Chebyshev polynomial a
 \centerline{\includegraphics[width=1.1\linewidth]{fig_approx_filter_net25_error}}
 \centerline{~~\small{(d)}}
 \end{minipage}
-\caption{Degree 80 Jackson-Chebyshev polynomial approximations for ideal bandpass filters on the (a) 500 vertex random sensor network of Figure \ref{Fig:part_examples} and (b) Andrianov net25 graph from \cite{davis2011university} with 9,520 vertices. In (c) and (d), we show the errors $|\tilde{h}(\lambda_{\l})-h(\lambda_{\l})|$ at each of the Laplacian eigenvalues of the corresponding graphs in (a) and (b).}
+\caption{Degree 80 Jackson-Chebyshev polynomial approximations for ideal bandpass filters on the (a) 500 vertex random sensor network of Fig. \ref{Fig:part_examples} and (b) Andrianov net25 graph from \cite{davis2011university} with 9,520 vertices. In (c) and (d), we show the errors $|\tilde{h}(\lambda_{\l})-h(\lambda_{\l})|$ at each of the Laplacian eigenvalues of the corresponding graphs in (a) and (b).}
 %\caption{{\color{red} Fix: check symmetry of second one, make the relative widths the same, show scatter plots of errors at eigenvalues, add Chebyshev?}
 \label{Fig:approx_filtering_error}
 \end{figure}
@@ -509,7 +513,7 @@ We can quantify the worst case error introduced when approximating  $h_m(\cdot)$
 &||\tilde{h}_m(\L)-h_m(\L) ||_2  \nonumber \\ &~~~~~~~= \max_{\l \in \{0,1,\ldots,N-1\}}|\tilde{h}_m(\lambda_{\l})-h_m(\lambda_{\l}) |  \nonumber \\
  &~~~~~~~\leq \max_{\lambda \in [0,\lambda_{\max}]}|\tilde{h}_m(\lambda)-h_m(\lambda) |.
 \end{align}
-While approximation theory often aims to minimize the upper bound in \eqref{Eq:poly_approx_error}, only the errors exactly at the graph Laplacian eigenvalues affect the overall approximation error $||\tilde{h}_m(\L)-h_m(\L) ||_2$. Since, as seen in Figure \ref{Fig:approx_filtering_error}, the errors of the Jackson-Chebyshev polynomial approximation are concentrated around the discontinuities of $h_m(\cdot)$, a guiding principle when designing the filter bank to be more amenable to fast approximation is to choose the endpoints $\{\tau_m\}_{m=1,\ldots,M-1}$ of the bandpass filters to be in gaps in the graph Laplacian spectrum. Unfortunately, we do not have access to the exact graph Laplacian eigenvalues (the reason for introducing this approximation in the first place is that they are too expensive to compute for large graphs); however, we can efficiently estimate the density of the spectrum in order to design the filters in a way that aims to have the endpoints close to fewer eigenvalues of $\L$.
+While approximation theory often aims to minimize the upper bound in \eqref{Eq:poly_approx_error}, only the errors exactly at the graph Laplacian eigenvalues affect the overall approximation error $||\tilde{h}_m(\L)-h_m(\L) ||_2$. Since, as seen in Fig. \ref{Fig:approx_filtering_error}, the errors of the Jackson-Chebyshev polynomial approximation are concentrated around the discontinuities of $h_m(\cdot)$, a guiding principle when designing the filter bank to be more amenable to fast approximation is to choose the endpoints $\{\tau_m\}_{m=1,\ldots,M-1}$ of the bandpass filters to be in gaps in the graph Laplacian spectrum. Unfortunately, we do not have access to the exact graph Laplacian eigenvalues (the reason for introducing this approximation in the first place is that they are too expensive to compute for large graphs); however, we can efficiently estimate the density of the spectrum in order to design the filters in a way that aims to have the endpoints close to fewer eigenvalues of $\L$.
 
 \subsubsection{Estimating the spectral density} \label{Se:spectral_density}
 
@@ -542,7 +546,7 @@ As in \cite{shuman2013spectrum}, once we compute the eigenvalue count estimates 
 
 \subsubsection{Choosing initial band ends}
 
-When selecting the band ends $\{\tau_m\}$ for each of the $M$ ideal filters, we consider two factors: spectrum-adaptation and spacing. In our implementation, the filter bank can either be adapted to the spectral distribution or just to the support of the spectrum $[0,\lambda_{\max}]$, and it can be either evenly or logarithmically spaced (four options in all). For example, if the filter bank is only adapted to the support of the spectrum and is evenly spaced, then $\tau_m=\frac{m}{M}\lambda_{\max}$. Figure \ref{Fig:fb_design}(a) shows a spectrum-adapted, logarithmically spaced choice with $\tau_m=\tilde{P}^{-1}_{\lambda}\Bigl(\frac{1}{2}^{M-m}\Bigr)$ for $m=1,2,\ldots,M$, such that approximately half of the eigenvalues are in the highest band, a quarter in the next highest band, and so forth. 
+When selecting the band ends $\{\tau_m\}$ for each of the $M$ ideal filters, we consider two factors: spectrum-adaptation and spacing. In our implementation, the filter bank can either be adapted to the spectral distribution or just to the support of the spectrum $[0,\lambda_{\max}]$, and it can be either evenly or logarithmically spaced (four options in all). For example, if the filter bank is only adapted to the support of the spectrum and is evenly spaced, then $\tau_m=\frac{m}{M}\lambda_{\max}$. Fig. \ref{Fig:fb_design}(a) shows a spectrum-adapted, logarithmically spaced choice with $\tau_m=\tilde{P}^{-1}_{\lambda}\Bigl(\frac{1}{2}^{M-m}\Bigr)$ for $m=1,2,\ldots,M$, such that approximately half of the eigenvalues are in the highest band, a quarter in the next highest band, and so forth. 
 
 \begin{figure}[tb]
 \begin{minipage}[m]{0.49\linewidth}
@@ -561,7 +565,7 @@ When selecting the band ends $\{\tau_m\}$ for each of the $M$ ideal filters, we 
 \centerline{\includegraphics[width=1.1\linewidth]{fig_updated_fb}}
 \centerline{~~\small{(d)}}
 \end{minipage}
-\caption{{(a) The approximate cumulative spectral density function, $\tilde{P}_{\lambda}(\cdot),$ for the net25 graph described in Figure \ref{Fig:approx_filtering_error}. The blue X marks correspond to the initial choice of band endpoints computed by taking the inverse of logarithmically spaced points on the vertical axis. (b) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the initial choice of band ends from (a). (c) The objective function of \eqref{Eq:adjustment} (a discrete approximation of the spectral density function $p_{\lambda}(\cdot)$) with $\Delta=.001$. The blue horizontal lines correspond to the search intervals ${\cal I}_1$ and ${\cal I}_2$, and the red circles represent the adjusted band ends $\{\tau_m\}_{m=0,1,2,3}$. (d) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the adjusted choice of band ends. Note that the errors between the approximate filters and ideal bandpass filters are concentrated in regions with fewer eigenvalues (gaps in the spectrum).}}\label{Fig:fb_design}
+\caption{{(a) The approximate cumulative spectral density function, $\tilde{P}_{\lambda}(\cdot),$ for the net25 graph described in Fig. \ref{Fig:approx_filtering_error}. The blue X marks correspond to the initial choice of band endpoints computed by taking the inverse of logarithmically spaced points on the vertical axis. (b) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the initial choice of band ends from (a). (c) The objective function of \eqref{Eq:adjustment} (a discrete approximation of the spectral density function $p_{\lambda}(\cdot)$) with $\Delta=.001$. The blue horizontal lines correspond to the search intervals ${\cal I}_1$ and ${\cal I}_2$, and the red circles represent the adjusted band ends $\{\tau_m\}_{m=0,1,2,3}$. (d) The degree 80 Jackson-Chebyshev approximations to the ideal filters defined by the adjusted choice of band ends. Note that the errors between the approximate filters and ideal bandpass filters are concentrated in regions with fewer eigenvalues (gaps in the spectrum).}}\label{Fig:fb_design}
 \end{figure}
 
 \subsubsection{Adjusting the band ends} \label{Se:adjust}
@@ -571,7 +575,7 @@ In order to make the filters more amenable to approximation, we then adjust the 
 \tau_m^* = \argmin_{\tau \in {\cal I}_m} \left\{\frac{\tilde{P}_{\lambda}(\tau+\Delta)-\tilde{P}_{\lambda}(\tau-\Delta)}{2\Delta}\right\},
 \end{align}
 %search for the minimizer of $\frac{\tilde{P}_{\lambda}(\cdot)}{2 \Delta}$ 
-where ${\cal I}_m$ is an interval around the initial choice of $\tau_m$. Figure \ref{Fig:fb_design}(c) shows the objective function in \eqref{Eq:adjustment}, along with the initial band ends, search intervals, and adjusted band ends. Comparing Figure \ref{Fig:fb_design}(b) and Figure \ref{Fig:fb_design}(d), we 
+where ${\cal I}_m$ is an interval around the initial choice of $\tau_m$. Fig. \ref{Fig:fb_design}(c) shows the objective function in \eqref{Eq:adjustment}, along with the initial band ends, search intervals, and adjusted band ends. Comparing Fig. \ref{Fig:fb_design}(b) and Fig. \ref{Fig:fb_design}(d), we 
 see that adjusting the band ends leads to fewer eigenvalues falling close to the borders of the filters, reducing the error incurred by the polynomial approximation process.
  
 
@@ -593,7 +597,7 @@ see that adjusting the band ends leads to fewer eigenvalues falling close to the
 
 
 
-\section{Non-Uniform Random Sampling and Reconstruction}
+\section{Non-Uniform Random Sampling and Reconstruction} \label{Se:samp_rec}
 Both the partitioning of the vertices into uniqueness sets described in Algorithm 1 and the synthesis via interpolation in \eqref{Eq:synth} require a full eigendecomposition of the graph Laplacian to compute the matrix ${\bf U}$. In this section, we examine more efficient sampling and reconstruction methods that do not require the full eigendecomposition.
 
 
@@ -618,12 +622,17 @@ which \cite{PuyTGV15} shows is an unbiased estimator of $||{\bf U}_{{\cal R}_m}^
 % The random sampling method proposed in \cite{PuyTGV15} does not require the full eigendecomposition of the graph Laplacian and therefore scales significantly better with the size of the graph.
 %We are currently examining whether there is a way to extend the approach of \cite{PuyTGV15} to non-uniformly randomly sample in a manner that leads with high probability to uniqueness sets for higher bands of the graph Laplacian spectrum. 
 
-
 {\color{red}
 \begin{itemize}
 \item Add intuition about which nodes receive high weights and diagram of the matrix to support that. Then refer to figures.
-\item Check that embedding theorem works for upper bands as well and mention
 \item Note that the benefits of non-uniform sampling come when eigenvectors are more localized (c.f., Section 5.1.2 of Gilles' paper); this is especially important for high pass filters
+\end{itemize}
+}
+
+
+{\color{red}
+\begin{itemize}
+\item Check that embedding theorem works for upper bands as well and mention
 \item Link to literature on column subset selection (statistical leverage)
 \item Note that for any walk regular graph, optimal sampling distribution is uniform; give some examples (cycle, path, grid, vertex transitive graphs, etc.); cite godsil paper on symmetry and eigenvectors
 \end{itemize}
@@ -665,7 +674,7 @@ to
 \begin{align}\label{Eq:approx_rec_opt}
 \min_{{\bf z} \in \R^N} ||{\boldsymbol \Omega}_{m,\V_m}^{-\frac{1}{2}}\left({\bf M_m z}-{{\bf y}_{\V_m}} \right) ||_2+{\bf z}^{\top}\varphi_m(\L){\bf z},
 \end{align} 
-where ${\boldsymbol \Omega}_{m,\V_m}$ is a $|\V_m| \times |\V_m|$  diagonal matrix with the $m^{th}$ channel sampling weights of $\V_m$ along the diagonal. The regularization term ${\bf z}^{\top}\varphi_m(\L){\bf z}$ in \eqref{Eq:approx_rec_opt} penalizes reconstructions with support outside of the desired spectral band. For lowpass signals, Puy et al. \cite{PuyTGV15} take the penalty function $\varphi_m(\lambda)$ to be a nonnegative, nondecreasing polynomial, such as $\kappa \lambda^l$, with $\kappa>0$ and $l$ a positive integer. For more general classes of signals (i.e., the midpass and highpass signals output from the higher bands of the proposed filter bank), it is important to keep the nonnegativity property, in order to ensure that $\varphi_m(\L)$ is positive semi-definite and the optimization problem \eqref{Eq:approx_rec_opt} is convex. However, we can drop the nondecreasing requirement, and instead choose penalty functions concentrated outside the $m^{th}$ spectral band. Options we explore include (i) $\varphi_m(\lambda)=\kappa\left[1-\tilde{h}(\lambda)\right]$; (ii) $\varphi_m(\lambda)=\frac{1}{\tilde{h}(\lambda)+\epsilon}-\frac{1}{1+\epsilon}$ {\color{red} Check nonnegativity}; and (iii) {\color{red} Spline approach of Saad. See Figure \ref{Fig:penalty} for example graphs of these penalty functions.}
+where ${\boldsymbol \Omega}_{m,\V_m}$ is a $|\V_m| \times |\V_m|$  diagonal matrix with the $m^{th}$ channel sampling weights of $\V_m$ along the diagonal. The regularization term ${\bf z}^{\top}\varphi_m(\L){\bf z}$ in \eqref{Eq:approx_rec_opt} penalizes reconstructions with support outside of the desired spectral band. For lowpass signals, Puy et al. \cite{PuyTGV15} take the penalty function $\varphi_m(\lambda)$ to be a nonnegative, nondecreasing polynomial, such as $\kappa \lambda^l$, with $\kappa>0$ and $l$ a positive integer. For more general classes of signals (i.e., the midpass and highpass signals output from the higher bands of the proposed filter bank), it is important to keep the nonnegativity property, in order to ensure that $\varphi_m(\L)$ is positive semi-definite and the optimization problem \eqref{Eq:approx_rec_opt} is convex. However, we can drop the nondecreasing requirement, and instead choose penalty functions concentrated outside the $m^{th}$ spectral band. Options we explore include (i) $\varphi_m(\lambda)=\kappa\left[1-\tilde{h}(\lambda)\right]$; (ii) $\varphi_m(\lambda)=\frac{1}{\tilde{h}(\lambda)+\epsilon}-\frac{1}{1+\epsilon}$ {\color{red} Check nonnegativity}; and (iii) a polynomial approximation of a penalty function constructed as a piecewise cubic spline, an approach explored in \cite{chen_saad}. See Fig. \ref{Fig:penalty} for example graphs of these penalty functions.
 
 \begin{figure}[tb]
 \begin{minipage}[m]{0.49\linewidth}
@@ -678,7 +687,7 @@ where ${\boldsymbol \Omega}_{m,\V_m}$ is a $|\V_m| \times |\V_m|$  diagonal matr
 \centerline{\includegraphics[width=1.1\linewidth]{fig_reg_filters_50}}
 \centerline{~~\small{(b)}}
 \end{minipage} 
-\caption{Example penalty filters $\varphi_m$ for the regularization term in \eqref{Eq:approx_rec_opt}, with $\epsilon=\frac{1}{\kappa}=0.01$. Here, $\tilde{h}_m$ is a Jackson-Chebyshev polynomial approximation of $h_m$ of degree 20 and 50 in (a) and (b), respectively.}\label{Fig:penalty}
+\caption{Example penalty filters $\varphi_m$ for the regularization term in \eqref{Eq:approx_rec_opt}, with $\epsilon=\frac{1}{\kappa}=0.01$. Here, $\tilde{h}_m$ is a Jackson-Chebyshev polynomial approximation of $h_m$ of degree 20 and 50 in (a) and (b), respectively. {\color{red} Add spline and its approximation.}}\label{Fig:penalty}
 \end{figure}
 
 From the first-order optimality conditions, the solution to \eqref{Eq:approx_rec_opt} is the solution to the linear system of equations
@@ -702,7 +711,7 @@ which can be solved, for example, with the preconditioned conjugate gradient met
 
 
 {\color{red}
-[Say something about which option we choose and why, and point to empirical comparison in the next section.]
+[More details about spline function. Say something about which option we choose and why, and point to empirical comparison in the next section.]
 The analysis and synthesis operations for the proposed scalable $M$-channel filter bank are summarized in Algorithms XXX and ZZZ, respectively.
 
 \begin{itemize}
@@ -713,27 +722,294 @@ The analysis and synthesis operations for the proposed scalable $M$-channel filt
 %\subsection{Reconstruction robustness to noisy or thresholded filter bank coefficients} \label{Se:noisy_ext}
 %For any partition into uniqueness sets, the proposed transform perfectly recovers the signal from the analysis coefficients. However, the choice of the downsampling patterns and interpolation method can dramatically affect the stability of the reconstruction if the analysis coefficients are corrupted by noise or are only partially available, or approximate filters are used to speed up the transform . Thus, we plan to investigate the role of the initial choice of the $\gamma_i$'s in Algorithm \ref{Al:uniqueness} in improving the stability of the reconstruction.
 {\color{red}
-\section{Properties of the Fast M-CSFB Transform}
+\section{Properties of the Fast M-CSFB Transform} \label{Se:fast_prop}
 \subsection{Joint vertex-frequency localization of the atoms}
 \subsection{Computational complexity}
 }
 {\color{blue}
 \section{Illustrative Examples II: Approximate Calculations} \label{Se:ill2}
+
 \begin{itemize}
 \item Reconstruction of bandpass signal. Tradeoff between number of samples and reconstruction error. Show different methods? 
+%\item Temp example: signal and source, filter bank, coefficient decay (wavelets), computation times, filtered signal by channel, reconstruction error by channel, atoms
+%\item Figure 0: graph structure x2
+%\item Figure 1: signal, estimated cdf, filter bank, coefficient decay (2x2), sampling pattern (and zoomed in). show actual samples for first band
+%\item Figure 2: filtered channel for each band,  reconstruction error for each band (3 x 6), atom. point out (a) localization, and (b) adapted to graph %sampling weights for each band, 
+%\item Figure 3: example atoms (two scaling functions at different locations (one central [1], one near boundary), one wavelet scale 2 ([1], point out mean zero), two more central at smaller scales (more localized), a zoomed in version. 3 high, 2 wide
+\end{itemize}
+}
+Next, we examine average temperatures for March 2018, taken from the Gridded 5km GHCN-Daily Temperature and Precipitation Dataset (nClimGrid) \cite{nClimGrid1,nClimGrid2} of the United States National Oceanic and Atmospheric Administration (NOAA). The measurements are taken on a grid with spacing of $\frac{1}{24}$ of a degree for both latitude and longitude. We form an unweighted graph by connecting each measurement location to its eight neighbors on the grid, if they contain measurements, as shown in Fig. \ref{Fig:temp_graph_structure}. We then eliminate isolated vertices and small components (e.g., islands) to yield a connected graph with 469,404 vertices (measurement locations). Fig. \ref{Fig:temp_demo} shows the temperature measurements, an estimate of the cumulative spectral distribution function of the graph, and the resulting approximate filter bank with six bands and degree 80 polynomial approximations. Because of the fairly regular structure of this graph, the non-uniform sampling distributions look similar for each band. An intuitive explanation of the distribution for the first band, which is shown in Fig. \ref{Fig:temp_demo}(d)-(e), is that we want to sample with higher probability near the edges, as there are fewer neighbors from whom to interpolate the local average value. The 7,692 vertices selected for $\V_1$, shown in Fig. \ref{Fig:temp_demo}(f), are spread across the graph, with a higher density near the boundaries.
+
+The magnitudes of the analysis coefficients, shown in Fig. \ref{Fig:temp_coeffs}, decay quickly, which is not surprising as the signal is generally smooth with some discontinuities that tend to coincide with topographical changes. We see in the second column of Fig. \ref{Fig:temp_reconstruction} that the non-zero analysis coefficients tend to cluster around these topographical changes, as expected. The first column of Fig. \ref{Fig:temp_reconstruction} shows an example atom at each band. If vertex $i \in \V_m$, then $\tilde{h}_m(\L){\boldsymbol \delta}_i$ is an atom that is localized within $K=80$ hops of node $i$ in the vertex domain. Its energy is also localized to the support of $\tilde{h}_m(\cdot)$ in the graph spectral domain. This joint vertex-frequency localization is a key property for wavelet-like transforms. 
+
+\begin{figure}[tb]
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1\linewidth]{fig_temp_graph_structure}}
+\centerline{\small{(a)}}
+\end{minipage}
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1\linewidth]{fig_temp_structure_bos}}
+\centerline{\small{(b)}}
+\end{minipage}
+\caption{The eight-neighbor local graph structure for (a) the Eastern Massachusetts region, and (b) the Boston region.}\label{Fig:temp_graph_structure}
+\end{figure}
+
+\begin{figure}[tb]
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1\linewidth]{fig_temp_signal}}
+%\vspace{.1in}
+\centerline{\small{(a)}}
+\end{minipage}
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1\linewidth]{fig_temp_cdf}}
+\centerline{\small{(b)}}
+\end{minipage} \\
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1\linewidth]{fig_temp_sampling1}}
+\centerline{\small{(d)}}
+\end{minipage}
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1\linewidth]{fig_temp_fb}}
+\centerline{\small{(c)}}
+\end{minipage}\\
+\begin{minipage}[m]{0.47\linewidth}
+\centerline{\includegraphics[width=.8\linewidth]{fig_temp_sampling1_zoom2}}
+\centerline{\small{(e)}}
+\end{minipage}
+\begin{minipage}[m]{0.51\linewidth}
+\centerline{\includegraphics[width=1\linewidth]{fig_temp_band1}}
+\centerline{\small{(f)}}
+\end{minipage}
+\caption{(a) Average temperatures for March 2018, measured at 469,404 locations. (b) Estimate of the cumulative spectral distribution function of the graph. (c) Approximate filter bank with six bands and degree 80 polynomial approximations. (d) Weights of the non-uniform sampling distribution for the first band (lowpass). (e) A zoom-in of the distribution in (d) on the northwest corner of the United States. (f) The 7,692 vertices randomly selected according to the distribution in (d) to be included in $\V_1$.}\label{Fig:temp_demo}
+\end{figure}
+
+\begin{figure}[tb]
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1\linewidth]{fig_temp_analysis_coeffs}}
+\centerline{\small{(a)}}
+\end{minipage}
+\begin{minipage}[m]{0.49\linewidth}
+\centerline{\includegraphics[width=1\linewidth]{fig_temp_wavelet_coeffs}}
+\centerline{\small{(b)}}
+\end{minipage}
+\caption{Analysis coefficient decay. (a) The absolute value of all 469,404 fast M-CSFB analysis coefficients for the average temperature signal in Fig. \ref{Fig:temp_demo}, colored by band. (b) The sorted magnitudes of the 461,712 wavelet coefficients (bands 2 through 6).}\label{Fig:temp_coeffs}
+\end{figure}
+
+
+\begin{figure*}[bt] 
+\begin{minipage}[m]{0.15\linewidth}
+~
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\small{Example Atom}~~}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\small{Filtered Signal}~~}
+\centerline{\small{by Band}~~}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\small{Reconstruction}~~}
+\centerline{\small{Error by Band}~~}
+\end{minipage} \\
+\begin{minipage}[m]{0.15\linewidth}
+\centerline{\small{Scaling Functions~}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered1}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered1}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered1}}
+\end{minipage} \\
+\begin{minipage}[m]{0.15\linewidth}
+\centerline{\small{Wavelet Scale 1~}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered2}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered2}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered2}}
+\end{minipage} \\
+\begin{minipage}[m]{0.15\linewidth}
+\centerline{\small{Wavelet Scale 2~}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered3}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered3}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered3}}
+\end{minipage} \\
+\begin{minipage}[m]{0.15\linewidth}
+\centerline{\small{Wavelet Scale 3~}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered4}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered4}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered4}}
+\end{minipage} \\
+\begin{minipage}[m]{0.15\linewidth}
+\centerline{\small{Wavelet Scale 4~}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered5}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered5}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered5}}
+\end{minipage} \\
+\begin{minipage}[m]{0.15\linewidth}
+\centerline{\small{Wavelet Scale 5}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered6}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered6}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered6}}
+\end{minipage} 
+\begin{minipage}[m]{0.15\linewidth}
+\centerline{\small{Overall~}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+~
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered6}}
+\end{minipage}
+\begin{minipage}[m]{0.27\linewidth}
+\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered6}}
+\end{minipage}
+\caption{Fast $M$-channel filter bank example. The first column shows example atoms in the vertex domain. The second column shows the filtered signal for each channel; i.e., $\tilde{h}_m(\L){\bf f}$. The third column is the reconstruction error by band; i.e., $|\tilde{h}_m(\L){\bf f}-{\bf z}^*_m|$, where ${\bf z}^*_m$ is the solution to \eqref{Eq:approx_rec_sol} for the $m^{th}$ band. The reconstruction in the last row, middle column is the sum of the six signals above it. The error in the bottom right is the absolute value of the different between the reconstruction and the original average temperature signal.}\label{Fig:temp_reconstruction}
+\end{figure*}
+
+%\begin{figure*}[bt] 
+%\begin{minipage}[m]{0.11\linewidth}
+%~
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\small{Scaling Functions}}
+%\end{minipage}
+%%\hspace{.01\linewidth}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\small{Wavelet Scale 1}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\small{Wavelet Scale 2}}\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\small{Wavelet Scale 3}}\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\small{Wavelet Scale 4}}\end{minipage} 
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\small{Wavelet Scale 5}}\end{minipage} 
+%\\
+%\begin{minipage}[m]{0.13\linewidth}
+%\centerline{\small{Example Atom}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered1}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered2}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered3}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered4}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered5}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered6}}
+%\end{minipage}\\
+%\begin{minipage}[m]{0.13\linewidth}
+%\centerline{\small{Filtered Signal}}
+%\centerline{\small{by Band}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered1}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered2}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered3}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered4}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered5}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered6}}
+%\end{minipage}\\
+%\begin{minipage}[m]{0.13\linewidth}
+%\centerline{\small{Reconstruction}}
+%\centerline{\small{Error by Band}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered1}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered2}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered3}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered4}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered5}}
+%\end{minipage}
+%\begin{minipage}[m]{0.14\linewidth}
+%\centerline{\includegraphics[width=\linewidth]{fig_temp_filtered6}}
+%\end{minipage}
+%\caption{Fast $M$-channel filter bank example. The first row shows example atoms in the vertex domain. The second row shows the filtered signal for each channel; i.e., $\tilde{h}_m(\L){\bf f}$. The third row is the reconstruction error by band; i.e., $|\tilde{h}_m(\L){\bf f}-{\bf z}^*_m|$, where ${\bf z}^*_m$ is the solution to \eqref{Eq:approx_rec_sol} for the $m^{th}$ band.}\label{Fig:temp_reconstruction}
+%\end{figure*}
+
+
+
+
+
+{\color{red}
+\begin{itemize}
+\item Add computation times
 \item Repeat bunny compression example. Much worse?
-\item Make sure to have some very large examples and show computation times
+\item Sea surface temperature climatology for January or crime
 \end{itemize}
 }
 
 
+
+
 \section{Conclusion and Extensions}
 \label{Sec:ongoing}
-{\color{red} %Eliminate once we've covered all of these issues elsewhere.}
-
-Insert key findings here
+%{\color{blue} %Eliminate once we've covered all of these issues elsewhere.}
+We have proposed a fast, critically sampled transform that approximately projects a graph signal onto different bands of the graph Laplacian spectrum. To improve computational efficiency, we leveraged the computation of $\{\bar{T}_k(\L){\bf X}\}$ in multiple ways: to estimate the spectral density for the design of the filter bank, to estimate the number of samples for each band, and to estimate the non-uniform sampling distribution. The atoms of the proposed fast M-CSFB transform are jointly localized in the vertex and graph domains. 
+%Insert key findings here
+{\color{red}
 \begin{itemize}
-\item Leveraged the computation of $\{\bar{T}_k(\L){\bf X}\}$ in multiple ways 
+%\item Leveraged the computation of $\{\bar{T}_k(\L){\bf X}\}$ in multiple ways to improve complexity. Point out bottleneck
+%\item Jointly localized atoms
 \item Can be seen as a coarse, fast GFT, maybe compare to that literature
 \end{itemize}
 }

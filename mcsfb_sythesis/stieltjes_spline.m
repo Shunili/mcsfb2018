@@ -1,10 +1,11 @@
-function [ xi , pp ] = stieltjes_spline(t,ftt)
+function [ xi , pp ] = stieltjes_spline(tt,ftt)
 
-n = length(t)-1;
+n = length(tt)-1;
 xi    = zeros(n,4);
-h = reshape(diff(t)/2, n,1);
+h = reshape(diff(tt)/2, n,1);
 
-pp = pchip(t, ftt);
+pp = pchip(tt, ftt);
+
 d = pp.coefs(:,1);
 c = pp.coefs(:,2);
 e = pp.coefs(:,3);
