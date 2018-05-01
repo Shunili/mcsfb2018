@@ -146,6 +146,11 @@ S.~K. Narang and A.~Ortega, ``Lifting based wavelet transforms on graphs,'' in
   transform for graph signals,'' \emph{IEEE Trans. Signal Process.}, vol.~64,
   no.~8, pp. 2119--2134, Apr. 2016.
 
+\bibitem{jin_conf}
+Y.~Jin and {D. I Shuman}, ``An {$M$}-channel critically sampled filter bank for
+  graph signals,'' in \emph{Proc. IEEE Int. Conf. Acc., Speech, and Signal
+  Process.}, Mar. 2017, pp. 3909--3913.
+
 \bibitem{chen2015discrete}
 S.~Chen, R.~Varma, A.~Sandryhaila, and J.~Kova\v{c}evi{\'{c}}, ``Discrete
   signal processing on graphs: {S}ampling theory,'' \emph{IEEE Trans. Signal
@@ -347,5 +352,22 @@ J.~Paratte and L.~Martin, ``Fast eigenspace approximation using random
   signals,'' \emph{ar{X}iv e-Prints}, 2016. [Online]. Available:
   \url{http://arxiv.org/abs/1611.00938}
 \BIBentrySTDinterwordspacing
+
+\bibitem{chen_saad}
+J.~Chen, M.~Anitescu, and Y.~Saad, ``Computing {$f(A)b$} via least squares
+  polynomial approximations,'' \emph{SIAM J. Sci. Comp.}, vol.~33, no.~1, pp.
+  195--222, Feb. 2011.
+
+\bibitem{nClimGrid1}
+R.~Vose, S.~Applequist, M.~Squires, I.~Durre, M.~Menne, C.~Williams,
+  C.~Fenimore, K.~Gleason, and D.~Arndt, ``Gridded 5km {GHCN}-daily temperature
+  and precipitation dataset ({nCLIMGRID}), version 1,'' \emph{Maximum
+  temperature, minimum temperature, average temperature, and precipitation.
+  {NOAA National Centers for Environmental Information}}, 2014.
+
+\bibitem{nClimGrid2}
+------, ``Improved historical temperature and precipitation time series for
+  {U.S.} climate divisions,'' \emph{J. Appl. Meteorol. Climatol.}, vol.~53,
+  no.~5, pp. 1232--1251, May 2014.
 
 \end{thebibliography}

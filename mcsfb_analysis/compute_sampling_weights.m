@@ -29,7 +29,7 @@ function [weights, P_min_half] = compute_sampling_weights(G,L,h)
 %         %cum_coh = mean(sqnorm_UR, 2);
 %         %weights = cum_coh/sum(cum_coh(:));
         
-        
+
         P_min_half = sparse(1:G.N, 1:G.N, 1./sqrt(weights), G.N, G.N);
 end
 

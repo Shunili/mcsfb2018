@@ -35,10 +35,13 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
         weights_banded = cell(num_bands,1);
         exact=gsp_check_fourier(G);
         if ~exact
-             [G, ~]= spectral_cdf_approx( G , param);
+            if ~isfield(G,'spectrum_cdf_approx')
+              param.cdf_method='kpm';
+              [G, ~]= spectral_cdf_approx2( G , param);
+            end
         end
   
-        num_its = ceil(2*log(G.N));
+        %num_its = ceil(2*log(G.N));
         
         for i = 1:num_bands
             
@@ -54,37 +57,37 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
             if exact
                 %extra_samps=0
                 nb_meas = sum(h(G.e)); %+extra_samps; % m: num eigenvalues in band, will need to estimate if don't have exact eigenvalues
+                norm_Uk= sum(G.U.^2, 2);
+                weights=norm_Uk/sum(norm_Uk);
             else
                 %if the total number of samples is < N, add them to last band
-                nb_meas = round((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
-                %nb_meas = floor((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
                 
-                %LDL^T
-%                 P=symamd(G.L);
-%                 [Parent, Lp, PO, PIn, flopcount] = ldlsymbol_extra(G.L,P);
-%                 mat_lower=G.L-shifted_ends(i)*speye(G.N);
-%                 [~, HD_lower]=ldlnumeric(mat_lower,Lp,Parent,PO,PIn);
-%                 below_lower=sum(diag(HD_lower)<0);
-%                 mat_upper=G.L-shifted_ends(i+1)*speye(G.N);
-%                 [~, HD_upper]=ldlnumeric(mat_upper,Lp,Parent,PO,PIn);
-%                 below_upper=sum(diag(HD_upper)<0);
-%                 nb_meas=below_upper-below_lower;
-%         
+                %nb_meas = floor((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
 
-              
 
+                %nb_meas = round((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
+                [~, jch] = gsp_jackson_cheby_coeff(low_limit,up_limit,[0,G.lmax], param.order);
+                
+                % TODO: Check TkbarlX is available; add option to make the
+                % number of random vectors higher than the number used to
+                % compute the density
+                r=gsp_cheby_opX(G,jch);
+                nb_meas=round(gsp_hutch(G,r));
+                % [weights, ~] = compute_sampling_weights(G,num_its,h);
+                norm_Uk= sum(r.^2, 2);
+                weights=norm_Uk/sum(norm_Uk);
             end
-            if i==1
-                nb_meas=floor(nb_meas*1)
-            elseif i==2
-                nb_meas=nb_meas*1;
-            end
-            [weights, ~] = compute_sampling_weights(G,num_its,h);
+%             if i==1
+%                 nb_meas=floor(nb_meas*1);
+%             elseif i==2
+%                 nb_meas=nb_meas*1;
+%             end
             [~, selected] = build_sampling_matrix(G, weights, nb_meas, param);
 
             downsampling_sets{i} = selected;
             weights_banded{i} = weights;
         end
+    
         second_output=weights_banded;
     end
  end

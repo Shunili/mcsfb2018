@@ -19,45 +19,45 @@ Warning--empty title in gle
 Warning--empty title in gle
 
 Done.
-You've used 68 entries,
+You've used 72 entries,
             4024 wiz_defined-function locations,
-            1174 strings with 16770 characters,
-and the built_in function-call counts, 52950 in all, are:
-= -- 4379
-> -- 1120
-< -- 514
-+ -- 653
-- -- 169
-* -- 2548
-:= -- 7825
-add.period$ -- 136
-call.type$ -- 68
-change.case$ -- 67
-chr.to.int$ -- 1170
-cite$ -- 74
-duplicate$ -- 3793
-empty$ -- 4191
-format.name$ -- 223
-if$ -- 12296
+            1195 strings with 17658 characters,
+and the built_in function-call counts, 56655 in all, are:
+= -- 4663
+> -- 1242
+< -- 547
++ -- 721
+- -- 192
+* -- 2732
+:= -- 8335
+add.period$ -- 144
+call.type$ -- 72
+change.case$ -- 71
+chr.to.int$ -- 1248
+cite$ -- 78
+duplicate$ -- 4053
+empty$ -- 4472
+format.name$ -- 250
+if$ -- 13163
 int.to.chr$ -- 0
-int.to.str$ -- 68
-missing$ -- 622
-newline$ -- 233
-num.names$ -- 68
-pop$ -- 1325
+int.to.str$ -- 72
+missing$ -- 671
+newline$ -- 245
+num.names$ -- 72
+pop$ -- 1441
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 4130
+skip$ -- 4409
 stack$ -- 0
-substring$ -- 2810
-swap$ -- 3265
-text.length$ -- 124
+substring$ -- 2996
+swap$ -- 3495
+text.length$ -- 131
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 68
+type$ -- 72
 warning$ -- 6
-while$ -- 240
-width$ -- 70
-write$ -- 687
+while$ -- 254
+width$ -- 74
+write$ -- 726
 (There were 6 warnings)

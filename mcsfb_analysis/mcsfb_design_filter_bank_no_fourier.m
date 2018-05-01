@@ -7,14 +7,22 @@ if ~isfield(param,'band_structure')
 end
 
 if ~isfield(G,'spectrum_cdf_approx')
-    [G, ~]= spectral_cdf_approx(G, param);
+    param.cdf_method='kpm';
+    [G, ~]= spectral_cdf_approx2(G, param);
 end
 
 if ~isfield(G,'spectrum_pdf_approx')
-    xx = 0:0.001:G.lmax;
+    %xx = 0:0.001:G.lmax;
     delta=.1;
     G.spectrum_pdf_approx = @(x) (G.spectrum_cdf_approx(x+delta) - G.spectrum_cdf_approx(x-delta)) / (2*delta);% first derivative
 end
+
+if ~isfield(param,'search_right_only')
+    search_right_only=0;
+else
+    search_right_only=param.search_right_only;
+end
+
 
 filter_bank=cell(num_bands,1);
 shifted_ends = zeros(num_bands+1,1);
@@ -68,7 +76,11 @@ else %search in the interval
 
     for k = 2:num_bands
          bandwidth = min((band_ends(k)-band_ends(k-1))/2, (band_ends(k+1)-band_ends(k))/2); 
-         shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,band_ends(k)-bandwidth, band_ends(k)+bandwidth);
+         if search_right_only
+            shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,band_ends(k), band_ends(k)+bandwidth);
+         else
+            shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,band_ends(k)-bandwidth, band_ends(k)+bandwidth);
+         end
 %        shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,(band_ends(k)+band_ends(k-1))/2, (band_ends(k)+band_ends(k+1))/2);
 %         shifted_ends(k) = fminbnd(G.spectrum_pdf_approx,(band_ends(k)+band_ends(k-1))/2, (band_ends(k)+band_ends(k+1))/2);
     end

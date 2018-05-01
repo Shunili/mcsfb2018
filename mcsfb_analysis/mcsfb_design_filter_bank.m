@@ -1,4 +1,4 @@
-function [filter_bank, shifted_ends, band_ends] = mcsfb_design_filter_bank(G, num_bands,param)
+function [filter_bank, shifted_ends, band_ends,G] = mcsfb_design_filter_bank(G, num_bands,param)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 % return the pdf!
@@ -80,11 +80,12 @@ else
 %     band_ends(num_bands+1) =G.lmax;
     
     if ~isfield(G,'spectrum_cdf_approx')
-        [G, ~] = spectral_cdf_approx(G, param);
+        param.cdf_method='kpm';
+        [G, ~] = spectral_cdf_approx2(G, param);
     end
     
     if ~isfield(G,'spectrum_pdf_approx')
-        xx = 0:0.001:G.lmax;
+        %xx = 0:0.001:G.lmax;
         delta=.1;
         G.spectrum_pdf_approx = @(x) (G.spectrum_cdf_approx(x+delta) - G.spectrum_cdf_approx(x-delta)) / (2*delta);% first derivative
     end

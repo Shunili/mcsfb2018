@@ -24,8 +24,9 @@ else
 end
     
 if ~isfield(param,'reg_eps')
-%    reg_eps=1/G.N;
-     reg_eps=.001;
+%   reg_eps=1/G.N;
+%     reg_eps=.001;
+reg_eps=1;
 else
     reg_eps=param.reg_eps;
 end
@@ -50,8 +51,16 @@ else
     order=param.order;
 end
 
-lower_1 = 0.5;
-upper_1 = 4.5;
+if ~isfield(param,'grid_order')
+    grid_order=1000;
+else
+    grid_order=param.grid_order;
+end
+
+%lower_1 = 0.5;
+%upper_1 = 4.5;
+lower_1=lower;
+upper_1=upper;
 h = @(x) (x>=lower_1 & x<upper_1);
 
 if ~isfield(param,'reg_filter')
@@ -68,10 +77,11 @@ end
 % reg_filter =@(x) 1./(h(x)+reg_eps)-1/(1+reg_eps);
 
 wd = zeros(G.N,1);
-wd(selected)=1./weights;
-B=diag(wd);
+wd(selected)=1./(G.N*weights);
+%B=diag(wd);
+B = spdiags(wd,0,G.N,G.N);
 right_side = zeros(G.N,1);
-right_side(selected)=values./weights;
+right_side(selected)=values./(weights*G.N);
 
 
 if (isfield(G,'U') && isfield(G,'e'))
@@ -83,26 +93,67 @@ if (isfield(G,'U') && isfield(G,'e'))
 %    z=A\right_side;
 else
     if param.reg_filter == 1
-        range=[0,G.lmax];
-        grid_order=1000;
-        [~, JCH]=gsp_jackson_cheby_coeff(lower_1, upper_1, range, order);
-        reg_short=@(x) 1./(gsp_cheby_eval(x,JCH,range)+reg_eps);
-        short_coeff=gsp_cheby_coeff(G,reg_short,200,grid_order);  % may need to use damping here
-        %gte=@(x) gsp_cheby_op(G, JCH, x)+reg_eps*x;
-        %LHS=@(z) B*z-(1/(1+reg_eps))*z+pcg(gte,z,1e-10,100);
-        LHS=@(z) B*z-(1/(1+reg_eps))*z+gsp_cheby_op(G,short_coeff,z);
-%         z=pcg(LHS,right_side,1e-10,100);
+
+%%%%%%%%%%%%%        
+%         range=[0,G.lmax];
+%         grid_order=1000;
+%         [~, JCH]=gsp_jackson_cheby_coeff(lower_1, upper_1, range, order);
+%         reg_short=@(x) 1./(gsp_cheby_eval(x,JCH,range)+reg_eps);
+%         short_coeff=gsp_cheby_coeff(G,reg_short,200,grid_order);  % may need to use damping here
+%         %gte=@(x) gsp_cheby_op(G, JCH, x)+reg_eps*x;
+%         %LHS=@(z) B*z-(1/(1+reg_eps))*z+pcg(gte,z,1e-10,100);
+%         LHS=@(z) B*z-(1/(1+reg_eps))*z+gsp_cheby_op(G,short_coeff,z);
+% %         z=pcg(LHS,right_side,1e-10,100);
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+        k = 1/reg_eps;
+        lower_wide=lower-(upper-lower)/4;
+        upper_wide=upper+(upper-lower)/4;
+        delta=.15*(upper-lower);
+        num_per_side=4;
+        tt=[0,(lower_wide-delta)/2,linspace(lower_wide-delta,lower_wide,num_per_side),linspace(upper_wide,upper_wide+delta,num_per_side),(G.lmax+upper_wide+delta)/2,G.lmax];
+        if lower==0
+            zero_pen=0;
+        else
+            zero_pen=((lower_wide-delta)/G.lmax+1)*k;
+        end
         
-       
-%        preconditioner=@(z) z./(wd+gamma);
-        initial_guess=zeros(G.N,1);
-        initial_guess(selected)=values;
+        if upper>=G.lmax
+            high_pen=0;
+        else
+            high_pen=(2-(upper_wide+delta)/G.lmax)*k;
+        end
+        
+        ftt=[zero_pen,((lower_wide-delta)/(2*G.lmax)+1)*k,linspace(k,0,num_per_side),linspace(0,k,num_per_side),(1.5-(upper_wide+delta)/(2*G.lmax))*k,high_pen];
+%        xi=stieltjes_spline(tt,ftt); 
+%        LHS=@(z) B*z+stieltjes_op(G,z,xi,tt,100,1e-6); 
+        pp = pchip(tt, ftt);
+        pen=@(x)ppval(pp,x);
+        penc=gsp_cheby_coeff(G,pen,order,grid_order);
+        kk=1:order;
+        damping_coeffs=((1-kk/(order+2))*sin(pi/(order+2)).*cos(kk*pi/(order+2))+(1/(order+2))*cos(pi/(order+2))*sin(kk*pi/(order+2)))/sin(pi/(order+2));
+        damping_coeffs=[1,damping_coeffs]';
+        penc=penc.*damping_coeffs;
+        LHS=@(z) B*z+gsp_cheby_op(G,penc,z);
+        
+%%%%%%%%%%%%%%%%%%
 %         
-%         [aa,ii]=sort(selected,'ascend');
-%         initial_guess=values(ii);
-        
-        z=pcg(LHS,right_side,1e-10,100,[],[],initial_guess);
-       
+% %        preconditioner=@(z) z./(wd+gamma);
+         initial_guess=zeros(G.N,1);
+         initial_guess(selected)=values;
+% %         
+% %         [aa,ii]=sort(selected,'ascend');
+% %         initial_guess=values(ii);
+          preconditioner=@(z) z./(wd+1);
+         z=pcg(LHS,right_side,1e-10,1000,preconditioner,[],initial_guess);
+% %        z=pcg(LHS,right_side,1e-10,100,[],[],initial_guess);
+
+%         z=pcg(LHS,right_side,1e-10,100);
+%         cvx_begin
+%            variable z(G.N,1)
+%            minimize(norm((1./sqrt(G.N*weights)).*(z(selected)-values),2)+z'*gsp_filter(G,pen,z))
+%         cvx_end
         
     else 
         if ~isfield(param,'precondition')
