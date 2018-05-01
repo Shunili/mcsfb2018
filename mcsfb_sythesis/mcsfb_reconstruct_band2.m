@@ -96,10 +96,8 @@ if (isfield(G,'U') && isfield(G,'e'))
 %    A=B+G.U*diag(reg_filter(G.e))*G.U'; 
 %    z=A\right_side;
 else
-
-    % switch 1=rational,2=1-h,3=spline
     switch param.reg_filter
-        case 1
+        case 1 % rational 
             range=[0,G.lmax];
             grid_order=1000;
             
@@ -119,7 +117,8 @@ else
             initial_guess(selected)=values;
             
             z=pcg(LHS,right_side,1e-10,100,[],[],initial_guess);     
-        case 2
+
+        case 2 % 1-h
             if ~isfield(param,'precondition')
                 precondition=1;
             else
@@ -141,11 +140,46 @@ else
             else
                 z=pcg(afun,right_side,param.pcgtol,param.pcgmaxits); 
             end
-        otherwise     
- 
-  
-    end
 
+        otherwise % spline     
+            reg_eps=1;
+            k = 1/reg_eps;
+            lower_wide=lower-(upper-lower)/4;
+            upper_wide=upper+(upper-lower)/4;
+            delta=.15*(upper-lower);
+            num_per_side=4;
+            tt=[0,(lower_wide-delta)/2,linspace(lower_wide-delta,lower_wide,num_per_side),linspace(upper_wide,upper_wide+delta,num_per_side),(G.lmax+upper_wide+delta)/2,G.lmax];
+            if lower==0
+                zero_pen=0;
+            else
+                zero_pen=((lower_wide-delta)/G.lmax+1)*k;
+            end
+
+            if upper>=G.lmax
+                high_pen=0;
+            else
+                high_pen=(2-(upper_wide+delta)/G.lmax)*k;
+            end
+
+            ftt=[zero_pen,((lower_wide-delta)/(2*G.lmax)+1)*k,linspace(k,0,num_per_side),linspace(0,k,num_per_side),(1.5-(upper_wide+delta)/(2*G.lmax))*k,high_pen];
+    %        xi=stieltjes_spline(tt,ftt); 
+    %        LHS=@(z) B*z+stieltjes_op(G,z,xi,tt,100,1e-6); 
+            pp = pchip(tt, ftt);
+            pen=@(x)ppval(pp,x);
+            penc=gsp_cheby_coeff(G,pen,order,grid_order);
+            kk=1:order;
+            damping_coeffs=((1-kk/(order+2))*sin(pi/(order+2)).*cos(kk*pi/(order+2))+(1/(order+2))*cos(pi/(order+2))*sin(kk*pi/(order+2)))/sin(pi/(order+2));
+            damping_coeffs=[1,damping_coeffs]';
+            penc=penc.*damping_coeffs;
+            LHS=@(z) B*z+gsp_cheby_op(G,penc,z);
+
+            initial_guess=zeros(G.N,1);
+            initial_guess(selected)=values;
+            preconditioner=@(z) z./(wd+1);
+            z=pcg(LHS,right_side,1e-10,1000,preconditioner,[],initial_guess);
+    end    
+    
 end
+
 end
 
