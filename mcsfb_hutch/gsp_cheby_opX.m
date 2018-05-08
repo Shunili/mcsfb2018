@@ -4,7 +4,7 @@ function [r] = gsp_cheby_opX(G, coeffs)
 % \bar{T}_k(L)X, an approximation of h(L)X for some filter h
 	
 if ~isfield(G,'TkbarLX') || ~isfield(G,'X')
-   warning('Need to store TkbarLX and random signals X in G to use this function');
+   G=gsp_compute_TkbarLX(G);
 end
 
 num_vec = size(G.X, 2);

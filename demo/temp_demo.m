@@ -1,5 +1,5 @@
 close all;
-%clear all;
+clear all;
 
 rand('seed',0);
 randn('seed',0);
@@ -72,6 +72,12 @@ xlabel('$\lambda$','Interpreter','LaTex','FontSize',24)
 set(gca,'FontSize',24);
 
 % create downsampling sets (and ensure critical sampling)
+adapted=1;
+if adapted
+    param.signal_projections=mcsfb_apply_filters(G,signal,filter_bank,param);
+    param.adapt_weights=0;
+end
+
 tic
 [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G, filter_bank, shifted_ends, param);
 
