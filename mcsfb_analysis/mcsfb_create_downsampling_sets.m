@@ -10,6 +10,24 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
         param.exact_downsampling_partition=0;
     end
     
+    if ~isfield(param,'subtract_mean')
+        param.subtract_mean=0;
+    end
+    
+    if ~isfield(param,'extra_low_factor')
+        param.extra_low_factor=1;
+    end
+    
+    if ~isfield(param,'adapt_weights')
+        param.adapt_weights=0;
+    else
+        if param.adapt_weights
+            if ~isfield(param,'signal_projections')
+                error('param.signal_projections must be defined to use signal-adapted weights');
+            end
+        end
+    end
+    
     if param.exact_downsampling_partition
         
         if ~gsp_check_fourier(G)
@@ -34,13 +52,13 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
     else
         weights_banded = cell(num_bands,1);
         exact=gsp_check_fourier(G);
-        if ~exact
-            if ~isfield(G,'spectrum_cdf_approx')
-              param.cdf_method='kpm';
-              [G, ~]= spectral_cdf_approx2( G , param);
-            end
-        end
-  
+%         if ~exact
+%              if ~isfield(G,'spectrum_cdf_approx')
+%                param.cdf_method='kpm';
+%                [G, ~]= spectral_cdf_approx2( G , param);
+%              end
+%         end
+%   
         %num_its = ceil(2*log(G.N));
         
         for i = 1:num_bands
@@ -74,9 +92,16 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
                 % compute the density
                 r=gsp_cheby_opX(G,jch);
                 nb_meas=round(gsp_hutch(G,r));
+                if i==1
+                    nb_meas=nb_meas*param.extra_low_factor; % TODO: update
+                end
                 % [weights, ~] = compute_sampling_weights(G,num_its,h);
                 norm_Uk= sum(r.^2, 2);
                 weights=norm_Uk/sum(norm_Uk);
+                if param.adapt_weights && (param.subtract_mean || (i>1)) 
+                    weights=norm_Uk.*abs(param.signal_projections(:,i));
+                    weights=weights/sum(weights);
+                end
             end
 %             if i==1
 %                 nb_meas=floor(nb_meas*1);
