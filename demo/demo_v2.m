@@ -4,28 +4,28 @@ clear all;
 rand('seed',0);
 randn('seed',0);
 
-%TODO: change number of samples, update reconsruct_band2 (new method,speed
-%up), add spectral plots
+%TODO: change number of samples, add spectral plots
 
 % Main parameters to explore
 num_bands = 4;
 param.order=100; % used for density estimation and analysis filtering
 param.search_right_only=0;
 param.replacement=0; % use 1 for large graphs for now as the without replacement method is too slow
+%param.alpha=.25;
 %oversampling_factor=.9; % performance sensitive to this parameter; almost perfect at 1.5
 synth_param.reg_filter=3; % reconstruction method: splines
 synth_param.order=param.order; 
 synth_param.pcgtol=1e-10; 
 synth_param.pcgmaxits=500; 
 synth_param.gamma=1; % surprisingly insensitive to this parameter % larger gamma puts more weight on matching samples; smaller gamma puts more weight on matching spectral content; convergence must faster for larger gamma, which makes sense since we are initializing it to the guesses
-adapted=1; % downsampling sets adapted to signal
+adapted=1; % downsampling sets and number of measurements adapted to signal
 extra_plots=0;
-param.extra_low_factor=2; % multiplicative factor for extra samples on low channel; taken away from highest channel
-param.subtract_mean=1;
+param.extra_low_factor=1; % multiplicative factor for extra samples on low channel; taken away from highest channel
+param.subtract_mean=0;
 param.num_vec=30; % default of 30 for most reconstruction methods seems fine. Plays a more important role if we are trying to reconstruct from the approximated subspaces
 
 % Graph and signal
-graph='bunny';
+graph='sensor';
 
 switch graph
     case 'gnp'
@@ -35,6 +35,10 @@ switch graph
     case 'sensor'
         N=500;
         G=gsp_david_sensor_network(N);
+        sig=randn(G.N,1);
+        signal=G.L*sig;
+        vs=80;
+        plim=[-25,25];
     case 'minnesota'
         G=gsp_minnesota(1);
         signal=(G.coords(:,1)>-93);
@@ -158,29 +162,13 @@ tic
 if adapted
     [param.signal_projections,filter_coeffs]=mcsfb_apply_filters(G,signal,filter_bank,param);
     param.adapt_weights=1;
+    param.adapt_num_meas=1;  
 end
 filter_time=toc
 
 tic
+param.target_samples=G.N-param.subtract_mean;
 [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G, filter_bank, shifted_ends, param);
-
-
-% ensure critical sampling
-total_samples=0;
-target_samples=G.N-param.subtract_mean;
-for i=1:num_bands
-    total_samples=total_samples+length(downsampling_sets{i});
-end
-if total_samples>target_samples % eliminate from last band
-    extra=total_samples-target_samples;
-    new_length=length(downsampling_sets{num_bands})-extra;
-    downsampling_sets{num_bands}=downsampling_sets{num_bands}(1:new_length);
-elseif total_samples<target_samples % resample first band with more samples
-    additional=target_samples-total_samples;
-    num_first=length(downsampling_sets{1})+additional;
-    [~, selected] = build_sampling_matrix(G, weights_banded{1}, num_first);
-    downsampling_sets{1}=selected;
-end
 downsampling_selection_time=toc
 
 % Plot sampling weights for each band
