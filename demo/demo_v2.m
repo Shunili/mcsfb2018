@@ -7,25 +7,25 @@ randn('seed',0);
 %TODO: change number of samples, add spectral plots
 
 % Main parameters to explore
-num_bands = 4;
-param.order=100; % used for density estimation and analysis filtering
+num_bands = 5;
+param.order=50; %100; % used for density estimation and analysis filtering
 param.search_right_only=0;
 param.replacement=0; % use 1 for large graphs for now as the without replacement method is too slow
 %param.alpha=.25;
 %oversampling_factor=.9; % performance sensitive to this parameter; almost perfect at 1.5
 synth_param.reg_filter=3; % reconstruction method: splines
 synth_param.order=param.order; 
-synth_param.pcgtol=1e-10; 
-synth_param.pcgmaxits=500; 
+synth_param.pcgtol=1e-10; %1e-10; 
+synth_param.pcgmaxits=500; %1000; %200; 
 synth_param.gamma=1; % surprisingly insensitive to this parameter % larger gamma puts more weight on matching samples; smaller gamma puts more weight on matching spectral content; convergence must faster for larger gamma, which makes sense since we are initializing it to the guesses
-adapted=1; % downsampling sets and number of measurements adapted to signal
+adapted=0; % downsampling sets and number of measurements adapted to signal
 extra_plots=0;
 param.extra_low_factor=1; % multiplicative factor for extra samples on low channel; taken away from highest channel
-param.subtract_mean=0;
+param.subtract_mean=1;
 param.num_vec=30; % default of 30 for most reconstruction methods seems fine. Plays a more important role if we are trying to reconstruct from the approximated subspaces
 
 % Graph and signal
-graph='sensor';
+graph='temperature';
 
 switch graph
     case 'gnp'
@@ -82,8 +82,8 @@ switch graph
 
         % remove small components
         G1=gsp_graph(W1,coords);
-        [V,D]=eigs(G1.L+1e-11*speye(G1.N),4,'sm'); % make sure this works for other machines. compute total number in each and choose the large one
-        large_component=(abs(V(:,4))>.000000001);
+        [V,D]=eigs(G1.L+1e-11*speye(G1.N),1,'sm'); % make sure this works for other machines. compute total number in each and choose the large one
+        large_component=(abs(V(:,1))>.000000001);
         W=G1.W(large_component,large_component);
         coords=coords(large_component,:);
         avg_temp=avg_temp(large_component);
@@ -115,7 +115,8 @@ if param.subtract_mean
     signal=signal-signal_average;
     figure;
     param.vertex_size=vs;
-    param.climits=plim;
+    newlim=max(abs(signal));
+    param.climits=[-newlim,newlim];
     gsp_plot_signal(G,signal,param);
     set(gca,'FontSize',24);
     if strcmp(graph,'bunny')
@@ -173,7 +174,7 @@ downsampling_selection_time=toc
 
 % Plot sampling weights for each band
 sampling_param.climits=[0,max((cell2mat(weights_banded)))];
-sampling_param.vertex_size=vs;
+sampling_param.vertex_size=9*vs;
 for i=1:num_bands
     figure;
     gsp_plot_signal(G,(weights_banded{i}),sampling_param);
@@ -181,21 +182,23 @@ for i=1:num_bands
     title(titlestr);
     colormap(flipud(hot));
     set(gca,'FontSize',24);
-    set(gcf,'color',[211,211,211]/255);
+ %   set(gcf,'color',[17,17,17]/255);
     if strcmp(graph,'bunny')
         view(0,90);
     end
 end
 
-% plot samples chosen for first band
+% plot samples chosen for selected band
+selected_band=2;
 figure;
-band1_param.vertex_size=vs/2;
-band1_param.climits=[0,2];
-band1=zeros(G.N,1);
-band1(downsampling_sets{1})=1;
-gsp_plot_signal(G,band1,band1_param);
+selband_param.vertex_size=2*vs;
+selband_param.climits=[0,2];
+selband=zeros(G.N,1);
+selband(downsampling_sets{selected_band})=1;
+gsp_plot_signal(G,selband,selband_param);
 colorbar off;
-title('Selected samples for channel 1');
+pt=sprintf('Selected samples for channel %d',selected_band);
+%title(pt);
 colormap(flipud(hot));
 if strcmp(graph,'bunny')
     view(0,90);
@@ -214,18 +217,25 @@ analysis_time=toc
 
 if extra_plots
     % plot all analysis coeffs
-    all_analysis_coeff_mag=[];
+    if param.subtract_mean
+        all_analysis_coeff_mag=[signal_average,1];
+    else       
+        all_analysis_coeff_mag=[];
+    end
     for i=1:num_bands
         all_analysis_coeff_mag=[all_analysis_coeff_mag;[abs(analysis_coeffs{i}),i*ones(size(analysis_coeffs{i}))]];
     end
-    [~,ii]=sort(all_analysis_coeff_mag(:,1),'descend');
-    all_analysis_coeff_mag_sorted=all_analysis_coeff_mag(ii,:);
+    %[~,ii]=sort(all_analysis_coeff_mag(:,1),'descend');
+    %all_analysis_coeff_mag_sorted=all_analysis_coeff_mag(ii,:);
 
     figure;
-    scatter(1:G.N,all_analysis_coeff_mag_sorted(:,1),5,all_analysis_coeff_mag_sorted(:,2));
+%    scatter(1:G.N,all_analysis_coeff_mag_sorted(:,1),5,all_analysis_coeff_mag_sorted(:,2));
+    scatter(1:G.N,all_analysis_coeff_mag(:,1),5,all_analysis_coeff_mag(:,2));
     box on;
+    xlabel('Coefficient Index');
+    ylabel('Coefficient Magnitude');
     set(gca,'FontSize',24);
-    title('All coeffs');
+    %title('All coeffs');
 
     % plot wavelet coeffs
     all_wavelet_coeff_mag=sort(abs(cell2mat(analysis_coeffs(2:num_bands))),'descend');
@@ -243,7 +253,7 @@ for i=1:num_bands
 end
 figure;
 gsp_plot_filter(G,approx_filters,plot_param); 
-title('Approximate Filters');
+%title('Approximate Filters');
 set(gca,'FontSize',24);
 xlabel('$\lambda$','Interpreter','LaTex','FontSize',24);
 
@@ -274,6 +284,13 @@ for i=1:num_bands
 end
 
 if extra_plots
+    % absolute value of filtered signal on second channel
+    figure;
+    maxval=max(abs(projections{2}));
+    param.climits=[0,maxval];
+    gsp_plot_signal(G,abs(projections{2}),param);
+    set(gca,'FontSize',24);
+
     % plot downsampled coeffs by channel
     for i=1:num_bands
         figure;
@@ -310,11 +327,19 @@ end
 
 % synthesis
 tic
-[f_reconstruct, reconstruction_banded] = mcsfb_sythesis(G, num_bands, downsampling_sets, analysis_coeffs, shifted_ends, weights_banded, synth_param);
+[f_reconstruct, reconstruction_banded] = mcsfb_synthesis(G, num_bands, downsampling_sets, analysis_coeffs, shifted_ends, weights_banded, synth_param);
 if param.subtract_mean
     f_reconstruct=f_reconstruct+signal_average;
 end
 synth_time=toc
+
+% tic
+% f_reconstruct2 = mcsfb_synth2(G, downsampling_sets, filter_coeffs, analysis_coeffs, synth_param);
+% if param.subtract_mean
+%     f_reconstruct2=f_reconstruct2+signal_average;
+% end
+% synth2_time=toc
+
 
 % plot overall reconstruction
 
@@ -330,6 +355,8 @@ end
 % plot overall reconstruction error
 error=f_reconstruct-initial_signal;
 mse=sum(error.^2)/G.N
+nmse=mse/sum(signal.^2)
+
 error_param.vertex_size=vs;
 figure;
 gsp_plot_signal(G,abs(error),error_param);
@@ -372,3 +399,17 @@ for i=1:num_bands
     mse_by_band(i)=sum((reconstruction_banded{i}-projections{i}).^2)/G.N;
 end
 mse_by_band
+
+
+if strcmp(graph,'temperature')
+    % salt lake atoms
+    slc_inds=find((G.coords(:,1)>-112.0) & (G.coords(:,1)<-111) & (G.coords(:,2)<42) & (G.coords(:,2)>41.5));
+    slc_band1=intersect(slc_inds,downsampling_sets{1});
+
+
+    atom=gsp_cheby_op(G,filter_coeffs(:,1),gsp_delta(G,slc_band1(1)));
+    atom_param.climits=[-max(abs(atom)),max(abs(atom))];
+    figure;
+    gsp_plot_signal(G,atom,atom_param);
+    set(gca,'FontSize',24);
+end

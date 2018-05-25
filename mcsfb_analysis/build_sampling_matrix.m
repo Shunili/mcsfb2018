@@ -9,8 +9,7 @@ function [M, selected] = build_sampling_matrix(G, weights, nb_meas, param)
         replacement = param.replacement;
     end
 
- 
-    if exist('datasample','builtin')
+    if exist('datasample','file')
         if replacement
             ind_obs = datasample(1:G.N, nb_meas, 'Replace', true, 'Weights', weights); 
         else

@@ -109,7 +109,8 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
                 norm_Uk{i}= sum(r.^2, 2);
                 weights{i}=norm_Uk{i}/sum(norm_Uk{i});
                 if param.adapt_weights && (param.subtract_mean || (i>1)) 
-                    weights{i}=norm_Uk{i}.*abs(param.signal_projections(:,i));
+                    %weights{i}=norm_Uk{i}.*abs(param.signal_projections(:,i));
+                    weights{i}=norm_Uk{i}.*log(1+abs(param.signal_projections(:,i)));
                     weights{i}=weights{i}/sum(weights{i});
                 end
             end
@@ -123,7 +124,7 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
             if param.adapt_num_meas % adapted to signal energy (forced to have target number of samples)
                 proj_norms=sqrt(sum(param.signal_projections.^2));
                 %nb_meas=nb_meas.*(proj_norms'.^param.alpha);
-                nb_meas=nb_meas.*(log(proj_norms'));
+                nb_meas=nb_meas.*(log(1+proj_norms'));
                 param.prenormalize_num_meas=1;
                 param.fixed_total_meas=1;
             end

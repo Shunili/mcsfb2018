@@ -54,7 +54,7 @@ if ~isfield(param,'reg_filter')
 else
     param.reg_filter = param.reg_filter;
 end
-
+JCH_reg=0;
 % if param.reg_filter == 1
 %     reg_filter =@(x) 1./(h(x)+reg_eps)-1/(1+reg_eps);
 % else
@@ -157,9 +157,66 @@ else
             range=[0,G.lmax];
             [~, JCH]=gsp_jackson_cheby_coeff(lower, upper, range, order);
             Filtered=gsp_cheby_opX(G,JCH);
-            LHS=Filtered(selected,:);
+            [Q,~]=qr(Filtered,0);
+            LHS=Q(selected,:);
             rec_coef=LHS\values;
-            z=Filtered*rec_coef;
+            z=Q*rec_coef;
+        case 5 % orthogonal projection method onto \tilde{h}_m(L)X; see Algorithm 5.1 of Saad book
+            lower_wide=lower-(upper-lower)/4;
+            upper_wide=upper+(upper-lower)/4;
+            delta=.15*(upper-lower);
+            num_per_side=4;
+            tt=[0,(lower_wide-delta)/2,linspace(lower_wide-delta,lower_wide,num_per_side),linspace(upper_wide,upper_wide+delta,num_per_side),(G.lmax+upper_wide+delta)/2,G.lmax];
+            if lower==0
+                zero_pen=0;
+            else
+                zero_pen=((lower_wide-delta)/G.lmax+1);
+            end
+
+            if upper>=G.lmax
+                high_pen=0;
+            else
+                high_pen=(2-(upper_wide+delta)/G.lmax);
+            end
+
+            ftt=[zero_pen,((lower_wide-delta)/(2*G.lmax)+1),linspace(1,0,num_per_side),linspace(0,1,num_per_side),(1.5-(upper_wide+delta)/(2*G.lmax)),high_pen]; 
+            pp = pchip(tt, ftt);
+            pen=@(x)ppval(pp,x);
+            penc=gsp_cheby_coeff(G,pen,order,grid_order);
+            kk=1:order;
+            damping_coeffs=((1-kk/(order+2))*sin(pi/(order+2)).*cos(kk*pi/(order+2))+(1/(order+2))*cos(pi/(order+2))*sin(kk*pi/(order+2)))/sin(pi/(order+2));
+            damping_coeffs=[1,damping_coeffs]';
+            penc=penc.*damping_coeffs;
+            LHS=@(z) B*z+gsp_cheby_op(G,penc,z);
+            normb=norm(right_side);
+            z=zeros(G.N,1);
+            z(selected)=values;
+            range=[0,G.lmax];
+            [~, JCH]=gsp_jackson_cheby_coeff(lower, upper, range, order);
+            V=gsp_cheby_opX(G,JCH);
+   
+            for i=1:param.pcgmaxits
+                r=right_side-LHS(z);
+                relresid=norm(r)/normb
+                if relresid < param.pcgtol
+                    display('Stopped after %d iterations',i-1);
+                    break;
+                end
+                Vm=V(:,1:i);
+                Wm=Vm;
+                ylhs=Wm'*LHS(Vm);
+                y=ylhs\(Wm'*r);
+                z=z+Vm*y;
+            end
+        case 6 % generalize SGWT least squares reconstruction
+            analysis_upsampled=zeros(G.N,1);
+            analysis_upsampled(selected)=values;
+            range=[0,G.lmax];
+            [~, JCH]=gsp_jackson_cheby_coeff(lower, upper, range, order);
+            right_side=gsp_cheby_op(G,JCH,analysis_upsampled,param);
+            MtM=sparse(selected,selected,ones(length(selected),1),G.N,G.N);
+            LHS=@(z) gsp_cheby_op(G,JCH,MtM*gsp_cheby_op(G,JCH,z,param),param);
+            z=pcg(LHS,right_side,param.pcgtol,param.pcgmaxits);
         otherwise
             error('Unknown reconstruction method');
     end    
