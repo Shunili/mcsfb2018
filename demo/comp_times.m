@@ -5,11 +5,11 @@ rand('seed',0);
 randn('seed',0);
 
 % Main parameters to explore
-adapted=1; % downsampling sets and number of measurements adapted to signal
-exact = 0;
-scenarioA = 0;
-method='gft'; % 'mcsfb' or 'diffusion' or 'qmf' of 'gft'
-graph='net25';
+adapted=0; % downsampling sets and number of measurements adapted to signal
+exact = 1;
+scenarioA = 1;
+method='mcsfb'; % 'mcsfb' or 'diffusion' or 'qmf' of 'gft'
+graph='sensor';
 
 % Other parameters
 num_bands = 5;
@@ -44,7 +44,7 @@ switch graph
         G=gsp_comet(100,20);
     case 'bunny'
         G=gsp_bunny();
-        load('/Users/davidshuman/Dropbox/Current Research Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/demo/pwbunny_signal.mat');
+        load('/Users/davidshuman/Dropbox/Current_Research_Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/demo/pwbunny_signal.mat');
         signal=pwbunny_signal;
         vs=80;
         plim=[-2.5,2.5];
@@ -54,7 +54,7 @@ switch graph
         G=gsp_community(N,comm_param);
         signal=randn(G.N,1);
     case 'net25' 
-%        load('/Users/davidshuman/Dropbox/Current Research Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/net25_data/net25.mat');
+        load('/Users/davidshuman/Dropbox/Current_Research_Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/Data/net25_data/net25.mat');
         A=Problem.A;
         A = A - diag(diag(A)); 
         A(4228,6327) = 1;
@@ -62,7 +62,7 @@ switch graph
         G=gsp_graph(A);
         signal=randn(G.N,1);
     case 'temperature'
-        MyData=csvread('/Users/davidshuman/Dropbox/Current Research Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/Data/MyData2.csv');
+        MyData=csvread('/Users/davidshuman/Dropbox/Current_Research_Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/Data/MyData2.csv');
         avg_temp=MyData(:,1);
         coords=MyData(:,2:3);
         inds=MyData(:,4);
@@ -101,6 +101,7 @@ is_connected=gsp_check_connectivity(G)
 if exact
     adapted=0;
     param.exact_downsampling_partition=1;
+    param.subtract_mean=0;
 elseif scenarioA 
     param.order=25; % used for density estimation and analysis filtering
     synth_param.order=param.order; 
@@ -124,28 +125,45 @@ switch method
         f_reconstruct=gsp_igft(G,fhat);
         synth_time=toc
     case 'qmf'
-    cheb_approx=50;
-    tic
-    %if G.N>1000
-     
-    qmf_param.color_method='dsatur'; % the BSC coloring method is too slow for this one
-    [qmf_1,qmf_param]=usc_qmf_analysis(G,signal,cheb_approx,qmf_param);
-    %else
-    %    [qmf_1,qmf_param]=qmf_analysis(G,signal,cheb_approx);
-    %end
-    setup_analysis_time=toc
+        cheb_approx=50;
+        tic
+        qmf_param.color_method='dsatur'; % the BSC coloring method is too slow for this one
+        [qmf_coeffs,qmf_struct]=usc_qmf_analysis(G,signal,cheb_approx,qmf_param);
+        setup_analysis_time=toc
+        
+        num_bands=qmf_struct.Fmax
+        
+        tic
+        f_reconstruct=usc_qmf_synthesis(G,qmf_coeffs,qmf_struct);
+        synth_time=toc
     
     case 'diffusion'
         tic
-        G=gsp_compute_fourier_basis(G);
         % diffusion operator
-        tau=1;
-        heat_kernel=@(x) exp(-tau*x);
-        T=G.U*diag(heat_kernel(G.e))*G.U';
+        diff_op='ImL2'; % 'ImL' or 'ImL2' 'heat'
+        switch diff_op
+            case 'heat'
+                G=gsp_compute_fourier_basis(G);
+                tau=1;
+                heat_kernel=@(x) exp(-tau*x);
+                T=G.U*diag(heat_kernel(G.e))*G.U';
+            case 'ImL' %I-normalized Laplacian
+                sqrtd=G.d.^(-.5);
+                Dmhalf=spdiags(sqrtd,0,G.N,G.N);
+                T=Dmhalf*G.W*Dmhalf;
+                % T=eye(G.N)-G.L;
+            case 'ImL2'
+                %T=eye(G.N)-G.L;
+                sqrtd=G.d.^(-.5);
+                Dmhalf=spdiags(sqrtd,0,G.N,G.N);
+                T=Dmhalf*G.W*Dmhalf;
+                T=T^2;
+        end
+        
         Tree = DWPTree (T, num_bands-1, 1e-4, ...
-                struct('Wavelets', true, 'OpThreshold', 1e-2, ...
-                'GSOptions', struct('StopDensity', 1, 'Threshold', 1e-3), ...
-                'Symm', true));
+               struct('Wavelets', true, 'OpThreshold', 1e-2, ...
+               'GSOptions', struct('StopDensity', 10), ...
+               'Symm', true));
         setup_time=toc
         tic
         CoeffTree = DWCoeffs(Tree, signal);

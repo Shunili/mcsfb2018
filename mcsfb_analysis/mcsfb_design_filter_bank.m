@@ -33,20 +33,12 @@ if gsp_check_fourier(G)
                 idx = floor(G.N*(1/2)^k);
                 shifted_ends(num_bands-k+1) = (G.e(idx)+G.e(idx+1))/2;
             end
-            
-            for l = 1:num_bands
-                filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
-            end
         else
-            % 2.spectrum_adapted = 0; spacing = even; check_fourier=1;
+            % 2.spectrum_adapted = 0; spacing = log; check_fourier=1;
             for k = 1:num_bands-1
                 eigen = G.lmax*(1/2)^k;
                 [~,idx] = min(abs(G.e-eigen));
                 shifted_ends(num_bands-k+1) = (G.e(idx)+G.e(idx+1))/2;
-            end
-
-            for l = 1:num_bands
-                filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x < shifted_ends(l+1)));
             end
         end  
     else
@@ -56,10 +48,6 @@ if gsp_check_fourier(G)
                 idx = floor(G.N/num_bands*k);
                 shifted_ends(k+1) = (G.e(idx)+G.e(idx+1))/2;
             end
-
-            for l = 1:num_bands
-                filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
-            end
         else
             % 4. spectrum_adapted = 0; spacing = even; check_fourier=1; 
             for k = 1:num_bands-1
@@ -67,10 +55,15 @@ if gsp_check_fourier(G)
                 [~,idx] = min(abs(G.e-eigen));
                 shifted_ends(k+1) = (G.e(idx)+G.e(idx+1))/2;
             end
-
-            for l = 1:num_bands
-                filter_bank{l}=@(x) ((shifted_ends(l) <= x) & (x <= shifted_ends(l+1)));
-            end
+        end
+    end
+    for l = 1:num_bands
+        if l==1
+            filter_bank{l}=@(x) (x <= shifted_ends(2));
+        elseif l==num_bands
+            filter_bank{l}=@(x) (shifted_ends(l) < x);
+        else
+            filter_bank{l}=@(x) ((shifted_ends(l) < x) & (x <= shifted_ends(l+1)));
         end
     end
     band_ends = shifted_ends; % for debugging only

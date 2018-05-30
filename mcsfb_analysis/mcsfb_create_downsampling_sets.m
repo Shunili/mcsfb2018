@@ -63,16 +63,10 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
         for i=1:num_bands
             subband_ids(filter_bank{i}(G.e)~=0)=i;% if some eigenvalues are included in multiple filters, this code will put them in the last one 
         end
-%         subband_ids(1:floor(G.N*(1/2)^(num_bands-1)),:) = ones(floor(G.N*(1/2)^(num_bands-1)), 1);
-%          t = 2;
-%         for i=num_bands-1:-1:0
-%             subband_ids((floor(G.N*(1/2)^(i+1))+1):floor(G.N*(1/2)^i),:) = t*ones(floor(G.N*(1/2)^i)-(floor(G.N*(1/2)^(i+1))+1)+1,1);
-%             t = t + 1;
-%         end
         partition_ids = part_mat(G.U,subband_ids,param);
         for i=1:num_bands
             downsampling_sets{i}=find(partition_ids==i);
-            second_output{i}=(filter_bank{i}(G.e)~=0);
+            second_output{i}=(subband_ids==i); %(filter_bank{i}(G.e)~=0);
         end
         
     else
@@ -90,7 +84,7 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
                 h = filter_bank{i};
                 nb_meas(i) = sum(h(G.e)); %+extra_samps; % m: num eigenvalues in band, will need to estimate if don't have exact eigenvalues
                 norm_Uk{i}= sum(G.U.^2, 2);
-                weights{i}=norm_Uk/sum(norm_Uk);
+                weights{i}=norm_Uk{i}/sum(norm_Uk{i});
 
             else
                 %nb_meas = round((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);

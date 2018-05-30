@@ -160,7 +160,7 @@ is singular, implying
 \mbox{span}({\bf u}_{k}, {\bf u}_{k+1},\ldots, {\bf u}_{N-1}, {\boldsymbol \delta}_{\mathcal{S}_{1}}, {\boldsymbol \delta}_{\mathcal{S}_{2}}, \ldots, {\boldsymbol \delta}_{\mathcal{S}_k}) \neq \mathbb{R}^N.
 \end{align}
 Since 
-$$\mbox{dim}(\mbox{span}({\bf u}_{k}, {\bf u}_{k+1},\ldots, {\bf u}_{N-1}))=N-k$$ and $$\mbox{dim}(\mbox{span}({\boldsymbol \delta}_{S_{1}}, {\boldsymbol \delta}_{S_{2}}, \ldots, {\boldsymbol \delta}_{\mathcal{S}_k}))=k,$$ equation 
+$\mbox{dim}(\mbox{span}({\bf u}_{k}, {\bf u}_{k+1},\ldots, {\bf u}_{N-1}))=N-k$ and $\mbox{dim}(\mbox{span}({\boldsymbol \delta}_{S_{1}}, {\boldsymbol \delta}_{S_{2}}, \ldots, {\boldsymbol \delta}_{\mathcal{S}_k}))=k,$ equation 
 \eqref{Eq:span} implies that
 there must exist a vector ${\bf x} \neq {\bf 0}$ such that 
 \begin{align*}
@@ -188,7 +188,8 @@ where the sign $\sigma_{\alpha_1,\beta_1}$ of the permutation determined by $\al
 \begin{align}\label{Eq:detM}
 \mbox{det}(\mathbf{A})~=~\sum_{\mathclap{\{\hbox{Partitions } \alpha \hbox{ of }\{1,2,\ldots,N\}: |\alpha_i|=|\beta_i|~\forall i \}}}~~\sigma_{\alpha}~{\textstyle \prod_{i=1}^M}~\mbox{det}(\mathbf{A}_{\alpha_i,\beta_i}),
 \end{align}
-where again $\sigma_\alpha$ is always 1 or -1 and one of the terms in the summation in \eqref{Eq:detM} must be nonzero, yielding the desired partition. 
+where again $|\sigma_\alpha|=1$, % is always 1 or -1 
+and one of the terms in the summation in \eqref{Eq:detM} must be nonzero, yielding the desired partition. 
 \end{proof}
 \begin{corollary}\label{Co:part_uniq}
 For any %arbitrary 
@@ -199,7 +200,7 @@ $\V_m$ is a uniqueness set for $\mbox{col}\left(\mathbf{U}_{{\cal R}_m}\right)$.
 \end{corollary}
 \begin{proof}
 By Proposition \ref{Pr:mat_part}, we can find a partition such that $\mathbf{U}_{\V_m,{\cal R}_m}$ is nonsingular for all $m$. Let $\mathbf{E}_m$ be the matrix formed by joining the $k_m$ columns of  $\mathbf{U}$ indexed by ${\cal R}_m$ with $N-k_m$ Kronecker deltas centered on all vertices not included in $\V_m$. By Lemma \ref{Le:eq_uniq}, it suffices to show that the matrices $\mathbf{E}_m$ are all nonsingular. Yet, for all $m$, we have
-$$|\mbox{det}(\mathbf{E}_m)|=|\mbox{det}(\mathbf{U}_{\V_m,{\cal R}_m})| \neq 0.$$
+$|\mbox{det}(\mathbf{E}_m)|=|\mbox{det}(\mathbf{U}_{\V_m,{\cal R}_m})| \neq 0.$
 \end{proof}
 
 Corollary \ref{Co:part_uniq} ensures the existence of the desired partition, and the proof of Proposition \ref{Pr:mat_part} suggests that we can find it inductively. However, given a partition of the columns of ${\mathbf{A}}$ into two sets $\mathcal{T}$ and $\mathcal{T}^c$, Proposition \ref{Pr:mat_part} does not provide a constructive method to partition the rows of ${\mathbf{A}}$ into two sets $\mathcal{S}$ and $\mathcal{S}^c$ such that the submatrices ${\mathbf{A}}_{{\mathcal{S}},{\mathcal{T}}}$ and ${\mathbf{A}}_{{\mathcal{S}^c},{\mathcal{T}}^c}$ are nonsingular. This problem is studied in the more general framework of matroid theory in \cite{greene_magnanti}, which gives an algorithm to find the desired row partition into two sets. We summarize this method in Algorithm \ref{Al:uniqueness}, which takes in a partition $\{{\cal R}_1,{\cal R}_2,\ldots {\cal R}_M \}$ of the spectral indices and constructs the partition $\{\V_1,\V_2,\ldots,\V_M\}$ of the vertices. In Fig. \ref{Fig:part_examples}, we show two examples of the resulting partitions.
@@ -256,7 +257,8 @@ to find an initial choice for $\gamma_2$.  %We discuss this issue further in Sec
 We now briefly examine some properties of the proposed transform. 
 \subsubsection{Dictionary atoms}
 Let ${\bf M}_m \in \R^{|{\cal V}_m| \times N}$ be the downsampling matrix for the $m^{th}$ channel. That is, ${\bf M}_m(i,j)=1$ if vertex $j$ is the $i^{th}$ element of ${\cal V}_m$, and 0 otherwise. The proposed transform is a linear mapping ${\cal F}: \R^N \rightarrow \R^N$ by ${\cal F}{\bf f} = {\bf Tf}$, where 
-\begin{align*}
+%\begin{align*}
+$
 {\bf T}=\left[
 \begin{array}{c}
 {\bf M}_1 h_1(\L) \\  \hdashline[.05cm/.05cm]
@@ -265,7 +267,9 @@ Let ${\bf M}_m \in \R^{|{\cal V}_m| \times N}$ be the downsampling matrix for th
 {\bf M}_M h_M(\L)
 \end{array}
 \right] \in \R^{N \times N}.
-\end{align*}
+$
+%\end{align*}
+
 The atoms of the resulting dictionary are given by the columns of ${\bf T}^{\top}$. While the transform is not orthogonal, each atom is orthogonal to all atoms concentrated on other spectral bands. Informally, this is because the atoms are projections of Kronecker deltas onto the orthogonal subspaces spanned by the Laplacian eigenvectors of each band. More formally, each atom is of the form $h_m(\L){\boldsymbol \delta}_i$, where vertex $i$ is in ${\cal V}_m$. If $m \neq m^{\prime}$, then the inner product of the two atoms from different bands is given by
 \begin{align} \label{Eq:ortho_bands}
 &\langle h_m(\L){\boldsymbol \delta}_i , h_{m^{\prime}}(\L){\boldsymbol \delta}_{i^{\prime}} \rangle \nonumber \\
@@ -498,9 +502,13 @@ therefore use the Jackson-Chebyshev polynomial approximations from \cite{di2016e
 \alpha_0=\frac{1}{2}c_0 \hbox{ and }\alpha_k=\gamma_{k,K}c_k \hbox{ for }k=1,2,\ldots,K, 
 \end{align}
 where, as presented in \cite{di2016efficient}, 
+%\begin{align}
+%\gamma_{k,K} &= \frac{\left(1-\frac{k}{K+2}\right)\sin\left(\frac{\pi}{K+2}\right)\cos\left(\frac{k\pi}{K+2}\right)}{\sin\left(\frac{\pi}{K+2}\right)} \nonumber \\
+%&~~~~+~\frac{\frac{1}{K+2}\cos\left(\frac{\pi}{K+2}\right)\sin\left(\frac{k\pi}{K+2}\right)}{\sin\left(\frac{\pi}{K+2}\right)}. \label{Eq:damping2}
+%\end{align}
 \begin{align}
-\gamma_{k,K} &= \frac{\left(1-\frac{k}{K+2}\right)\sin\left(\frac{\pi}{K+2}\right)\cos\left(\frac{k\pi}{K+2}\right)}{\sin\left(\frac{\pi}{K+2}\right)} \nonumber \\
-&~~~~+~\frac{\frac{1}{K+2}\cos\left(\frac{\pi}{K+2}\right)\sin\left(\frac{k\pi}{K+2}\right)}{\sin\left(\frac{\pi}{K+2}\right)}. \label{Eq:damping2}
+&\gamma_{k,K} =\label{Eq:damping2}\\
+& \frac{(1-\frac{k}{K+2})\sin(\frac{\pi}{K+2})\cos(\frac{k\pi}{K+2})+\frac{1}{K+2}\cos(\frac{\pi}{K+2})\sin(\frac{k\pi}{K+2})}{\sin(\frac{\pi}{K+2})}.  \nonumber
 \end{align}
 %{\color{blue} Reference 
 Fig. \ref{Fig:approx_filtering_error} shows the Jackson-Chebyshev polynomial approximations for ideal bandpass filters of two different graphs.\footnote{For the net25 graph, we have removed the self loops and added a single edge to connect the two connected components.}
@@ -1502,14 +1510,16 @@ for the non-adapted and adapted transforms, respectively.} \label{Fig:temperatur
 \cline{2-16}
 & Anal. \newline Time &  Synth. \newline Time & Rec. \newline NMSE  & Anal. \newline Time &  Synth. \newline Time & Rec. \newline NMSE & Anal. \newline Time &  Synth. \newline Time & Rec. \newline NMSE & Anal. \newline Time &  Synth. \newline Time & Rec. \newline NMSE & Anal. \newline Time & Synth. \newline Time & Rec. \newline NMSE   \\ 
 \cline{1-16}
-%\multicolumn{1}{|L{2.6cm}|}{Diffusion Wavelets \cite{coifman2006diffusion}}  & 3.9 & 0.02 & 1.5e-33 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-%\cline{1-16}
-\multicolumn{1}{|L{2.6cm}|}{Graph Fourier Transform}  & 0.2 & 0.01 & 1.1e-32 & 10.6 & 0.02 & 9.8e-33 & 358.1 & 0.08 & 1.5e-32 & NA & NA & NA & NA & NA & NA \\
+\multicolumn{1}{|L{2.6cm}|}{Graph Fourier Transform}  & 0.2 & 0.01 & 1.1e-32 & 10.6 & 0.02 & 9.8e-33 & 358.1 & 0.08 & 1.5e-32 & 8544.8 & 0.6 & 1.8e-32 & NA & NA & NA \\
 \cline{1-16}
-%\multicolumn{1}{|L{2.6cm}| }{Graph-QMF \cite{narang2012perfect}} & 0 & 0& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-%\cline{1-16}
-%\multicolumn{1}{ |L{2.6cm}| }{Exact $M$-CSFB}& 6.0 & 0.1& 1.7e-8 & 1384.4 & 0.2 & 6.5e-5 & 0 & 0 & 0 & 0 & 0 & 0 & NA& NA & NA \\
-%\cline{1-16}
+\multicolumn{1}{ |L{2.6cm}| }{Exact $M$-CSFB}& 6.0 & 0.1& 1.7e-8 & 1384.4 & 0.2 & 6.5e-5 & 0 & 0 & 0 & 0 & 0 & 0 & NA& NA & NA \\
+\cline{1-16}
+\multicolumn{1}{|L{2.6cm}|}{Diffusion Wavelets \cite{coifman2006diffusion}}  & 8.5 & 0.03 & 2.4e-33 & 313.9 & 0.02 & 4.6e-33 & 14354 & 0.3 & 1.1e-30 & NA & NA & NA & NA & NA & NA \\
+\cline{1-16}
+
+\multicolumn{1}{|L{2.6cm}| }{Graph-QMF \cite{narang2012perfect}} & 0.6 & 0.1& 1.1e-10 & 4.9 & 3.4 & 1.3e-11 & 38.4 & 21.0 & 3.5e-13 & 1062.7 & 978.0 & 2.4e-12 & NA & NA & NA \\
+\cline{1-16}
+
 \multicolumn{1}{|L{2.6cm}| }{Fast $M$-CSFB (A)}& 0.6 & 0.5& 1.4e-4 & 0.8 & 0.9 & 4.4e-5 &2.3 & 3.1 &1.7e-5 & 2.8 & 12.4 & 9.0e-6 & 55.1 & 94.5 & 5.1e-8 \\
 \cline{1-16}
 \multicolumn{1}{|L{2.6cm}|}{Fast $M$-CSFB (B)} & 0.7& 1.0& 1.8e-4 & 0.9 & 3.7 & 1.7e-5 & 1.4 & 12.1 & 1.4e-5 & 4.4 & 71.7 & 6.2e-6 & 91.6 & 874.3 & 2.5e-8 \\
@@ -1526,9 +1536,9 @@ for the non-adapted and adapted transforms, respectively.} \label{Fig:temperatur
 \vspace{-.5cm}
 \end{table*}
 
-In Table \ref{Ta:comp_times}, we compare the computation times of the proposed transform to that of the exact graph Fourier transform (i.e., a full diagonalization of $\L$), for five different graphs. The community graph has 100 communities. We display the analysis and synthesis times in seconds.
+In Table \ref{Ta:comp_times}, we compare the computation times of the proposed transform to that of the exact graph Fourier transform (i.e., a full diagonalization of $\L$), for five different graphs. The community graph has 100 communities. We display the analysis and synthesis times in seconds. For the diffusion wavelets \cite{coifman2006diffusion}, we use five scales (one scaling and four wavelets), and a precision of $\epsilon=1\hbox{e-4}$. For the graph quadrature mirror filter bank \cite{narang2012perfect}, we use a polynomial approximation order of $K=50$.
 %, as well as the NMSE for each graph and each method. 
-For both the original fast $M$-CSFB and the signal adapted version, we consider two scenarios. Scenario A is faster, but less accurate, with $K=25$, a conjugate gradient (CG) tolerance of 1e-8, and a maximum of 100 CG iterations. For Scenario B, we take $K=50$, the CG tolerance to be 1e-10, and a maximum of 250 iterations. For all cases, we let $J=30$ and $\gamma=1$, and subtract out the mean of the signal before applying the filter bank. For larger graphs, the full diagonalization is not possible due to memory limits. We use the signals shown above for the sensor network, bunny graph, and temperature network, and random noise vectors for the other two graphs.
+For both the original fast $M$-CSFB and the signal adapted version, we consider two scenarios. Scenario A is faster, but less accurate, with $K=25$, a conjugate gradient (CG) tolerance of 1e-8, and a maximum of 100 CG iterations. For Scenario B, we take $K=50$, the CG tolerance to be 1e-10, and a maximum of 250 iterations. For all $M$-CSFB cases, we let $M=5$, $J=30$ and $\gamma=1$, and subtract out the mean of the signal before applying the filter bank. For larger graphs, calculations such as a  full diagonalization are either not possible due to memory limits or would take in excess of a day to compute. We denote these by NA. We apply all transforms to the signals shown above for the sensor network, bunny graph, and temperature network, and random noise vectors for the other two graphs.
 %\begin{itemize}
 %%\item Another constructive example? Denoising? Machine learning? 
 %\item Add computation times

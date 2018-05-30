@@ -4,8 +4,8 @@ rand('seed',1);
 randn('seed',1);
 show_spectral=1;
 extra_plots=0;
-for_paper=1;
-extra_sim=1;
+for_paper=0;
+extra_sim=0;
 
 % Main parameters to explore
 num_bands = 4;
@@ -22,7 +22,7 @@ param.num_vec=50;
 
 % Load bunny graph and piecewise smooth signal
 G=gsp_bunny();
-load('/Users/davidshuman/Dropbox/Current Research Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/demo/pwbunny_signal.mat');
+load('/Users/davidshuman/Dropbox/Current_Research_Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/demo/pwbunny_signal.mat');
 signal=pwbunny_signal;
 signal=signal-mean(signal);
 
@@ -137,7 +137,7 @@ for k=1:num_trials
         [reconstruction, JCH_reg]= mcsfb_reconstruct_band2(G, selected(1:nb_meas(i)), analysis_coeffs, low_limit, up_limit, weights(selected(1:nb_meas(i))), synth_param);
         error(:,i,k)=filtered-reconstruction;
         mse=sum(error(:,i,k).^2)/G.N;
-        nmse(i)=nmse(i)+mse/sum(filtered.^2);
+        nmse(i)=nmse(i)+G.N*mse/sum(filtered.^2);
     end
 end
 nmse=nmse/num_trials;
@@ -173,8 +173,8 @@ end
 adapted_nmse=adapted_nmse/num_trials;
 
 figure;
-h=semilogy(nb_meas,[nmse,adapted_nmse],'-o','LineWidth',3,'MarkerSize',7);
-set(h, {'MarkerFaceColor'}, get(h,'Color')); 
+plot1=semilogy(nb_meas,[nmse,adapted_nmse],'-o','LineWidth',3,'MarkerSize',7);
+set(plot1, {'MarkerFaceColor'}, get(plot1,'Color')); 
 xlabel('Number of Samples');
 ylabel('Average Normalized MSE');
 set(gca,'FontSize',24);
