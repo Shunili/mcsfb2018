@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  8 MAY 2018 03:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  14 MAY 2018 00:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -733,9 +733,6 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 
 LaTeX Warning: Label `Al:uniqueness' multiply defined.
 
-
-LaTeX Warning: Label `Al:uniqueness' multiply defined.
-
 )
 \openout1 = `write-up.aux'.
 
@@ -1265,15 +1262,15 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [9 <./fig_rational_filter_error_band_pass_bunny.pdf> <./fig_rational_filter_err
 or_spectral_band_pass_bunny.pdf> <./fig_reg_filter_error_band_pass_bunny.pdf> <
 ./fig_reg_filter_error_spectral_band_pass_bunny.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 445.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 446.
  [10 <./fig_rational_filter_error_low_pass_bunny.pdf> <./fig_rational_filter_er
 ror_spectral_low_pass_bunny.pdf> <./fig_reg_filter_error_low_pass_bunny.pdf> <.
 /fig_reg_filter_error_spectral_low_pass_bunny.pdf> <./fig_samples_error_trade_o
 ff_low_pass_2.pdf> <./fig_samples_error_trade_off_band_pass2.pdf>] [11]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 445.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 446.
  (./write-up.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 445.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 445.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 446.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 446.
 Package rerunfilecheck Info: File `write-up.out' has not changed.
 (rerunfilecheck)             Checksum: BBAD459E123651FB5052D8B0A6D6C7D7;777.
 
@@ -1283,13 +1280,13 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 445.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 446.
  ) 
 Here is how much of TeX's memory you used:
- 19953 strings out of 493014
- 363114 string characters out of 6133351
- 449620 words of memory out of 5000000
- 23039 multiletter control sequences out of 15000+600000
+ 19961 strings out of 493014
+ 363231 string characters out of 6133351
+ 448619 words of memory out of 5000000
+ 23047 multiletter control sequences out of 15000+600000
  25918 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,13n,56p,1115b,489s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1321,7 +1318,7 @@ ive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texliv
 e/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/
 2016/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/20
 16/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on write-up.pdf (11 pages, 33469942 bytes).
+Output written on write-up.pdf (11 pages, 33474144 bytes).
 PDF statistics:
  454 PDF objects out of 1000 (max. 8388607)
  342 compressed objects within 4 object streams

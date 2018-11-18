@@ -395,51 +395,52 @@ We observe a tradeoff between the number of samples and reconstruction error. No
 \begin{algorithm}[h!]
 \caption{A spectrum-adapted and logarithmically spaced filter bank design}
 \begin{algorithmic}
-\State \textbf{Input} a graph $G$, number of bands $M$
-\State Estimate the spectral density function $\tilde{P}_{\lambda}$ for $G$, store $\bar{T}_k(\L)\bf{X}$ and $\bf{X}$ in $G$
-\State Set $\tau_0 = 0$
-\For {$m=1,2,\ldots,M$}%{each frequency set ${\cal R}_m$}
-\State Find the initial band end $\tau_m$ by computing $\tilde{P}_{\lambda}(\frac{1}{2})^{M-m}$
+\State \textbf{Input} graph $G$, number of bands $M$, $\Delta>0$, degree $K$, number of random vectors $J$
+\State Generate a matrix $\bf{X}$ of $J$ random vectors
+\State Compute $\bar{T}_k(\L)\bf{X}$ %\ref{eq 8}
+\State Pick linearly spaced point $T$
+\For {$i=1,2,\ldots,T$}
+\State Approximate $\eta_{i}$ using %\ref{eq 13}
 \EndFor
-\State Set $\tau_0^* = 0$, $\tau_M^* = \tau_M$, 
+\State Estimate the spectral density function $\tilde{P}_{\lambda}$ by performing monotonic cubic interpolation on the set of points $\{\xi_i, \frac{\eta_i}{N} \}$ 
+
+\For {$m=1,2,\ldots,M$}
+\State Compute the initial band end: $\tau_m = \tilde{P}_{\lambda}^{-1}(\frac{1}{2}^{M-m})$
+\EndFor
+\State Set $\tau_0^* = \tau_0 = 0$, $\tau_M^* = \tau_M$, 
 \For {$m = 1,\cdots, M-1$}
-\State Find the searching radius $r = \text{min} \{\frac{\tau_m-\tau_{m-1}}{2}, \frac{\tau_{m+1}-\tau_m}{2}\}$
-\State Set the search interval ${\cal I}_m = [\tau_m-r, \tau_m+r]$
-\State Update the band ends $\tau_m^* = \underset{\tau \in {\cal I}_m}{\text{argmin}} \left\{\frac{\tilde{P}_{\lambda}(\tau+\Delta)-\tilde{P}_{\lambda}(\tau-\Delta)}{2\Delta}\right\}$ for $\Delta>0$
+\State Set the search radius: $r = \text{min} \{\frac{\tau_m-\tau_{m-1}}{2}, \frac{\tau_{m+1}-\tau_m}{2}\}$
+\State Set the search interval: ${\cal I}_m = [\tau_m-r, \tau_m+r]$
+\State Update the band ends: $\tau_m^* = \underset{\tau \in {\cal I}_m}{\text{argmin}} \left\{\frac{\tilde{P}_{\lambda}(\tau+\Delta)-\tilde{P}_{\lambda}(\tau-\Delta)}{2\Delta}\right\}$
 \EndFor
-\For {$m=1,2,\ldots,M$}%{each frequency set ${\cal R}_m$}
-\State Construct the ideal filter $h_m(\lambda)$
-\State Construct the polynomial approximated filter $\tilde{h}_m(\lambda)$ using Jackson Chebyshev method
+\For {$m=1,2,\ldots,M$}
+\State Construct the ideal filter $h_m(\lambda)$ according to (1) using $\tau_{m-1}^*$ and $\tau_m^*$%refer to equation 
+%\State Construct the polynomial approximated filter $\tilde{h}_m(\lambda)$ using Jackson Chebyshev method
 \EndFor
-\State \textbf{Output} the filter bank with $M$ polynomial approximated filters $\{ \tilde{h}_1(\lambda), \tilde{h}_2(\lambda), \cdots, \tilde{h}_M(\lambda)\}$, updated band ends $\{\tau_0^*, \tau_1^*, \cdots, \tau_M^*\}$
+\State \textbf{Output} $\bf{X}$, $\bar{T}_k(\L)\bf{X}$, 
+polynomial filters $\{ \tilde{h}_1(\lambda), \tilde{h}_2(\lambda), \cdots, \tilde{h}_M(\lambda)\}$, where each $\tilde{h}_m(\lambda)$ is a degree $K$ Jackson-Chebyshev polynomial approximation to  $h_m(\lambda)$ %updated band ends $\{\tau_0^*, \tau_1^*, \cdots, \tau_M^*\}$
 \end{algorithmic}
 \label{Al:uniqueness}
 \end{algorithm}
 
 \begin{algorithm}[h!]
-\caption{Compute sampling weights}
+\caption{Compute downsampling sets}
 \begin{algorithmic}
-\State \textbf{Input} a graph $G$, number of bands $M$
-\State Estimate the spectral density function $\tilde{P}_{\lambda}$ for $G$, store $\bar{T}_k(\L)\bf{X}$ and $\bf{X}$ in $G$
-\State Set $\tau_0 = 0$
-\For {$m=1,2,\ldots,M$}%{each frequency set ${\cal R}_m$}
-\State Find the initial band end $\tau_m$ by computing $\tilde{P}_{\lambda}(\frac{1}{2})^{M-m}$
-\EndFor
-\State Set $\tau_0^* = 0$, $\tau_M^* = \tau_M$, 
-\For {$m = 1,\cdots, M-1$}
-\State Find the searching radius $r = \text{min} \{\frac{\tau_m-\tau_{m-1}}{2}, \frac{\tau_{m+1}-\tau_m}{2}\}$
-\State Set the search interval ${\cal I}_m = [\tau_m-r, \tau_m+r]$
-\State Update the band ends $\tau_m^* = \underset{\tau \in {\cal I}_m}{\text{argmin}} \left\{\frac{\tilde{P}_{\lambda}(\tau+\Delta)-\tilde{P}_{\lambda}(\tau-\Delta)}{2\Delta}\right\}$ for $\Delta>0$
-\EndFor
-\For {$m=1,2,\ldots,M$}%{each frequency set ${\cal R}_m$}
-\State Construct the ideal filter $h_m(\lambda)$
-\State Construct the polynomial approximated filter $\tilde{h}_m(\lambda)$ using Jackson Chebyshev method
-\EndFor
-\State \textbf{Output} he filter bank with $M$ polynomial approximated filters $\{ \tilde{h}_1(\lambda), \tilde{h}_2(\lambda), \cdots, \tilde{h}_M(\lambda)\}$, updated band ends $\{\tau_0^*, \tau_1^*, \cdots, \tau_M^*\}$
-\end{algorithmic}
-\label{Al:uniqueness}
-\end{algorithm}
+\State \textbf{Input} graph $G$, number of bands $M$, number of random vectors $J$, random vectors $\bf{X}$, polynomial filters $\{ \tilde{h}_1(\lambda), \tilde{h}_2(\lambda), \cdots, \tilde{h}_M(\lambda)\}$, signal $f$
+\For {$m=1,2,\ldots,M$}
+\State Compute $\tilde{U}_m = \tilde{h}(\L)\bf{X}$
+\State Set the weight for each vertex $i \in \V$: ${\boldsymbol \omega}_m(i) = ||\tilde{U}_m(:,i)||^2_2$
+\If{adapted weights}
+\State Update ${\boldsymbol \omega}_m(i) = {\boldsymbol \omega}_m(i) * \tilde{h}_m(f)(i)$
+\EndIf
+\State Normalize weights: ${\boldsymbol \omega}_m=\frac{{\boldsymbol \omega}_m}{sum({\boldsymbol \omega}_m)}$
 
+\State Set the number of samples: $n_m = \frac{X^T \tilde{U}_m}{J}$ 
+\State Set downsampling set $\V_m$ by sampling vertices $\V$ according to ${\boldsymbol \omega}_m$
+\EndFor
+\State \textbf{Output} downsampling sets $\{\V_1,\V_2, \cdots, \V_M\}$
+\end{algorithmic}
+\end{algorithm}
 
 
 \end{document}
