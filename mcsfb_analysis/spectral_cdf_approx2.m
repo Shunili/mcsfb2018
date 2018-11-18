@@ -42,6 +42,17 @@ switch cdf_method
 
     for j=2:param.num_pts-1
         [~, jch] = gsp_jackson_cheby_coeff(0,param.pts(j),[0,G.lmax], param.order);
+        if j==75 
+            figure;
+            xxx=0:.001:G.lmax;
+            yyy1=gsp_cheby_eval(xxx,jch,[0,G.lmax]);
+            plot(xxx,yyy1,'LineWidth',3);
+            hold on;
+        end
+        if j==76 
+            yyy2=gsp_cheby_eval(xxx,jch,[0,G.lmax]);
+            plot(xxx,yyy2,'r','LineWidth',3);
+        end
         r=gsp_cheby_opX(G,jch);
         vals(j)=gsp_hutch(G,r);
     end
@@ -50,6 +61,13 @@ switch cdf_method
         vals(1)=vals(2);
     end
     vals=min(vals,1);
+    
+    for i=1:param.num_pts-1
+        if vals(i+1)<vals(i)
+            vals(i+1)=vals(i);
+        end
+    end
+    
     G.spectrum_cdf_approx = @(s) gsp_mono_cubic_warp_fn(param.pts',vals,s);
     
     case 'ldlt'

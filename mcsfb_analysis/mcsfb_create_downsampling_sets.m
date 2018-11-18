@@ -10,8 +10,24 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
         param.exact_downsampling_partition=0;
     end
     
+    if ~isfield(param,'prenormalize_num_meas')
+        param.prenormalize_num_meas=1;
+    end
+    
+%     if ~isfield(param,'alpha')
+%         param.alpha=.25;
+%     end
+    
+    if ~isfield(param,'fixed_total_meas')
+        param.fixed_total_meas=1;
+    end
+    
     if ~isfield(param,'subtract_mean')
         param.subtract_mean=0;
+    end
+    
+    if ~isfield(param,'target_samples')
+        param.target_samples=G.N;
     end
     
     if ~isfield(param,'extra_low_factor')
@@ -28,6 +44,16 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
         end
     end
     
+    if ~isfield(param,'adapt_num_meas')
+        param.adapt_num_meas=0;
+    else
+        if param.adapt_num_meas
+            if ~isfield(param,'signal_projections')
+                error('param.signal_projections must be defined to use signal-adapted number of measurements');
+            end
+        end
+    end
+    
     if param.exact_downsampling_partition
         
         if ~gsp_check_fourier(G)
@@ -37,85 +63,89 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
         for i=1:num_bands
             subband_ids(filter_bank{i}(G.e)~=0)=i;% if some eigenvalues are included in multiple filters, this code will put them in the last one 
         end
-%         subband_ids(1:floor(G.N*(1/2)^(num_bands-1)),:) = ones(floor(G.N*(1/2)^(num_bands-1)), 1);
-%          t = 2;
-%         for i=num_bands-1:-1:0
-%             subband_ids((floor(G.N*(1/2)^(i+1))+1):floor(G.N*(1/2)^i),:) = t*ones(floor(G.N*(1/2)^i)-(floor(G.N*(1/2)^(i+1))+1)+1,1);
-%             t = t + 1;
-%         end
         partition_ids = part_mat(G.U,subband_ids,param);
         for i=1:num_bands
             downsampling_sets{i}=find(partition_ids==i);
-            second_output{i}=(filter_bank{i}(G.e)~=0);
+            second_output{i}=(subband_ids==i); %(filter_bank{i}(G.e)~=0);
         end
         
     else
-        weights_banded = cell(num_bands,1);
-        exact=gsp_check_fourier(G);
-%         if ~exact
-%              if ~isfield(G,'spectrum_cdf_approx')
-%                param.cdf_method='kpm';
-%                [G, ~]= spectral_cdf_approx2( G , param);
-%              end
-%         end
-%   
-        %num_its = ceil(2*log(G.N));
+        weights = cell(num_bands,1);
+        norm_Uk = cell(num_bands,1);
+        nb_meas = zeros(num_bands,1);
         
-        for i = 1:num_bands
-            
-            h = filter_bank{i};
+        exact=gsp_check_fourier(G);
+        
 
-           % r = rand(G.N,1);
-           % y = gsp_filter(G,h,r); 
+        for i = 1:num_bands % compute both the weights for each band and an initial number of measurements for each band
             
-            up_limit = shifted_ends(i+1);
-            low_limit = shifted_ends(i);
-            
-            % find approximate number of eigenvalues in each band
             if exact
                 %extra_samps=0
-                nb_meas = sum(h(G.e)); %+extra_samps; % m: num eigenvalues in band, will need to estimate if don't have exact eigenvalues
-
-                norm_Uk= sum(G.U.^2, 2);
-                weights=norm_Uk/sum(norm_Uk);
+                h = filter_bank{i};
+                nb_meas(i) = sum(h(G.e)); %+extra_samps; % m: num eigenvalues in band, will need to estimate if don't have exact eigenvalues
+                norm_Uk{i}= sum(G.U.^2, 2);
+                weights{i}=norm_Uk{i}/sum(norm_Uk{i});
 
             else
-                %if the total number of samples is < N, add them to last band
-                
-                %nb_meas = floor((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
                 %nb_meas = round((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N);
                 
+                up_limit = shifted_ends(i+1);
+                low_limit = shifted_ends(i);
                 [~, jch] = gsp_jackson_cheby_coeff(low_limit,up_limit,[0,G.lmax], param.order);
                 
-                % TODO: Check TkbarlX is available; add option to make the
+                % TODO: add option to make the
                 % number of random vectors higher than the number used to
                 % compute the density
                 r=gsp_cheby_opX(G,jch);
-                nb_meas=round(gsp_hutch(G,r));
-                if i==1
-                    nb_meas=nb_meas*param.extra_low_factor; % TODO: update
-                end
+                nb_meas(i)=round(gsp_hutch(G,r));
+
                 % [weights, ~] = compute_sampling_weights(G,num_its,h);
-                norm_Uk= sum(r.^2, 2);
-                weights=norm_Uk/sum(norm_Uk);
+                norm_Uk{i}= sum(r.^2, 2);
+                weights{i}=norm_Uk{i}/sum(norm_Uk{i});
                 if param.adapt_weights && (param.subtract_mean || (i>1)) 
-                    weights=norm_Uk.*abs(param.signal_projections(:,i));
-                    weights=weights/sum(weights);
+                    %weights{i}=norm_Uk{i}.*abs(param.signal_projections(:,i));
+                    weights{i}=norm_Uk{i}.*log(1+abs(param.signal_projections(:,i)));
+                    weights{i}=weights{i}/sum(weights{i});
                 end
             end
-%             if i==1
-%                 nb_meas=floor(nb_meas*1);
-%             elseif i==2
-%                 nb_meas=nb_meas*1;
-%             end
-
-            [~, selected] = build_sampling_matrix(G, weights, nb_meas, param);
-
-            downsampling_sets{i} = selected;
-            weights_banded{i} = weights;
+           
         end
-    
-        second_output=weights_banded;
+        
+        second_output=weights;
+                
+        if ~exact % adjust the number of measurements     
+
+            if param.adapt_num_meas % adapted to signal energy (forced to have target number of samples)
+                proj_norms=sqrt(sum(param.signal_projections.^2));
+                %nb_meas=nb_meas.*(proj_norms'.^param.alpha);
+                nb_meas=nb_meas.*(log(1+proj_norms'));
+                param.prenormalize_num_meas=1;
+                param.fixed_total_meas=1;
+            end
+
+            total_samples=sum(nb_meas); % count number initially allocated
+            if param.prenormalize_num_meas
+                nb_meas=round(param.target_samples/total_samples*nb_meas);
+            end
+            
+            total_samples=sum(nb_meas); 
+            if param.fixed_total_meas
+                % give to the low, take from the high
+                if total_samples>param.target_samples % eliminate from last band
+                    extra=total_samples-param.target_samples;
+                    nb_meas(num_bands)=nb_meas(num_bands)-extra;
+                elseif total_samples<param.target_samples % add more to first band
+                    nb_meas(1)=nb_meas(1)+param.target_samples-total_samples;
+                end
+            end
+            
+
+        end
+  
+        for i = 1:num_bands % perform the sampling
+            [~, selected] = build_sampling_matrix(G, weights{i}, nb_meas(i), param);
+            downsampling_sets{i} = selected;
+        end
     end
  end
   

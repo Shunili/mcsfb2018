@@ -1,4 +1,4 @@
-%close all;
+close all;
 clear all;
 rand('seed',1);
 randn('seed',1);
@@ -6,19 +6,24 @@ show_spectral=1;
 
 % Main parameters to explore
 num_bands = 4;
-selected_band=2;
-order = 100; % used for density estimation and analysis filtering
-oversampling_factor=1; % performance sensitive to this parameter; almost perfect at 1.5
+selected_band=1;
+order = 80; % used for density estimation and analysis filtering
+param.replacement=0;
 synth_param.reg_filter=3;
-synth_param.order=100; 
-synth_param.pcgtol=1e-12;
+synth_param.order=80; 
+synth_param.pcgtol=1e-10;
 synth_param.pcgmaxits=2000;
 synth_param.gamma=1; % surprisingly insensitive to this parameter % larger gamma puts more weight on matching samples; smaller gamma puts more weight on matching spectral content
+param.num_vec=30;
+
+oversampling_factor=1; % performance sensitive to this parameter; almost perfect at 1.5
+
 
 % Load bunny graph and piecewise smooth signal
 G=gsp_bunny();
 load('/Users/davidshuman/Dropbox/Current Research Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/demo/pwbunny_signal.mat');
 signal=pwbunny_signal;
+signal=signal-mean(signal);
 
 plot_param.vertex_size=100;
 plot_param.climits=[-2.5,2.5];
@@ -76,7 +81,6 @@ plot_param.climits=[-plot_lim,plot_lim];
 % Choose number of measurements 
 param.cdf_method='kpm';
 param.order=order;
-param.num_vec=50;
 G=spectral_cdf_approx2(G, param);
 
 ideal_nb_meas1=round((G.spectrum_cdf_approx(up_limit)-G.spectrum_cdf_approx(low_limit))*G.N)
