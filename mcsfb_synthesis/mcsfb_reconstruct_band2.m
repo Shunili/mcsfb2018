@@ -28,9 +28,9 @@ end
 
 if (isfield(G,'U') && isfield(G,'e'))
     eig_inds=(h(G.e)~=0);
-    check=length(selected)-sum(eig_inds)
+   % check=length(selected)-sum(eig_inds)
     LHS=G.U(selected,eig_inds);
-    condnum=cond(LHS)
+    %condnum=cond(LHS)
     rec_coef=LHS\values;
     z=G.U(:,eig_inds)*rec_coef;
 %    A=B+G.U*diag(reg_filter(G.e))*G.U'; 
