@@ -7,8 +7,8 @@ randn('seed',0);
 %TODO: change number of samples, add spectral plots
 
 % Main parameters to explore
-num_bands = 5;
-param.order=50; %100; % used for density estimation and analysis filtering
+num_bands = 4;
+param.order=20; %100; % used for density estimation and analysis filtering
 param.search_right_only=0;
 param.replacement=0; % use 1 for large graphs for now as the without replacement method is too slow
 %param.alpha=.25;
@@ -21,11 +21,11 @@ synth_param.gamma=1; % surprisingly insensitive to this parameter % larger gamma
 adapted=0; % downsampling sets and number of measurements adapted to signal
 extra_plots=0;
 param.extra_low_factor=1; % multiplicative factor for extra samples on low channel; taken away from highest channel
-param.subtract_mean=1;
+param.subtract_mean=0;
 param.num_vec=30; % default of 30 for most reconstruction methods seems fine. Plays a more important role if we are trying to reconstruct from the approximated subspaces
 
 % Graph and signal
-graph='temperature';
+graph='bunny';
 
 switch graph
     case 'gnp'
@@ -48,7 +48,8 @@ switch graph
         G=gsp_comet(100,20);
     case 'bunny'
         G=gsp_bunny();
-        load('/Users/davidshuman/Dropbox/Current Research Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/demo/pwbunny_signal.mat');
+        %load('/Users/davidshuman/Dropbox/Current Research Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/demo/pwbunny_signal.mat');
+        load('demo/pwbunny_signal.mat');
         signal=pwbunny_signal;
         vs=80;
         plim=[-2.5,2.5];
@@ -171,7 +172,7 @@ tic
 param.target_samples=G.N-param.subtract_mean;
 [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G, filter_bank, shifted_ends, param);
 downsampling_selection_time=toc
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Plot sampling weights for each band
 sampling_param.climits=[0,max((cell2mat(weights_banded)))];
 sampling_param.vertex_size=9*vs;
