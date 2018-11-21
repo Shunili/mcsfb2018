@@ -34,6 +34,10 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
         param.extra_low_factor=1;
     end
     
+    if ~isfield(param,'use_uniform')
+        param.use_uniform=0;
+    end
+    
     if ~isfield(param,'adapt_weights')
         param.adapt_weights=0;
     else
@@ -100,12 +104,16 @@ function [downsampling_sets, second_output] = mcsfb_create_downsampling_sets(G, 
                 nb_meas(i)=round(gsp_hutch(G,r));
 
                 % [weights, ~] = compute_sampling_weights(G,num_its,h);
-                norm_Uk{i}= sum(r.^2, 2);
-                weights{i}=norm_Uk{i}/sum(norm_Uk{i});
-                if param.adapt_weights && (param.subtract_mean || (i>1)) 
-                    %weights{i}=norm_Uk{i}.*abs(param.signal_projections(:,i));
-                    weights{i}=norm_Uk{i}.*log(1+abs(param.signal_projections(:,i)));
-                    weights{i}=weights{i}/sum(weights{i});
+                if param.use_uniform
+                    weights{i}=1/G.N*ones(G.N,1);
+                else
+                    norm_Uk{i}= sum(r.^2, 2);
+                    weights{i}=norm_Uk{i}/sum(norm_Uk{i});
+                    if param.adapt_weights && (param.subtract_mean || (i>1)) 
+                        %weights{i}=norm_Uk{i}.*abs(param.signal_projections(:,i));
+                        weights{i}=norm_Uk{i}.*log(1+abs(param.signal_projections(:,i)));
+                        weights{i}=weights{i}/sum(weights{i});
+                    end
                 end
             end
            
