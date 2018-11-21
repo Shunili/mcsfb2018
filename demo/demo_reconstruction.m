@@ -9,7 +9,7 @@ extra_sim=0;
 
 % Main parameters to explore
 num_bands = 4;
-selected_band=1;
+selected_band=3;
 order = 50; % used for density estimation and analysis filtering
 param.replacement=0;
 synth_param.reg_filter=3;
@@ -72,6 +72,7 @@ h_tilde = @(x) gsp_cheby_eval(x,JCH,[0,G.lmax]);
 if extra_plots
     figure;
     gsp_plot_filter(G,h_tilde);
+    xlabel('$\lambda$','Interpreter','LaTex','FontSize',24);
     set(gca,'FontSize',24);
     title('Filter');
 end
@@ -167,7 +168,7 @@ for k=1:num_trials
         [adapted_reconstruction, JCH_reg]= mcsfb_reconstruct_band2(G, adapted_selected(1:nb_meas(i)), adapted_analysis_coeffs, low_limit, up_limit, adapted_weights(adapted_selected(1:nb_meas(i))), synth_param);
         adapted_error(:,i,k)=filtered-adapted_reconstruction;
         adapted_mse=sum(adapted_error(:,i,k).^2)/G.N;
-        adapted_nmse(i)=adapted_nmse(i)+adapted_mse/sum(filtered.^2);
+        adapted_nmse(i)=adapted_nmse(i)+G.N*adapted_mse/sum(filtered.^2);
     end
 end
 adapted_nmse=adapted_nmse/num_trials;
