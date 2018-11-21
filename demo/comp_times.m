@@ -4,12 +4,14 @@ clear all;
 rand('seed',0);
 randn('seed',0);
 
-% Main parameters to explore
-adapted=0; % downsampling sets and number of measurements adapted to signal
-exact = 1;
-scenarioA = 1;
 method='mcsfb'; % 'mcsfb' or 'diffusion' or 'qmf' of 'gft'
-graph='sensor';
+graph='net25'
+% Main M-CSFB parameters to explore
+adapted=0; % downsampling sets and number of measurements adapted to signal
+exact = 0;
+scenarioA = 0;
+spectrum_adapted=1;
+use_uniform=1;
 
 % Other parameters
 num_bands = 5;
@@ -101,6 +103,9 @@ is_connected=gsp_check_connectivity(G)
 if exact
     adapted=0;
     param.exact_downsampling_partition=1;
+    % param.init_method='rand_init';
+    % param.init_method='greedy_init';
+    param.init_method='hybrid_init';
     param.subtract_mean=0;
 elseif scenarioA 
     param.order=25; % used for density estimation and analysis filtering
@@ -211,7 +216,7 @@ switch method
             G = gsp_estimate_lmax(G);
         end
         param.band_structure = 0;
-        param.spectrum_adapted=1;
+        param.spectrum_adapted=spectrum_adapted;
 
 
         [filter_bank,shifted_ends,band_ends,G] = mcsfb_design_filter_bank(G,num_bands,param);
@@ -227,6 +232,7 @@ switch method
             param.adapt_num_meas=1;  
         end
         param.target_samples=G.N-param.subtract_mean;
+        param.use_uniform=use_uniform;
         [downsampling_sets, weights_banded] = mcsfb_create_downsampling_sets(G, filter_bank, shifted_ends, param);
         downsampling_selection_time=toc
 
@@ -262,7 +268,7 @@ end
  % compute reconstruction error
 error=f_reconstruct-initial_signal;
 mse=sum(error.^2)/G.N
-nmse=mse/sum(signal.^2)
+nmse=G.N*mse/sum(initial_signal.^2)
 
 % plot overall reconstruction and error
 if make_plots
