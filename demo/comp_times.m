@@ -5,7 +5,7 @@ rand('seed',0);
 randn('seed',0);
 
 method='mcsfb'; % 'mcsfb' or 'diffusion' or 'qmf' of 'gft'
-graph='net25'
+graph='temperature'
 % Main M-CSFB parameters to explore
 adapted=0; % downsampling sets and number of measurements adapted to signal
 exact = 0;
@@ -56,7 +56,8 @@ switch graph
         G=gsp_community(N,comm_param);
         signal=randn(G.N,1);
     case 'net25' 
-        load('/Users/davidshuman/Dropbox/Current_Research_Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/Data/net25_data/net25.mat');
+        %load('/Users/davidshuman/Dropbox/Current_Research_Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/Data/net25_data/net25.mat');
+        load('Data/net25_data/net25.mat');
         A=Problem.A;
         A = A - diag(diag(A)); 
         A(4228,6327) = 1;
@@ -64,7 +65,8 @@ switch graph
         G=gsp_graph(A);
         signal=randn(G.N,1);
     case 'temperature'
-        MyData=csvread('/Users/davidshuman/Dropbox/Current_Research_Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/Data/MyData2.csv');
+        %MyData=csvread('/Users/davidshuman/Dropbox/Current_Research_Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/Data/MyData2.csv');
+        MyData=csvread('Data/MyData2.csv');
         avg_temp=MyData(:,1);
         coords=MyData(:,2:3);
         inds=MyData(:,4);

@@ -5,7 +5,8 @@ rand('seed',0);
 randn('seed',0);
 
 
-MyData=csvread('/Users/davidshuman/Dropbox/Current Research Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/Data/MyData2.csv');
+%MyData=csvread('/Users/davidshuman/Dropbox/Current Research Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/Data/MyData2.csv');
+MyData=csvread('Data/MyData2.csv');
 avg_temp=MyData(:,1);
 coords=MyData(:,2:3);
 inds=MyData(:,4);
@@ -43,10 +44,10 @@ set(gca,'FontSize',24);
 
 % design filter bank
 G = gsp_estimate_lmax(G);
-num_bands = 6;
+num_bands = 5;
 param.band_structure = 0;
-param.spectrum_adapted=1;
-param.order=80;
+param.spectrum_adapted=0;
+param.order=50;
 
 tic
 [filter_bank,shifted_ends,band_ends,G] = mcsfb_design_filter_bank(G,num_bands,param);
@@ -72,7 +73,7 @@ xlabel('$\lambda$','Interpreter','LaTex','FontSize',24)
 set(gca,'FontSize',24);
 
 % create downsampling sets (and ensure critical sampling)
-adapted=1;
+adapted=0;
 if adapted
     param.signal_projections=mcsfb_apply_filters(G,signal,filter_bank,param);
     param.adapt_weights=0;
@@ -136,7 +137,7 @@ all_analysis_coeff_mag=[abs(analysis_coeffs{1}),ones(size(analysis_coeffs{1}));
     abs(analysis_coeffs{3}),3*ones(size(analysis_coeffs{3}));
     abs(analysis_coeffs{4}),4*ones(size(analysis_coeffs{4}));
     abs(analysis_coeffs{5}),5*ones(size(analysis_coeffs{5}));
-    abs(analysis_coeffs{6}),6*ones(size(analysis_coeffs{6}))];
+ %   abs(analysis_coeffs{6}),6*ones(size(analysis_coeffs{6}))];
 [~,ii]=sort(all_analysis_coeff_mag(:,1),'descend');
 all_analysis_coeff_mag_sorted=all_analysis_coeff_mag(ii,:);
 

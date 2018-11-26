@@ -9,8 +9,8 @@ extra_sim=0;
 
 % Main parameters to explore
 num_bands = 4;
-selected_band=3;
-order = 50; % used for density estimation and analysis filtering
+selected_band=1;
+order = 100; % used for density estimation and analysis filtering
 param.replacement=0;
 synth_param.reg_filter=3;
 synth_param.order=order; 
@@ -22,7 +22,7 @@ param.num_vec=50;
 
 % Load bunny graph and piecewise smooth signal
 G=gsp_bunny();
-load('/Users/davidshuman/Dropbox/Current_Research_Work/MCSFB/Shuni_Thesis/GitHub/mcsfb2018/demo/pwbunny_signal.mat');
+load('demo/pwbunny_signal.mat');
 signal=pwbunny_signal;
 signal=signal-mean(signal);
 
